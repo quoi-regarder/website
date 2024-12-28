@@ -1,0 +1,60 @@
+import { RealtimeChannel } from '@supabase/channel-js'
+
+export function useProfileChannel() {
+  const client = useSupabaseClient()
+  const user = useSupabaseUser()
+  const profile = ref<Tables<'profiles'> | null>(null)
+  let profileChannel: RealtimeChannel | null = null
+
+  const fetchProfile = async () => {
+    if (!user.value) return
+    try {
+      profile.value = await $fetch(`/api/profiles/${user.value.id}`, {
+        method: 'GET'
+      })
+    } catch (error: any) {
+      console.error('Error fetching profile:', error)
+    }
+  }
+
+  const setupChannel = () => {
+    if (!user.value) return
+
+    profileChannel = client.channel('auth-profile').on(
+      'postgres_changes',
+      {
+        event: '*',
+        schema: 'public',
+        table: 'profiles',
+        filter: `id=eq.${user.value?.id}`
+      },
+      (payload: any) => {
+        profile.value = payload.new
+      }
+    )
+    profileChannel.subscribe()
+  }
+
+  const cleanupChannel = () => {
+    if (profileChannel) {
+      profileChannel.unsubscribe()
+      profileChannel = null
+    }
+  }
+
+  onMounted(() => {
+    fetchProfile()
+    setupChannel()
+  })
+
+  onUnmounted(() => {
+    cleanupChannel()
+  })
+
+  return {
+    profile,
+    setupChannel,
+    cleanupChannel,
+    fetchProfile
+  }
+}

@@ -1,0 +1,316 @@
+{
+  "actor": {
+    "title": "Acteur",
+    "placeholder": "Nom de l'acteur"
+  },
+  "age": {
+    "title": "Âge minimum",
+    "labels": {
+      "all": "Tous publics",
+      "ten": "10 ans",
+      "twelve": "12 ans",
+      "fourteen": "14 ans",
+      "sixteen": "16 ans",
+      "eighteen": "18 ans"
+    }
+  },
+  "avatar": {
+    "buttons": {
+      "remove": "Supprimer l'image de profil",
+      "upload": "Télécharger une image"
+    }
+  },
+  "badgeList": {
+    "buttons": {
+      "selectAll": "Tout sélectionner",
+      "unselectAll": "Tout désélectionner",
+      "reset": "Réinitialiser"
+    }
+  },
+  "common": {
+    "api": {
+      "error": {
+        "bad_request": "Une erreur est survenue lors de la récupération des données. Veuillez réessayer.",
+        "not_found": "La ressource demandée est introuvable.",
+        "username_already_exists": "Le nom d'utilisateur est déjà utilisé.",
+        "internal_server_error": "Une erreur est survenue lors du traitement de la requête. Veuillez réessayer."
+      }
+    },
+    "toasts": {
+      "title": {
+        "error": "Une erreur est survenue",
+        "success": "Succès"
+      }
+    },
+    "hint": {
+      "optional": "Champ optionnel"
+    },
+    "form": {
+      "error": {
+        "required": "Ce champ est obligatoire",
+        "email": "Veuillez saisir une adresse e-mail valide",
+        "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
+        "passwordMatch": "Les mots de passe ne correspondent pas",
+        "passwordComplex": "Le mot de passe doit contenir des lettres minuscules, majuscules, des chiffres et des symboles",
+        "stringMin": "Ce champ doit contenir au moins {min} caractères",
+        "fileSize": "La taille du fichier ne doit pas dépasser {size} Mo",
+        "fileFormat": "Le fichier choisi n'est pas valide, veuillez choisir un fichier de type {formats}.",
+        "conversionFailed": "L'enregistrement de l'image a échoué. Veuillez réessayer."
+      }
+    }
+  },
+  "director": {
+    "title": "Réalisateur",
+    "placeholder": "Nom du réalisateur"
+  },
+  "footer": {
+    "title": "Quoi regarder ?",
+    "tagline": "Une série ou un film à regarder par jour selon vos critères.",
+    "links": {
+      "home": "Accueil",
+      "login": "Connexion",
+      "signup": "Inscription",
+      "profile": "Profil"
+    },
+    "copyright": "© {year} Quoi regarder ?"
+  },
+  "mark": {
+    "title": "Note",
+    "labels": {
+      "mark": "{count} étoile | {count} étoiles"
+    }
+  },
+  "error": {
+    "title": "Une erreur est survenue",
+    "message": "La page que vous recherchez n'existe pas ou une erreur s'est produite.",
+    "buttons": {
+      "home": "Accueil"
+    }
+  },
+  "navbar": {
+    "dropdown": {
+      "account": "Connecté en tant que"
+    },
+    "buttons": {
+      "home": "Accueil",
+      "login": "Connexion",
+      "logout": "Déconnexion",
+      "signup": "Inscription",
+      "profile": "Profil"
+    },
+    "toasts": {
+      "success": {
+        "logout": "Vous êtes déconnecté."
+      }
+    }
+  },
+  "filter": {
+    "title": "Trier par",
+    "labels": {
+      "popularity": "Popularité",
+      "topRated": "Les mieux notés",
+      "upcoming": "À venir",
+      "nowPlaying": "En ce moment",
+      "latest": "Derniers ajouts",
+      "oldest": "Les plus anciens"
+    }
+  },
+  "forgotPassword": {
+    "title": "Mot de passe oublié",
+    "form": {
+      "buttons": {
+        "submit": "Envoyer",
+        "login": "Se connecter",
+        "home": "Retour à l'accueil",
+        "signup": "S'inscrire"
+      },
+      "fields": {
+        "email": "Email"
+      },
+      "placeholders": {
+        "email": "Adresse e-mail"
+      }
+    },
+    "toasts": {
+      "success": {
+        "sent": "Un e-mail de réinitialisation de mot de passe a été envoyé à l'adresse {email}"
+      }
+    }
+  },
+  "genre": {
+    "title": "Genre de contenu",
+    "labels": {
+      "action": "Action",
+      "adventure": "Aventure",
+      "animation": "Animation",
+      "biography": "Biographie",
+      "comedy": "Comédie",
+      "crime": "Crime",
+      "drama": "Drame",
+      "family": "Famille",
+      "fantasy": "Fantaisie",
+      "history": "Histoire",
+      "horror": "Horreur",
+      "music": "Musique",
+      "mystery": "Mystère",
+      "romance": "Romance",
+      "scienceFiction": "Science-fiction",
+      "tvMovie": "Téléfilm",
+      "thriller": "Thriller",
+      "war": "Guerre",
+      "western": "Western"
+    }
+  },
+  "login": {
+    "title": "Connexion",
+    "or": "ou",
+    "form": {
+      "buttons": {
+        "submit": "Connexion",
+        "forgotPassword": "Mot de passe oublié ?",
+        "signup": "S'inscrire",
+        "home": "Retour à l'accueil",
+        "google": "Se connecter avec Google"
+      },
+      "fields": {
+        "email": "Email",
+        "password": "Mot de passe"
+      },
+      "placeholders": {
+        "email": "Adresse e-mail",
+        "password": "Mot de passe"
+      }
+    },
+    "toasts": {
+      "error": {
+        "invalid_credentials": "Les informations d'identification fournies sont incorrectes. Veuillez réessayer."
+      },
+      "success": {
+        "login": "Vous êtes connecté."
+      }
+    }
+  },
+  "multiSelect": {
+    "search": "Rechercher...",
+    "selected": "Aucun élément sélectionné | {count} élément sélectionné | {count} éléments sélectionnés",
+    "noResults": "Aucun résultat trouvé pour \"{query}\".",
+    "create": "Créer \"{name}\"",
+    "noOptions": "Aucune option disponible."
+  },
+  "platforms": {
+    "title": "Plateformes de streaming",
+    "placeholder": "Plateformes",
+    "labels": {
+      "netflix": "Netflix",
+      "amazonPrimeVideo": "Amazon Prime Video",
+      "disneyPlus": "Disney+",
+      "myCanal": "myCanal",
+      "ocs": "OCS",
+      "appleTV": "Apple TV",
+      "youtube": "YouTube",
+      "max": "Max",
+      "paramountPlus": "Paramount+"
+    }
+  },
+  "profile": {
+    "form": {
+      "buttons": {
+        "submit": "Mettre à jour"
+      },
+      "fields": {
+        "email": "Email",
+        "username": "Nom d'utilisateur",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "avatar": "Image de profil"
+      },
+      "placeholders": {
+        "email": "Adresse e-mail",
+        "username": "Nom d'utilisateur",
+        "firstName": "Prénom",
+        "lastName": "Nom"
+      }
+    },
+    "toasts": {
+      "success": {
+        "updated": "Votre profil a été mis à jour.",
+        "avatarUpdated": "Votre image de profil a été mise à jour.",
+        "avatarRemoved": "Votre image de profil a été supprimée."
+      }
+    }
+  },
+  "signup": {
+    "title": "Inscription",
+    "or": "ou",
+    "form": {
+      "buttons": {
+        "submit": "S'inscrire",
+        "google": "S'inscrire avec Google",
+        "login": "Se connecter",
+        "home": "Retour à l'accueil"
+      },
+      "fields": {
+        "email": "Email",
+        "username": "Nom d'utilisateur",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "password": "Mot de passe",
+        "passwordConfirmation": "Confirmer le mot de passe"
+      },
+      "placeholders": {
+        "email": "Adresse e-mail",
+        "username": "Nom d'utilisateur",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "password": "Mot de passe",
+        "passwordConfirmation": "Confirmez le mot de passe"
+      }
+    },
+    "toasts": {
+      "success": {
+        "registered": "Inscription réussie, veuillez vérifier votre boîte de réception pour activer votre compte"
+      }
+    }
+  },
+  "type": {
+    "title": "Type de contenu",
+    "labels": {
+      "movie": "Film",
+      "series": "Série",
+      "anime": "Anime",
+      "documentary": "Documentaire",
+      "shortFilm": "Court métrage",
+      "other": "Autre"
+    }
+  },
+  "updatePassword": {
+    "title": "Mettre à jour le mot de passe",
+    "form": {
+      "buttons": {
+        "submit": "Envoyer",
+        "home": "Retour à l'accueil"
+      },
+      "fields": {
+        "password": "Mot de passe",
+        "passwordConfirmation": "Confirmer le mot de passe"
+      },
+      "placeholders": {
+        "password": "Nouveau mot de passe",
+        "passwordConfirmation": "Confirmez le nouveau mot de passe"
+      }
+    },
+    "toasts": {
+      "success": {
+        "updated": "Votre mot de passe a été mis à jour."
+      },
+      "error": {
+        "same_password": "Le nouveau mot de passe doit être différent de l'ancien."
+      }
+    }
+  },
+  "year": {
+    "title": "Année de sortie",
+    "placeholder": "Année",
+    "hint": "Par défault, toutes les années sont sélectionnées."
+  }
+}
