@@ -97,23 +97,6 @@
             {{ $t('signup.form.buttons.home') }}
           </ULink>
         </div>
-
-        <!--        <UButton :label="$t('signup.form.buttons.submit')" type="submit" />-->
-
-        <!--        <UButton-->
-        <!--          :label="$t('signup.form.buttons.login')"-->
-        <!--          type="button"-->
-        <!--          variant="outline"-->
-        <!--          @click="navigateTo('/auth/login')"-->
-        <!--        />-->
-
-        <!--        <UButton-->
-        <!--          :label="$t('signup.form.buttons.home')"-->
-        <!--          color="black"-->
-        <!--          type="button"-->
-        <!--          variant="outline"-->
-        <!--          @click="navigateTo('/')"-->
-        <!--        />-->
       </UForm>
     </div>
   </div>

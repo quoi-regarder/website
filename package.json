@@ -27,6 +27,7 @@
     "@nuxtjs/tailwindcss": "6.12.2",
     "axios": "^1.7.9",
     "nuxt": "^3.14.1592",
+    "nuxt-app": "link:",
     "vue": "latest",
     "vue-router": "latest",
     "yup": "^1.6.1"
