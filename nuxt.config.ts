@@ -18,7 +18,8 @@ export default defineNuxtConfig({
   // Environment variables
   runtimeConfig: {
     supabaseUrl: process.env.NUXT_SUPABASE_URL,
-    supabaseKey: process.env.NUXT_SUPABASE_KEY,
+    supabaseAnonKey: process.env.NUXT_SUPABASE_ANON_KEY,
+    supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
     tmdbAccessToken: process.env.NUXT_TMDB_ACCESS_TOKEN,
     tmdbApiKey: process.env.NUXT_TMDB_API_KEY
   },
@@ -46,7 +47,8 @@ export default defineNuxtConfig({
   // Supabase configuration
   supabase: {
     url: process.env.NUXT_SUPABASE_URL,
-    key: process.env.NUXT_SUPABASE_KEY,
+    key: process.env.NUXT_SUPABASE_ANON_KEY,
+    serviceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
 
     redirect: false
   }

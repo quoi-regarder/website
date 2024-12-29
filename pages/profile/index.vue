@@ -49,13 +49,69 @@
 
       <UButton :label="i18n.t('profile.form.buttons.submit')" size="lg" type="submit" />
     </UForm>
+
+    <div class="mt-8">
+      <UButton
+        :label="i18n.t('profile.form.buttons.deleteAccount')"
+        color="black"
+        variant="outline"
+        size="lg"
+        @click="isDeleteAccountModalOpen = true"
+      />
+    </div>
+
+    <UModal v-model="isDeleteAccountModalOpen">
+      <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100' }">
+        <template #header>
+          <div class="flex items-center justify-between">
+            <h3 class="text-primary font-semibold text-xl">
+              {{ i18n.t('profile.modals.deleteAccount.title') }}
+            </h3>
+            <UButton
+              color="gray"
+              variant="soft"
+              icon="i-heroicons-x-mark-solid"
+              class="-my-1"
+              size="lg"
+              @click="isDeleteAccountModalOpen = false"
+            />
+          </div>
+        </template>
+
+        <div class="p-4">
+          <p class="text-gray-500 text-justify">
+            {{ i18n.t('profile.modals.deleteAccount.description') }}
+          </p>
+        </div>
+
+        <template #footer>
+          <div class="flex justify-end p-4 space-x-4">
+            <UButton
+              :label="i18n.t('profile.modals.deleteAccount.buttons.cancel')"
+              color="gray"
+              variant="outline"
+              size="lg"
+              @click="isDeleteAccountModalOpen = false"
+            />
+            <UButton
+              :label="i18n.t('profile.modals.deleteAccount.buttons.delete')"
+              color="red"
+              size="lg"
+              @click="handleDeleteAccount"
+            />
+          </div>
+        </template>
+      </UCard>
+    </UModal>
   </div>
 </template>
 
 <script lang="ts" setup>
 const user = useSupabaseUser()
+const client = useSupabaseClient()
 const { state, setState, schema } = useProfileForm()
 const i18n: any = useNuxtApp().$i18n
+const isDeleteAccountModalOpen = ref(false)
 
 definePageMeta({
   middleware: ['auth']
@@ -124,6 +180,26 @@ const handleAvatarChange = async (file: File) => {
     })
 
     setState(profile)
+  } catch (error: any) {
+    useNotifications().error(
+      i18n.t('common.toasts.title.error'),
+      i18n.t(`common.api.error.${error.statusMessage}`)
+    )
+  }
+}
+
+const handleDeleteAccount = async () => {
+  try {
+    await $fetch(`/api/profiles/${user.value?.id}`, {
+      method: 'DELETE'
+    })
+    await client.auth.signOut()
+    await navigateTo('/')
+
+    useNotifications().success(
+      i18n.t('common.toasts.title.success'),
+      i18n.t('profile.toasts.success.accountDeleted')
+    )
   } catch (error: any) {
     useNotifications().error(
       i18n.t('common.toasts.title.error'),

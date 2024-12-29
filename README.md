@@ -24,18 +24,18 @@ Start the development server on `http://localhost:3000`:
 pnpm dev
 ```
 
-## Production
+## Deploy to Vercel
 
-Build the application for production:
+This project is set up to be deployed to [Vercel](https://vercel.com/).
 
-```bash
-pnpm build
-```
-
-Locally preview production build:
+### Command to push to main branch
 
 ```bash
-pnpm preview
+git checkout main
+git pull --rebase origin develop
+git push origin main
+
+git checkout develop
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
