@@ -43,8 +43,14 @@ export function useProfileChannel() {
   }
 
   onMounted(() => {
-    fetchProfile()
-    setupChannel()
+    fetchProfile().then(
+      () => {
+        setupChannel()
+      },
+      (error) => {
+        console.error('Error fetching profile:', error)
+      }
+    )
   })
 
   onUnmounted(() => {

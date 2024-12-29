@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-const links = [
+const links: { label: string; to?: string }[] = [
   { label: 'footer.links.home', to: '/' },
   { label: 'footer.links.login', to: '/auth/login' },
   { label: 'footer.links.signup', to: '/auth/signup' },

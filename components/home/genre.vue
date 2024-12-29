@@ -11,8 +11,8 @@ const i18n: any = useNuxtApp().$i18n
 
 const emit = defineEmits(['update:selectedGenres'])
 
-const selectedGenres = ref<BadgeList[]>([])
-const genres = ref<BadgeList[]>([])
+const selectedGenres = ref<Badge[]>([])
+const genres = ref<Badge[]>([])
 
 watch(selectedGenres, (value) => {
   emit('update:selectedGenres', value)

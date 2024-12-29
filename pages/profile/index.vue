@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <ClientOnly>
     <UForm :schema="schema" :state="state" @submit="onSubmit">
       <div class="flex justify-center">
         <field-avatar
           v-model="state.avatar_url"
-          :label="i18n.t('profile.form.fields.avatar')"
+          :label="$t('profile.form.fields.avatar')"
           name="avatar"
           @update:file="handleAvatarChange"
         />
@@ -14,31 +14,31 @@
         <div class="w-2/3 mx-auto">
           <field-input
             v-model="state.last_name as string"
-            :label="i18n.t('profile.form.fields.lastName')"
-            :placeholder="i18n.t('profile.form.placeholders.lastName')"
+            :label="$t('profile.form.fields.lastName')"
+            :placeholder="$t('profile.form.placeholders.lastName')"
             name="lastName"
           />
 
           <field-input
             v-model="state.first_name as string"
-            :label="i18n.t('profile.form.fields.firstName')"
-            :placeholder="i18n.t('profile.form.placeholders.firstName')"
+            :label="$t('profile.form.fields.firstName')"
+            :placeholder="$t('profile.form.placeholders.firstName')"
             name="firstName"
           />
         </div>
         <div class="w-2/3 mx-auto">
           <field-input
             v-model="state.username"
-            :label="i18n.t('profile.form.fields.username')"
-            :placeholder="i18n.t('profile.form.placeholders.username')"
+            :label="$t('profile.form.fields.username')"
+            :placeholder="$t('profile.form.placeholders.username')"
             name="username"
             required
           />
 
           <field-input
             v-model="state.email as string"
-            :label="i18n.t('profile.form.fields.email')"
-            :placeholder="i18n.t('profile.form.placeholders.email')"
+            :label="$t('profile.form.fields.email')"
+            :placeholder="$t('profile.form.placeholders.email')"
             disabled
             name="email"
             required
@@ -47,12 +47,12 @@
         </div>
       </div>
 
-      <UButton :label="i18n.t('profile.form.buttons.submit')" size="lg" type="submit" />
+      <UButton :label="$t('profile.form.buttons.submit')" size="lg" type="submit" />
     </UForm>
 
     <div class="mt-8">
       <UButton
-        :label="i18n.t('profile.form.buttons.deleteAccount')"
+        :label="$t('profile.form.buttons.deleteAccount')"
         color="black"
         variant="outline"
         size="lg"
@@ -65,7 +65,7 @@
         <template #header>
           <div class="flex items-center justify-between">
             <h3 class="text-primary font-semibold text-xl">
-              {{ i18n.t('profile.modals.deleteAccount.title') }}
+              {{ $t('profile.modals.deleteAccount.title') }}
             </h3>
             <UButton
               color="gray"
@@ -80,21 +80,21 @@
 
         <div class="p-4">
           <p class="text-gray-500 text-justify">
-            {{ i18n.t('profile.modals.deleteAccount.description') }}
+            {{ $t('profile.modals.deleteAccount.description') }}
           </p>
         </div>
 
         <template #footer>
           <div class="flex justify-end p-4 space-x-4">
             <UButton
-              :label="i18n.t('profile.modals.deleteAccount.buttons.cancel')"
+              :label="$t('profile.modals.deleteAccount.buttons.cancel')"
               color="gray"
               variant="outline"
               size="lg"
               @click="isDeleteAccountModalOpen = false"
             />
             <UButton
-              :label="i18n.t('profile.modals.deleteAccount.buttons.delete')"
+              :label="$t('profile.modals.deleteAccount.buttons.delete')"
               color="red"
               size="lg"
               @click="handleDeleteAccount"
@@ -103,7 +103,7 @@
         </template>
       </UCard>
     </UModal>
-  </div>
+  </ClientOnly>
 </template>
 
 <script lang="ts" setup>

@@ -1,18 +1,16 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   ssr: true,
 
   modules: [
-    '@nuxt/ui',
     '@nuxt/icon',
     '@nuxtjs/i18n',
     '@vueuse/nuxt',
     '@nuxtjs/supabase',
-    '@nuxtjs/tailwindcss',
     '@nuxt/image',
-    '@nuxt/fonts'
+    '@nuxt/fonts',
+    '@nuxt/ui'
   ],
 
   // Environment variables
@@ -20,7 +18,6 @@ export default defineNuxtConfig({
     supabaseUrl: process.env.NUXT_SUPABASE_URL,
     supabaseAnonKey: process.env.NUXT_SUPABASE_ANON_KEY,
     supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
-    tmdbAccessToken: process.env.NUXT_TMDB_ACCESS_TOKEN,
     tmdbApiKey: process.env.NUXT_TMDB_API_KEY
   },
 
@@ -35,7 +32,8 @@ export default defineNuxtConfig({
       { code: 'en', iso: 'en-US', file: 'en-US.json' },
       { code: 'fr', iso: 'fr-FR', file: 'fr-FR.json' }
     ],
-    defaultLocale: 'fr'
+    defaultLocale: 'fr',
+    langDir: 'locales/'
   },
 
   // Color mode configuration
@@ -51,5 +49,7 @@ export default defineNuxtConfig({
     serviceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
 
     redirect: false
-  }
+  },
+
+  compatibilityDate: '2024-12-29'
 })

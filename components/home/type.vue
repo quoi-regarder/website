@@ -11,13 +11,13 @@ const i18n: any = useNuxtApp().$i18n
 
 const emit = defineEmits(['update:selectedTypes'])
 
-const selectedTypes = ref<BadgeList[]>([])
+const selectedTypes = ref<Badge[]>([])
 
 watch(selectedTypes, (value) => {
   emit('update:selectedTypes', value)
 })
 
-const types = ref<BadgeList[]>([
+const types = ref<Badge[]>([
   { id: 1, name: i18n.t('type.labels.anime'), color: 'orange', selected: false },
   { id: 2, name: i18n.t('type.labels.documentary'), color: 'fuchsia', selected: false },
   { id: 3, name: i18n.t('type.labels.movie'), color: 'purple', selected: false },
