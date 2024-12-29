@@ -25,8 +25,8 @@ export const useSignupForm = () => {
       .string()
       .required(t('common.form.error.required'))
       .min(3, t('common.form.error.stringMin', { min: 3 })),
-    firstName: yup.string(),
-    lastName: yup.string(),
+    firstName: yup.string().nullable(),
+    lastName: yup.string().nullable(),
     password: yup
       .string()
       .required(t('common.form.error.required'))
