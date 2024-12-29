@@ -47,7 +47,7 @@
 <script lang="ts" setup>
 const props = defineProps({
   badgeList: {
-    type: Array as PropType<BadgeList[]>,
+    type: Array as PropType<Badge[]>,
     required: true
   },
   title: {
@@ -62,24 +62,24 @@ const props = defineProps({
 
 const emit = defineEmits(['update:selectedBadges'])
 
-const selectedBadges = computed(() => props.badgeList.filter((badge) => badge.selected))
+const selectedBadges = computed(() => props.badgeList.filter((badge: Badge) => badge.selected))
 
 watch(selectedBadges, (newSelectedBadges) => {
   emit('update:selectedBadges', newSelectedBadges)
 })
 
-const toggleBadge = (badge: BadgeList) => {
+const toggleBadge = (badge: Badge) => {
   if (props.uniqueSelection) {
-    props.badgeList.forEach((badge) => (badge.selected = false))
+    props.badgeList.forEach((badge: Badge) => (badge.selected = false))
   }
   badge.selected = !badge.selected
 }
 
-const badgeColor = (badge: BadgeList) => {
+const badgeColor = (badge: Badge) => {
   return badge.selected ? badge.color : 'gray'
 }
 
-const badgeIcon = (badge: BadgeList) => {
+const badgeIcon = (badge: Badge) => {
   return badge.selected ? 'i-heroicons-check-20-solid' : 'i-heroicons-x-mark-20-solid'
 }
 </script>

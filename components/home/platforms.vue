@@ -35,8 +35,6 @@ onMounted(async () => {
 
   const res = await $fetch(`/api/themoviedb/watch/providers/movie?language=${locale.value}`)
 
-  console.log(res)
-
   res?.results?.forEach((platform: any) => {
     platforms.value.push({
       id: platform.provider_id,
