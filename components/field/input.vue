@@ -1,21 +1,26 @@
 <template>
   <UFormGroup
-    v-slot="{ error }"
     :hint="required ? undefined : $t('common.hint.optional')"
     :label="label"
     :name="name"
     :required="required"
-    class="h-32 min-w-80 tablet:min-w-96 text-justify"
+    class="h-32 text-justify"
     size="xl"
   >
-    <UInput
-      v-model="model as string"
-      :disabled="disabled"
-      :icon="icon"
-      :placeholder="placeholder"
-      :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
-      :type="type"
-    />
+    <template #default="{ error }">
+      <UInput
+        v-model="model as string"
+        :disabled="disabled"
+        :icon="icon"
+        :placeholder="placeholder"
+        :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
+        :type="type"
+      />
+    </template>
+
+    <template #error="{ error }">
+      <span class="text-red-500 text-wrap">{{ error }}</span>
+    </template>
   </UFormGroup>
 </template>
 

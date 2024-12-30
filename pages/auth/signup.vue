@@ -1,12 +1,12 @@
 <template>
-  <div class="bg-primary h-screen w-screen flex flex-col items-center justify-center">
-    <div class="bg-white p-12 rounded-3xl">
-      <h1 class="text-4xl font-semibold mb-8">
-        {{ $t('signup.title') }}
-      </h1>
+  <NuxtLayout name="auth" :show-divider="true" :show-oauth-divider="true" :dual-column="true">
+    <template #title>
+      {{ $t('signup.title') }}
+    </template>
 
+    <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
-        <div class="grid grid-cols-2 gap-x-8">
+        <div class="laptop:grid laptop:grid-cols-2 laptop:gap-x-8">
           <div>
             <field-input
               v-model="state.username"
@@ -61,45 +61,33 @@
         </div>
 
         <UButton :label="$t('signup.form.buttons.submit')" block size="lg" type="submit" />
-
-        <div class="relative flex items-center justify-center my-4 h-8">
-          <div class="absolute z-1 bg-white px-2 z-10">
-            {{ $t('signup.or') }}
-          </div>
-          <div class="absolute top-1/2 z-0 w-full">
-            <hr />
-          </div>
-        </div>
-
-        <UButton
-          :label="$t('signup.form.buttons.google')"
-          block
-          size="lg"
-          type="button"
-          variant="outline"
-          @click="signup('google')"
-        >
-          <template #leading>
-            <UIcon name="i-logos-google-icon" size="lg" />
-          </template>
-        </UButton>
-
-        <hr class="mt-8 mb-4 w-full" />
-
-        <div class="flex flex-col items-center mt-4 gap-2">
-          <ULink
-            class="hover:text-primary transition-colors duration-200 underline"
-            to="/auth/login"
-          >
-            {{ $t('signup.form.buttons.login') }}
-          </ULink>
-          <ULink class="hover:text-primary transition-colors duration-200 underline" to="/">
-            {{ $t('signup.form.buttons.home') }}
-          </ULink>
-        </div>
       </UForm>
-    </div>
-  </div>
+    </template>
+
+    <template #oauth>
+      <UButton
+        :label="$t('signup.form.buttons.google')"
+        block
+        size="lg"
+        type="button"
+        variant="outline"
+        @click="signup('google')"
+      >
+        <template #leading>
+          <UIcon name="i-logos-google-icon" size="lg" />
+        </template>
+      </UButton>
+    </template>
+
+    <template #links>
+      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/auth/login">
+        {{ $t('signup.form.buttons.login') }}
+      </ULink>
+      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/">
+        {{ $t('signup.form.buttons.home') }}
+      </ULink>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
