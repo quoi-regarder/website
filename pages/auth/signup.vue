@@ -80,10 +80,16 @@
     </template>
 
     <template #links>
-      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/auth/login">
+      <ULink
+        class="hover:text-primary transition-colors duration-200 underline"
+        :to="localPath('/auth/login')"
+      >
         {{ $t('signup.form.buttons.login') }}
       </ULink>
-      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/">
+      <ULink
+        class="hover:text-primary transition-colors duration-200 underline"
+        :to="localPath('/')"
+      >
         {{ $t('signup.form.buttons.home') }}
       </ULink>
     </template>
@@ -95,7 +101,8 @@ import { AuthError } from '@supabase/auth-js'
 
 const client = useSupabaseClient()
 const { state, schema } = useSignupForm()
-const i18n: any = useNuxtApp().$i18n
+const { locale, t } = useI18n()
+const localPath = useLocalePath()
 
 definePageMeta({
   middleware: ['guest'],
@@ -116,7 +123,8 @@ const onSubmit = async () => {
       data: {
         username: state.username,
         first_name: state.firstName,
-        last_name: state.lastName
+        last_name: state.lastName,
+        language: locale.value
       }
     }
   })
@@ -127,8 +135,8 @@ const onSubmit = async () => {
 const onRegister = async (error: AuthError, isOAuth = false) => {
   if (error) {
     useNotifications().error(
-      i18n.t('common.toasts.title.error'),
-      i18n.t(`signup.toasts.error.${error.message}`)
+      t('common.toasts.title.error'),
+      t(`signup.toasts.error.${error.message}`)
     )
     return
   }
@@ -137,10 +145,10 @@ const onRegister = async (error: AuthError, isOAuth = false) => {
     return
   }
 
-  await navigateTo('/')
+  await navigateTo(localPath('/'))
   useNotifications().success(
-    i18n.t('common.toasts.title.success'),
-    i18n.t('signup.toasts.success.registered')
+    t('common.toasts.title.success'),
+    t('signup.toasts.success.registered')
   )
 }
 </script>

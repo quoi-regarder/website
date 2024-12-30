@@ -10,7 +10,9 @@ export type Database = {
           email: string | null
           first_name: string | null
           id: string
+          language: Database['public']['Enums']['language_type']
           last_name: string | null
+          updated_at: string | null
           username: string
         }
         Insert: {
@@ -19,7 +21,9 @@ export type Database = {
           email?: string | null
           first_name?: string | null
           id: string
+          language?: Database['public']['Enums']['language_type']
           last_name?: string | null
+          updated_at?: string | null
           username: string
         }
         Update: {
@@ -28,7 +32,9 @@ export type Database = {
           email?: string | null
           first_name?: string | null
           id?: string
+          language?: Database['public']['Enums']['language_type']
           last_name?: string | null
+          updated_at?: string | null
           username?: string
         }
         Relationships: []
@@ -41,7 +47,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      language_type: 'fr' | 'en'
     }
     CompositeTypes: {
       [_ in never]: never

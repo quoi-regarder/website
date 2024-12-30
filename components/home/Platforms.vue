@@ -19,8 +19,6 @@
 </template>
 
 <script lang="ts" setup>
-const i18n: any = useNuxtApp().$i18n
-
 const emit = defineEmits(['update:selectedPlatforms'])
 
 const selectedPlatforms = ref<Option[]>([])
