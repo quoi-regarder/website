@@ -1,5 +1,7 @@
 <template>
-  <div class="bg-primary min-h-screen w-screen flex items-center justify-center py-8 dark:bg-gray-800">
+  <div
+    class="bg-primary min-h-screen w-screen flex items-center justify-center py-8 dark:bg-gray-800"
+  >
     <div :class="formClasses">
       <h1 class="text-2xl font-semibold text-wrap mb-8 tablet:text-3xl desktop:text-4xl">
         <slot name="title" />
@@ -58,7 +60,7 @@ export default defineComponent({
   setup(props) {
     const formClasses = computed(() => {
       return {
-        'light:bg-white': true,
+        'bg-white': true,
         'dark:bg-gray-700': true,
         'rounded-3xl': true,
         'px-4': true,
