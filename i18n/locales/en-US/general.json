@@ -81,6 +81,19 @@
       "mark": "{count} star | {count} stars"
     }
   },
+  "home": {
+    "form": {
+      "buttons": {
+        "search": "Search"
+      },
+      "fields": {
+        "search": "Search for a movie"
+      },
+      "placeholders": {
+        "search": "Search for a movie"
+      }
+    }
+  },
   "error": {
     "title": "An error occurred",
     "message": "The page you are looking for does not exist or an error occurred.",
@@ -102,7 +115,8 @@
     "toasts": {
       "success": {
         "logout": "You have been logged out.",
-        "locale": "Language updated."
+        "locale": "Language updated.",
+        "colorMode": "Theme updated."
       }
     }
   },

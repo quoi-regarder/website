@@ -8,7 +8,7 @@
     <input ref="fileInput" :name="name" class="hidden" type="file" @change="onFileChange" />
     <div class="flex items-center space-x-4 w-1/3">
       <div
-        class="w-fit h-fit flex items-center justify-center rounded-full bg-gray-200"
+        class="w-fit h-fit flex items-center justify-center rounded-full"
         @click="triggerFileInput"
       >
         <UAvatar v-if="model" :src="model" class="cursor-pointer" size="3xl" />

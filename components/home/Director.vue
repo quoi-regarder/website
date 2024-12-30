@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center gap-4 w-full">
-    <div class="flex items-center gap-4 w-full bg-gray-100 p-4 rounded-2xl">
+    <div class="flex items-center gap-4 w-full bg-gray-100 p-4 rounded-2xl dark:bg-gray-700">
       <div class="w-1/5">
         <h3 class="font-bold text-right">
           {{ $t('director.title') }}

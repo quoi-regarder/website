@@ -6,6 +6,7 @@ export type Database = {
       profiles: {
         Row: {
           avatar_url: string | null
+          color_mode: Database['public']['Enums']['color_mode_type']
           created_at: string | null
           email: string | null
           first_name: string | null
@@ -17,6 +18,7 @@ export type Database = {
         }
         Insert: {
           avatar_url?: string | null
+          color_mode?: Database['public']['Enums']['color_mode_type']
           created_at?: string | null
           email?: string | null
           first_name?: string | null
@@ -28,6 +30,7 @@ export type Database = {
         }
         Update: {
           avatar_url?: string | null
+          color_mode?: Database['public']['Enums']['color_mode_type']
           created_at?: string | null
           email?: string | null
           first_name?: string | null
@@ -47,7 +50,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      language_type: 'fr' | 'en'
+      color_mode_type: 'light' | 'dark'
+      language_type: 'fr-FR' | 'en-US'
     }
     CompositeTypes: {
       [_ in never]: never
