@@ -75,6 +75,19 @@
     },
     "copyright": "© {year} Quoi regarder ?"
   },
+  "home": {
+    "form": {
+      "buttons": {
+        "search": "Rechercher"
+      },
+      "fields": {
+        "search": "Rechercher un film"
+      },
+      "placeholders": {
+        "search": "Rechercher un film"
+      }
+    }
+  },
   "mark": {
     "title": "Note",
     "labels": {
@@ -102,7 +115,8 @@
     "toasts": {
       "success": {
         "logout": "Vous êtes déconnecté.",
-        "locale": "La langue a été mise à jour."
+        "locale": "La langue a été mise à jour.",
+        "colorMode": "Le thème a été mis à jour."
       }
     }
   },

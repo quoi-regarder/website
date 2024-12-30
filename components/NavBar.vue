@@ -12,6 +12,13 @@
       </div>
       <div class="flex items-center space-x-4">
         <UButton
+          :icon="currentColorMode === 'dark' ? 'i-heroicons-moon-solid' : 'i-heroicons-sun-solid'"
+          variant="ghost"
+          :ui="{ rounded: 'rounded-full' }"
+          @click="updateColorMode"
+        />
+
+        <UButton
           v-for="locale in availableLocales"
           :key="locale.code"
           :icon="localIcon[locale.code]"
@@ -36,7 +43,7 @@
 
               <template #account="{ item }">
                 <div class="text-left text-sm">
-                  <p class="truncate font-extralight">
+                  <p class="truncate font-extralight dark:text-white">
                     {{ $t('navbar.dropdown.account') }}
                   </p>
                   <p class="truncate font-light">
@@ -76,6 +83,7 @@ const { t, locales, locale } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 const localePath = useLocalePath()
 const { profile } = useProfileChannel()
+const colorMode = useColorMode()
 
 const isLogged = computed(() => Boolean(user?.value))
 
@@ -107,6 +115,10 @@ const availableLocales = computed(() => {
   return locales.value.filter((i) => i.code !== locale.value)
 })
 
+const currentColorMode = computed(() => {
+  return colorMode.value === 'dark' ? 'light' : 'dark'
+})
+
 const localIcon = {
   'fr-FR': 'i-material-symbols-language-french',
   'en-US': 'i-material-symbols-language-us'
@@ -130,5 +142,18 @@ const updateLocale = async (locale: string) => {
   })
 
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.locale'))
+}
+
+const updateColorMode = async () => {
+  colorMode.preference = currentColorMode.value
+
+  await $fetch(`/api/profiles/${user.value?.id}/color-mode`, {
+    method: 'PUT',
+    body: {
+      color_mode: currentColorMode.value
+    }
+  })
+
+  useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.colorMode'))
 }
 </script>
