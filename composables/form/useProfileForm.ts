@@ -6,11 +6,13 @@ export const useProfileForm = () => {
   const state = reactive<Tables<'profiles'>>({
     avatar_url: '',
     created_at: '',
+    updated_at: '',
     email: '',
     first_name: '',
     id: '',
     last_name: '',
-    username: ''
+    username: '',
+    language: 'fr'
   })
 
   const setState = (profile: Partial<typeof state>) => {

@@ -1,11 +1,11 @@
 import { useAxios } from '@vueuse/integrations/useAxios'
 import axiosClient from '../../axiosClient'
-import { formatLanguageToISO } from '~/utils/formatLanguageToISO'
+import { formatLanguageToString } from '~/utils/formatLanguageToString'
 
 export default defineEventHandler(async (event) => {
   const { language } = getQuery(event)
 
-  const url = `/watch/providers/movie?language=${formatLanguageToISO(language)}&watch_region=${language}`
+  const url = `/watch/providers/movie?language=${language}&watch_region=${formatLanguageToString(language)}`
 
   const res = await useAxios(
     url,

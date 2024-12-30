@@ -101,7 +101,8 @@
     },
     "toasts": {
       "success": {
-        "logout": "Vous êtes déconnecté."
+        "logout": "Vous êtes déconnecté.",
+        "locale": "La langue a été mise à jour."
       }
     }
   },
@@ -139,28 +140,7 @@
     }
   },
   "genre": {
-    "title": "Genre de contenu",
-    "labels": {
-      "action": "Action",
-      "adventure": "Aventure",
-      "animation": "Animation",
-      "biography": "Biographie",
-      "comedy": "Comédie",
-      "crime": "Crime",
-      "drama": "Drame",
-      "family": "Famille",
-      "fantasy": "Fantaisie",
-      "history": "Histoire",
-      "horror": "Horreur",
-      "music": "Musique",
-      "mystery": "Mystère",
-      "romance": "Romance",
-      "scienceFiction": "Science-fiction",
-      "tvMovie": "Téléfilm",
-      "thriller": "Thriller",
-      "war": "Guerre",
-      "western": "Western"
-    }
+    "title": "Genre de contenu"
   },
   "login": {
     "title": "Connexion",
@@ -184,7 +164,8 @@
     },
     "toasts": {
       "error": {
-        "invalid_credentials": "Les informations d'identification fournies sont incorrectes. Veuillez réessayer."
+        "invalid_credentials": "Les informations d'identification fournies sont incorrectes. Veuillez réessayer.",
+        "email_not_confirmed": "Votre adresse e-mail n'a pas été confirmée. Veuillez vérifier votre boîte de réception."
       },
       "success": {
         "login": "Vous êtes connecté."
@@ -200,18 +181,7 @@
   },
   "platforms": {
     "title": "Plateformes de streaming",
-    "placeholder": "Plateformes",
-    "labels": {
-      "netflix": "Netflix",
-      "amazonPrimeVideo": "Amazon Prime Video",
-      "disneyPlus": "Disney+",
-      "myCanal": "myCanal",
-      "ocs": "OCS",
-      "appleTV": "Apple TV",
-      "youtube": "YouTube",
-      "max": "Max",
-      "paramountPlus": "Paramount+"
-    }
+    "placeholder": "Plateformes"
   },
   "profile": {
     "form": {

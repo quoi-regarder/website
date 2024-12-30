@@ -110,7 +110,8 @@
 const user = useSupabaseUser()
 const client = useSupabaseClient()
 const { state, setState, schema } = useProfileForm()
-const i18n: any = useNuxtApp().$i18n
+const { t } = useI18n()
+const localPath = useLocalePath()
 const isDeleteAccountModalOpen = ref(false)
 
 definePageMeta({
@@ -125,8 +126,8 @@ onMounted(async () => {
     setState(profile)
   } catch (error: any) {
     useNotifications().error(
-      i18n.t('common.toasts.title.error'),
-      i18n.t(`common.api.error.${error.statusMessage}`)
+      t('common.toasts.title.error'),
+      t(`common.api.error.${error.statusMessage}`)
     )
   }
 })
@@ -138,13 +139,13 @@ const onSubmit = async () => {
       body: state
     })
     useNotifications().success(
-      i18n.t('common.toasts.title.success'),
-      i18n.t('profile.toasts.success.updated')
+      t('common.toasts.title.success'),
+      t('profile.toasts.success.updated')
     )
   } catch (error: any) {
     useNotifications().error(
-      i18n.t('common.toasts.title.error'),
-      i18n.t(`common.api.error.${error.statusMessage}`)
+      t('common.toasts.title.error'),
+      t(`common.api.error.${error.statusMessage}`)
     )
   }
 }
@@ -160,8 +161,8 @@ const handleAvatarChange = async (file: File) => {
       })
 
       useNotifications().success(
-        i18n.t('common.toasts.title.success'),
-        i18n.t('profile.toasts.success.avatarRemoved')
+        t('common.toasts.title.success'),
+        t('profile.toasts.success.avatarRemoved')
       )
     } else {
       await $fetch(`/api/profiles/${user.value?.id}/avatar`, {
@@ -170,8 +171,8 @@ const handleAvatarChange = async (file: File) => {
       })
 
       useNotifications().success(
-        i18n.t('common.toasts.title.success'),
-        i18n.t('profile.toasts.success.avatarUpdated')
+        t('common.toasts.title.success'),
+        t('profile.toasts.success.avatarUpdated')
       )
     }
 
@@ -182,8 +183,8 @@ const handleAvatarChange = async (file: File) => {
     setState(profile)
   } catch (error: any) {
     useNotifications().error(
-      i18n.t('common.toasts.title.error'),
-      i18n.t(`common.api.error.${error.statusMessage}`)
+      t('common.toasts.title.error'),
+      t(`common.api.error.${error.statusMessage}`)
     )
   }
 }
@@ -194,16 +195,16 @@ const handleDeleteAccount = async () => {
       method: 'DELETE'
     })
     await client.auth.signOut()
-    await navigateTo('/')
+    await navigateTo(localPath('/'))
 
     useNotifications().success(
-      i18n.t('common.toasts.title.success'),
-      i18n.t('profile.toasts.success.accountDeleted')
+      t('common.toasts.title.success'),
+      t('profile.toasts.success.accountDeleted')
     )
   } catch (error: any) {
     useNotifications().error(
-      i18n.t('common.toasts.title.error'),
-      i18n.t(`common.api.error.${error.statusMessage}`)
+      t('common.toasts.title.error'),
+      t(`common.api.error.${error.statusMessage}`)
     )
   }
 }

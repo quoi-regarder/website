@@ -6,6 +6,10 @@
     <p class="text-lg text-gray-600 mb-6">
       {{ $t('error.message') }}
     </p>
-    <UButton :label="$t('error.buttons.home')" size="xl" to="/" />
+    <UButton :label="$t('error.buttons.home')" size="xl" :to="localePath('/')" />
   </div>
 </template>
+
+<script lang="ts" setup>
+const localePath = useLocalePath()
+</script>

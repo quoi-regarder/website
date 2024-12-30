@@ -5,6 +5,7 @@ export function useProfileChannel() {
   const user = useSupabaseUser()
   const profile = ref<Tables<'profiles'> | null>(null)
   let profileChannel: RealtimeChannel | null = null
+  const switchLocalePath = useSwitchLocalePath()
 
   const fetchProfile = async () => {
     if (!user.value) return
@@ -12,6 +13,7 @@ export function useProfileChannel() {
       profile.value = await $fetch(`/api/profiles/${user.value.id}`, {
         method: 'GET'
       })
+      navigateTo(switchLocalePath(profile.value?.language))
     } catch (error: any) {
       console.error('Error fetching profile:', error)
     }

@@ -29,7 +29,10 @@
     </template>
 
     <template #links>
-      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/">
+      <ULink
+        class="hover:text-primary transition-colors duration-200 underline"
+        :to="localPath('/')"
+      >
         {{ $t('updatePassword.form.buttons.home') }}
       </ULink>
     </template>
@@ -39,7 +42,8 @@
 <script lang="ts" setup>
 const client = useSupabaseClient()
 const { state, schema } = useUpdatePasswordForm()
-const i18n: any = useNuxtApp().$i18n
+const { t } = useI18n()
+const localPath = useLocalePath()
 
 definePageMeta({
   layout: false
@@ -52,16 +56,16 @@ const onSubmit = async () => {
 
   if (error) {
     useNotifications().error(
-      i18n.t('common.toasts.title.error'),
-      i18n.t(`updatePassword.toasts.error.${error.code}`)
+      t('common.toasts.title.error'),
+      t(`updatePassword.toasts.error.${error.code}`)
     )
     return
   }
 
-  await navigateTo('/')
+  await navigateTo(localPath('/'))
   useNotifications().success(
-    i18n.t('common.toasts.title.success'),
-    i18n.t('updatePassword.toasts.success.updated')
+    t('common.toasts.title.success'),
+    t('updatePassword.toasts.success.updated')
   )
 }
 </script>

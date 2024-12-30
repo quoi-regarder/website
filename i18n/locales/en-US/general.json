@@ -1,0 +1,299 @@
+{
+  "actor": {
+    "title": "Actor",
+    "placeholder": "Actor's name"
+  },
+  "age": {
+    "title": "Minimum Age",
+    "labels": {
+      "all": "All ages",
+      "ten": "10 years",
+      "twelve": "12 years",
+      "fourteen": "14 years",
+      "sixteen": "16 years",
+      "eighteen": "18 years"
+    }
+  },
+  "avatar": {
+    "buttons": {
+      "remove": "Remove profile image",
+      "upload": "Upload an image"
+    }
+  },
+  "badgeList": {
+    "buttons": {
+      "selectAll": "Select all",
+      "unselectAll": "Deselect all",
+      "reset": "Reset"
+    }
+  },
+  "common": {
+    "api": {
+      "error": {
+        "bad_request": "An error occurred while fetching data. Please try again.",
+        "not_found": "The requested resource could not be found.",
+        "username_already_exists": "The username is already in use.",
+        "internal_server_error": "An error occurred while processing the request. Please try again.",
+        "forbidden": "You are not authorized to access this resource."
+      }
+    },
+    "toasts": {
+      "title": {
+        "error": "An error occurred",
+        "success": "Success"
+      }
+    },
+    "hint": {
+      "optional": "Optional field"
+    },
+    "form": {
+      "error": {
+        "required": "This field is required",
+        "email": "Please enter a valid email address",
+        "passwordMin": "Password must be at least 8 characters long",
+        "passwordMatch": "Passwords do not match",
+        "passwordComplex": "Password must include lowercase, uppercase letters, numbers, and symbols",
+        "stringMin": "This field must be at least {min} characters long",
+        "fileSize": "File size must not exceed {size} MB",
+        "fileFormat": "The chosen file is not valid. Please select a file of type {formats}.",
+        "conversionFailed": "Saving the image failed. Please try again."
+      }
+    }
+  },
+  "director": {
+    "title": "Director",
+    "placeholder": "Director's name"
+  },
+  "footer": {
+    "title": "What to watch?",
+    "tagline": "A series or movie to watch each day based on your preferences.",
+    "links": {
+      "home": "Home",
+      "login": "Login",
+      "signup": "Sign Up",
+      "profile": "Profile"
+    },
+    "copyright": "© {year} What to Watch?"
+  },
+  "mark": {
+    "title": "Rating",
+    "labels": {
+      "mark": "{count} star | {count} stars"
+    }
+  },
+  "error": {
+    "title": "An error occurred",
+    "message": "The page you are looking for does not exist or an error occurred.",
+    "buttons": {
+      "home": "Home"
+    }
+  },
+  "navbar": {
+    "dropdown": {
+      "account": "Logged in as"
+    },
+    "buttons": {
+      "home": "Home",
+      "login": "Login",
+      "logout": "Logout",
+      "signup": "Sign Up",
+      "profile": "Profile"
+    },
+    "toasts": {
+      "success": {
+        "logout": "You have been logged out.",
+        "locale": "Language updated."
+      }
+    }
+  },
+  "filter": {
+    "title": "Sort by",
+    "labels": {
+      "popularity": "Popularity",
+      "topRated": "Top Rated",
+      "upcoming": "Upcoming",
+      "nowPlaying": "Now Playing",
+      "latest": "Latest",
+      "oldest": "Oldest"
+    }
+  },
+  "forgotPassword": {
+    "title": "Forgot Password",
+    "form": {
+      "buttons": {
+        "submit": "Submit",
+        "login": "Login",
+        "home": "Back to Home",
+        "signup": "Sign Up"
+      },
+      "fields": {
+        "email": "Email"
+      },
+      "placeholders": {
+        "email": "Email address"
+      }
+    },
+    "toasts": {
+      "success": {
+        "sent": "A password reset email has been sent to {email}"
+      }
+    }
+  },
+  "genre": {
+    "title": "Content Genre"
+  },
+  "login": {
+    "title": "Login",
+    "or": "or",
+    "form": {
+      "buttons": {
+        "submit": "Login",
+        "forgotPassword": "Forgot Password?",
+        "signup": "Sign Up",
+        "home": "Back to Home",
+        "google": "Login with Google"
+      },
+      "fields": {
+        "email": "Email",
+        "password": "Password"
+      },
+      "placeholders": {
+        "email": "Email address",
+        "password": "Password"
+      }
+    },
+    "toasts": {
+      "error": {
+        "invalid_credentials": "The credentials provided are incorrect. Please try again.",
+        "email_not_confirmed": "Your email address has not been confirmed. Please check your inbox."
+      },
+      "success": {
+        "login": "You are logged in."
+      }
+    }
+  },
+  "multiSelect": {
+    "search": "Search...",
+    "selected": "No items selected | {count} item selected | {count} items selected",
+    "noResults": "No results found for \"{query}\".",
+    "create": "Create \"{name}\"",
+    "noOptions": "No options available."
+  },
+  "platforms": {
+    "title": "Streaming Platforms",
+    "placeholder": "Platforms"
+  },
+  "profile": {
+    "form": {
+      "buttons": {
+        "submit": "Update",
+        "deleteAccount": "Delete Account"
+      },
+      "fields": {
+        "email": "Email",
+        "username": "Username",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "avatar": "Profile Image"
+      },
+      "placeholders": {
+        "email": "Email address",
+        "username": "Username",
+        "firstName": "First Name",
+        "lastName": "Last Name"
+      }
+    },
+    "modals": {
+      "deleteAccount": {
+        "title": "Delete Account",
+        "description": "Are you sure you want to delete your account? This action is irreversible. All your data will be lost.",
+        "buttons": {
+          "cancel": "Cancel",
+          "delete": "Delete"
+        }
+      }
+    },
+    "toasts": {
+      "success": {
+        "updated": "Your profile has been updated.",
+        "avatarUpdated": "Your profile image has been updated.",
+        "avatarRemoved": "Your profile image has been removed.",
+        "accountDeleted": "Your account has been deleted."
+      }
+    }
+  },
+  "signup": {
+    "title": "Sign Up",
+    "or": "or",
+    "form": {
+      "buttons": {
+        "submit": "Sign Up",
+        "google": "Sign Up with Google",
+        "login": "Login",
+        "home": "Back to Home"
+      },
+      "fields": {
+        "email": "Email",
+        "username": "Username",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "password": "Password",
+        "passwordConfirmation": "Confirm Password"
+      },
+      "placeholders": {
+        "email": "Email address",
+        "username": "Username",
+        "firstName": "First Name",
+        "lastName": "Last Name",
+        "password": "Password",
+        "passwordConfirmation": "Confirm Password"
+      }
+    },
+    "toasts": {
+      "success": {
+        "registered": "Registration successful. Please check your inbox to activate your account."
+      }
+    }
+  },
+  "type": {
+    "title": "Content Type",
+    "labels": {
+      "movie": "Movie",
+      "series": "Series",
+      "anime": "Anime",
+      "documentary": "Documentary",
+      "shortFilm": "Short Film",
+      "other": "Other"
+    }
+  },
+  "updatePassword": {
+    "title": "Update Password",
+    "form": {
+      "buttons": {
+        "submit": "Submit",
+        "home": "Back to Home"
+      },
+      "fields": {
+        "password": "Password",
+        "passwordConfirmation": "Confirm Password"
+      },
+      "placeholders": {
+        "password": "New Password",
+        "passwordConfirmation": "Confirm New Password"
+      }
+    },
+    "toasts": {
+      "success": {
+        "updated": "Your password has been updated."
+      },
+      "error": {
+        "same_password": "The new password must be different from the old one."
+      }
+    }
+  },
+  "year": {
+    "title": "Release Year",
+    "placeholder": "Year",
+    "hint": "By default, all years are selected."
+  }
+}

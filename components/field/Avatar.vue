@@ -19,17 +19,12 @@
 
       <UButton
         v-if="model"
-        :label="i18n.t('avatar.buttons.remove')"
+        :label="$t('avatar.buttons.remove')"
         size="sm"
         type="button"
         @click="() => emit('update:file', null)"
       />
-      <UButton
-        v-else
-        :label="i18n.t('avatar.buttons.upload')"
-        size="sm"
-        @click="triggerFileInput"
-      />
+      <UButton v-else :label="$t('avatar.buttons.upload')" size="sm" @click="triggerFileInput" />
     </div>
 
     <div v-if="error" class="text-red-500 text-sm mt-1">
@@ -39,7 +34,7 @@
 </template>
 
 <script lang="ts" setup>
-const i18n: any = useNuxtApp().$i18n
+const { t } = useI18n()
 
 const props = defineProps({
   label: {
@@ -79,14 +74,14 @@ const onFileChange = async (event: Event) => {
   }
 
   if (!props.supportedFormats.includes(file.type)) {
-    error.value = i18n.t('common.form.error.fileFormat', {
+    error.value = t('common.form.error.fileFormat', {
       formats: props.supportedFormats.join(', ')
     })
     return
   }
 
   if (file.size > props.supportedSize * 1024 * 1024) {
-    error.value = i18n.t('common.form.error.fileSize', {
+    error.value = t('common.form.error.fileSize', {
       size: props.supportedSize
     })
     return
@@ -97,7 +92,7 @@ const onFileChange = async (event: Event) => {
 
     emit('update:file', webpFile)
   } catch (err) {
-    error.value = i18n.t('common.form.error.conversionFailed')
+    error.value = t('common.form.error.conversionFailed')
   }
 }
 

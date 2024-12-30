@@ -20,13 +20,22 @@
     </template>
 
     <template #links>
-      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/auth/login">
+      <ULink
+        class="hover:text-primary transition-colors duration-200 underline"
+        :to="localPath('/auth/login')"
+      >
         {{ $t('forgotPassword.form.buttons.login') }}
       </ULink>
-      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/auth/signup">
+      <ULink
+        class="hover:text-primary transition-colors duration-200 underline"
+        :to="localPath('/auth/signup')"
+      >
         {{ $t('forgotPassword.form.buttons.signup') }}
       </ULink>
-      <ULink class="hover:text-primary transition-colors duration-200 underline" to="/">
+      <ULink
+        class="hover:text-primary transition-colors duration-200 underline"
+        :to="localPath('/')"
+      >
         {{ $t('forgotPassword.form.buttons.home') }}
       </ULink>
     </template>
@@ -36,7 +45,8 @@
 <script lang="ts" setup>
 const client = useSupabaseClient()
 const { state, schema } = useForgotPasswordForm()
-const i18n: any = useNuxtApp().$i18n
+const { t } = useI18n()
+const localPath = useLocalePath()
 
 definePageMeta({
   middleware: ['guest'],
@@ -46,10 +56,10 @@ definePageMeta({
 const onSubmit = async () => {
   await client.auth.resetPasswordForEmail(state.email)
 
-  await navigateTo('/')
+  await navigateTo(localPath(''))
   useNotifications().success(
-    i18n.t('common.toasts.title.success'),
-    i18n.t('forgotPassword.toasts.success.sent', { email: state.email })
+    t('common.toasts.title.success'),
+    t('forgotPassword.toasts.success.sent', { email: state.email })
   )
 }
 </script>

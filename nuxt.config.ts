@@ -28,12 +28,31 @@ export default defineNuxtConfig({
 
   // Internationalization
   i18n: {
+    baseUrl: 'https://quoi-regarder.fr',
     locales: [
-      { code: 'en', iso: 'en-US', file: 'en-US.json' },
-      { code: 'fr', iso: 'fr-FR', file: 'fr-FR.json' }
+      {
+        code: 'en-US',
+        iso: 'en-US',
+        name: 'English(US)',
+        files: ['en-US/general.json', 'en-US/seo.json']
+      },
+      {
+        code: 'fr-FR',
+        iso: 'fr-FR',
+        name: 'Français',
+        files: ['fr-FR/general.json', 'fr-FR/seo.json']
+      }
     ],
-    defaultLocale: 'fr',
-    langDir: 'locales/'
+    defaultLocale: 'en-US',
+    langDir: 'locales/',
+    strategy: 'prefix',
+    lazy: true,
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected',
+      alwaysRedirect: true,
+      fallbackLocale: 'en-US'
+    }
   },
 
   // Color mode configuration
