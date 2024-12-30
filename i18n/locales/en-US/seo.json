@@ -1,5 +1,15 @@
 {
   "seo": {
-    "title": "What to Watch ?"
+    "title": "Find the Perfect Movie for Every Day and Every Mood",
+    "description": "Explore our intuitive search engine to discover movies tailored to your tastes and preferences. Simplify your choices and enjoy unforgettable movie nights with personalized recommendations!",
+    "pages": {
+      "auth": {
+        "login": "Log in to access your personalized movie universe",
+        "signup": "Sign up to create your account and start exploring tailored movies",
+        "forgot-password": "Easily reset your password to regain access to your account",
+        "update-password": "Securely update your password to keep your account safe"
+      },
+      "profile": "Manage your personal information and viewing preferences"
+    }
   }
 }

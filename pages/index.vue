@@ -36,6 +36,17 @@
 </template>
 
 <script lang="ts" setup>
+const { t } = useI18n()
+useHead({
+  title: t('seo.title'),
+  meta: [
+    {
+      name: 'description',
+      content: t('seo.description')
+    }
+  ]
+})
+
 const selectedPlatforms = ref<Badge[]>([])
 const selectedTypes = ref<Badge[]>([])
 const selectedGenres = ref<Badge[]>([])

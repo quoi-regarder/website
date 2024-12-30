@@ -1,6 +1,8 @@
 <template>
   <footer class="bg-zinc-800 text-white py-8">
-    <div class="mx-8 flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+    <div
+      class="mx-8 flex flex-col justify-between items-center space-y-6 desktop:space-y-0 desktop:flex-row"
+    >
       <div class="text-center md:text-left">
         <h3 class="text-lg font-semibold text-primary">
           {{ $t('footer.title') }}
