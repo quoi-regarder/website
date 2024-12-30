@@ -114,6 +114,10 @@ const { t } = useI18n()
 const localPath = useLocalePath()
 const isDeleteAccountModalOpen = ref(false)
 
+useHead({
+  title: t('seo.pages.profile')
+})
+
 definePageMeta({
   middleware: ['auth']
 })

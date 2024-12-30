@@ -3,6 +3,21 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
 
+  // Site settings
+  site: {
+    url: 'https://quoi-regarder.fr',
+    name: 'Quoi Regarder?'
+  },
+
+  // Application metadata
+  app: {
+    head: {
+      titleTemplate: 'Quoi Regarder? | %s',
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1'
+    }
+  },
+
   modules: [
     '@nuxt/icon',
     '@nuxtjs/i18n',

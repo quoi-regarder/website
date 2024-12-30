@@ -104,6 +104,10 @@ const { state, schema } = useSignupForm()
 const { locale, t } = useI18n()
 const localPath = useLocalePath()
 
+useHead({
+  title: t('seo.pages.auth.signup')
+})
+
 definePageMeta({
   middleware: ['guest'],
   layout: false

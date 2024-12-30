@@ -65,7 +65,7 @@
     "placeholder": "Nom du réalisateur"
   },
   "footer": {
-    "title": "Quoi regarder ?",
+    "title": "Quoi regarder?",
     "tagline": "Une série ou un film à regarder par jour selon vos critères.",
     "links": {
       "home": "Accueil",
@@ -73,7 +73,20 @@
       "signup": "Inscription",
       "profile": "Profil"
     },
-    "copyright": "© {year} Quoi regarder ?"
+    "copyright": "© {year} Quoi regarder?"
+  },
+  "home": {
+    "form": {
+      "buttons": {
+        "search": "Rechercher"
+      },
+      "fields": {
+        "search": "Rechercher un film"
+      },
+      "placeholders": {
+        "search": "Rechercher un film"
+      }
+    }
   },
   "mark": {
     "title": "Note",
@@ -102,7 +115,8 @@
     "toasts": {
       "success": {
         "logout": "Vous êtes déconnecté.",
-        "locale": "La langue a été mise à jour."
+        "locale": "La langue a été mise à jour.",
+        "colorMode": "Le thème a été mis à jour."
       }
     }
   },

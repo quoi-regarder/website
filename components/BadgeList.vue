@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center gap-2 w-full">
-    <div class="flex items-center gap-4 w-full bg-gray-100 p-2 rounded-2xl">
+    <div class="flex items-center gap-4 w-full bg-gray-100 p-2 rounded-2xl dark:bg-gray-700">
       <div class="flex flex-col w-1/5">
         <h3 class="font-bold text-right">
           {{ title }}
@@ -45,6 +45,8 @@
 </template>
 
 <script lang="ts" setup>
+const colorMode = useColorMode()
+
 const props = defineProps({
   badgeList: {
     type: Array as PropType<Badge[]>,
@@ -76,7 +78,7 @@ const toggleBadge = (badge: Badge) => {
 }
 
 const badgeColor = (badge: Badge) => {
-  return badge.selected ? badge.color : 'gray'
+  return badge.selected ? badge.color : colorMode.value === 'light' ? 'gray' : 'black'
 }
 
 const badgeIcon = (badge: Badge) => {

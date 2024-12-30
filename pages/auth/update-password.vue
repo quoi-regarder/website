@@ -45,6 +45,10 @@ const { state, schema } = useUpdatePasswordForm()
 const { t } = useI18n()
 const localPath = useLocalePath()
 
+useHead({
+  title: t('seo.pages.auth.update-password')
+})
+
 definePageMeta({
   layout: false
 })

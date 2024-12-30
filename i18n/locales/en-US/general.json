@@ -65,7 +65,7 @@
     "placeholder": "Director's name"
   },
   "footer": {
-    "title": "What to watch?",
+    "title": "Quoi regarder?",
     "tagline": "A series or movie to watch each day based on your preferences.",
     "links": {
       "home": "Home",
@@ -73,12 +73,25 @@
       "signup": "Sign Up",
       "profile": "Profile"
     },
-    "copyright": "© {year} What to Watch?"
+    "copyright": "© {year} Quoi regarder?"
   },
   "mark": {
     "title": "Rating",
     "labels": {
       "mark": "{count} star | {count} stars"
+    }
+  },
+  "home": {
+    "form": {
+      "buttons": {
+        "search": "Search"
+      },
+      "fields": {
+        "search": "Search for a movie"
+      },
+      "placeholders": {
+        "search": "Search for a movie"
+      }
     }
   },
   "error": {
@@ -102,7 +115,8 @@
     "toasts": {
       "success": {
         "logout": "You have been logged out.",
-        "locale": "Language updated."
+        "locale": "Language updated.",
+        "colorMode": "Theme updated."
       }
     }
   },

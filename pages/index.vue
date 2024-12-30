@@ -2,14 +2,16 @@
   <div class="flex flex-col items-center gap-4 w-full">
     <field-input
       v-model="search"
-      placeholder="Search"
+      :placeholder="$t('home.form.placeholders.search')"
       name="search"
-      label="Search"
+      :label="$t('home.form.fields.search')"
       icon="search"
       class="w-full"
     />
 
-    <UButton @click="searchQuery"> Search </UButton>
+    <UButton @click="searchQuery">
+      {{ $t('home.form.buttons.search') }}
+    </UButton>
     <div class="flex w-full gap-4 p-4">
       <div class="flex flex-col gap-4 items-center w-3/5">
         <ClientOnly>
@@ -34,6 +36,17 @@
 </template>
 
 <script lang="ts" setup>
+const { t } = useI18n()
+useHead({
+  title: t('seo.title'),
+  meta: [
+    {
+      name: 'description',
+      content: t('seo.description')
+    }
+  ]
+})
+
 const selectedPlatforms = ref<Badge[]>([])
 const selectedTypes = ref<Badge[]>([])
 const selectedGenres = ref<Badge[]>([])

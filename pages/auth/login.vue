@@ -74,6 +74,10 @@ const { state, schema } = useLoginForm()
 const { t } = useI18n()
 const localePath = useLocalePath()
 
+useHead({
+  title: t('seo.pages.auth.login')
+})
+
 definePageMeta({
   middleware: ['guest'],
   layout: false

@@ -1,5 +1,15 @@
 {
   "seo": {
-    "title": "Quoi Regarder ?"
+    "title": "Découvrez le film idéal pour chaque jour et chaque envie",
+    "description": "Utilisez notre moteur de recherche intuitif pour trouver des films adaptés à vos goûts et critères. Faites de chaque soirée un moment inoubliable avec des recommandations personnalisées !",
+    "pages": {
+      "auth": {
+        "login": "Connectez-vous et accédez à votre univers personnalisé de films",
+        "signup": "Créez un compte et commencez à découvrir des films sur mesure",
+        "forgot-password": "Réinitialisez facilement votre mot de passe pour retrouver l'accès à votre compte",
+        "update-password": "Mettez à jour votre mot de passe en toute sécurité"
+      },
+      "profile": "Gérez vos informations personnelles et préférences de visionnage"
+    }
   }
 }

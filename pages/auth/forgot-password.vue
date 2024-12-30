@@ -48,6 +48,10 @@ const { state, schema } = useForgotPasswordForm()
 const { t } = useI18n()
 const localPath = useLocalePath()
 
+useHead({
+  title: t('seo.pages.auth.forgot-password')
+})
+
 definePageMeta({
   middleware: ['guest'],
   layout: false
