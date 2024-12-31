@@ -10,68 +10,74 @@
           {{ $t('navbar.buttons.home') }}
         </ULink>
       </div>
-      <div class="flex items-center space-x-4">
-        <UButton
-          :icon="currentColorMode === 'dark' ? 'i-heroicons-moon-solid' : 'i-heroicons-sun-solid'"
-          variant="ghost"
-          :ui="{ rounded: 'rounded-full' }"
-          @click="updateColorMode"
-        />
-
-        <UButton
-          v-for="locale in availableLocales"
-          :key="locale.code"
-          :icon="localIcon[locale.code]"
-          variant="soft"
-          :ui="{ rounded: 'rounded-full' }"
-          @click="updateLocale(locale.code)"
-        />
-
-        <ClientOnly>
-          <div class="flex items-center space-x-4">
-            <UDropdown
-              v-if="isLogged"
-              :items="dropdownItems"
-              :popper="{ arrow: true }"
-              :ui="{ item: { disabled: 'cursor-text select-text' } }"
-            >
-              <UAvatar v-if="isLogged && profile?.avatar_url" :src="profile.avatar_url" size="lg" />
-
-              <UAvatar v-if="isLogged && !profile?.avatar_url" size="lg">
-                <UIcon class="text-primary size-8" name="i-heroicons-user" />
-              </UAvatar>
-
-              <template #account="{ item }">
-                <div class="text-left text-sm">
-                  <p class="truncate font-extralight dark:text-white">
-                    {{ $t('navbar.dropdown.account') }}
-                  </p>
-                  <p class="truncate font-light">
-                    {{ item.label }}
-                  </p>
-                </div>
-              </template>
-
-              <template #item="{ item }">
-                <span class="truncate">{{ item.label }}</span>
-
-                <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-primary ms-auto" />
-              </template>
-            </UDropdown>
-
-            <UTooltip v-if="!isLogged" :text="$t('navbar.buttons.login')">
-              <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
-                <UAvatar v-if="!isLogged" size="lg">
-                  <UIcon
-                    class="text-primary size-8"
-                    name="i-heroicons-arrow-right-end-on-rectangle"
-                  />
-                </UAvatar>
-              </div>
+      <ClientOnly>
+        <div class="flex items-center space-x-4">
+          <UDropdown :items="colorModeItems" :popper="{ arrow: true }">
+            <UTooltip :text="$t('navbar.tooltips.colorMode')">
+              <UIcon :name="colorModeIcon[colorMode.preference]" class="text-primary size-6" />
             </UTooltip>
-          </div>
-        </ClientOnly>
-      </div>
+
+            <template #item="{ item }">
+              <span class="truncate">{{ item.label }}</span>
+
+              <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-primary ms-auto" />
+            </template>
+          </UDropdown>
+
+          <UDropdown :items="localItems" :popper="{ arrow: true }">
+            <UTooltip :text="$t('navbar.tooltips.locale')">
+              <UIcon name="i-heroicons-globe-alt" class="text-primary size-6" />
+            </UTooltip>
+
+            <template #item="{ item }">
+              <span class="truncate">{{ item.label }}</span>
+
+              <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-primary ms-auto" />
+            </template>
+          </UDropdown>
+
+          <UDropdown
+            v-if="isLogged"
+            :items="dropdownItems"
+            :popper="{ arrow: true }"
+            :ui="{ item: { disabled: 'cursor-text select-text' } }"
+          >
+            <UAvatar v-if="isLogged && profile?.avatar_url" :src="profile.avatar_url" size="lg" />
+
+            <UAvatar v-if="isLogged && !profile?.avatar_url" size="lg">
+              <UIcon class="text-primary size-8" name="i-heroicons-user" />
+            </UAvatar>
+
+            <template #account="{ item }">
+              <div class="text-left text-sm">
+                <p class="truncate font-extralight dark:text-white">
+                  {{ $t('navbar.dropdown.account') }}
+                </p>
+                <p class="truncate font-light">
+                  {{ item.label }}
+                </p>
+              </div>
+            </template>
+
+            <template #item="{ item }">
+              <span class="truncate">{{ item.label }}</span>
+
+              <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-primary ms-auto" />
+            </template>
+          </UDropdown>
+
+          <UTooltip v-if="!isLogged" :text="$t('navbar.buttons.login')">
+            <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
+              <UAvatar v-if="!isLogged" size="lg">
+                <UIcon
+                  class="text-primary size-8"
+                  name="i-heroicons-arrow-right-end-on-rectangle"
+                />
+              </UAvatar>
+            </div>
+          </UTooltip>
+        </div>
+      </ClientOnly>
     </div>
   </div>
 </template>
@@ -111,18 +117,38 @@ const dropdownItems = computed(() => [
   ]
 ])
 
-const availableLocales = computed(() => {
-  return locales.value.filter((i) => i.code !== locale.value)
-})
-
-const currentColorMode = computed(() => {
-  return colorMode.value === 'dark' ? 'light' : 'dark'
-})
-
 const localIcon = {
   'fr-FR': 'i-material-symbols-language-french',
   'en-US': 'i-material-symbols-language-us'
 }
+
+const localItems = computed(() =>
+  locales.value.map((locale) => [
+    {
+      label: locale.name,
+      icon: localIcon[locale.code],
+      click: () => updateLocale(locale.code)
+    }
+  ])
+)
+
+const colorModeIcon = {
+  light: 'i-heroicons-sun-solid',
+  dark: 'i-heroicons-moon-solid',
+  system: 'i-heroicons-computer-desktop'
+}
+
+const availableColorModes = ['light', 'dark', 'system']
+
+const colorModeItems = computed(() =>
+  availableColorModes.map((mode) => [
+    {
+      label: t(`navbar.buttons.colorMode.${mode}`),
+      icon: colorModeIcon[mode],
+      click: () => updateColorMode(mode)
+    }
+  ])
+)
 
 const logout = async () => {
   await client.auth.signOut()
@@ -131,7 +157,7 @@ const logout = async () => {
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
 }
 
-const updateLocale = async (locale: string) => {
+const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
   navigateTo(switchLocalePath(locale))
 
   await $fetch(`/api/profiles/${user.value?.id}/language`, {
@@ -144,13 +170,13 @@ const updateLocale = async (locale: string) => {
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.locale'))
 }
 
-const updateColorMode = async () => {
-  colorMode.preference = currentColorMode.value
+const updateColorMode = async (mode: Tables<Enums<'color_mode_type'>>) => {
+  colorMode.preference = mode
 
   await $fetch(`/api/profiles/${user.value?.id}/color-mode`, {
     method: 'PUT',
     body: {
-      color_mode: currentColorMode.value
+      color_mode: mode
     }
   })
 

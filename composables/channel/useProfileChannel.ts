@@ -6,6 +6,7 @@ export function useProfileChannel() {
   const profile = ref<Tables<'profiles'> | null>(null)
   let profileChannel: RealtimeChannel | null = null
   const switchLocalePath = useSwitchLocalePath()
+  const colorMode = useColorMode()
 
   const fetchProfile = async () => {
     if (!user.value) return
@@ -13,7 +14,8 @@ export function useProfileChannel() {
       profile.value = await $fetch(`/api/profiles/${user.value.id}`, {
         method: 'GET'
       })
-      navigateTo(switchLocalePath(profile.value?.language))
+      navigateTo(switchLocalePath(profile.value?.language as string))
+      colorMode.preference = profile.value?.color_mode as string
     } catch (error: any) {
       console.error('Error fetching profile:', error)
     }
