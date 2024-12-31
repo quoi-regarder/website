@@ -60,7 +60,7 @@ definePageMeta({
 const onSubmit = async () => {
   await client.auth.resetPasswordForEmail(state.email)
 
-  await navigateTo(localPath(''))
+  await navigateTo(localPath('/'))
   useNotifications().success(
     t('common.toasts.title.success'),
     t('forgotPassword.toasts.success.sent', { email: state.email })

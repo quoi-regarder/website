@@ -1,9 +1,10 @@
-import { serverSupabaseClient } from '#supabase/server'
+import { serverSupabaseClient, serverSupabaseServiceRole } from '#supabase/server'
 import { H3Event } from 'h3'
 import { Tables } from '~/types/supabase'
 
 export default defineEventHandler(async (event: H3Event) => {
   const client = await serverSupabaseClient(event)
+  const serviceClient = serverSupabaseServiceRole(event)
   const body: Tables<'profiles'> = await readBody(event)
   const id = getRouterParam(event, 'id')
 
@@ -23,6 +24,12 @@ export default defineEventHandler(async (event: H3Event) => {
     .eq('id', id)
     .returns<Tables<'profiles'>>()
     .single()
+
+  await serviceClient.auth.admin.updateUserById(id, {
+    user_metadata: {
+      language: body.language
+    }
+  })
 
   return data
 })
