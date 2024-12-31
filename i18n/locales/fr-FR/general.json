@@ -123,7 +123,12 @@
       "login": "Connexion",
       "logout": "Déconnexion",
       "signup": "Inscription",
-      "profile": "Profil"
+      "profile": "Profil",
+      "colorMode": {
+        "light": "Mode clair",
+        "dark": "Mode sombre",
+        "system": "Thème du système"
+      }
     },
     "toasts": {
       "success": {
@@ -131,6 +136,10 @@
         "locale": "La langue a été mise à jour.",
         "colorMode": "Le thème a été mis à jour."
       }
+    },
+    "tooltips": {
+      "colorMode": "Changer de thème",
+      "locale": "Changer de langue"
     }
   },
   "filter": {

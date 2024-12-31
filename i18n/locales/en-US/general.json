@@ -110,7 +110,12 @@
       "login": "Login",
       "logout": "Logout",
       "signup": "Sign Up",
-      "profile": "Profile"
+      "profile": "Profile",
+      "colorMode": {
+        "light": "Light Mode",
+        "dark": "Dark Mode",
+        "system": "System Theme"
+      }
     },
     "toasts": {
       "success": {
@@ -118,6 +123,10 @@
         "locale": "Language updated.",
         "colorMode": "Theme updated."
       }
+    },
+    "tooltips": {
+      "colorMode": "Change theme",
+      "locale": "Change language"
     }
   },
   "filter": {
