@@ -103,6 +103,7 @@ const client = useSupabaseClient()
 const { state, schema } = useSignupForm()
 const { locale, t } = useI18n()
 const localPath = useLocalePath()
+const colorMode = useColorMode()
 
 useHead({
   title: t('seo.pages.auth.signup')
@@ -128,7 +129,8 @@ const onSubmit = async () => {
         username: state.username,
         first_name: state.firstName,
         last_name: state.lastName,
-        language: locale.value
+        language: locale.value,
+        color_mode: colorMode.value
       }
     }
   })
