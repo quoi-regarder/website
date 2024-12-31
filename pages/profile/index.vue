@@ -60,8 +60,8 @@
       />
     </div>
 
-    <UModal v-model="isDeleteAccountModalOpen">
-      <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100' }">
+    <UModal v-model="isDeleteAccountModalOpen" :ui="{ container: 'items-center', width: 'w-fit' }">
+      <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100' }" class="max-w-lg">
         <template #header>
           <div class="flex items-center justify-between">
             <h3 class="text-primary font-semibold text-xl">
@@ -78,14 +78,14 @@
           </div>
         </template>
 
-        <div class="p-4">
+        <div>
           <p class="text-gray-500 text-justify">
             {{ $t('profile.modals.deleteAccount.description') }}
           </p>
         </div>
 
         <template #footer>
-          <div class="flex justify-end p-4 space-x-4">
+          <div class="flex justify-end space-x-4">
             <UButton
               :label="$t('profile.modals.deleteAccount.buttons.cancel')"
               color="gray"
