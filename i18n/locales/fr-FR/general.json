@@ -78,26 +78,11 @@
   "home": {
     "form": {
       "buttons": {
-        "search": "Rechercher"
+        "search": "Rechercher",
+        "moreFilters": "Plus de filtres"
       },
       "fields": {
-        "search": "Rechercher un film"
-      },
-      "placeholders": {
-        "search": "Rechercher un film"
-      }
-    }
-  },
-  "home": {
-    "form": {
-      "buttons": {
-        "search": "Rechercher"
-      },
-      "fields": {
-        "search": "Rechercher un film"
-      },
-      "placeholders": {
-        "search": "Rechercher un film"
+        "search": "Rechercher par mot-clé"
       }
     }
   },
@@ -113,6 +98,14 @@
     "buttons": {
       "home": "Accueil"
     }
+  },
+  "movie": {
+    "title": "Titre",
+    "release_date": "Date de sortie",
+    "vote_average": "Note",
+    "overview": "Résumé",
+    "genres": "Genres",
+    "vote_count": "Nombre de votes: {count}"
   },
   "navbar": {
     "dropdown": {

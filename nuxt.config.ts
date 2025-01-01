@@ -21,7 +21,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/icon',
     '@nuxtjs/i18n',
-    '@vueuse/nuxt',
     '@nuxtjs/supabase',
     '@nuxt/image',
     '@nuxt/fonts',
@@ -33,12 +32,20 @@ export default defineNuxtConfig({
     supabaseUrl: process.env.NUXT_SUPABASE_URL,
     supabaseAnonKey: process.env.NUXT_SUPABASE_ANON_KEY,
     supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
-    tmdbApiKey: process.env.NUXT_TMDB_API_KEY
+    tmdbApiKey: process.env.NUXT_TMDB_API_KEY,
+    tmdbBaseUrl: process.env.NUXT_TMDB_BASE_URL || 'https://api.themoviedb.org/'
+  },
+
+  // Nitro configuration
+  nitro: {
+    imports: {
+      dirs: ['types/**', 'utils/**']
+    }
   },
 
   // Auto import configuration
   imports: {
-    dirs: ['composables/**', 'types/**']
+    dirs: ['composables/**', 'types/**', 'utils/**']
   },
 
   // Internationalization

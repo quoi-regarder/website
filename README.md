@@ -2,11 +2,14 @@
 
 ## Description
 
-This is a web application that helps you find movies and TV shows to watch. It uses the [TMDb API](https://www.themoviedb.org/documentation/api) to fetch data.
+This is a web application that helps you find movies and TV shows to watch. It uses
+the [TMDb API](https://www.themoviedb.org/documentation/api) to fetch data.
 
 ## Introduction
 
-This project is built with [Nuxt.js](https://nuxtjs.org/), a Vue.js framework. It uses [Tailwind CSS](https://tailwindcss.com/) and a self-hosted [Supabase](https://supabase.io/) instance for user authentication and data storage.
+This project is built with [Nuxt.js](https://nuxtjs.org/), a Vue.js framework. It
+uses [Tailwind CSS](https://tailwindcss.com/) and a self-hosted [Supabase](https://supabase.io/) instance for user
+authentication and data storage.
 
 ## Setup
 
@@ -42,11 +45,13 @@ Check out the [deployment documentation](https://nuxt.com/docs/getting-started/d
 
 ## Environment Variables
 
-Create a `.env` file in the root of the project matching the `.env.example` file. Fill in the values with your own API key and base URL.
+Create a `.env` file in the root of the project matching the `.env.example` file. Fill in the values with your own API
+key and base URL.
 
 ## Husky
 
-This project uses [Husky](https://typicode.github.io/husky) to run linting and formatting checks before committing changes. Make sure to install dependencies before committing:
+This project uses [Husky](https://typicode.github.io/husky) to run linting and formatting checks before committing
+changes. Make sure to install dependencies before committing:
 
 ```bash
 pnpm install
@@ -60,7 +65,8 @@ pnpm lint
 
 ## Supabase
 
-This project uses a self-hosted Supabase instance for user authentication and data storage. You can access the Supabase dashboard at [supastudio.quoi-regarder.fr](https://supastudio.quoi-regarder.fr/).
+This project uses a self-hosted Supabase instance for user authentication and data storage. You can access the Supabase
+dashboard at [supastudio.quoi-regarder.fr](https://supastudio.quoi-regarder.fr/).
 
 ### Migration
 

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts" setup>
-const emit = defineEmits(['update:selectedGenres'])
+const emit = defineEmits(['update:selectedGenres', 'update:genres'])
 
 const selectedGenres = ref<Badge[]>([])
 const genres = ref<Badge[]>([])
@@ -20,7 +20,9 @@ onMounted(async () => {
   const { locale } = useI18n()
   const colors = Object.values(Colors)
 
-  const res = await $fetch(`/api/themoviedb/genre/movie/list?language=${locale.value}`)
+  const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
+  manager.add('language', locale.value)
+  const res = await $fetch(manager.toString())
 
   genres.value = res?.genres.map((genre: any, index: number) => ({
     id: genre.id,
@@ -28,5 +30,7 @@ onMounted(async () => {
     color: colors[index % colors.length],
     selected: false
   }))
+
+  emit('update:genres', genres.value)
 })
 </script>

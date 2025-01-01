@@ -57,7 +57,7 @@ export default defineComponent({
       default: false
     }
   },
-  setup(props) {
+  setup (props) {
     const formClasses = computed(() => {
       return {
         'bg-white': true,

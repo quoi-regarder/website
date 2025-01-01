@@ -1,12 +1,12 @@
 <template>
-  <Html :lang="head.htmlAttrs.lang" :dir="head.htmlAttrs.dir">
+  <Html :dir="head.htmlAttrs.dir" :lang="head.htmlAttrs.lang">
     <Head>
       <Title>{{ $t('seo.title') }}</Title>
       <template v-for="link in head.link" :key="link.hid">
-        <Link :id="link.hid" :rel="link.rel" :href="link.href" :hreflang="link.hreflang" />
+        <Link :id="link.hid" :href="link.href" :hreflang="link.hreflang" :rel="link.rel" />
       </template>
       <template v-for="meta in head.meta" :key="meta.hid">
-        <Meta :id="meta.hid" :property="meta.property" :content="meta.content" />
+        <Meta :id="meta.hid" :content="meta.content" :property="meta.property" />
       </template>
     </Head>
     <Body>
@@ -25,6 +25,7 @@
 <script lang="ts" setup>
 import { Analytics } from '@vercel/analytics/nuxt'
 import { SpeedInsights } from '@vercel/speed-insights/nuxt'
+
 const { locale } = useI18n()
 
 const currentLocale = computed(() => locale.value || 'en-US')

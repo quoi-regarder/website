@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="auth" :show-divider="true">
+  <NuxtLayout :show-divider="true" name="auth">
     <template #title>
       {{ $t('updatePassword.title') }}
     </template>
@@ -30,8 +30,8 @@
 
     <template #links>
       <ULink
-        class="hover:text-primary transition-colors duration-200 underline"
         :to="localPath('/')"
+        class="hover:text-primary transition-colors duration-200 underline"
       >
         {{ $t('updatePassword.form.buttons.home') }}
       </ULink>

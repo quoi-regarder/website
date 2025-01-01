@@ -1,6 +1,5 @@
 import { serverSupabaseClient, serverSupabaseServiceRole } from '#supabase/server'
 import { H3Event } from 'h3'
-import { Tables } from '~/types/supabase'
 
 export default defineEventHandler(async (event: H3Event) => {
   const client = await serverSupabaseClient(event)
