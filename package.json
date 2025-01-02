@@ -22,11 +22,10 @@
     "@nuxt/icon": "1.10.3",
     "@nuxt/image": "1.8.1",
     "@nuxt/ui": "^2.20.0",
+    "@nuxthub/core": "0.8.10",
     "@nuxtjs/i18n": "9.1.1",
     "@nuxtjs/seo": "^2.0.2",
     "@nuxtjs/supabase": "1.4.5",
-    "@vercel/analytics": "^1.4.1",
-    "@vercel/speed-insights": "^1.1.0",
     "nuxt": "^3.15.0",
     "yup": "^1.6.1"
   },
@@ -42,7 +41,8 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.32.0",
     "globals": "^15.14.0",
-    "husky": "^9.1.7"
+    "husky": "^9.1.7",
+    "wrangler": "^3.99.0"
   },
   "lockfileVersion": 9
 }

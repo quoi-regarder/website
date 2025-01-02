@@ -25,7 +25,8 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/fonts',
     '@nuxt/ui',
-    '@nuxtjs/seo'
+    '@nuxtjs/seo',
+    '@nuxthub/core'
   ],
 
   // Environment variables
@@ -92,6 +93,12 @@ export default defineNuxtConfig({
     serviceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
 
     redirect: false
+  },
+
+  // NuxtHub configuration
+  hub: {
+    analytics: true,
+    cache: true
   },
 
   compatibilityDate: '2024-12-29'

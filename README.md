@@ -27,9 +27,9 @@ Start the development server on `http://localhost:3000`:
 pnpm dev
 ```
 
-## Deploy to Vercel
+## Deploy to NuxtHub
 
-This project is set up to be deployed to [Vercel](https://vercel.com/).
+This project is hosted on [NuxtHub](https://admin.hub.nuxt.com/). The `main` branch is automatically
 
 ### Command to push to main branch
 

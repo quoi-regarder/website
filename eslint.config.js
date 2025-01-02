@@ -23,7 +23,8 @@ export default [
       '**/.output',
       '**/*.lock.yaml',
       '**/*.json',
-      '**/supabase/**'
+      '**/supabase/**',
+      '**/dist/**'
     ]
   },
   ...compat.extends(
