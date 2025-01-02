@@ -49,6 +49,8 @@ export function useProfileChannel () {
   }
 
   onMounted(() => {
+    if (!user.value) return
+
     fetchProfile().then(
       () => {
         setupChannel()
