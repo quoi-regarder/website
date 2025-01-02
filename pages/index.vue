@@ -117,6 +117,7 @@
           'min-h-0 opacity-0 invisible': !moreFilters
         }"
         class="flex w-full gap-4 p-4 overflow-hidden transition-all duration-1000 ease-in-out"
+        @transitionend="handleTransitionEnd"
       >
         <div class="flex flex-col gap-4 items-center justify-center w-3/5">
           <HomeType @update:selected-types="selectedTypes = $event" />
@@ -198,6 +199,12 @@ const toggleMoreFilters = () => {
   setTimeout(() => {
     const scrollTarget = moreFilters.value ? document.body.scrollHeight : 0
     window.scrollTo({ top: scrollTarget, behavior: 'smooth' })
-  }, 1)
+  }, 10)
+}
+
+const handleTransitionEnd = () => {
+  if (!moreFilters.value) {
+    moreFiltersTransition.value = false
+  }
 }
 </script>

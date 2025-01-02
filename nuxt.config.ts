@@ -79,8 +79,9 @@ export default defineNuxtConfig({
 
   // Color mode configuration
   colorMode: {
-    preference: 'light',
-    fallback: 'light'
+    preference: 'system',
+    fallback: 'system',
+    storage: 'cookie'
   },
 
   // Supabase configuration
