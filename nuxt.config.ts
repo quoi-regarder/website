@@ -77,13 +77,6 @@ export default defineNuxtConfig({
     }
   },
 
-  // Icon configuration
-  icon: {
-    serverBundle: {
-      collections: ['heroicons', 'logos', 'material-symbols']
-    }
-  },
-
   // Color mode configuration
   colorMode: {
     preference: 'system',
