@@ -67,7 +67,7 @@
 </template>
 
 <script lang="ts" setup>
-import { AuthError } from '@supabase/auth-js'
+import type { AuthError } from '@supabase/auth-js'
 
 const client = useSupabaseClient()
 const { state, schema } = useLoginForm()

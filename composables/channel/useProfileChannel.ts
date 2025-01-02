@@ -1,4 +1,4 @@
-import { RealtimeChannel } from '@supabase/channel-js'
+import type { RealtimeChannel } from '@supabase/channel-js'
 
 export function useProfileChannel () {
   const client = useSupabaseClient()
@@ -13,7 +13,7 @@ export function useProfileChannel () {
     try {
       const manager = new QueryParamsManager(`/api/profiles/${user.value.id}`)
 
-      profile.value = await $fetch(manager.toString(), {
+      profile.value = await useFetch(manager.toString(), {
         method: 'GET'
       })
       navigateTo(switchLocalePath(profile.value?.language as string))

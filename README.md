@@ -29,7 +29,7 @@ pnpm dev
 
 ## Deploy to NuxtHub
 
-This project is hosted on [NuxtHub](https://admin.hub.nuxt.com/). The `main` branch is automatically
+This project is hosted on [NuxtHub](https://admin.hub.nuxt.com/).
 
 ### Command to push to main branch
 
@@ -39,6 +39,14 @@ git pull --rebase origin develop
 git push origin main
 
 git checkout develop
+```
+
+### Command to deploy to NuxtHub
+
+- Make sure you are on the `main` branch and you installed the NuxtHub CLI. Then run:
+
+```bash
+npx nuxthub deploy
 ```
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
