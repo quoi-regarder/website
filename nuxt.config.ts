@@ -24,7 +24,8 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@nuxt/image',
     '@nuxt/fonts',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    '@nuxtjs/seo'
   ],
 
   // Environment variables
