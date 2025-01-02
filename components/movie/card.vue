@@ -6,12 +6,12 @@
     <NuxtImg
       :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
       :alt="`${movie.title} poster`"
-      class="rounded-lg shadow-xl w-full laptop:w-1/3 desktop:w-1/4 fullhd:w-1/3"
+      class="rounded-lg shadow-xl w-full tablet:w-1/2 laptop:w-1/3"
     />
 
     <!-- Movie Details -->
     <div
-      class="grid grid-cols-3 gap-4 w-full laptop:w-2/3 pr-4 mt-6 laptop:mt-0 h-auto max-h-[calc((1/3)*100vw)] laptop:max-h-[calc((1/4)*100vw)] overflow-y-auto"
+      class="grid grid-cols-3 gap-4 auto-rows-min w-full laptop:w-2/3 pr-4 mt-6 laptop:mt-0 h-[600px] max-h-[600px] tablet:h-96 tablet:max-h-96 laptop:max-h-[calc((1/3)*100vw)] overflow-y-auto"
     >
       <div v-for="(field, index) in movieDetails" :key="index" class="contents">
         <!-- Label -->

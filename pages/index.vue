@@ -48,7 +48,7 @@
         >
           <template #default="{ item }">
             <div
-              class="mx-auto w-[98%] h-fit laptop:w-4/5 desktop:w-2/3 fullhd:w-1/2 flex flex-col items-start"
+              class="mx-auto w-[98%] h-fit tablet:w-10/12 laptop:w-4/5 desktop:w-2/3 fullhd:w-1/2 flex flex-col items-start"
             >
               <MovieCard :genres="allGenres" :movie="item" />
             </div>
@@ -57,7 +57,7 @@
             <UButton
               :disabled="disabled"
               :ui="{ rounded: 'rounded-full' }"
-              class="absolute right-2 top-[calc(3/2*100vw-1rem)] laptop:top-1/2"
+              class="absolute right-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
               icon="i-heroicons-chevron-right"
               variant="soft"
               @click="onClick"
@@ -67,7 +67,7 @@
             <UButton
               :disabled="disabled"
               :ui="{ rounded: 'rounded-full' }"
-              class="absolute left-2 top-[calc(3/2*100vw-1rem)] laptop:top-1/2"
+              class="absolute left-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
               icon="i-heroicons-chevron-left"
               variant="soft"
               @click="onClick"

@@ -85,7 +85,7 @@
 <script lang="ts" setup>
 const client = useSupabaseClient()
 const user = useSupabaseUser()
-const { t, locales, locale } = useI18n()
+const { t, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
 const localePath = useLocalePath()
 const { profile } = useProfileChannel()
@@ -160,8 +160,8 @@ const logout = async () => {
 const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
   navigateTo(switchLocalePath(locale))
 
+  if (!user.value) return
   const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/language`)
-
   await $fetch(manager.toString(), {
     method: 'PUT',
     body: {
@@ -175,8 +175,8 @@ const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
 const updateColorMode = async (mode: Tables<Enums<'color_mode_type'>>) => {
   colorMode.preference = mode
 
+  if (!user.value) return
   const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/color-mode`)
-
   await $fetch(manager.toString(), {
     method: 'PUT',
     body: {
