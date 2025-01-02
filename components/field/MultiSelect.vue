@@ -3,16 +3,16 @@
     <UFormGroup :help="hint" :name="name" class="min-w-80 tablet:min-w-96 text-justify" size="xl">
       <USelectMenu
         v-model="labels"
-        by="id"
         :creatable="canCreate"
         :options="options"
-        option-attribute="name"
         :placeholder="placeholder"
         :searchable-placeholder="$t('multiSelect.search')"
         :ui="{ rounded: 'rounded-2xl' }"
+        by="id"
         class="w-80"
         clear-search-on-close
         multiple
+        option-attribute="name"
         searchable
       >
         <template #label>

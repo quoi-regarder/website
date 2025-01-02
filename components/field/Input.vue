@@ -1,6 +1,6 @@
 <template>
   <UFormGroup
-    :hint="required ? undefined : $t('common.hint.optional')"
+    :hint="required || !displayHint ? undefined : $t('common.hint.optional')"
     :label="label"
     :name="name"
     :required="required"
@@ -46,6 +46,10 @@ const props = defineProps({
   disabled: {
     type: Boolean,
     default: false
+  },
+  displayHint: {
+    type: Boolean,
+    default: true
   },
   type: {
     type: String as PropType<'email' | 'password' | 'input' | 'tel' | 'number'>,

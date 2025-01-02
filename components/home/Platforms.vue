@@ -31,7 +31,10 @@ watch(selectedPlatforms, (value) => {
 onMounted(async () => {
   const { locale } = useI18n()
 
-  const res = await $fetch(`/api/themoviedb/watch/providers/movie?language=${locale.value}`)
+  const manager = new QueryParamsManager('/api/themoviedb/watch/providers/movie')
+  manager.add('language', locale.value)
+
+  const res = await $fetch(manager.toString())
 
   res?.results?.forEach((platform: any) => {
     platforms.value.push({

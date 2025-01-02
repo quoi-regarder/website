@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="auth" :show-divider="true" :show-oauth-divider="true">
+  <NuxtLayout :show-divider="true" :show-oauth-divider="true" name="auth">
     <template #title>
       {{ $t('login.title') }}
     </template>
@@ -45,20 +45,20 @@
 
     <template #links>
       <ULink
-        class="hover:text-primary transition-colors duration-200 underline"
         :to="localePath('/auth/forgot-password')"
+        class="hover:text-primary transition-colors duration-200 underline"
       >
         {{ $t('login.form.buttons.forgotPassword') }}
       </ULink>
       <ULink
-        class="hover:text-primary transition-colors duration-200 underline"
         :to="localePath('/auth/signup')"
+        class="hover:text-primary transition-colors duration-200 underline"
       >
         {{ $t('login.form.buttons.signup') }}
       </ULink>
       <ULink
-        class="hover:text-primary transition-colors duration-200 underline"
         :to="localePath('/')"
+        class="hover:text-primary transition-colors duration-200 underline"
       >
         {{ $t('login.form.buttons.home') }}
       </ULink>

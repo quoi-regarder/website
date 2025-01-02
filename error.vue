@@ -8,7 +8,7 @@
     <p class="text-lg text-gray-600 mb-6 dark:text-gray-200">
       {{ $t('error.message') }}
     </p>
-    <UButton :label="$t('error.buttons.home')" size="xl" :to="localePath('/')" />
+    <UButton :label="$t('error.buttons.home')" :to="localePath('/')" size="xl" />
   </div>
 </template>
 

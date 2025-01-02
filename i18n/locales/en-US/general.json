@@ -84,13 +84,11 @@
   "home": {
     "form": {
       "buttons": {
-        "search": "Search"
+        "search": "Search",
+        "moreFilters": "More filters"
       },
       "fields": {
-        "search": "Search for a movie"
-      },
-      "placeholders": {
-        "search": "Search for a movie"
+        "search": "Search by keyword"
       }
     }
   },
@@ -100,6 +98,14 @@
     "buttons": {
       "home": "Home"
     }
+  },
+  "movie": {
+    "title": "Title",
+    "release_date": "Release Date",
+    "vote_average": "Rating",
+    "overview": "Overview",
+    "genres": "Genres",
+    "vote_count": "Number of votes: {count}"
   },
   "navbar": {
     "dropdown": {

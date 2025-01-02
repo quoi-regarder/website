@@ -50,7 +50,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      color_mode_type: 'light' | 'dark'
+      color_mode_type: 'light' | 'dark' | 'system'
       language_type: 'fr-FR' | 'en-US'
     }
     CompositeTypes: {

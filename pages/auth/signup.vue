@@ -1,5 +1,5 @@
 <template>
-  <NuxtLayout name="auth" :show-divider="true" :show-oauth-divider="true" :dual-column="true">
+  <NuxtLayout :dual-column="true" :show-divider="true" :show-oauth-divider="true" name="auth">
     <template #title>
       {{ $t('signup.title') }}
     </template>
@@ -81,14 +81,14 @@
 
     <template #links>
       <ULink
-        class="hover:text-primary transition-colors duration-200 underline"
         :to="localPath('/auth/login')"
+        class="hover:text-primary transition-colors duration-200 underline"
       >
         {{ $t('signup.form.buttons.login') }}
       </ULink>
       <ULink
-        class="hover:text-primary transition-colors duration-200 underline"
         :to="localPath('/')"
+        class="hover:text-primary transition-colors duration-200 underline"
       >
         {{ $t('signup.form.buttons.home') }}
       </ULink>

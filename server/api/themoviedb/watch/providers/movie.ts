@@ -1,19 +1,19 @@
-import { useAxios } from '@vueuse/integrations/useAxios'
-import axiosClient from '../../axiosClient'
-import { formatLanguageToString } from '~/utils/formatLanguageToString'
-
 export default defineEventHandler(async (event) => {
+  const { tmdbBaseUrl } = useRuntimeConfig()
   const { language } = getQuery(event)
 
-  const url = `/watch/providers/movie?language=${language}&watch_region=${formatLanguageToString(language)}`
-
-  const res = await useAxios(
-    url,
-    {
-      method: 'GET'
-    },
-    axiosClient
-  )
-
-  return res.data.value
+  try {
+    return await tmdbFetch('3/watch/providers/movie', {
+      params: {
+        language,
+        watch_region: formatLanguageToString(language as string)
+      }
+    })
+  } catch (error) {
+    console.error('Error fetching data from TMDB:', error)
+    throw createError({
+      statusCode: 500,
+      message: 'Failed to fetch data from TMDB API'
+    })
+  }
 })

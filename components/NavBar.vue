@@ -3,9 +3,9 @@
     <div class="flex mx-8 justify-between items-center py-4">
       <div class="flex items-center">
         <ULink
+          :to="localePath('/')"
           active-class="text-primary underline"
           class="hover:text-primary transition-colors duration-200"
-          :to="localePath('/')"
         >
           {{ $t('navbar.buttons.home') }}
         </ULink>
@@ -26,7 +26,7 @@
 
           <UDropdown :items="localItems" :popper="{ arrow: true }">
             <UTooltip :text="$t('navbar.tooltips.locale')">
-              <UIcon name="i-heroicons-globe-alt" class="text-primary size-6" />
+              <UIcon class="text-primary size-6" name="i-heroicons-globe-alt" />
             </UTooltip>
 
             <template #item="{ item }">
@@ -160,7 +160,9 @@ const logout = async () => {
 const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
   navigateTo(switchLocalePath(locale))
 
-  await $fetch(`/api/profiles/${user.value?.id}/language`, {
+  const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/language`)
+
+  await $fetch(manager.toString(), {
     method: 'PUT',
     body: {
       language: locale
@@ -173,7 +175,9 @@ const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
 const updateColorMode = async (mode: Tables<Enums<'color_mode_type'>>) => {
   colorMode.preference = mode
 
-  await $fetch(`/api/profiles/${user.value?.id}/color-mode`, {
+  const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/color-mode`)
+
+  await $fetch(manager.toString(), {
     method: 'PUT',
     body: {
       color_mode: mode

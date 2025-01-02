@@ -54,8 +54,8 @@
       <UButton
         :label="$t('profile.form.buttons.deleteAccount')"
         color="black"
-        variant="outline"
         size="lg"
+        variant="outline"
         @click="isDeleteAccountModalOpen = true"
       />
     </div>
@@ -68,11 +68,11 @@
               {{ $t('profile.modals.deleteAccount.title') }}
             </h3>
             <UButton
-              color="gray"
-              variant="soft"
-              icon="i-heroicons-x-mark-solid"
               class="-my-1"
+              color="gray"
+              icon="i-heroicons-x-mark-solid"
               size="lg"
+              variant="soft"
               @click="isDeleteAccountModalOpen = false"
             />
           </div>
@@ -89,8 +89,8 @@
             <UButton
               :label="$t('profile.modals.deleteAccount.buttons.cancel')"
               color="gray"
-              variant="outline"
               size="lg"
+              variant="outline"
               @click="isDeleteAccountModalOpen = false"
             />
             <UButton
@@ -124,7 +124,8 @@ definePageMeta({
 
 onMounted(async () => {
   try {
-    const profile = await $fetch<Tables<'profiles'>>(`/api/profiles/${user.value?.id}`, {
+    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
+    const profile = await $fetch<Tables<'profiles'>>(manager.toString(), {
       method: 'GET'
     })
     setState(profile)
@@ -138,7 +139,8 @@ onMounted(async () => {
 
 const onSubmit = async () => {
   try {
-    await $fetch(`/api/profiles/${user.value?.id}`, {
+    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
+    await $fetch(manager.toString(), {
       method: 'PUT',
       body: state
     })
@@ -160,7 +162,8 @@ const handleAvatarChange = async (file: File) => {
     formData.append('file', file)
 
     if (file === null) {
-      await $fetch(`/api/profiles/${user.value?.id}/avatar`, {
+      const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
+      await $fetch(manager.toString(), {
         method: 'DELETE'
       })
 
@@ -169,7 +172,8 @@ const handleAvatarChange = async (file: File) => {
         t('profile.toasts.success.avatarRemoved')
       )
     } else {
-      await $fetch(`/api/profiles/${user.value?.id}/avatar`, {
+      const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
+      await $fetch(manager.toString(), {
         method: 'POST',
         body: formData
       })
@@ -180,7 +184,8 @@ const handleAvatarChange = async (file: File) => {
       )
     }
 
-    const profile = await $fetch<Tables<'profiles'>>(`/api/profiles/${user.value?.id}`, {
+    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
+    const profile = await $fetch<Tables<'profiles'>>(manager.toString(), {
       method: 'GET'
     })
 
@@ -195,7 +200,9 @@ const handleAvatarChange = async (file: File) => {
 
 const handleDeleteAccount = async () => {
   try {
-    await $fetch(`/api/profiles/${user.value?.id}`, {
+    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
+
+    await $fetch(manager.toString(), {
       method: 'DELETE'
     })
     await client.auth.signOut()
