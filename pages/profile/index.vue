@@ -125,7 +125,7 @@ definePageMeta({
 onMounted(async () => {
   try {
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    const profile = await $fetch<Tables<'profiles'>>(manager.toString(), {
+    const profile = await useFetch<Tables<'profiles'>>(manager.toString(), {
       method: 'GET'
     })
     setState(profile)
@@ -140,7 +140,7 @@ onMounted(async () => {
 const onSubmit = async () => {
   try {
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    await $fetch(manager.toString(), {
+    await useFetch(manager.toString(), {
       method: 'PUT',
       body: state
     })
@@ -163,7 +163,7 @@ const handleAvatarChange = async (file: File) => {
 
     if (file === null) {
       const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
-      await $fetch(manager.toString(), {
+      await useFetch(manager.toString(), {
         method: 'DELETE'
       })
 
@@ -173,7 +173,7 @@ const handleAvatarChange = async (file: File) => {
       )
     } else {
       const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
-      await $fetch(manager.toString(), {
+      await useFetch(manager.toString(), {
         method: 'POST',
         body: formData
       })
@@ -185,7 +185,7 @@ const handleAvatarChange = async (file: File) => {
     }
 
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    const profile = await $fetch<Tables<'profiles'>>(manager.toString(), {
+    const profile = await useFetch<Tables<'profiles'>>(manager.toString(), {
       method: 'GET'
     })
 
@@ -202,7 +202,7 @@ const handleDeleteAccount = async () => {
   try {
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
 
-    await $fetch(manager.toString(), {
+    await useFetch(manager.toString(), {
       method: 'DELETE'
     })
     await client.auth.signOut()

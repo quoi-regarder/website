@@ -91,7 +91,7 @@
               @update:genres="allGenres = $event"
             />
           </div>
-          <div class="border-r-2 border-gray-200 dark:border-gray-500"></div>
+          <div class="border-r-2 border-gray-200 dark:border-gray-500" />
           <div class="flex flex-col gap-4 items-center justify-center w-2/5">
             <HomePlatforms @update:selected-platforms="selectedPlatforms = $event" />
             <HomeMark @update:selected-mark="selectedMark = $event" />
@@ -124,7 +124,7 @@
           <HomeAge @update:selected-ages="selectedAges = $event" />
           <HomeFilter @update:selected-filter="selectedFilter = $event" />
         </div>
-        <div class="border-r-2 border-gray-200 dark:border-gray-500"></div>
+        <div class="border-r-2 border-gray-200 dark:border-gray-500" />
         <div class="flex flex-col gap-4 items-center justify-center w-2/5">
           <HomeYear @update:selected-years="selectedYears = $event" />
           <HomeDirector @update:selected-directors="selectedDirectors = $event" />

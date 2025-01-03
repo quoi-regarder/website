@@ -1,19 +1,14 @@
 <template>
-  <html>
+  <div>
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>
 
     <UNotifications />
-
-    <Analytics />
-    <SpeedInsights />
-  </html>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { Analytics } from '@vercel/analytics/nuxt'
-import { SpeedInsights } from '@vercel/speed-insights/nuxt'
 const { t } = useI18n()
 
 useHead({

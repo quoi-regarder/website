@@ -1,7 +1,15 @@
 <template>
   <div>
     <div class="flex mx-8 justify-between items-center py-4">
-      <div class="flex items-center">
+      <div class="flex items-center space-x-4">
+        <NuxtImg
+          src="/favicon.png"
+          alt="Logo"
+          width="40"
+          height="40"
+          class="cursor-pointer"
+          @click="navigateTo(localePath('/'))"
+        />
         <ULink
           :to="localePath('/')"
           active-class="text-primary underline"
@@ -162,7 +170,7 @@ const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
 
   if (!user.value) return
   const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/language`)
-  await $fetch(manager.toString(), {
+  await useFetch(manager.toString(), {
     method: 'PUT',
     body: {
       language: locale
@@ -177,7 +185,7 @@ const updateColorMode = async (mode: Tables<Enums<'color_mode_type'>>) => {
 
   if (!user.value) return
   const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/color-mode`)
-  await $fetch(manager.toString(), {
+  await useFetch(manager.toString(), {
     method: 'PUT',
     body: {
       color_mode: mode

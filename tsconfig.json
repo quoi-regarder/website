@@ -16,11 +16,6 @@
     "strict": true,
     "noEmit": true,
     "baseUrl": ".",
-    "types": [
-      "@types/node",
-      "@nuxt/types",
-      "@nuxtjs/i18n"
-    ]
   },
   "exclude": [
     "node_modules"

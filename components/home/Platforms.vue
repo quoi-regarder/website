@@ -22,25 +22,22 @@
 const emit = defineEmits(['update:selectedPlatforms'])
 
 const selectedPlatforms = ref<Option[]>([])
-const platforms = ref<Option[]>([])
+const { locale } = useI18n()
+
+const manager = new QueryParamsManager('/api/themoviedb/watch/providers/movie')
+manager.add('language', locale.value)
+
+const { data, error } = useFetch(manager.toString())
+
+const platforms = computed(
+  () =>
+    data.value?.results?.map((platform: any) => ({
+      id: platform.provider_id,
+      name: platform.provider_name
+    })) || []
+)
 
 watch(selectedPlatforms, (value) => {
   emit('update:selectedPlatforms', value)
-})
-
-onMounted(async () => {
-  const { locale } = useI18n()
-
-  const manager = new QueryParamsManager('/api/themoviedb/watch/providers/movie')
-  manager.add('language', locale.value)
-
-  const res = await $fetch(manager.toString())
-
-  res?.results?.forEach((platform: any) => {
-    platforms.value.push({
-      id: platform.provider_id,
-      name: platform.provider_name
-    })
-  })
 })
 </script>

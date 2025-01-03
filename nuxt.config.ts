@@ -14,7 +14,33 @@ export default defineNuxtConfig({
     head: {
       titleTemplate: 'Quoi Regarder? | %s',
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1'
+      viewport: 'width=device-width, initial-scale=1',
+      link: [
+        {
+          rel: 'icon',
+          type: 'image/png',
+          href: '/favicon-96x96.png',
+          sizes: '96x96'
+        },
+        {
+          rel: 'icon',
+          type: 'image/svg+xml',
+          href: '/favicon.svg'
+        },
+        {
+          rel: 'shortcut icon',
+          href: '/favicon.ico'
+        },
+        {
+          rel: 'apple-touch-icon',
+          sizes: '180x180',
+          href: '/apple-touch-icon.png'
+        },
+        {
+          rel: 'manifest',
+          href: '/site.webmanifest'
+        }
+      ]
     }
   },
 
@@ -25,7 +51,9 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxt/fonts',
     '@nuxt/ui',
-    '@nuxtjs/seo'
+    '@nuxtjs/seo',
+    '@nuxt/eslint',
+    '@nuxthub/core'
   ],
 
   // Environment variables
@@ -92,6 +120,12 @@ export default defineNuxtConfig({
     serviceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
 
     redirect: false
+  },
+
+  // NuxtHub configuration
+  hub: {
+    analytics: true,
+    cache: true
   },
 
   compatibilityDate: '2024-12-29'
