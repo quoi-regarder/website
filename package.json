@@ -30,6 +30,7 @@
     "@nuxt/fonts": "0.10.3",
     "@nuxt/icon": "1.10.3",
     "@nuxt/image": "1.8.1",
+    "@nuxt/scripts": "0.9.5",
     "@nuxt/ui": "^2.20.0",
     "@nuxthub/core": "0.8.10",
     "@nuxtjs/i18n": "9.1.1",
