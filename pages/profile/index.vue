@@ -1,8 +1,8 @@
 <template>
-  <ClientOnly>
+  <div>
     <UForm :schema="schema" :state="state" @submit="onSubmit">
       <div class="flex justify-center">
-        <field-avatar
+        <LazyFieldAvatar
           v-model="state.avatar_url"
           :label="$t('profile.form.fields.avatar')"
           name="avatar"
@@ -12,14 +12,14 @@
 
       <div class="grid grid-cols-2 mt-8">
         <div class="w-2/3 mx-auto">
-          <field-input
+          <LazyFieldInput
             v-model="state.last_name as string"
             :label="$t('profile.form.fields.lastName')"
             :placeholder="$t('profile.form.placeholders.lastName')"
             name="lastName"
           />
 
-          <field-input
+          <LazyFieldInput
             v-model="state.first_name as string"
             :label="$t('profile.form.fields.firstName')"
             :placeholder="$t('profile.form.placeholders.firstName')"
@@ -27,7 +27,7 @@
           />
         </div>
         <div class="w-2/3 mx-auto">
-          <field-input
+          <LazyFieldInput
             v-model="state.username"
             :label="$t('profile.form.fields.username')"
             :placeholder="$t('profile.form.placeholders.username')"
@@ -35,7 +35,7 @@
             required
           />
 
-          <field-input
+          <LazyFieldInput
             v-model="state.email as string"
             :label="$t('profile.form.fields.email')"
             :placeholder="$t('profile.form.placeholders.email')"
@@ -103,7 +103,7 @@
         </template>
       </UCard>
     </UModal>
-  </ClientOnly>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -125,7 +125,7 @@ definePageMeta({
 onMounted(async () => {
   try {
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    const profile = await useFetch<Tables<'profiles'>>(manager.toString(), {
+    const profile = await $fetch(manager.toString(), {
       method: 'GET'
     })
     setState(profile)
@@ -140,7 +140,7 @@ onMounted(async () => {
 const onSubmit = async () => {
   try {
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    await useFetch(manager.toString(), {
+    await $fetch(manager.toString(), {
       method: 'PUT',
       body: state
     })
@@ -163,7 +163,7 @@ const handleAvatarChange = async (file: File) => {
 
     if (file === null) {
       const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
-      await useFetch(manager.toString(), {
+      await $fetch(manager.toString(), {
         method: 'DELETE'
       })
 
@@ -173,7 +173,7 @@ const handleAvatarChange = async (file: File) => {
       )
     } else {
       const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
-      await useFetch(manager.toString(), {
+      await $fetch(manager.toString(), {
         method: 'POST',
         body: formData
       })
@@ -185,7 +185,7 @@ const handleAvatarChange = async (file: File) => {
     }
 
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    const profile = await useFetch<Tables<'profiles'>>(manager.toString(), {
+    const profile = await $fetch(manager.toString(), {
       method: 'GET'
     })
 
@@ -202,7 +202,7 @@ const handleDeleteAccount = async () => {
   try {
     const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
 
-    await useFetch(manager.toString(), {
+    await $fetch(manager.toString(), {
       method: 'DELETE'
     })
     await client.auth.signOut()

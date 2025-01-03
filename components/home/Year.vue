@@ -7,12 +7,12 @@
         </h3>
       </div>
       <div class="w-full flex items-center gap-4">
-        <field-multi-select
+        <LazyFieldMultiSelect
           :hint="$t('year.hint')"
           :options="years"
           :placeholder="$t('year.placeholder')"
           name="year"
-          @update:model-value="selectedYears = $event"
+          @update:model-value="emit('update:selectedYears', $event)"
         />
       </div>
     </div>
@@ -20,18 +20,29 @@
 </template>
 
 <script lang="ts" setup>
-const emit = defineEmits(['update:selected-years'])
+const years = ref<Option[]>([])
 
-const selectedYears = ref<Option[]>([])
-
-watch(selectedYears, (value) => {
-  emit('update:selected-years', value)
+const emit = defineEmits({
+  'update:selectedYears': {
+    type: Function as PropType<(years: Option[]) => void>,
+    required: true
+  },
+  'update:years': {
+    type: Array as PropType<Option[]>,
+    required: false
+  }
 })
 
-const years = ref<Option[]>(
-  Array.from({ length: new Date().getFullYear() - 1894 }, (_, i) => ({
+onMounted(async () => {
+  await fetchYears()
+})
+
+const fetchYears = async () => {
+  years.value = Array.from({ length: new Date().getFullYear() - 1894 }, (_, i) => ({
     id: i,
     name: (new Date().getFullYear() - i).toString()
   }))
-)
+
+  emit('update:years', years.value)
+}
 </script>

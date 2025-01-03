@@ -7,13 +7,13 @@
         </h3>
       </div>
       <div class="w-full flex items-center gap-4">
-        <field-multi-select
+        <LazyFieldMultiSelect
           :can-create="true"
           :options="directors"
           :placeholder="$t('director.placeholder')"
           name="director"
-          @update:model-value="selectedDirectors = $event"
-          @update:add-option="directors.push($event)"
+          @update:model-value="emit('update:selectedDirectors', $event)"
+          @update:add-option="addDirector"
         />
       </div>
     </div>
@@ -21,24 +21,39 @@
 </template>
 
 <script lang="ts" setup>
-const emit = defineEmits(['update:selected-directors'])
+const directors = ref<Option[]>([])
 
-const selectedDirectors = ref<Option[]>([])
-
-watch(selectedDirectors, (value) => {
-  emit('update:selected-directors', value)
+const emit = defineEmits({
+  'update:selectedDirectors': {
+    type: Function as PropType<(directors: Option[]) => void>,
+    required: true
+  },
+  'update:directors': {
+    type: Array as PropType<Option[]>,
+    required: false
+  }
 })
 
-// TODO: Fetch directors from the API
-const directors = ref<Option[]>([
-  { id: 1, name: 'Director 1' },
-  { id: 2, name: 'Director 2' },
-  { id: 3, name: 'Director 3' },
-  { id: 4, name: 'Director 4' },
-  { id: 5, name: 'Director 5' },
-  { id: 6, name: 'Director 6' },
-  { id: 7, name: 'Director 7' },
-  { id: 8, name: 'Director 8' },
-  { id: 9, name: 'Director 9' }
-])
+onMounted(async () => {
+  await fetchDirectors()
+})
+
+const fetchDirectors = async () => {
+  directors.value = [
+    { id: 1, name: 'Christopher Nolan' },
+    { id: 2, name: 'David Fincher' },
+    { id: 3, name: 'Quentin Tarantino' },
+    { id: 4, name: 'Martin Scorsese' },
+    { id: 5, name: 'Steven Spielberg' },
+    { id: 6, name: 'Stanley Kubrick' }
+  ]
+
+  emit('update:directors', directors.value)
+}
+
+const addDirector = (director: Option) => {
+  directors.value.push(director)
+
+  emit('update:directors', directors.value)
+}
 </script>
