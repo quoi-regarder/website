@@ -205,7 +205,7 @@
     "search": "Search...",
     "selected": "No items selected | {count} item selected | {count} items selected",
     "noResults": "No results found for \"{query}\".",
-    "create": "Create \"{name}\"",
+    "create": "Create \"{name}\".",
     "noOptions": "No options available."
   },
   "platforms": {

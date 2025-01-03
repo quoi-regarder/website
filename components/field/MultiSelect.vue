@@ -30,7 +30,7 @@
         </template>
         <template #option-create="{ option }">
           <p class="text-gray-500">
-            {{ $t('multiSelect.create', { name: option.label }) }}
+            {{ $t('multiSelect.create', { name: option.name }) }}
           </p>
         </template>
         <template #empty>
@@ -80,13 +80,18 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'update:addOption'])
+const emit = defineEmits({
+  'update:modelValue': {
+    type: Function as PropType<(value: Option[]) => void>,
+    required: true
+  },
+  'update:addOption': {
+    type: Function as PropType<(option: Option) => void>,
+    required: false
+  }
+})
 
 const selected = ref<Option[]>([])
-
-watch(selected, (newSelected) => {
-  emit('update:modelValue', newSelected)
-})
 
 const labels = computed({
   get: () => selected.value,
@@ -97,7 +102,7 @@ const labels = computed({
       }
 
       const res: Option = {
-        id: props.options.length,
+        id: props.options.length + 1,
         name: val.name
       }
 
@@ -107,6 +112,7 @@ const labels = computed({
     })
 
     selected.value = await Promise.all(promises)
+    emit('update:modelValue', selected.value)
   }
 })
 

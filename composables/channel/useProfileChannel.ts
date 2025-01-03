@@ -13,11 +13,9 @@ export function useProfileChannel () {
     try {
       const manager = new QueryParamsManager(`/api/profiles/${user.value.id}`)
 
-      profile.value = await useFetch(manager.toString(), {
+      profile.value = await $fetch(manager.toString(), {
         method: 'GET'
       })
-      navigateTo(switchLocalePath(profile.value?.language as string))
-      colorMode.preference = profile.value?.color_mode as string
     } catch (error: any) {
       console.error('Error fetching profile:', error)
     }
@@ -53,6 +51,8 @@ export function useProfileChannel () {
 
     fetchProfile().then(
       () => {
+        navigateTo(switchLocalePath(profile.value?.language as string))
+        colorMode.preference = profile.value?.color_mode as string
         setupChannel()
       },
       (error) => {
