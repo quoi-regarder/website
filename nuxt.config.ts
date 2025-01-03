@@ -53,7 +53,8 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     '@nuxtjs/seo',
     '@nuxt/eslint',
-    '@nuxthub/core'
+    '@nuxthub/core',
+    '@nuxt/scripts'
   ],
 
   // Environment variables
@@ -126,6 +127,17 @@ export default defineNuxtConfig({
   hub: {
     analytics: true,
     cache: true
+  },
+
+  // Google analytics configuration
+  $production: {
+    scripts: {
+      registry: {
+        googleAnalytics: {
+          id: 'G-B4CCY2N977'
+        }
+      }
+    }
   },
 
   compatibilityDate: '2024-12-29'
