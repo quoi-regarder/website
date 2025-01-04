@@ -90,6 +90,11 @@
       "fields": {
         "search": "Search by keyword"
       }
+    },
+    "toasts": {
+      "success": {
+        "search": "Search was successful."
+      }
     }
   },
   "error": {

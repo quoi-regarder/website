@@ -84,6 +84,11 @@
       "fields": {
         "search": "Rechercher par mot-clé"
       }
+    },
+    "toasts": {
+      "success": {
+        "search": "La recherche a été effectuée avec succès."
+      }
     }
   },
   "mark": {

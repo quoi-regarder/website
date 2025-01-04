@@ -3,8 +3,8 @@
     <!-- Header -->
     <div
       :class="{
-        'h-[30vh] laptop:h-[15vh]': movies.length > 0,
-        'h-[30vh] tablet:h-[52vh]': movies.length === 0
+        'h-[30vh] laptop:h-[15vh]': showCarousel,
+        'h-[30vh] tablet:h-[52vh]': !showCarousel
       }"
       class="w-full overflow-hidden transition-[height] duration-500 ease-out"
     >
@@ -25,7 +25,7 @@
             class="h-fit tablet:mt-7"
             icon="i-heroicons-magnifying-glass"
             size="xl"
-            @click="searchQuery(page)"
+            @click="searchQuery(true)"
           >
             {{ $t('home.form.buttons.search') }}
           </UButton>
@@ -35,7 +35,7 @@
 
     <!-- Carousel Section -->
     <div
-      :class="{ 'opacity-100 min-h-[78vh]': movies.length > 0, 'opacity-0': movies.length === 0 }"
+      :class="{ 'opacity-100 min-h-[78vh]': showCarousel, 'opacity-0': !showCarousel }"
       class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in"
     >
       <UCarousel
@@ -78,8 +78,8 @@
     <!-- Bottom Section -->
     <div
       :class="{
-        'min-h-[0vh] opacity-100': movies.length > 0,
-        'min-h-[40vh] opacity-100': movies.length === 0
+        'min-h-[0vh] opacity-100': showCarousel,
+        'min-h-[40vh] opacity-100': !showCarousel
       }"
       class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out"
     >
@@ -137,7 +137,7 @@
 </template>
 
 <script lang="ts" setup>
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 
 // Filters state
 const selectedGenres = ref([])
@@ -151,27 +151,38 @@ const selectedDirectors = ref([])
 const selectedActors = ref([])
 
 // Data
+const search = ref('')
 const genres = ref([])
 const platforms = ref([])
+const moreFilters = ref(false)
 
 // Carousel
 const searching = ref(false)
-const movies = ref([])
 const carouselRef = ref()
+const showCarousel = ref(false)
+
+// Transition
+const moreFiltersTransition = ref(false)
+
+// Movies
+const movies = ref([])
+
+// Pagination
 const page = ref(1)
 const totalPages = ref(0)
-const moreFilters = ref(false)
-const moreFiltersTransition = ref(false)
-const search = ref('')
 
 // Méthodes
-const searchQuery = async (newPage) => {
-  if (newPage > totalPages.value && totalPages.value !== 0) return
+const searchQuery = async (reset = false, showToast = true) => {
+  if (reset) {
+    resetSearchState()
+  }
+
+  if (page.value > totalPages.value && totalPages.value !== 0) return
   searching.value = true
+
   try {
     const manager = new QueryParamsManager('/api/themoviedb/discover/movie')
-    manager.add('language', locale.value)
-    manager.add('page', newPage)
+    handleQueryFilters(manager)
 
     const data = await $fetch(manager.toString())
 
@@ -182,7 +193,28 @@ const searchQuery = async (newPage) => {
     console.error('Error fetching movies:', error)
   } finally {
     searching.value = false
+    showCarousel.value = true
+
+    if (showToast) {
+      useNotifications().success(t('common.toasts.title.success'), t('home.toasts.success.search'))
+    }
   }
+}
+
+const resetSearchState = () => {
+  movies.value = []
+  page.value = 1
+  totalPages.value = 0
+  if (carouselRef.value) {
+    carouselRef.value.page = 0
+  }
+}
+
+const handleQueryFilters = (manager: QueryParamsManager) => {
+  manager.add('language', locale.value)
+  manager.add('page', page.value)
+
+  return manager
 }
 
 watch(
@@ -191,7 +223,8 @@ watch(
     if (!carouselRef.value) return
     const isLastPage = currentPage === carouselRef.value.pages - 2
     if (isLastPage && page.value < totalPages.value) {
-      searchQuery(page.value + 1)
+      page.value += 1
+      searchQuery(false, false)
     }
   }
 )
