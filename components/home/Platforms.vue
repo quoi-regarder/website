@@ -11,7 +11,6 @@
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
           :options="platforms"
-          :placeholder="$t('platforms.placeholder')"
           name="platforms"
           class="w-full"
           @update:model-value="emit('update:selectedPlatforms', $event)"

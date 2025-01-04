@@ -1,41 +1,42 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col gap-8">
     <!-- Header -->
     <div
       :class="{
-        'h-[30vh] laptop:h-[15vh]': showCarousel,
-        'h-[30vh] tablet:h-[52vh]': !showCarousel
+        'min-h-[30vh] laptop:min-h-[15vh]': showCarousel,
+        'min-h-[30vh] tablet:min-h-[52vh]': !showCarousel
       }"
-      class="w-full overflow-hidden transition-[height] duration-500 ease-out"
+      class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out"
     >
-      <div class="h-full w-full flex items-center justify-center">
-        <div
-          class="flex flex-col tablet-md:flex-row tablet-md:w-2/3 laptop:w-1/2 desktop:w-1/3 tablet:gap-x-4"
-        >
-          <field-input
-            v-model="search"
-            :display-hint="false"
-            :label="$t('home.form.fields.search')"
-            class="w-full"
-            icon="search"
-            name="search"
-          />
-          <UButton
-            :loading="searching"
-            class="h-fit tablet:mt-7"
-            icon="i-heroicons-magnifying-glass"
-            size="xl"
-            @click="searchQuery(true)"
-          >
-            {{ $t('home.form.buttons.search') }}
-          </UButton>
-        </div>
+      <UButton
+        :loading="searching"
+        class="h-fit tablet-md:mt-[-1rem]"
+        icon="i-heroicons-magnifying-glass"
+        size="xl"
+        @click="searchQuery(true)"
+      >
+        {{ $t('home.form.buttons.search') }}
+      </UButton>
+      <div
+        class="flex flex-col justify-center tablet:gap-x-4 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
+      >
+        <!-- <FieldMultiSelect
+          name="search"
+          :label="$t('home.form.fields.search')"
+          :description="$t('home.form.descriptions.search')"
+          :api-to-fecth="'/api/themoviedb/search/keyword'"
+          :options="selectedKeywords"
+          class="w-full"
+          @update:selected-keywords="console.log($event)"
+        /> -->
+
+        <HomeKeyword class="w-full" @update:selected-keywords="selectedKeywords = $event" />
       </div>
     </div>
 
     <!-- Carousel Section -->
     <div
-      :class="{ 'opacity-100 min-h-[78vh]': showCarousel, 'opacity-0': !showCarousel }"
+      :class="{ 'opacity-100 min-h-[70vh]': showCarousel, 'opacity-0': !showCarousel }"
       class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in"
     >
       <UCarousel
@@ -158,18 +159,18 @@ useHead({
 })
 
 // Filters state
-const selectedGenres = ref([])
-const selectedPlatforms = ref([])
+const selectedKeywords = ref<Badge[]>([])
+const selectedGenres = ref<Badge[]>([])
+const selectedPlatforms = ref<Option[]>([])
+const selectedMark = ref<number>(0)
 const selectedTypes = ref([])
-const selectedAges = ref([])
-const selectedFilter = ref([])
-const selectedMark = ref(1)
+const selectedFilter = ref<Badge[]>([])
+const selectedAges = ref<Badge[]>([])
 const selectedYears = ref([])
 const selectedDirectors = ref([])
 const selectedActors = ref([])
 
 // Data
-const search = ref('')
 const genres = ref([])
 const platforms = ref([])
 const moreFilters = ref(false)
@@ -231,6 +232,46 @@ const resetSearchState = () => {
 const handleQueryFilters = (manager: QueryParamsManager) => {
   manager.add('language', locale.value)
   manager.add('page', page.value)
+
+  if (selectedKeywords.value.length > 0) {
+    manager.addWithLogic(
+      'with_keywords',
+      selectedKeywords.value.map((keyword) => keyword.id),
+      LogicalOperator.AND
+    )
+  }
+
+  if (selectedGenres.value.length > 0) {
+    manager.addWithLogic(
+      'with_genres',
+      selectedGenres.value.map((genre) => genre.id),
+      LogicalOperator.AND
+    )
+  }
+
+  if (selectedPlatforms.value.length > 0) {
+    manager.addWithLogic(
+      'with_watch_providers',
+      selectedPlatforms.value.map((platform) => platform.id),
+      LogicalOperator.AND
+    )
+  }
+
+  if (selectedMark.value !== 0) {
+    manager.add('vote_average_gte', selectedMark.value)
+  }
+
+  if (selectedFilter.value.length > 0) {
+    manager.add('sort_by', selectedFilter.value[0].id)
+  }
+
+  if (selectedAges.value.length > 0) {
+    manager.addWithLogic(
+      'certification',
+      selectedAges.value.map((age) => age.id),
+      LogicalOperator.AND
+    )
+  }
 
   return manager
 }

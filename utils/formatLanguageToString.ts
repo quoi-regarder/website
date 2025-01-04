@@ -1,10 +1,10 @@
 export const formatLanguageToString = (language: string | undefined) => {
   switch (language) {
     case 'en-US':
-      return 'us'
+      return 'US'
     case 'fr-FR':
-      return 'fr'
+      return 'FR'
     default:
-      return 'en'
+      return 'US'
   }
 }

@@ -28,12 +28,10 @@ onMounted(async () => {
 
 const fetchAges = async () => {
   ages.value = [
-    { id: 1, name: t('age.labels.all'), color: 'yellow', selected: false },
-    { id: 2, name: t('age.labels.ten'), color: 'lime', selected: false },
-    { id: 3, name: t('age.labels.twelve'), color: 'emerald', selected: false },
-    { id: 4, name: t('age.labels.fourteen'), color: 'teal', selected: false },
-    { id: 5, name: t('age.labels.sixteen'), color: 'cyan', selected: false },
-    { id: 6, name: t('age.labels.eighteen'), color: 'sky', selected: false }
+    { id: 10, name: t('age.labels.ten'), color: 'lime', selected: false },
+    { id: 12, name: t('age.labels.twelve'), color: 'emerald', selected: false },
+    { id: 16, name: t('age.labels.sixteen'), color: 'cyan', selected: false },
+    { id: 18, name: t('age.labels.eighteen'), color: 'sky', selected: false }
   ]
 
   emit('update:ages', ages.value)

@@ -1,3 +1,3 @@
-export type ForgotPassword = {
+export interface ForgotPassword {
   email: string
 }

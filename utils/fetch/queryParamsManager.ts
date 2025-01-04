@@ -32,6 +32,38 @@ export class QueryParamsManager {
   }
 
   /**
+   * Adds multiple values to a query parameter with a specified logical operator.
+   * @param key The name of the query parameter.
+   * @param values The list of values to add.
+   * @param operator The logical operator (`AND` or `OR`).
+   */
+  addWithLogic (
+    key: string,
+    values: (string | number | boolean)[],
+    operator: LogicalOperator
+  ): this {
+    if (!Array.isArray(values) || values.length === 0) {
+      throw new Error('Values must be a non-empty array.')
+    }
+
+    switch (operator) {
+      case LogicalOperator.AND:
+        this.url.searchParams.set(key, Array.from(new Set(values.map(String))).join(','))
+        break
+
+      case LogicalOperator.OR:
+        this.url.searchParams.set(key, Array.from(new Set(values.map(String))).join('|'))
+        break
+
+      // Add more cases here for additional operators if needed
+      default:
+        throw new Error(`Unsupported logical operator: ${operator}`)
+    }
+
+    return this
+  }
+
+  /**
    * Replaces all values of a query parameter with a new value.
    * @param key The name of the query parameter.
    * @param value The new value or array of values.

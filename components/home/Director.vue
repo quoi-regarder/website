@@ -12,7 +12,6 @@
         <LazyFieldMultiSelect
           :can-create="true"
           :options="directors"
-          :placeholder="$t('director.placeholder')"
           name="director"
           class="w-full"
           @update:model-value="emit('update:selectedDirectors', $event)"

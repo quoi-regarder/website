@@ -6,10 +6,8 @@
   "age": {
     "title": "Minimum Age",
     "labels": {
-      "all": "All ages",
       "ten": "10 years",
       "twelve": "12 years",
-      "fourteen": "14 years",
       "sixteen": "16 years",
       "eighteen": "18 years"
     }
@@ -89,7 +87,10 @@
         "moreFilters": "More filters"
       },
       "fields": {
-        "search": "Search by keyword"
+        "search": "Keywords"
+      },
+      "descriptions": {
+        "search": "Enter keywords to search for movies, TV shows, documentaries, etc."
       }
     },
     "toasts": {
@@ -111,7 +112,8 @@
     "vote_average": "Rating",
     "overview": "Overview",
     "genres": "Genres",
-    "vote_count": "Number of votes: {count}"
+    "vote_count": "Number of votes: {count}",
+    "no_overview": "No description available."
   },
   "navbar": {
     "dropdown": {
@@ -144,12 +146,34 @@
   "filter": {
     "title": "Sort by",
     "labels": {
-      "popularity": "Popularity",
-      "topRated": "Top Rated",
-      "upcoming": "Upcoming",
-      "nowPlaying": "Now Playing",
-      "latest": "Latest",
-      "oldest": "Oldest"
+      "original_title": {
+        "asc": "Original title (A-Z)",
+        "desc": "Original title (Z-A)"
+      },
+      "popularity": {
+        "asc": "Popularity (Low to High)",
+        "desc": "Popularity (High to Low)"
+      },
+      "revenue": {
+        "asc": "Revenue (Low to High)",
+        "desc": "Revenue (High to Low)"
+      },
+      "primary_release_date": {
+        "asc": "Release Date (Oldest)",
+        "desc": "Release Date (Latest)"
+      },
+      "title": {
+        "asc": "Local title (A-Z)",
+        "desc": "Local title (Z-A)"
+      },
+      "vote_average": {
+        "asc": "Rating (Low to High)",
+        "desc": "Rating (High to Low)"
+      },
+      "vote_count": {
+        "asc": "Number of votes (Low to High)",
+        "desc": "Number of votes (High to Low)"
+      }
     }
   },
   "forgotPassword": {
@@ -213,7 +237,8 @@
     "selected": "No items selected | {count} item selected | {count} items selected",
     "noResults": "No results found for \"{query}\".",
     "create": "Create \"{name}\".",
-    "noOptions": "No options available."
+    "noOptions": "No options available.",
+    "loading": "Start typing to search for items..."
   },
   "platforms": {
     "title": "Streaming Platforms",

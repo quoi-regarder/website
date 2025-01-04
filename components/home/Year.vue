@@ -14,7 +14,6 @@
       <div class="w-full flex items-center">
         <LazyFieldMultiSelect
           :options="years"
-          :placeholder="$t('year.placeholder')"
           name="year"
           class="w-full"
           @update:model-value="emit('update:selectedYears', $event)"

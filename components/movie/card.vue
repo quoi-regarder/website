@@ -57,8 +57,11 @@
           </template>
 
           <template v-else-if="field.type === 'text'">
-            <p class="text-justify">
+            <p v-if="field.value" class="text-justify">
               {{ field.value }}
+            </p>
+            <p v-else class="text-gray-400">
+              {{ $t('movie.no_overview') }}
             </p>
           </template>
         </div>

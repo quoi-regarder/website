@@ -12,7 +12,6 @@
         <LazyFieldMultiSelect
           :can-create="true"
           :options="actors"
-          :placeholder="$t('actor.placeholder')"
           name="actor"
           class="w-full"
           @update:model-value="emit('update:selectedActors', $event)"
