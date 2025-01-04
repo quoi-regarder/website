@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col laptop:flex-row items-center w-full p-4 border-2 border-gray-200 rounded-xl dark:border-gray-500"
+    class="flex flex-col laptop:flex-row items-center w-full h-full p-4 border-2 border-gray-200 rounded-xl dark:border-gray-500"
   >
     <!-- Movie Poster -->
     <NuxtImg
@@ -11,7 +11,7 @@
 
     <!-- Movie Details -->
     <div
-      class="grid grid-cols-3 gap-4 auto-rows-min w-full laptop:w-2/3 pr-4 mt-6 laptop:mt-0 h-[600px] max-h-[600px] tablet:h-96 tablet:max-h-96 laptop:max-h-[calc((1/3)*100vw)] overflow-y-auto"
+      class="grid grid-cols-3 gap-4 auto-rows-min w-full laptop:w-2/3 pr-4 mt-24 laptop:mt-0 h-[600px] overflow-y-auto"
     >
       <div v-for="(field, index) in movieDetails" :key="index" class="contents">
         <!-- Label -->
