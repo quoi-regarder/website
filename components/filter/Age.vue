@@ -2,6 +2,7 @@
   <LazyBadgeList
     :badges="ages"
     :title="$t('age.title')"
+    :hint="$t('age.hint')"
     @update:selected-badges="emit('update:selectedAges', $event)"
   />
 </template>

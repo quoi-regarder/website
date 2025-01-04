@@ -4,7 +4,7 @@
       :name="name"
       :description="description"
       :label="label"
-      class="min-w-80 tablet:min-w-96 text-justify"
+      class="text-justify"
       size="xl"
     >
       <USelectMenu
@@ -19,6 +19,7 @@
         clear-search-on-close
         multiple
         trailing
+        :debounce="200"
         option-attribute="name"
       >
         <template #label>
@@ -57,7 +58,6 @@
         :label="item.name"
         class="cursor-pointer"
         icon="i-heroicons-x-mark-20-solid"
-        size="lg"
         variant="outline"
         @click="unselect(item)"
       />

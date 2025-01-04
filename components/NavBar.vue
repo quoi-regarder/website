@@ -22,7 +22,7 @@
         <ClientOnly>
           <Suspense>
             <UDropdown :items="colorModeItems" :popper="{ arrow: true }">
-              <UTooltip :text="$t('navbar.tooltips.colorMode')">
+              <UTooltip :text="$t('navbar.tooltips.colorMode')" :popper="{ arrow: true }">
                 <UIcon :name="colorModeIcon[colorMode.preference]" class="text-primary size-6" />
               </UTooltip>
 
@@ -34,14 +34,14 @@
           </Suspense>
 
           <template #fallback>
-            <Placeholder classes="size-6" />
+            <USkeleton class="size-6" :ui="{ rounded: 'rounded-full' }" />
           </template>
         </ClientOnly>
 
         <ClientOnly>
           <Suspense>
             <UDropdown :items="localItems" :popper="{ arrow: true }">
-              <UTooltip :text="$t('navbar.tooltips.locale')">
+              <UTooltip :text="$t('navbar.tooltips.locale')" :popper="{ arrow: true }">
                 <UIcon class="text-primary size-6" name="i-heroicons-globe-alt" />
               </UTooltip>
 
@@ -53,7 +53,7 @@
           </Suspense>
 
           <template #fallback>
-            <Placeholder classes="size-6" />
+            <USkeleton class="size-6" :ui="{ rounded: 'rounded-full' }" />
           </template>
         </ClientOnly>
 
@@ -92,7 +92,7 @@
 
           <!-- Login Button -->
           <template v-if="!isLogged">
-            <UTooltip :text="$t('navbar.buttons.login')">
+            <UTooltip :text="$t('navbar.buttons.login')" :popper="{ arrow: true }">
               <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
                 <UAvatar size="lg">
                   <UIcon
@@ -105,7 +105,7 @@
           </template>
 
           <template #fallback>
-            <Placeholder classes="size-12" />
+            <USkeleton class="size-12" :ui="{ rounded: 'rounded-full' }" />
           </template>
         </ClientOnly>
       </div>

@@ -1,28 +1,36 @@
 <template>
   <div class="flex flex-col items-center gap-2 w-full">
     <div
-      class="flex flex-col desktop:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
+      class="flex flex-col laptop-md:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
     >
-      <aside class="flex flex-col w-full desktop:w-1/3">
-        <h3 class="font-bold desktop:text-right text-wrap">{{ title }}</h3>
-        <p class="text-sm desktop:text-justify text-wrap text-gray-500 dark:text-gray-300">
-          {{ hint }}
-        </p>
+      <aside class="flex flex-row laptop-md:flex-col w-full justify-between laptop-md:w-1/3">
+        <div class="w-11/12 mobile-md:w-full">
+          <h3 class="font-bold laptop-md:text-right text-wrap">{{ title }}</h3>
+          <p class="text-sm laptop-md:text-justify text-wrap text-gray-500 dark:text-gray-300">
+            {{ hint }}
+          </p>
+        </div>
 
-        <div class="flex flex-wrap desktop:flex-col gap-4 justify-center desktop:items-end mt-2">
+        <div
+          class="flexflex-row flex-wrap laptop-md:flex-col gap-4 justify-center laptop-md:items-end mt-2"
+        >
           <template v-if="!uniqueSelection">
-            <UButton
-              :label="$t('badgeList.buttons.selectAll')"
-              :variant="isAllSelected ? 'outline' : 'solid'"
-              class="transition-colors duration-300 ease-in-out"
-              @click="selectAll"
-            />
-            <UButton
-              :label="$t('badgeList.buttons.unselectAll')"
-              :variant="isAllSelected ? 'solid' : 'outline'"
-              class="transition-colors duration-300 ease-in-out"
-              @click="unselectAll"
-            />
+            <div
+              class="flex flex-row flex-wrap laptop-md:flex-nowrap justify-end laptop-md:flex-col items-center gap-2"
+            >
+              <UButton
+                :label="$t('badgeList.buttons.selectAll')"
+                :variant="isAllSelected ? 'outline' : 'solid'"
+                class="transition-colors duration-300 ease-in-out"
+                @click="selectAll"
+              />
+              <UButton
+                :label="$t('badgeList.buttons.unselectAll')"
+                :variant="isAllSelected ? 'solid' : 'outline'"
+                class="transition-colors duration-300 ease-in-out"
+                @click="unselectAll"
+              />
+            </div>
           </template>
           <UButton v-else :label="$t('badgeList.buttons.reset')" @click="unselectAll" />
         </div>
@@ -37,7 +45,7 @@
           :color="getBadgeColor(badge)"
           :icon="getBadgeIcon(badge)"
           :label="badge.name"
-          class="cursor-pointer gap-1 desktop:gap-2 transition-colors duration-300 ease-in-out"
+          class="cursor-pointer gap-1 laptop-md:gap-2 transition-colors duration-300 ease-in-out"
           size="md"
           @click="toggleBadge(badge)"
         />

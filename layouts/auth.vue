@@ -12,12 +12,7 @@
       </div>
 
       <div v-if="showOauthDivider" class="relative flex items-center justify-center my-4 h-8">
-        <div class="absolute z-1 bg-white px-2 z-10 dark:bg-gray-700">
-          {{ $t('login.or') }}
-        </div>
-        <div class="absolute top-1/2 z-0 w-full">
-          <hr />
-        </div>
+        <UDivider :label="$t('login.or')" />
       </div>
 
       <div>
@@ -25,7 +20,7 @@
       </div>
 
       <div v-if="showDivider">
-        <hr class="mt-8 mb-4 w-full" />
+        <UDivider icon="i-heroicons-link" class="mt-8 mb-4" />
       </div>
 
       <div class="flex flex-col items-center mt-4 gap-2">

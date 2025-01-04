@@ -1,5 +1,5 @@
 <template>
-  <FieldMultiSelect
+  <LazyFieldMultiSelect
     name="search"
     :label="$t('home.form.fields.search')"
     :description="$t('home.form.descriptions.search')"

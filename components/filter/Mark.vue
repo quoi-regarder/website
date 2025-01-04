@@ -1,13 +1,13 @@
 <template>
   <div class="flex flex-col items-center gap-2 w-full">
     <div
-      class="flex flex-col desktop:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
+      class="flex flex-col laptop-md:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
     >
-      <div class="flex flex-col w-full desktop:w-1/3">
-        <h3 class="font-bold desktop:text-right text-wrap">
+      <div class="flex flex-col w-full laptop-md:w-1/3">
+        <h3 class="font-bold laptop-md:text-right text-wrap">
           {{ $t('mark.title') }}
         </h3>
-        <p class="text-sm desktop:text-justify text-wrap text-gray-500 dark:text-gray-200">
+        <p class="text-sm laptop-md:text-justify text-wrap text-gray-500 dark:text-gray-200">
           {{ $t('mark.hint') }}
         </p>
       </div>
@@ -27,7 +27,7 @@
           }"
         />
 
-        <div class="flex items-center gap-2">
+        <div class="flex justify-end w-24">
           <p class="text-lg font-semibold text-gray-600 dark:text-gray-200">
             {{ mark }}
           </p>
