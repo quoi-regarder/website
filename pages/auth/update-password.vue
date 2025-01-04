@@ -46,7 +46,10 @@ const { t } = useI18n()
 const localPath = useLocalePath()
 
 useHead({
-  title: t('seo.pages.auth.update-password')
+  title: t('seo.pages.auth.update-password'),
+  meta: [
+    { hid: 'description', name: 'description', content: t('seo.descriptions.auth.update-password') }
+  ]
 })
 
 definePageMeta({

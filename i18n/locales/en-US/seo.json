@@ -1,15 +1,24 @@
 {
   "seo": {
-    "title": "Find the Perfect Movie for Every Day and Every Mood",
+    "title": "Find the perfect movie for every day and every mood",
     "description": "Explore our intuitive search engine to discover movies tailored to your tastes and preferences. Simplify your choices and enjoy unforgettable movie nights with personalized recommendations!",
     "pages": {
       "auth": {
-        "login": "Log in to access your personalized movie universe",
-        "signup": "Sign up to create your account and start exploring tailored movies",
-        "forgot-password": "Easily reset your password to regain access to your account",
-        "update-password": "Securely update your password to keep your account safe"
+        "login": "Connect to access your personalized movie universe and discover your tailored recommendations",
+        "signup": "Join our movie lovers community and create your account to find movies that truly match your taste",
+        "forgot-password": "Forgot your password? Quickly regain access to your account securely",
+        "update-password": "Strengthen your account security by updating your password with our simple and secure process"
       },
-      "profile": "Manage your personal information and viewing preferences"
+      "profile": "Customize your movie experience by managing your preferences, history, and favorite movie lists"
+    },
+    "descriptions": {
+      "auth": {
+        "login": "Access your personal space and all your movie recommendations. Enjoy a custom experience based on your cinematographic preferences",
+        "signup": "Start your movie journey by creating your account. Discover films that reflect who you are and build your personal collection",
+        "forgot-password": "Regain access to your account in just a few clicks. Our secure process lets you reset your password easily",
+        "update-password": "Protect your account by choosing a strong new password. Our system ensures the security of your personal information"
+      },
+      "profile": "Your personal space to manage your viewing preferences, track your history, and refine your movie recommendations. Personalize your experience for increasingly relevant suggestions"
     }
   }
 }

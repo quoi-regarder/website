@@ -106,7 +106,8 @@ const localPath = useLocalePath()
 const colorMode = useColorMode()
 
 useHead({
-  title: t('seo.pages.auth.signup')
+  title: t('seo.pages.auth.signup'),
+  meta: [{ hid: 'description', name: 'description', content: t('seo.descriptions.auth.signup') }]
 })
 
 definePageMeta({
