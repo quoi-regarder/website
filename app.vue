@@ -24,4 +24,23 @@ body {
   font-style: normal;
   font-weight: normal;
 }
+
+::-webkit-scrollbar {
+  overflow: overlay;
+  width: 5px;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 </style>
