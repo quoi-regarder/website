@@ -139,6 +139,11 @@
 <script lang="ts" setup>
 const { locale, t } = useI18n()
 
+useHead({
+  title: t('seo.title'),
+  meta: [{ hid: 'description', name: 'description', content: t('seo.description') }]
+})
+
 // Filters state
 const selectedGenres = ref([])
 const selectedPlatforms = ref([])

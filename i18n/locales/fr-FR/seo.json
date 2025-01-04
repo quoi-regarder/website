@@ -1,15 +1,24 @@
 {
   "seo": {
-    "title": "Découvrez le film idéal pour chaque jour et chaque envie",
-    "description": "Utilisez notre moteur de recherche intuitif pour trouver des films adaptés à vos goûts et critères. Faites de chaque soirée un moment inoubliable avec des recommandations personnalisées !",
+    "title": "Trouvez le film parfait pour chaque moment de votre journée",
+    "description": "Découvrez notre moteur de recherche intelligent qui vous propose des films adaptés à vos goûts et à votre humeur. Simplifiez vos choix et vivez des soirées cinéma mémorables grâce à nos recommandations personnalisées !",
     "pages": {
       "auth": {
-        "login": "Connectez-vous et accédez à votre univers personnalisé de films",
-        "signup": "Créez un compte et commencez à découvrir des films sur mesure",
-        "forgot-password": "Réinitialisez facilement votre mot de passe pour retrouver l'accès à votre compte",
-        "update-password": "Mettez à jour votre mot de passe en toute sécurité"
+        "login": "Connectez-vous pour retrouver votre univers cinématographique personnalisé et accéder à vos recommandations sur mesure",
+        "signup": "Rejoignez notre communauté de cinéphiles et créez votre compte pour découvrir des films qui vous correspondent vraiment",
+        "forgot-password": "Vous avez oublié votre mot de passe ? Récupérez rapidement l'accès à votre compte en toute sécurité",
+        "update-password": "Renforcez la sécurité de votre compte en mettant à jour votre mot de passe avec notre processus simple et sécurisé"
       },
-      "profile": "Gérez vos informations personnelles et préférences de visionnage"
+      "profile": "Personnalisez votre expérience cinématographique en gérant vos préférences, votre historique et vos listes de films favoris"
+    },
+    "descriptions": {
+      "auth": {
+        "login": "Retrouvez votre espace personnel et accédez à toutes vos recommandations de films. Profitez d'une expérience sur mesure basée sur vos goûts cinématographiques",
+        "signup": "Commencez votre voyage cinématographique en créant votre compte. Découvrez des films qui vous ressemblent et construisez votre collection personnelle",
+        "forgot-password": "Retrouvez l'accès à votre compte en quelques clics. Notre processus sécurisé vous permet de réinitialiser votre mot de passe facilement",
+        "update-password": "Protégez votre compte en choisissant un nouveau mot de passe fort. Notre système garantit la sécurité de vos informations personnelles"
+      },
+      "profile": "Votre espace personnel pour gérer vos préférences de visionnage, suivre votre historique, et affiner vos recommandations de films. Personnalisez votre expérience pour des suggestions toujours plus pertinentes"
     }
   }
 }

@@ -49,7 +49,10 @@ const { t } = useI18n()
 const localPath = useLocalePath()
 
 useHead({
-  title: t('seo.pages.auth.forgot-password')
+  title: t('seo.pages.auth.forgot-password'),
+  meta: [
+    { hid: 'description', name: 'description', content: t('seo.descriptions.auth.forgot-password') }
+  ]
 })
 
 definePageMeta({

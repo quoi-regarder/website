@@ -115,7 +115,8 @@ const localPath = useLocalePath()
 const isDeleteAccountModalOpen = ref(false)
 
 useHead({
-  title: t('seo.pages.profile')
+  title: t('seo.pages.profile'),
+  meta: [{ hid: 'description', name: 'description', content: t('seo.descriptions.profile') }]
 })
 
 definePageMeta({
