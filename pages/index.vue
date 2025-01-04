@@ -35,7 +35,7 @@
 
     <!-- Carousel Section -->
     <div
-      :class="{ 'opacity-100': movies.length > 0, 'opacity-0': movies.length === 0 }"
+      :class="{ 'opacity-100 min-h-[78vh]': movies.length > 0, 'opacity-0': movies.length === 0 }"
       class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in"
     >
       <UCarousel
@@ -47,9 +47,9 @@
       >
         <template #default="{ item }">
           <div
-            class="mx-auto w-[98%] h-fit tablet:w-10/12 laptop:w-4/5 desktop:w-2/3 fullhd:w-1/2 flex flex-col items-start"
+            class="mx-auto h-fit w-[98%] tablet:w-[90%] laptop:w-[85%] desktop:w-[65%] fullhd:w-[55%] flex flex-col items-start"
           >
-            <MovieCard :genres="genres" :movie="item" />
+            <MovieCard :genres="genres" :movie="item" class="h-full" />
           </div>
         </template>
         <template #next="{ onClick, disabled }">
@@ -78,7 +78,7 @@
     <!-- Bottom Section -->
     <div
       :class="{
-        'min-h-[50vh] opacity-100': movies.length > 0,
+        'min-h-[0vh] opacity-100': movies.length > 0,
         'min-h-[40vh] opacity-100': movies.length === 0
       }"
       class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out"
