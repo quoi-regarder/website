@@ -76,7 +76,8 @@
     "copyright": "© {year} Quoi regarder?"
   },
   "mark": {
-    "title": "Rating",
+    "title": "Minimum Rating",
+    "hint": "By default, no minimum rating is selected.",
     "labels": {
       "mark": "{count} star | {count} stars"
     }
@@ -174,7 +175,8 @@
     }
   },
   "genre": {
-    "title": "Content Genre"
+    "title": "Content Genre",
+    "hint": "By default, no cinematic genre is selected."
   },
   "login": {
     "title": "Login",

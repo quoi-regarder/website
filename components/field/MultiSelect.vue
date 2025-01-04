@@ -1,6 +1,6 @@
 <template>
   <div>
-    <UFormGroup :help="hint" :name="name" class="min-w-80 tablet:min-w-96 text-justify" size="xl">
+    <UFormGroup :name="name" class="min-w-80 tablet:min-w-96 text-justify" size="xl">
       <USelectMenu
         v-model="labels"
         :creatable="canCreate"
@@ -9,14 +9,13 @@
         :searchable-placeholder="$t('multiSelect.search')"
         :ui="{ rounded: 'rounded-2xl' }"
         by="id"
-        class="w-80"
         clear-search-on-close
         multiple
         option-attribute="name"
         searchable
       >
         <template #label>
-          <span v-if="labels.length">
+          <span v-if="labels.length" class="text-wrap">
             {{ $t('multiSelect.selected', { count: labels.length }) }}
           </span>
           <span v-else>
@@ -61,10 +60,6 @@ const props = defineProps({
   name: {
     type: String,
     required: true
-  },
-  hint: {
-    type: String,
-    default: ''
   },
   placeholder: {
     type: String,

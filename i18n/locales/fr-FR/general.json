@@ -92,7 +92,8 @@
     }
   },
   "mark": {
-    "title": "Note",
+    "title": "Note minimale",
+    "hint": "Par défault, aucune note minimale n'est sélectionnée.",
     "labels": {
       "mark": "{count} étoile | {count} étoiles"
     }
@@ -174,7 +175,8 @@
     }
   },
   "genre": {
-    "title": "Genre de contenu"
+    "title": "Genre de contenu",
+    "hint": "Par défault, aucun genre cinématographique n'est sélectionné."
   },
   "login": {
     "title": "Connexion",

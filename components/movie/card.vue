@@ -48,11 +48,6 @@
 
           <template v-else-if="field.type === 'notation'">
             <UMeter :max="10" :min="0" :value="field.value" indicator>
-              <template #indicator>
-                <p class="text-sm text-right">
-                  {{ Number.parseFloat(field.value).toFixed(2) }} / 10
-                </p>
-              </template>
               <template #label>
                 <p class="text-sm text-left">
                   {{ $t('movie.vote_count', { count: movie.vote_count }) }}

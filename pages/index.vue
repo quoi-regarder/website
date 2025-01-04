@@ -76,29 +76,24 @@
     </div>
 
     <!-- Bottom Section -->
-    <div
-      :class="{
-        'min-h-[0vh] opacity-100': showCarousel,
-        'min-h-[40vh] opacity-100': !showCarousel
-      }"
-      class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out"
-    >
-      <div class="flex w-full p-4 gap-4">
-        <div class="flex flex-col gap-4 items-center justify-center w-3/5">
-          <HomeGenre
-            @update:genres="genres = $event"
-            @update:selected-genres="selectedGenres = $event"
-          />
-        </div>
-        <div class="border-r-2 border-gray-200 dark:border-gray-500" />
-        <div class="flex flex-col gap-4 items-center justify-center w-2/5">
-          <HomePlatforms
-            @update:selected-platforms="selectedPlatforms = $event"
-            @update:platforms="platforms = $event"
-          />
-          <HomeMark @update:selected-mark="selectedMark = $event" />
-        </div>
+    <div class="w-full flex flex-col overflow-hidden">
+      <div class="grid grid-cols-1 items-center desktop:grid-cols-5 gap-4 p-4">
+        <HomeGenre
+          class="desktop:col-span-3 desktop:row-span-2"
+          @update:genres="genres = $event"
+          @update:selected-genres="selectedGenres = $event"
+        />
+        <HomePlatforms
+          class="desktop:col-span-2 desktop:row-span-1"
+          @update:selected-platforms="selectedPlatforms = $event"
+          @update:platforms="platforms = $event"
+        />
+        <HomeMark
+          class="desktop:col-span-2 desktop:row-span-1"
+          @update:selected-mark="selectedMark = $event"
+        />
       </div>
+
       <UButton block class="mt-4" size="xl" variant="link" @click="toggleMoreFilters">
         <div class="flex flex-col items-center justify-center gap-2">
           <span>{{ $t('home.form.buttons.moreFilters') }}</span>
@@ -118,20 +113,38 @@
         'min-h-fit opacity-100 visible': moreFilters,
         'min-h-0 opacity-0 invisible': !moreFilters
       }"
-      class="flex w-full gap-4 p-4 overflow-hidden transition-all duration-1000 ease-in-out"
+      class="grid grid-cols-1 items-center desktop:grid-cols-5 gap-4 p-4 transition-all duration-1000 ease-in-out"
       @transitionend="handleTransitionEnd"
     >
-      <div class="flex flex-col gap-4 items-center justify-center w-3/5">
-        <HomeType @update:selected-types="selectedTypes = $event" />
-        <HomeAge @update:selected-ages="selectedAges = $event" />
-        <HomeFilter @update:selected-filter="selectedFilter = $event" />
-      </div>
-      <div class="border-r-2 border-gray-200 dark:border-gray-500" />
-      <div class="flex flex-col gap-4 items-center justify-center w-2/5">
-        <HomeYear @update:selected-years="selectedYears = $event" />
-        <HomeDirector @update:selected-directors="selectedDirectors = $event" />
-        <HomeActor @update:selected-actors="selectedActors = $event" />
-      </div>
+      <HomeType
+        class="desktop:col-span-3 desktop:row-span-1"
+        @update:selected-types="selectedTypes = $event"
+      />
+
+      <HomeYear
+        class="desktop:col-span-2 desktop:row-span-1"
+        @update:selected-years="selectedYears = $event"
+      />
+
+      <HomeFilter
+        class="desktop:col-span-3 desktop:row-span-1"
+        @update:selected-filter="selectedFilter = $event"
+      />
+
+      <HomeDirector
+        class="desktop:col-span-2 desktop:row-span-1"
+        @update:selected-directors="selectedDirectors = $event"
+      />
+
+      <HomeAge
+        class="desktop:col-span-3 desktop:row-span-1"
+        @update:selected-ages="selectedAges = $event"
+      />
+
+      <HomeActor
+        class="desktop:col-span-2 desktop:row-span-1"
+        @update:selected-actors="selectedActors = $event"
+      />
     </div>
   </div>
 </template>
