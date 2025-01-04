@@ -1,4 +1,4 @@
-export type UpdatePassword = {
+export interface UpdatePassword {
   password: string
   passwordConfirmation: string
 }

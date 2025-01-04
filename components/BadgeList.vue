@@ -1,10 +1,15 @@
 <template>
   <div class="flex flex-col items-center gap-2 w-full">
-    <div class="flex items-center gap-4 w-full bg-gray-100 p-2 rounded-2xl dark:bg-gray-700">
-      <aside class="flex flex-col w-1/5">
-        <h3 class="font-bold text-right">{{ title }}</h3>
+    <div
+      class="flex flex-col desktop:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
+    >
+      <aside class="flex flex-col w-full desktop:w-1/3">
+        <h3 class="font-bold desktop:text-right text-wrap">{{ title }}</h3>
+        <p class="text-sm desktop:text-justify text-wrap text-gray-500 dark:text-gray-300">
+          {{ hint }}
+        </p>
 
-        <div class="flex flex-col gap-4 items-end mt-2">
+        <div class="flex flex-wrap desktop:flex-col gap-4 justify-center desktop:items-end mt-2">
           <template v-if="!uniqueSelection">
             <UButton
               :label="$t('badgeList.buttons.selectAll')"
@@ -24,7 +29,7 @@
       </aside>
 
       <div
-        class="flex items-start flex-wrap p-2 gap-4 w-full min-h-32 border-2 border-gray-400 border-dashed rounded-2xl"
+        class="flex flex-wrap justify-around p-2 gap-2 tablet:gap-4 w-full border-2 border-gray-400 border-dashed rounded-2xl self-center"
       >
         <UBadge
           v-for="badge in props.badges"
@@ -32,8 +37,8 @@
           :color="getBadgeColor(badge)"
           :icon="getBadgeIcon(badge)"
           :label="badge.name"
-          class="cursor-pointer gap-2 transition-colors duration-300 ease-in-out"
-          size="lg"
+          class="cursor-pointer gap-1 desktop:gap-2 transition-colors duration-300 ease-in-out"
+          size="md"
           @click="toggleBadge(badge)"
         />
       </div>
@@ -56,6 +61,10 @@ const props = defineProps({
   uniqueSelection: {
     type: Boolean,
     default: false
+  },
+  hint: {
+    type: String,
+    default: ''
   }
 })
 

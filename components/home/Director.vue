@@ -1,17 +1,19 @@
 <template>
-  <div class="flex flex-col items-center gap-4 w-full">
-    <div class="flex items-center gap-4 w-full bg-gray-100 p-4 rounded-2xl dark:bg-gray-700">
-      <div class="w-1/5">
-        <h3 class="font-bold text-right">
+  <div class="flex flex-col items-center gap-2 w-full">
+    <div
+      class="flex flex-col desktop:flex-row items-start p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
+    >
+      <div class="flex flex-col w-full desktop:w-1/3">
+        <h3 class="font-bold desktop:text-right text-wrap">
           {{ $t('director.title') }}
         </h3>
       </div>
-      <div class="w-full flex items-center gap-4">
+      <div class="w-full flex items-center">
         <LazyFieldMultiSelect
           :can-create="true"
           :options="directors"
-          :placeholder="$t('director.placeholder')"
           name="director"
+          class="w-full"
           @update:model-value="emit('update:selectedDirectors', $event)"
           @update:add-option="addDirector"
         />

@@ -1,17 +1,21 @@
 <template>
-  <div class="flex flex-col items-center gap-4 w-full">
-    <div class="flex items-center gap-4 w-full bg-gray-100 p-4 rounded-2xl dark:bg-gray-700">
-      <div class="w-1/5">
-        <h3 class="font-bold text-right">
+  <div class="flex flex-col items-center gap-2 w-full">
+    <div
+      class="flex flex-col desktop:flex-row items-start gap-x-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
+    >
+      <div class="flex flex-col w-full desktop:w-1/3">
+        <h3 class="font-bold desktop:text-right text-wrap">
           {{ $t('year.title') }}
         </h3>
+        <p class="text-sm desktop:text-justify text-wrap text-gray-500 dark:text-gray-200">
+          {{ $t('year.hint') }}
+        </p>
       </div>
-      <div class="w-full flex items-center gap-4">
+      <div class="w-full flex items-center">
         <LazyFieldMultiSelect
-          :hint="$t('year.hint')"
           :options="years"
-          :placeholder="$t('year.placeholder')"
           name="year"
+          class="w-full"
           @update:model-value="emit('update:selectedYears', $event)"
         />
       </div>

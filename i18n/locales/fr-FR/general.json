@@ -6,10 +6,8 @@
   "age": {
     "title": "Âge minimum",
     "labels": {
-      "all": "Tous publics",
       "ten": "10 ans",
       "twelve": "12 ans",
-      "fourteen": "14 ans",
       "sixteen": "16 ans",
       "eighteen": "18 ans"
     }
@@ -82,7 +80,10 @@
         "moreFilters": "Plus de filtres"
       },
       "fields": {
-        "search": "Rechercher par mot-clé"
+        "search": "Mots-clés"
+      },
+      "descriptions": {
+        "search": "Saissisez des mots-clés pour rechercher des films, séries, documentaires, etc."
       }
     },
     "toasts": {
@@ -92,7 +93,8 @@
     }
   },
   "mark": {
-    "title": "Note",
+    "title": "Note minimale",
+    "hint": "Par défault, aucune note minimale n'est sélectionnée.",
     "labels": {
       "mark": "{count} étoile | {count} étoiles"
     }
@@ -110,7 +112,8 @@
     "vote_average": "Note",
     "overview": "Résumé",
     "genres": "Genres",
-    "vote_count": "Nombre de votes: {count}"
+    "vote_count": "Nombre de votes: {count}",
+    "no_overview": "Aucune description disponible."
   },
   "navbar": {
     "dropdown": {
@@ -143,12 +146,34 @@
   "filter": {
     "title": "Trier par",
     "labels": {
-      "popularity": "Popularité",
-      "topRated": "Les mieux notés",
-      "upcoming": "À venir",
-      "nowPlaying": "En ce moment",
-      "latest": "Derniers ajouts",
-      "oldest": "Les plus anciens"
+      "original_title": {
+        "asc": "Titre original (A-Z)",
+        "desc": "Titre original (Z-A)"
+      },
+      "popularity": {
+        "asc": "Popularité (Croissant)",
+        "desc": "Popularité (Décroissant)"
+      },
+      "revenue": {
+        "asc": "Recette (Croissant)",
+        "desc": "Recette (Décroissant)"
+      },
+      "primary_release_date": {
+        "asc": "Date de sortie (Plus ancien)",
+        "desc": "Date de sortie (Plus récent)"
+      },
+      "title": {
+        "asc": "Titre local (A-Z)",
+        "desc": "Titre local (Z-A)"
+      },
+      "vote_average": {
+        "asc": "Note (Croissant)",
+        "desc": "Note (Décroissant)"
+      },
+      "vote_count": {
+        "asc": "Nombre de votes (Croissant)",
+        "desc": "Nombre de votes (Décroissant)"
+      }
     }
   },
   "forgotPassword": {
@@ -174,7 +199,8 @@
     }
   },
   "genre": {
-    "title": "Genre de contenu"
+    "title": "Genre de contenu",
+    "hint": "Par défault, aucun genre cinématographique n'est sélectionné."
   },
   "login": {
     "title": "Connexion",
@@ -211,7 +237,8 @@
     "selected": "Aucun élément sélectionné | {count} élément sélectionné | {count} éléments sélectionnés",
     "noResults": "Aucun résultat trouvé pour \"{query}\".",
     "create": "Créer \"{name}\".",
-    "noOptions": "Aucune option disponible."
+    "noOptions": "Aucune option disponible.",
+    "loading": "Commencez à taper pour rechercher des éléments..."
   },
   "platforms": {
     "title": "Plateformes de streaming",

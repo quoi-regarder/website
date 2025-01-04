@@ -1,28 +1,49 @@
 <template>
-  <div class="flex flex-col items-center gap-4 w-full">
-    <div class="flex items-center gap-4 w-full bg-gray-100 p-4 rounded-2xl dark:bg-gray-700">
-      <div class="w-1/5">
-        <h3 class="font-bold text-right">
+  <div class="flex flex-col items-center gap-2 w-full">
+    <div
+      class="flex flex-col desktop:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
+    >
+      <div class="flex flex-col w-full desktop:w-1/3">
+        <h3 class="font-bold desktop:text-right text-wrap">
           {{ $t('mark.title') }}
         </h3>
+        <p class="text-sm desktop:text-justify text-wrap text-gray-500 dark:text-gray-200">
+          {{ $t('mark.hint') }}
+        </p>
       </div>
-      <div class="w-full flex items-center gap-4">
-        <UIcon
-          v-for="i in maxMark"
-          :key="i"
-          :name="i <= mark ? 'i-heroicons-star-solid' : 'i-heroicons-star'"
-          class="cursor-pointer text-primary size-8"
-          @click="mark = i"
+      <div class="w-full h-full flex self-center gap-4">
+        <URange
+          v-model="mark"
+          :max="maxMark"
+          :min="0"
+          :step="0.1"
+          class="w-full self-center"
+          indicator
+          :ui="{
+            track: {
+              background:
+                '[&::-webkit-slider-runnable-track]:dark:bg-gray-400 [&::-moz-range-track]:dark:bg-gray-400'
+            }
+          }"
         />
-        <span>{{ $t('mark.labels.mark', { count: mark }) }}</span>
+
+        <div class="flex items-center gap-2">
+          <p class="text-lg font-semibold text-gray-600 dark:text-gray-200">
+            {{ mark }}
+          </p>
+          <p class="text-lg font-semibold text-gray-600 dark:text-gray-200">/</p>
+          <p class="text-lg font-semibold text-gray-600 dark:text-gray-200">
+            {{ maxMark }}
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-const mark = ref<number>(1)
-const maxMark = 5
+const mark = ref<number>(0)
+const maxMark = 10
 
 const emit = defineEmits(['update:selected-mark'])
 

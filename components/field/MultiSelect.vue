@@ -1,22 +1,28 @@
 <template>
   <div>
-    <UFormGroup :help="hint" :name="name" class="min-w-80 tablet:min-w-96 text-justify" size="xl">
+    <UFormGroup
+      :name="name"
+      :description="description"
+      :label="label"
+      class="min-w-80 tablet:min-w-96 text-justify"
+      size="xl"
+    >
       <USelectMenu
         v-model="labels"
         :creatable="canCreate"
         :options="options"
-        :placeholder="placeholder"
+        :searchable="search"
+        :loading="loading"
         :searchable-placeholder="$t('multiSelect.search')"
         :ui="{ rounded: 'rounded-2xl' }"
         by="id"
-        class="w-80"
         clear-search-on-close
         multiple
+        trailing
         option-attribute="name"
-        searchable
       >
         <template #label>
-          <span v-if="labels.length">
+          <span v-if="labels.length" class="text-wrap">
             {{ $t('multiSelect.selected', { count: labels.length }) }}
           </span>
           <span v-else>
@@ -34,7 +40,10 @@
           </p>
         </template>
         <template #empty>
-          <p class="text-gray-500">
+          <p v-if="apiToFecth" class="text-gray-500">
+            {{ $t('multiSelect.loading') }}
+          </p>
+          <p v-else class="text-gray-500">
             {{ $t('multiSelect.noOptions') }}
           </p>
         </template>
@@ -62,12 +71,14 @@ const props = defineProps({
     type: String,
     required: true
   },
-  hint: {
+  label: {
     type: String,
+    required: false,
     default: ''
   },
-  placeholder: {
+  description: {
     type: String,
+    required: false,
     default: ''
   },
   options: {
@@ -77,6 +88,11 @@ const props = defineProps({
   canCreate: {
     type: Boolean,
     default: false
+  },
+  apiToFecth: {
+    type: String,
+    required: false,
+    default: ''
   }
 })
 
@@ -91,6 +107,7 @@ const emit = defineEmits({
   }
 })
 
+const loading = ref(false)
 const selected = ref<Option[]>([])
 
 const labels = computed({
@@ -118,5 +135,29 @@ const labels = computed({
 
 const unselect = (item: Option) => {
   selected.value = selected.value.filter((i) => i.name !== item.name)
+  emit('update:modelValue', selected.value)
+}
+
+const search = async (query: string) => {
+  if (!props.apiToFecth) {
+    return props.options.filter((val: Option) =>
+      val.name.toLowerCase().includes(query.toLowerCase())
+    )
+  }
+
+  if (query.length === 0) {
+    return props.options
+  }
+
+  loading.value = true
+  const data = await $fetch(`${props.apiToFecth}?query=${query}`)
+
+  loading.value = false
+  return data.results.map((val: any) => {
+    return {
+      id: val.id,
+      name: val.name
+    }
+  })
 }
 </script>

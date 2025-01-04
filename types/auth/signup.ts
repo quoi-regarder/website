@@ -1,4 +1,4 @@
-export type Signup = {
+export interface Signup {
   email: string
   username: string
   firstName: string
