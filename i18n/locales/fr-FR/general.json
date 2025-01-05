@@ -1,7 +1,7 @@
 {
   "age": {
     "title": "Âge minimum",
-    "hint": "Par défaut, aucun âge minimum n'est sélectionné.",
+    "description": "Par défaut, aucun âge minimum n'est sélectionné.",
     "labels": {
       "ten": "10 ans",
       "twelve": "12 ans",
@@ -61,7 +61,7 @@
   },
   "duration": {
     "title": "Durée",
-    "hint": "Par défaut, aucune durée n'est sélectionnée.",
+    "description": "Par défaut, aucune durée n'est sélectionnée.",
     "unit": "{count} minute | {count} minutes",
     "buttons": {
       "mode": "Mode de durée ({mode})",
@@ -103,7 +103,7 @@
   },
   "mark": {
     "title": "Note minimale",
-    "hint": "Par défaut, aucune note minimale n'est sélectionnée.",
+    "description": "Par défaut, aucune note minimale n'est sélectionnée.",
     "labels": {
       "mark": "{count} étoile | {count} étoiles"
     }
@@ -155,7 +155,7 @@
   "by": {
     "title": "Trier par",
     "description": "Un seul critère de tri peut être sélectionné à la fois.",
-    "tooltip": "La flèche vers le haut indique un tri croissant (du plus petit au plus grand, du plus ancien au plus récent, de A à Z, etc.). La flèche vers le bas indique un tri décroissant (du plus grand au plus petit, du plus récent au plus ancien, de Z à A, etc.).",
+    "hint": "La flèche vers le haut indique un tri croissant (du plus petit au plus grand, du plus ancien au plus récent, de A à Z, etc.). La flèche vers le bas indique un tri décroissant (du plus grand au plus petit, du plus récent au plus ancien, de Z à A, etc.).",
     "labels": {
       "original_title": "Titre original",
       "popularity": "Popularité",
@@ -193,7 +193,7 @@
   },
   "genre": {
     "title": "Genre de contenu",
-    "hint": "Par défaut, aucun genre de contenu n'est sélectionné."
+    "description": "Par défaut, aucun genre de contenu n'est sélectionné."
   },
   "login": {
     "title": "Connexion",
@@ -227,7 +227,7 @@
   },
   "monetization": {
     "title": "Type de disponibilité",
-    "hint": "Par défaut, tous les types de disponibilité sont sélectionnés.",
+    "description": "Par défaut, tous les types de disponibilité sont sélectionnés.",
     "options": {
       "flatrate": "En streaming avec abonnement",
       "free": "En visionnage gratuit",
@@ -322,17 +322,6 @@
       }
     }
   },
-  "type": {
-    "title": "Type de contenu",
-    "labels": {
-      "movie": "Film",
-      "series": "Série",
-      "anime": "Anime",
-      "documentary": "Documentaire",
-      "shortFilm": "Court-métrage",
-      "other": "Autre"
-    }
-  },
   "updatePassword": {
     "title": "Mettre à jour le mot de passe",
     "form": {
@@ -360,7 +349,7 @@
   },
   "votes": {
     "title": "Nombre de votes",
-    "hint": "Par défaut, aucun nombre de votes n'est sélectionné.",
+    "description": "Par défaut, aucun nombre de votes n'est sélectionné.",
     "unit": "{count} vote | {count} votes",
     "buttons": {
       "mode": "Mode de votes ({mode})",

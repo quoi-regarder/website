@@ -1,64 +1,55 @@
 <template>
-  <div class="flex flex-col items-center gap-2 w-full">
-    <div
-      class="flex flex-col laptop-md:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
-    >
-      <aside class="flex flex-row laptop-md:flex-col w-full justify-between laptop-md:w-1/3">
-        <div class="w-3/4 mobile-md:w-full">
-          <h3 class="font-bold laptop-md:text-right text-wrap">
-            {{ $t('duration.title') }}
-          </h3>
-          <p class="text-sm laptop-md:text-justify text-wrap text-gray-500 dark:text-gray-200">
-            {{ $t('duration.hint') }}
-          </p>
-        </div>
+  <NuxtLayout
+    name="filter"
+    :title="$t('duration.title')"
+    :description="$t('duration.description')"
+    has-buttons
+  >
+    <template #buttons>
+      <UButton
+        :label="$t('duration.buttons.mode', { mode: mode })"
+        class="order-2 laptop-md:order-1"
+        variant="outline"
+        @click="toggleMode"
+      />
 
-        <div
-          class="flex flex-row flex-wrap laptop-md:flex-nowrap justify-end laptop-md:flex-col items-center gap-2"
-        >
-          <UButton
-            :label="$t('duration.buttons.mode', { mode: mode })"
-            class="mt-0 laptop-md:mt-2 self-center laptop-md:self-end order-2 laptop-md:order-1"
-            variant="outline"
-            @click="toggleMode"
-          />
+      <UButton
+        :label="$t('duration.buttons.reset')"
+        class="order-1 laptop-md:order-2"
+        @click="handleReset"
+      />
+    </template>
 
-          <UButton
-            :label="$t('duration.buttons.reset')"
-            class="mt-0 laptop-md:mt-2 self-center laptop-md:self-end order-1 laptop-md:order-2"
-            @click="handleReset"
-          />
-        </div>
-      </aside>
-      <div class="w-full h-full flex self-center gap-4">
-        <URange
-          v-model="duration"
-          :max="maxDuration"
-          :min="minDuration"
-          :step="1"
-          class="w-full self-center"
-          :class="mode === 'max' ? '' : 'transform rotate-180'"
-          indicator
-          :ui="{
-            track: {
-              background:
-                '[&::-webkit-slider-runnable-track]:dark:bg-gray-400 [&::-moz-range-track]:dark:bg-gray-400'
-            }
-          }"
-        />
-        <div class="flex justify-end w-48">
-          <p v-if="mode === 'max'" class="text-lg font-semibold text-gray-600 dark:text-gray-200">
-            {{ $t('duration.unit', { count: duration }) }}
-          </p>
-          <p v-else class="text-lg font-semibold text-gray-600 dark:text-gray-200">
-            {{
-              $t('duration.unit', { count: duration ? Math.abs(duration - maxDuration) : maxVotes })
-            }}
-          </p>
-        </div>
+    <template #content>
+      <URange
+        v-model="duration"
+        :max="maxDuration"
+        :min="minDuration"
+        :step="1"
+        class="w-full self-center"
+        :class="mode === 'max' ? '' : 'transform rotate-180'"
+        indicator
+        :ui="{
+          track: {
+            background:
+              '[&::-webkit-slider-runnable-track]:dark:bg-gray-400 [&::-moz-range-track]:dark:bg-gray-400'
+          }
+        }"
+      />
+      <div class="flex justify-end self-center min-w-32">
+        <p v-if="mode === 'max'" class="text-lg font-semibold text-gray-600 dark:text-gray-200">
+          {{ $t('duration.unit', { count: duration }) }}
+        </p>
+        <p v-else class="text-lg font-semibold text-gray-600 dark:text-gray-200">
+          {{
+            $t('duration.unit', {
+              count: duration !== null ? Math.abs(duration - maxDuration) : ''
+            })
+          }}
+        </p>
       </div>
-    </div>
-  </div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>

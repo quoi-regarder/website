@@ -16,8 +16,6 @@ export async function tmdbFetch (
     manager.add(key, value)
   })
 
-  console.log('TMDB API request:', manager.toString())
-
   return fetch(manager.toString(), {
     method,
     headers: {

@@ -1,7 +1,7 @@
 {
   "age": {
     "title": "Minimum age",
-    "hint": "By default, no minimum age is selected.",
+    "description": "By default, no minimum age is selected.",
     "labels": {
       "ten": "10 years old",
       "twelve": "12 years old",
@@ -61,7 +61,7 @@
   },
   "duration": {
     "title": "Duration",
-    "hint": "By default, no duration is selected.",
+    "description": "By default, no duration is selected.",
     "unit": "{count} minute | {count} minutes",
     "buttons": {
       "mode": "Duration mode ({mode})",
@@ -103,7 +103,7 @@
   },
   "mark": {
     "title": "Minimum rating",
-    "hint": "By default, no minimum rating is selected.",
+    "description": "By default, no minimum rating is selected.",
     "labels": {
       "mark": "{count} star | {count} stars"
     }
@@ -155,7 +155,7 @@
   "by": {
     "title": "Sort by",
     "description": "Only one sort criterion can be selected at a time.",
-    "tooltip": "The up arrow indicates ascending order (smallest to largest, oldest to newest, A to Z). The down arrow indicates descending order (largest to smallest, newest to oldest, Z to A).",
+    "hint": "The up arrow indicates ascending order (smallest to largest, oldest to newest, A to Z). The down arrow indicates descending order (largest to smallest, newest to oldest, Z to A).",
     "labels": {
       "original_title": "Original title",
       "popularity": "Popularity",
@@ -193,7 +193,7 @@
   },
   "genre": {
     "title": "Content genre",
-    "hint": "By default, no content genre is selected."
+    "description": "By default, no content genre is selected."
   },
   "login": {
     "title": "Login",
@@ -227,7 +227,7 @@
   },
   "monetization": {
     "title": "Availability type",
-    "hint": "By default, all availability types are selected.",
+    "description": "By default, all availability types are selected.",
     "options": {
       "flatrate": "Subscription streaming",
       "free": "Free to watch",
@@ -322,17 +322,6 @@
       }
     }
   },
-  "type": {
-    "title": "Content type",
-    "labels": {
-      "movie": "Movie",
-      "series": "TV Series",
-      "anime": "Anime",
-      "documentary": "Documentary",
-      "shortFilm": "Short film",
-      "other": "Other"
-    }
-  },
   "updatePassword": {
     "title": "Update password",
     "form": {
@@ -360,7 +349,7 @@
   },
   "votes": {
     "title": "Number of votes",
-    "hint": "By default, no number of votes is selected.",
+    "description": "By default, no number of votes is selected.",
     "unit": "{count} vote | {count} votes",
     "buttons": {
       "mode": "Vote mode ({mode})",

@@ -1,8 +1,8 @@
 <template>
-  <LazyBadgeList
+  <BadgeList
     :badges="ages"
     :title="$t('age.title')"
-    :hint="$t('age.hint')"
+    :description="$t('age.description')"
     @update:selected-badges="emit('update:selectedAges', $event)"
   />
 </template>

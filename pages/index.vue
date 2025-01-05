@@ -18,7 +18,7 @@
         {{ $t('home.form.buttons.search') }}
       </UButton>
       <div
-        class="flex flex-col justify-center tablet:gap-x-4 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
+        class="flex flex-col justify-center tablet:gap-x-4 w-11/12 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
       >
         <FilterKeyword class="w-full" @update:selected-keywords="selectedKeywords = $event" />
       </div>

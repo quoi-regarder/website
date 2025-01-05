@@ -2,7 +2,7 @@
   <LazyBadgeList
     :badges="genres"
     :title="$t('genre.title')"
-    :hint="$t('genre.hint')"
+    :description="$t('genre.description')"
     @update:selected-badges="emit('update:selectedGenres', $event)"
   />
 </template>

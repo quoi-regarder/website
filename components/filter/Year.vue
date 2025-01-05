@@ -1,28 +1,15 @@
 <template>
-  <div class="flex flex-col items-center gap-2 w-full">
-    <div
-      class="flex flex-col laptop-md:flex-row items-start gap-x-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
-    >
-      <div class="flex flex-row laptop-md:flex-col w-full justify-between laptop-md:w-1/3">
-        <h3 class="font-bold laptop-md:text-right text-wrap">
-          {{ $t('year.title') }}
-        </h3>
+  <NuxtLayout name="filter" :title="$t('year.title')" has-buttons>
+    <template #buttons>
+      <UButton :label="$t('year.buttons.reset')" @click="handleReset" />
+    </template>
 
-        <UButton
-          :label="$t('year.buttons.reset')"
-          class="mt-0 laptop-md:mt-2 self-center laptop-md:self-end"
-          @click="handleReset"
-        />
-      </div>
-      <div
-        class="w-full flex items-center justify-center gap-2 mt-4 flex-wrap laptop-md:mt-0 laptop-md:grid laptop-md:grid-cols-3 laptop-md:gap-4"
-      >
-        <p
-          class="text-sm text-gray-500 dark:text-gray-400 laptop-md:col-span-1 laptop-md:text-right"
-        >
+    <template #content>
+      <div class="w-full h-full grid grid-cols-3 gap-4 items-center justify-center">
+        <p class="text-sm text-gray-500 dark:text-gray-400 col-span-1 text-right">
           {{ $t('year.from') }}
         </p>
-        <UPopover class="laptop-md:col-span-2">
+        <UPopover class="col-span-2">
           <UButton
             icon="i-heroicons-calendar-days-20-solid"
             :label="fromDate ? formatLocalDate(fromDate) : ''"
@@ -37,13 +24,11 @@
           </template>
         </UPopover>
 
-        <p
-          class="text-sm text-gray-500 dark:text-gray-400 laptop-md:col-span-1 laptop-md:text-right"
-        >
+        <p class="text-sm text-gray-500 dark:text-gray-400 col-span-1 text-right">
           {{ $t('year.to') }}
         </p>
 
-        <UPopover class="laptop-md:col-span-2">
+        <UPopover class="col-span-2">
           <UButton
             icon="i-heroicons-calendar-days-20-solid"
             :label="toDate ? formatLocalDate(toDate) : ''"
@@ -58,8 +43,8 @@
           </template>
         </UPopover>
       </div>
-    </div>
-  </div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
