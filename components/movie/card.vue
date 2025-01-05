@@ -41,7 +41,6 @@
                 :key="genre.id"
                 :color="genre.color"
                 :label="genre.name"
-                size="sm"
               />
             </div>
           </template>

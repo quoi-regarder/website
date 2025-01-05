@@ -1,10 +1,7 @@
 {
-  "actor": {
-    "title": "Acteur",
-    "placeholder": "Nom de l'acteur"
-  },
   "age": {
     "title": "Âge minimum",
+    "description": "Par défaut, aucun âge minimum n'est sélectionné.",
     "labels": {
       "ten": "10 ans",
       "twelve": "12 ans",
@@ -30,7 +27,7 @@
       "error": {
         "bad_request": "Une erreur est survenue lors de la récupération des données. Veuillez réessayer.",
         "not_found": "La ressource demandée est introuvable.",
-        "username_already_exists": "Le nom d'utilisateur est déjà utilisé.",
+        "username_already_exists": "Ce nom d'utilisateur est déjà utilisé.",
         "internal_server_error": "Une erreur est survenue lors du traitement de la requête. Veuillez réessayer.",
         "forbidden": "Vous n'êtes pas autorisé à accéder à cette ressource."
       }
@@ -38,7 +35,8 @@
     "toasts": {
       "title": {
         "error": "Une erreur est survenue",
-        "success": "Succès"
+        "success": "Succès",
+        "info": "Information"
       }
     },
     "hint": {
@@ -50,20 +48,28 @@
         "email": "Veuillez saisir une adresse e-mail valide",
         "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
         "passwordMatch": "Les mots de passe ne correspondent pas",
-        "passwordComplex": "Le mot de passe doit contenir des lettres minuscules, majuscules, des chiffres et des symboles",
+        "passwordComplex": "Le mot de passe doit contenir des lettres minuscules, majuscules, des chiffres et des caractères spéciaux",
         "stringMin": "Ce champ doit contenir au moins {min} caractères",
         "fileSize": "La taille du fichier ne doit pas dépasser {size} Mo",
-        "fileFormat": "Le fichier choisi n'est pas valide, veuillez choisir un fichier de type {formats}.",
+        "fileFormat": "Le fichier choisi n'est pas valide. Veuillez choisir un fichier de type {formats}.",
         "conversionFailed": "L'enregistrement de l'image a échoué. Veuillez réessayer."
       }
     }
   },
-  "director": {
-    "title": "Réalisateur",
-    "placeholder": "Nom du réalisateur"
+  "company": {
+    "title": "Société de production"
+  },
+  "duration": {
+    "title": "Durée",
+    "description": "Par défaut, aucune durée n'est sélectionnée.",
+    "unit": "{count} minute | {count} minutes",
+    "buttons": {
+      "mode": "Mode de durée ({mode})",
+      "reset": "Réinitialiser"
+    }
   },
   "footer": {
-    "title": "Quoi regarder?",
+    "title": "Quoi regarder ?",
     "tagline": "Une série ou un film à regarder par jour selon vos critères.",
     "links": {
       "home": "Accueil",
@@ -71,7 +77,7 @@
       "signup": "Inscription",
       "profile": "Profil"
     },
-    "copyright": "© {year} Quoi regarder?"
+    "copyright": "© {year} Quoi regarder ?"
   },
   "home": {
     "form": {
@@ -83,18 +89,21 @@
         "search": "Mots-clés"
       },
       "descriptions": {
-        "search": "Saissisez des mots-clés pour rechercher des films, séries, documentaires, etc."
+        "search": "Saisissez des mots-clés pour rechercher des films, séries, documentaires, etc."
       }
     },
     "toasts": {
       "success": {
         "search": "La recherche a été effectuée avec succès."
+      },
+      "error": {
+        "search": "Aucun résultat trouvé."
       }
     }
   },
   "mark": {
     "title": "Note minimale",
-    "hint": "Par défault, aucune note minimale n'est sélectionnée.",
+    "description": "Par défaut, aucune note minimale n'est sélectionnée.",
     "labels": {
       "mark": "{count} étoile | {count} étoiles"
     }
@@ -108,11 +117,11 @@
   },
   "movie": {
     "title": "Titre",
-    "release_date": "Date de sortie",
+    "release_date": "Date de sortie en salle",
     "vote_average": "Note",
     "overview": "Résumé",
     "genres": "Genres",
-    "vote_count": "Nombre de votes: {count}",
+    "vote_count": "Nombre de votes : {count}",
     "no_overview": "Aucune description disponible."
   },
   "navbar": {
@@ -128,7 +137,7 @@
       "colorMode": {
         "light": "Mode clair",
         "dark": "Mode sombre",
-        "system": "Thème du système"
+        "system": "Thème système"
       }
     },
     "toasts": {
@@ -143,37 +152,21 @@
       "locale": "Changer de langue"
     }
   },
-  "filter": {
+  "by": {
     "title": "Trier par",
+    "description": "Un seul critère de tri peut être sélectionné à la fois.",
+    "hint": "La flèche vers le haut indique un tri croissant (du plus petit au plus grand, du plus ancien au plus récent, de A à Z, etc.). La flèche vers le bas indique un tri décroissant (du plus grand au plus petit, du plus récent au plus ancien, de Z à A, etc.).",
     "labels": {
-      "original_title": {
-        "asc": "Titre original (A-Z)",
-        "desc": "Titre original (Z-A)"
-      },
-      "popularity": {
-        "asc": "Popularité (Croissant)",
-        "desc": "Popularité (Décroissant)"
-      },
-      "revenue": {
-        "asc": "Recette (Croissant)",
-        "desc": "Recette (Décroissant)"
-      },
-      "primary_release_date": {
-        "asc": "Date de sortie (Plus ancien)",
-        "desc": "Date de sortie (Plus récent)"
-      },
-      "title": {
-        "asc": "Titre local (A-Z)",
-        "desc": "Titre local (Z-A)"
-      },
-      "vote_average": {
-        "asc": "Note (Croissant)",
-        "desc": "Note (Décroissant)"
-      },
-      "vote_count": {
-        "asc": "Nombre de votes (Croissant)",
-        "desc": "Nombre de votes (Décroissant)"
-      }
+      "original_title": "Titre original",
+      "popularity": "Popularité",
+      "revenue": "Recettes",
+      "primary_release_date": "Date de sortie en salle",
+      "title": "Titre",
+      "vote_average": "Note",
+      "vote_count": "Nombre de votes"
+    },
+    "buttons": {
+      "reset": "Réinitialiser"
     }
   },
   "forgotPassword": {
@@ -186,7 +179,7 @@
         "signup": "S'inscrire"
       },
       "fields": {
-        "email": "Email"
+        "email": "E-mail"
       },
       "placeholders": {
         "email": "Adresse e-mail"
@@ -200,21 +193,21 @@
   },
   "genre": {
     "title": "Genre de contenu",
-    "hint": "Par défault, aucun genre cinématographique n'est sélectionné."
+    "description": "Par défaut, aucun genre de contenu n'est sélectionné."
   },
   "login": {
     "title": "Connexion",
     "or": "ou",
     "form": {
       "buttons": {
-        "submit": "Connexion",
+        "submit": "Se connecter",
         "forgotPassword": "Mot de passe oublié ?",
         "signup": "S'inscrire",
         "home": "Retour à l'accueil",
         "google": "Se connecter avec Google"
       },
       "fields": {
-        "email": "Email",
+        "email": "E-mail",
         "password": "Mot de passe"
       },
       "placeholders": {
@@ -224,12 +217,23 @@
     },
     "toasts": {
       "error": {
-        "invalid_credentials": "Les informations d'identification fournies sont incorrectes. Veuillez réessayer.",
+        "invalid_credentials": "Les identifiants fournis sont incorrects. Veuillez réessayer.",
         "email_not_confirmed": "Votre adresse e-mail n'a pas été confirmée. Veuillez vérifier votre boîte de réception."
       },
       "success": {
         "login": "Vous êtes connecté."
       }
+    }
+  },
+  "monetization": {
+    "title": "Type de disponibilité",
+    "description": "Par défaut, tous les types de disponibilité sont sélectionnés.",
+    "options": {
+      "flatrate": "En streaming avec abonnement",
+      "free": "En visionnage gratuit",
+      "ads": "En visionnage gratuit avec publicités",
+      "rent": "En location",
+      "buy": "À l'achat"
     }
   },
   "multiSelect": {
@@ -239,6 +243,9 @@
     "create": "Créer \"{name}\".",
     "noOptions": "Aucune option disponible.",
     "loading": "Commencez à taper pour rechercher des éléments..."
+  },
+  "person": {
+    "title": "Professionnels du cinéma"
   },
   "platforms": {
     "title": "Plateformes de streaming",
@@ -251,7 +258,7 @@
         "deleteAccount": "Supprimer le compte"
       },
       "fields": {
-        "email": "Email",
+        "email": "E-mail",
         "username": "Nom d'utilisateur",
         "firstName": "Prénom",
         "lastName": "Nom",
@@ -285,7 +292,6 @@
   },
   "signup": {
     "title": "Inscription",
-    "or": "ou",
     "form": {
       "buttons": {
         "submit": "S'inscrire",
@@ -294,7 +300,7 @@
         "home": "Retour à l'accueil"
       },
       "fields": {
-        "email": "Email",
+        "email": "E-mail",
         "username": "Nom d'utilisateur",
         "firstName": "Prénom",
         "lastName": "Nom",
@@ -312,19 +318,8 @@
     },
     "toasts": {
       "success": {
-        "registered": "Inscription réussie, veuillez vérifier votre boîte de réception pour activer votre compte"
+        "registered": "Inscription réussie. Veuillez vérifier votre boîte de réception pour activer votre compte."
       }
-    }
-  },
-  "type": {
-    "title": "Type de contenu",
-    "labels": {
-      "movie": "Film",
-      "series": "Série",
-      "anime": "Anime",
-      "documentary": "Documentaire",
-      "shortFilm": "Court métrage",
-      "other": "Autre"
     }
   },
   "updatePassword": {
@@ -352,9 +347,21 @@
       }
     }
   },
+  "votes": {
+    "title": "Nombre de votes",
+    "description": "Par défaut, aucun nombre de votes n'est sélectionné.",
+    "unit": "{count} vote | {count} votes",
+    "buttons": {
+      "mode": "Mode de votes ({mode})",
+      "reset": "Réinitialiser"
+    }
+  },
   "year": {
-    "title": "Année de sortie",
-    "placeholder": "Année",
-    "hint": "Par défault, toutes les années sont sélectionnées."
+    "title": "Date de sortie en salle",
+    "from": "À partir du",
+    "to": "Jusqu'au",
+    "buttons": {
+      "reset": "Réinitialiser"
+    }
   }
 }

@@ -1,29 +1,22 @@
 <template>
-  <div class="flex flex-col items-center gap-2 w-full">
-    <div
-      class="flex flex-col desktop:flex-row items-start gap-x-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
-    >
-      <div class="flex flex-col w-full desktop:w-1/3">
-        <h3 class="font-bold desktop:text-right text-wrap">
-          {{ $t('platforms.title') }}
-        </h3>
-      </div>
+  <NuxtLayout name="filter" :title="$t('platforms.title')">
+    <template #content>
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
-          :options="platforms"
           name="platforms"
+          :options="platforms"
           class="w-full"
           @update:model-value="emit('update:selectedPlatforms', $event)"
         />
       </div>
-    </div>
-  </div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
 const { locale } = useI18n()
 
-const platforms = ref([])
+const platforms = ref<Option[]>([])
 
 const emit = defineEmits({
   'update:selectedPlatforms': {

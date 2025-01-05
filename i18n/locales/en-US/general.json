@@ -1,21 +1,18 @@
 {
-  "actor": {
-    "title": "Actor",
-    "placeholder": "Actor's name"
-  },
   "age": {
-    "title": "Minimum Age",
+    "title": "Minimum age",
+    "description": "By default, no minimum age is selected.",
     "labels": {
-      "ten": "10 years",
-      "twelve": "12 years",
-      "sixteen": "16 years",
-      "eighteen": "18 years"
+      "ten": "10 years old",
+      "twelve": "12 years old",
+      "sixteen": "16 years old",
+      "eighteen": "18 years old"
     }
   },
   "avatar": {
     "buttons": {
-      "remove": "Remove profile image",
-      "upload": "Upload an image"
+      "remove": "Remove profile picture",
+      "upload": "Upload a picture"
     }
   },
   "badgeList": {
@@ -30,7 +27,7 @@
       "error": {
         "bad_request": "An error occurred while fetching data. Please try again.",
         "not_found": "The requested resource could not be found.",
-        "username_already_exists": "The username is already in use.",
+        "username_already_exists": "This username is already in use.",
         "internal_server_error": "An error occurred while processing the request. Please try again.",
         "forbidden": "You are not authorized to access this resource."
       }
@@ -38,7 +35,8 @@
     "toasts": {
       "title": {
         "error": "An error occurred",
-        "success": "Success"
+        "success": "Success",
+        "info": "Information"
       }
     },
     "hint": {
@@ -50,35 +48,36 @@
         "email": "Please enter a valid email address",
         "passwordMin": "Password must be at least 8 characters long",
         "passwordMatch": "Passwords do not match",
-        "passwordComplex": "Password must include lowercase, uppercase letters, numbers, and symbols",
+        "passwordComplex": "Password must include lowercase letters, uppercase letters, numbers, and special characters",
         "stringMin": "This field must be at least {min} characters long",
         "fileSize": "File size must not exceed {size} MB",
-        "fileFormat": "The chosen file is not valid. Please select a file of type {formats}.",
-        "conversionFailed": "Saving the image failed. Please try again."
+        "fileFormat": "Invalid file type. Please select a file of type {formats}.",
+        "conversionFailed": "Failed to save the image. Please try again."
       }
     }
   },
-  "director": {
-    "title": "Director",
-    "placeholder": "Director's name"
+  "company": {
+    "title": "Production companies"
+  },
+  "duration": {
+    "title": "Duration",
+    "description": "By default, no duration is selected.",
+    "unit": "{count} minute | {count} minutes",
+    "buttons": {
+      "mode": "Duration mode ({mode})",
+      "reset": "Reset"
+    }
   },
   "footer": {
-    "title": "Quoi regarder?",
+    "title": "What to Watch?",
     "tagline": "A series or movie to watch each day based on your preferences.",
     "links": {
       "home": "Home",
       "login": "Login",
-      "signup": "Sign Up",
+      "signup": "Sign up",
       "profile": "Profile"
     },
-    "copyright": "© {year} Quoi regarder?"
-  },
-  "mark": {
-    "title": "Minimum Rating",
-    "hint": "By default, no minimum rating is selected.",
-    "labels": {
-      "mark": "{count} star | {count} stars"
-    }
+    "copyright": "© {year} What to Watch?"
   },
   "home": {
     "form": {
@@ -95,8 +94,18 @@
     },
     "toasts": {
       "success": {
-        "search": "Search was successful."
+        "search": "Search completed successfully."
+      },
+      "error": {
+        "search": "No results found."
       }
+    }
+  },
+  "mark": {
+    "title": "Minimum rating",
+    "description": "By default, no minimum rating is selected.",
+    "labels": {
+      "mark": "{count} star | {count} stars"
     }
   },
   "error": {
@@ -108,7 +117,7 @@
   },
   "movie": {
     "title": "Title",
-    "release_date": "Release Date",
+    "release_date": "Theater release date",
     "vote_average": "Rating",
     "overview": "Overview",
     "genres": "Genres",
@@ -123,19 +132,19 @@
       "home": "Home",
       "login": "Login",
       "logout": "Logout",
-      "signup": "Sign Up",
+      "signup": "Sign up",
       "profile": "Profile",
       "colorMode": {
-        "light": "Light Mode",
-        "dark": "Dark Mode",
-        "system": "System Theme"
+        "light": "Light mode",
+        "dark": "Dark mode",
+        "system": "System theme"
       }
     },
     "toasts": {
       "success": {
         "logout": "You have been logged out.",
-        "locale": "Language updated.",
-        "colorMode": "Theme updated."
+        "locale": "Language has been updated.",
+        "colorMode": "Theme has been updated."
       }
     },
     "tooltips": {
@@ -143,47 +152,31 @@
       "locale": "Change language"
     }
   },
-  "filter": {
+  "by": {
     "title": "Sort by",
+    "description": "Only one sort criterion can be selected at a time.",
+    "hint": "The up arrow indicates ascending order (smallest to largest, oldest to newest, A to Z). The down arrow indicates descending order (largest to smallest, newest to oldest, Z to A).",
     "labels": {
-      "original_title": {
-        "asc": "Original title (A-Z)",
-        "desc": "Original title (Z-A)"
-      },
-      "popularity": {
-        "asc": "Popularity (Low to High)",
-        "desc": "Popularity (High to Low)"
-      },
-      "revenue": {
-        "asc": "Revenue (Low to High)",
-        "desc": "Revenue (High to Low)"
-      },
-      "primary_release_date": {
-        "asc": "Release Date (Oldest)",
-        "desc": "Release Date (Latest)"
-      },
-      "title": {
-        "asc": "Local title (A-Z)",
-        "desc": "Local title (Z-A)"
-      },
-      "vote_average": {
-        "asc": "Rating (Low to High)",
-        "desc": "Rating (High to Low)"
-      },
-      "vote_count": {
-        "asc": "Number of votes (Low to High)",
-        "desc": "Number of votes (High to Low)"
-      }
+      "original_title": "Original title",
+      "popularity": "Popularity",
+      "revenue": "Revenue",
+      "primary_release_date": "Release date",
+      "title": "Title",
+      "vote_average": "Rating",
+      "vote_count": "Number of votes"
+    },
+    "buttons": {
+      "reset": "Reset"
     }
   },
   "forgotPassword": {
-    "title": "Forgot Password",
+    "title": "Forgot password",
     "form": {
       "buttons": {
         "submit": "Submit",
         "login": "Login",
-        "home": "Back to Home",
-        "signup": "Sign Up"
+        "home": "Back to home",
+        "signup": "Sign up"
       },
       "fields": {
         "email": "Email"
@@ -199,8 +192,8 @@
     }
   },
   "genre": {
-    "title": "Content Genre",
-    "hint": "By default, no cinematic genre is selected."
+    "title": "Content genre",
+    "description": "By default, no content genre is selected."
   },
   "login": {
     "title": "Login",
@@ -208,9 +201,9 @@
     "form": {
       "buttons": {
         "submit": "Login",
-        "forgotPassword": "Forgot Password?",
-        "signup": "Sign Up",
-        "home": "Back to Home",
+        "forgotPassword": "Forgot password?",
+        "signup": "Sign up",
+        "home": "Back to home",
         "google": "Login with Google"
       },
       "fields": {
@@ -228,8 +221,19 @@
         "email_not_confirmed": "Your email address has not been confirmed. Please check your inbox."
       },
       "success": {
-        "login": "You are logged in."
+        "login": "You have successfully logged in."
       }
+    }
+  },
+  "monetization": {
+    "title": "Availability type",
+    "description": "By default, all availability types are selected.",
+    "options": {
+      "flatrate": "Subscription streaming",
+      "free": "Free to watch",
+      "ads": "Free with ads",
+      "rent": "Available for rent",
+      "buy": "Available for purchase"
     }
   },
   "multiSelect": {
@@ -240,33 +244,36 @@
     "noOptions": "No options available.",
     "loading": "Start typing to search for items..."
   },
+  "person": {
+    "title": "Film industry professionals"
+  },
   "platforms": {
-    "title": "Streaming Platforms",
+    "title": "Streaming platforms",
     "placeholder": "Platforms"
   },
   "profile": {
     "form": {
       "buttons": {
         "submit": "Update",
-        "deleteAccount": "Delete Account"
+        "deleteAccount": "Delete account"
       },
       "fields": {
         "email": "Email",
         "username": "Username",
-        "firstName": "First Name",
-        "lastName": "Last Name",
-        "avatar": "Profile Image"
+        "firstName": "First name",
+        "lastName": "Last name",
+        "avatar": "Profile picture"
       },
       "placeholders": {
         "email": "Email address",
         "username": "Username",
-        "firstName": "First Name",
-        "lastName": "Last Name"
+        "firstName": "First name",
+        "lastName": "Last name"
       }
     },
     "modals": {
       "deleteAccount": {
-        "title": "Delete Account",
+        "title": "Delete account",
         "description": "Are you sure you want to delete your account? This action is irreversible. All your data will be lost.",
         "buttons": {
           "cancel": "Cancel",
@@ -277,37 +284,36 @@
     "toasts": {
       "success": {
         "updated": "Your profile has been updated.",
-        "avatarUpdated": "Your profile image has been updated.",
-        "avatarRemoved": "Your profile image has been removed.",
+        "avatarUpdated": "Your profile picture has been updated.",
+        "avatarRemoved": "Your profile picture has been removed.",
         "accountDeleted": "Your account has been deleted."
       }
     }
   },
   "signup": {
-    "title": "Sign Up",
-    "or": "or",
+    "title": "Sign up",
     "form": {
       "buttons": {
-        "submit": "Sign Up",
-        "google": "Sign Up with Google",
+        "submit": "Sign up",
+        "google": "Sign up with Google",
         "login": "Login",
-        "home": "Back to Home"
+        "home": "Back to home"
       },
       "fields": {
         "email": "Email",
         "username": "Username",
-        "firstName": "First Name",
-        "lastName": "Last Name",
+        "firstName": "First name",
+        "lastName": "Last name",
         "password": "Password",
-        "passwordConfirmation": "Confirm Password"
+        "passwordConfirmation": "Confirm password"
       },
       "placeholders": {
         "email": "Email address",
         "username": "Username",
-        "firstName": "First Name",
-        "lastName": "Last Name",
+        "firstName": "First name",
+        "lastName": "Last name",
         "password": "Password",
-        "passwordConfirmation": "Confirm Password"
+        "passwordConfirmation": "Confirm password"
       }
     },
     "toasts": {
@@ -316,31 +322,20 @@
       }
     }
   },
-  "type": {
-    "title": "Content Type",
-    "labels": {
-      "movie": "Movie",
-      "series": "Series",
-      "anime": "Anime",
-      "documentary": "Documentary",
-      "shortFilm": "Short Film",
-      "other": "Other"
-    }
-  },
   "updatePassword": {
-    "title": "Update Password",
+    "title": "Update password",
     "form": {
       "buttons": {
         "submit": "Submit",
-        "home": "Back to Home"
+        "home": "Back to home"
       },
       "fields": {
         "password": "Password",
-        "passwordConfirmation": "Confirm Password"
+        "passwordConfirmation": "Confirm password"
       },
       "placeholders": {
-        "password": "New Password",
-        "passwordConfirmation": "Confirm New Password"
+        "password": "New password",
+        "passwordConfirmation": "Confirm new password"
       }
     },
     "toasts": {
@@ -352,9 +347,21 @@
       }
     }
   },
+  "votes": {
+    "title": "Number of votes",
+    "description": "By default, no number of votes is selected.",
+    "unit": "{count} vote | {count} votes",
+    "buttons": {
+      "mode": "Vote mode ({mode})",
+      "reset": "Reset"
+    }
+  },
   "year": {
-    "title": "Release Year",
-    "placeholder": "Year",
-    "hint": "By default, all years are selected."
+    "title": "Theater release date",
+    "from": "From",
+    "to": "To",
+    "buttons": {
+      "reset": "Reset"
+    }
   }
 }

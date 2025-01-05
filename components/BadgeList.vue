@@ -1,33 +1,26 @@
 <template>
-  <div class="flex flex-col items-center gap-2 w-full">
-    <div
-      class="flex flex-col desktop:flex-row items-start gap-4 p-2 w-full bg-gray-100 rounded-2xl dark:bg-gray-700"
-    >
-      <aside class="flex flex-col w-full desktop:w-1/3">
-        <h3 class="font-bold desktop:text-right text-wrap">{{ title }}</h3>
-        <p class="text-sm desktop:text-justify text-wrap text-gray-500 dark:text-gray-300">
-          {{ hint }}
-        </p>
+  <NuxtLayout
+    name="filter"
+    :title="$t('genre.title')"
+    :description="$t('genre.description')"
+    has-buttons
+  >
+    <template #buttons>
+      <UButton
+        :label="$t('badgeList.buttons.selectAll')"
+        :variant="isAllSelected ? 'outline' : 'solid'"
+        class="transition-colors duration-300 ease-in-out"
+        @click="selectAll"
+      />
+      <UButton
+        :label="$t('badgeList.buttons.unselectAll')"
+        :variant="isAllSelected ? 'solid' : 'outline'"
+        class="transition-colors duration-300 ease-in-out"
+        @click="unselectAll"
+      />
+    </template>
 
-        <div class="flex flex-wrap desktop:flex-col gap-4 justify-center desktop:items-end mt-2">
-          <template v-if="!uniqueSelection">
-            <UButton
-              :label="$t('badgeList.buttons.selectAll')"
-              :variant="isAllSelected ? 'outline' : 'solid'"
-              class="transition-colors duration-300 ease-in-out"
-              @click="selectAll"
-            />
-            <UButton
-              :label="$t('badgeList.buttons.unselectAll')"
-              :variant="isAllSelected ? 'solid' : 'outline'"
-              class="transition-colors duration-300 ease-in-out"
-              @click="unselectAll"
-            />
-          </template>
-          <UButton v-else :label="$t('badgeList.buttons.reset')" @click="unselectAll" />
-        </div>
-      </aside>
-
+    <template #content>
       <div
         class="flex flex-wrap justify-around p-2 gap-2 tablet:gap-4 w-full border-2 border-gray-400 border-dashed rounded-2xl self-center"
       >
@@ -37,13 +30,13 @@
           :color="getBadgeColor(badge)"
           :icon="getBadgeIcon(badge)"
           :label="badge.name"
-          class="cursor-pointer gap-1 desktop:gap-2 transition-colors duration-300 ease-in-out"
+          class="cursor-pointer gap-1 laptop-md:gap-2 transition-colors duration-300 ease-in-out"
           size="md"
           @click="toggleBadge(badge)"
         />
       </div>
-    </div>
-  </div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script setup lang="ts">
@@ -62,7 +55,7 @@ const props = defineProps({
     type: Boolean,
     default: false
   },
-  hint: {
+  description: {
     type: String,
     default: ''
   }
