@@ -72,7 +72,7 @@
   },
   "filter": {
     "type": "Would you like to search among movies or series ?",
-    "otpions": {
+    "options": {
       "movie": "Movies",
       "tv": "Series"
     }
@@ -101,6 +101,9 @@
       },
       "descriptions": {
         "search": "Enter keywords to search for movies, TV shows, documentaries, etc."
+      },
+      "tooltip": {
+        "reset": "Reset filters and search"
       }
     },
     "toasts": {
@@ -129,15 +132,17 @@
       "home": "Home"
     }
   },
-  "movie": {
+  "card": {
     "title": "Title",
     "release_date": "Theater release date",
+    "first_air_date": "First air date",
     "vote_average": "Rating",
     "overview": "Overview",
     "genres": "Genres",
     "vote_count": "Number of votes: {count}",
     "no_overview": "No description available.",
-    "no_poster": "No poster available."
+    "no_poster": "No poster available.",
+    "more_details": "More details"
   },
   "navbar": {
     "dropdown": {
@@ -173,10 +178,13 @@
     "hint": "The up arrow indicates ascending order (smallest to largest, oldest to newest, A to Z). The down arrow indicates descending order (largest to smallest, newest to oldest, Z to A).",
     "labels": {
       "original_title": "Original title",
+      "original_name": "Original title",
       "popularity": "Popularity",
       "revenue": "Revenue",
       "primary_release_date": "Release date",
+      "first_air_date": "First air date",
       "title": "Title",
+      "name": "Title",
       "vote_average": "Rating",
       "vote_count": "Number of votes"
     },
@@ -372,8 +380,10 @@
       "reset": "Reset"
     }
   },
-  "year": {
+  "dateRange": {
     "title": "Theater release date",
+    "first_air_date": "First air date",
+    "air_date": "Air date",
     "from": "From",
     "to": "To",
     "buttons": {

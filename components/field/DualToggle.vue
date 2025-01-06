@@ -14,7 +14,6 @@
       :ui="{ rounded: 'rounded-none rounded-r-md' }"
       :variant="modelValue === rightModelValue ? 'solid' : 'outline'"
       size="lg"
-      disabled
       @click="setValue(rightModelValue)"
     >
       {{ rightValue }}
@@ -23,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   leftValue: {
     type: String,
     required: true
@@ -53,7 +52,6 @@ const emit = defineEmits({
   }
 })
 
-// Méthode pour mettre à jour la valeur du modèle
 const setValue = (value: string) => {
   emit('update:modelValue', value)
 }

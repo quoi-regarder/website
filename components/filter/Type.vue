@@ -10,7 +10,6 @@
       :left-model-value="'movie'"
       :right-value="$t('filter.options.tv')"
       :right-model-value="'tv'"
-      @update:model-value="setValue"
     />
   </div>
 </template>
@@ -25,14 +24,14 @@ const emit = defineEmits({
   }
 })
 
-const setValue = (value: 'movie' | 'tv') => {
-  emit('update:modelValue', value)
-}
-
 const reset = () => {
   modelValue.value = 'movie'
   emit('update:modelValue', 'movie')
 }
+
+watchEffect(() => {
+  emit('update:modelValue', modelValue.value)
+})
 
 defineExpose({
   reset

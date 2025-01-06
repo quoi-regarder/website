@@ -1,13 +1,13 @@
 <template>
-  <NuxtLayout name="filter" :title="$t('year.title')" has-buttons>
+  <NuxtLayout name="filter" :title="title" has-buttons>
     <template #buttons>
-      <UButton :label="$t('year.buttons.reset')" @click="handleReset" />
+      <UButton :label="$t('dateRange.buttons.reset')" @click="handleReset" />
     </template>
 
     <template #content>
       <div class="w-full h-full grid grid-cols-3 gap-4 items-center justify-center">
         <p class="text-sm text-gray-500 dark:text-gray-400 col-span-1 text-right">
-          {{ $t('year.from') }}
+          {{ $t('dateRange.from') }}
         </p>
         <UPopover class="col-span-2">
           <UButton
@@ -25,7 +25,7 @@
         </UPopover>
 
         <p class="text-sm text-gray-500 dark:text-gray-400 col-span-1 text-right">
-          {{ $t('year.to') }}
+          {{ $t('dateRange.to') }}
         </p>
 
         <UPopover class="col-span-2">
@@ -50,6 +50,13 @@
 <script lang="ts" setup>
 const fromDate = ref<Date | null>(null)
 const toDate = ref<Date | null>(null)
+
+const props = defineProps({
+  title: {
+    type: String,
+    required: true
+  }
+})
 
 const emit = defineEmits({
   'update:from-date': {
