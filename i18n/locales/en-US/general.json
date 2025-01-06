@@ -62,6 +62,7 @@
   "duration": {
     "title": "Duration",
     "description": "By default, no duration is selected.",
+    "hint": "The 'max' mode selects items with the chosen duration or less. The 'min' mode selects items with the chosen duration or more.",
     "unit": "{count} minute | {count} minutes",
     "buttons": {
       "mode": "Duration mode ({mode})",
@@ -351,6 +352,7 @@
   "votes": {
     "title": "Number of votes",
     "description": "By default, no number of votes is selected.",
+    "hint": "The 'max' mode selects items with the chosen number of votes or fewer. The 'min' mode selects items with the chosen number of votes or more.",
     "unit": "{count} vote | {count} votes",
     "buttons": {
       "mode": "Vote mode ({mode})",

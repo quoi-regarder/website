@@ -3,7 +3,9 @@
     name="filter"
     :title="$t('votes.title')"
     :description="$t('votes.description')"
+    :hint="$t('votes.hint')"
     has-buttons
+    show-tooltip
   >
     <template #buttons>
       <UButton
