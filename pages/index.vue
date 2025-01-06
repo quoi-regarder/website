@@ -1,12 +1,21 @@
 <template>
-  <div class="flex flex-col gap-8 laptop:gap-0">
+  <div class="relative flex flex-col gap-8 laptop:gap-0">
     <!-- Header -->
+
+    <!-- Background Image -->
+    <NuxtImg
+      alt="Background image"
+      class="absolute object-cover w-full h-[60vh] opacity-50 bg-gradient-radial z-0"
+      src="/img/background.webp"
+    />
+
+    <!-- Content Section -->
     <div
       :class="{
         'min-h-[30vh] laptop:min-h-[15vh]': showCarousel,
         'min-h-[30vh] laptop:min-h-[55vh]': !showCarousel
       }"
-      class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out"
+      class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out relative z-10"
     >
       <h1 class="text-4xl font-bold text-center mb-2">{{ $t('home.title') }}</h1>
       <h2 class="text-lg font-semibold text-center mb-8">{{ $t('home.subtitle') }}</h2>
@@ -41,7 +50,7 @@
     <!-- Carousel Section -->
     <div
       :class="{ 'opacity-100 min-h-[70vh]': showCarousel, 'opacity-0': !showCarousel }"
-      class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in"
+      class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in relative z-10"
     >
       <UCarousel
         ref="carouselRef"
@@ -82,7 +91,7 @@
 
     <!-- Bottom Section -->
     <div
-      class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out"
+      class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out relative z-10"
       :class="{
         'min-h-[0vh] tablet:min-h-[0vh]': moreFilters,
         'min-h-[0vh] tablet:min-h-[45vh]': !moreFilters
@@ -432,3 +441,11 @@ const handleTransitionEnd = () => {
   }
 }
 </script>
+
+<style scoped>
+.bg-gradient-radial {
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.7) 100%);
+  mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 1) 100%);
+  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 1) 100%);
+}
+</style>
