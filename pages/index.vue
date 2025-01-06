@@ -8,7 +8,8 @@
       }"
       class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out"
     >
-      <h1 class="text-4xl font-bold text-center mb-8">{{ $t('home.title') }}</h1>
+      <h1 class="text-4xl font-bold text-center mb-2">{{ $t('home.title') }}</h1>
+      <h2 class="text-lg text-center mb-8">{{ $t('home.subtitle') }}</h2>
       <UButton
         :loading="searching"
         class="h-fit tablet-md:mt-[-1rem]"
@@ -21,7 +22,7 @@
       <div
         class="flex flex-col justify-center tablet:gap-x-4 w-11/12 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
       >
-        <FilterKeyword class="w-full" @update:selected-keywords="selectedKeywords = $event" />
+        <!-- <FilterKeyword class="w-full" @update:selected-keywords="selectedKeywords = $event" /> -->
       </div>
     </div>
 

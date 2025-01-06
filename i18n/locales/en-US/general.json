@@ -83,6 +83,7 @@
   },
   "home": {
     "title": "Quoi regarder ?",
+    "subtitle": "A random series or movie to watch each day based on your preferences.",
     "form": {
       "buttons": {
         "search": "Search",
