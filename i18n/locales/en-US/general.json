@@ -70,6 +70,13 @@
       "reset": "Reset"
     }
   },
+  "filter": {
+    "type": "Would you like to search among movies or series ?",
+    "otpions": {
+      "movie": "Movies",
+      "tv": "Series"
+    }
+  },
   "footer": {
     "title": "Quoi regarder ?",
     "tagline": "A series or movie to watch each day based on your preferences.",
@@ -102,6 +109,9 @@
       },
       "error": {
         "search": "No results found."
+      },
+      "tooltip": {
+        "reset": "Reset filters and search"
       }
     }
   },

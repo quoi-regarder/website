@@ -37,4 +37,16 @@ const fetchAges = async () => {
 
   emit('update:ages', ages.value)
 }
+
+const reset = () => {
+  ages.value.forEach((age) => {
+    age.selected = false
+  })
+
+  emit('update:selectedAges', [])
+}
+
+defineExpose({
+  reset
+})
 </script>

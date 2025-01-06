@@ -76,6 +76,12 @@ const handleReset = () => {
   votes.value = null
 }
 
+const reset = () => {
+  votes.value = null
+  mode.value = 'max'
+  emit('update:selected-votes', null)
+}
+
 watchEffect(() => {
   if (!votes.value) {
     return
@@ -86,5 +92,9 @@ watchEffect(() => {
     emit('update:selected-votes', votes.value)
   }
   emit('update:mode', mode.value)
+})
+
+defineExpose({
+  reset
 })
 </script>

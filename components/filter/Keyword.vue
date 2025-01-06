@@ -18,4 +18,16 @@ const emit = defineEmits({
     required: true
   }
 })
+
+const reset = () => {
+  keywords.value.forEach((keyword) => {
+    keyword.selected = false
+  })
+
+  emit('update:selectedKeywords', [])
+}
+
+defineExpose({
+  reset
+})
 </script>

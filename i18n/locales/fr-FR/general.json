@@ -70,6 +70,13 @@
       "reset": "Réinitialiser"
     }
   },
+  "filter": {
+    "type": "Voulez-vous rechercher parmis les films ou les séries ?",
+    "options": {
+      "movie": "Films",
+      "tv": "Séries"
+    }
+  },
   "footer": {
     "title": "Quoi regarder ?",
     "tagline": "Une série ou un film à regarder par jour selon vos critères.",
@@ -94,6 +101,9 @@
       },
       "descriptions": {
         "search": "Saisissez des mots-clés pour rechercher des films, séries, documentaires, etc."
+      },
+      "tooltip": {
+        "reset": "Réinitialiser les filtres et la recherche"
       }
     },
     "toasts": {

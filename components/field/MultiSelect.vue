@@ -160,4 +160,13 @@ const search = async (query: string) => {
     }
   })
 }
+
+const reset = () => {
+  selected.value = []
+  emit('update:modelValue', selected.value)
+}
+
+defineExpose({
+  reset
+})
 </script>

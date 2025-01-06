@@ -1,10 +1,5 @@
 <template>
-  <NuxtLayout
-    name="filter"
-    :title="$t('genre.title')"
-    :description="$t('genre.description')"
-    has-buttons
-  >
+  <NuxtLayout name="filter" :title="title" :description="description" has-buttons>
     <template #buttons>
       <UButton
         :label="$t('badgeList.buttons.selectAll')"

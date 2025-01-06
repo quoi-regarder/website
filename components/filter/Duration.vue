@@ -80,6 +80,11 @@ const handleReset = () => {
   duration.value = null
 }
 
+const reset = () => {
+  duration.value = null
+  mode.value = 'max'
+}
+
 watchEffect(() => {
   if (!duration.value) {
     return
@@ -90,5 +95,9 @@ watchEffect(() => {
     emit('update:selected-duration', duration.value)
   }
   emit('update:mode', mode.value)
+})
+
+defineExpose({
+  reset
 })
 </script>
