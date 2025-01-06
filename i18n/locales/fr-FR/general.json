@@ -80,6 +80,7 @@
     "copyright": "© {year} Quoi regarder ?"
   },
   "home": {
+    "title": "Quoi regarder ?",
     "form": {
       "buttons": {
         "search": "Rechercher",

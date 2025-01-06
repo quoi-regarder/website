@@ -4,10 +4,11 @@
     <div
       :class="{
         'min-h-[30vh] laptop:min-h-[15vh]': showCarousel,
-        'min-h-[30vh] tablet:min-h-[52vh]': !showCarousel
+        'min-h-[30vh] laptop:min-h-[48vh]': !showCarousel
       }"
       class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out"
     >
+      <h1 class="text-4xl font-bold text-center mb-8">{{ $t('home.title') }}</h1>
       <UButton
         :loading="searching"
         class="h-fit tablet-md:mt-[-1rem]"
@@ -67,7 +68,13 @@
     </div>
 
     <!-- Bottom Section -->
-    <div class="w-full flex flex-col overflow-hidden">
+    <div
+      class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out"
+      :class="{
+        'min-h-[0vh] tablet:min-h-[0vh]': moreFilters,
+        'min-h-[0vh] tablet:min-h-[44vh]': !moreFilters
+      }"
+    >
       <div class="grid grid-cols-1 items-center laptop-md:grid-cols-5 gap-4 p-4">
         <FilterGenre
           class="laptop-md:col-span-3 laptop-md:row-span-2"

@@ -69,7 +69,7 @@
     }
   },
   "footer": {
-    "title": "What to Watch?",
+    "title": "Quoi regarder ?",
     "tagline": "A series or movie to watch each day based on your preferences.",
     "links": {
       "home": "Home",
@@ -77,9 +77,10 @@
       "signup": "Sign up",
       "profile": "Profile"
     },
-    "copyright": "© {year} What to Watch?"
+    "copyright": "© {year} Quoi regarder ?"
   },
   "home": {
+    "title": "Quoi regarder ?",
     "form": {
       "buttons": {
         "search": "Search",
