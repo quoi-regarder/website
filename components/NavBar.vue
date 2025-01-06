@@ -8,15 +8,11 @@
           width="40"
           height="40"
           class="cursor-pointer"
-          @click="navigateTo(localePath('/'))"
+          @click="goToHome"
         />
-        <ULink
-          :to="localePath('/')"
-          active-class="text-primary underline"
-          class="hover:text-primary transition-colors duration-200"
-        >
+        <UButton variant="link" @click="goToHome">
           {{ $t('navbar.buttons.home') }}
-        </ULink>
+        </UButton>
       </div>
       <div class="flex items-center space-x-4">
         <ClientOnly>
@@ -122,6 +118,9 @@ const localePath = useLocalePath()
 const { profile } = useProfileChannel()
 const colorMode = useColorMode()
 
+const router = useRouter()
+const route = useRoute()
+
 const isLogged = computed(() => Boolean(user?.value))
 
 const dropdownItems = computed(() => [
@@ -181,6 +180,14 @@ const colorModeItems = computed(() =>
     }
   ])
 )
+
+const goToHome = () => {
+  if (route.path === localePath('/')) {
+    window.location.reload()
+  }
+
+  navigateTo(localePath('/'))
+}
 
 const logout = async () => {
   await client.auth.signOut()
