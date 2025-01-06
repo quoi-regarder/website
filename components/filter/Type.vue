@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col items-center space-y-2">
-    <h3 class="text-lg text-center text-gray-700">
+    <h3 class="text-lg text-center text-gray-700 dark:text-gray-300">
       {{ $t('filter.type') }}
     </h3>
 
