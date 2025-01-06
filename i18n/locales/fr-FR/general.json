@@ -54,7 +54,8 @@
         "fileFormat": "Le fichier choisi n'est pas valide. Veuillez choisir un fichier de type {formats}.",
         "conversionFailed": "L'enregistrement de l'image a échoué. Veuillez réessayer."
       }
-    }
+    },
+    "dateNotSet": "Date non définie"
   },
   "company": {
     "title": "Société de production"
@@ -121,10 +122,11 @@
     "title": "Titre",
     "release_date": "Date de sortie en salle",
     "vote_average": "Note",
-    "overview": "Résumé",
+    "overview": "Synopsis",
     "genres": "Genres",
     "vote_count": "Nombre de votes : {count}",
-    "no_overview": "Aucune description disponible."
+    "no_overview": "Aucune description disponible.",
+    "no_poster": "Aucune image disponible."
   },
   "navbar": {
     "dropdown": {

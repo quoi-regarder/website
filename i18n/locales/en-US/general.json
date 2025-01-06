@@ -54,7 +54,8 @@
         "fileFormat": "Invalid file type. Please select a file of type {formats}.",
         "conversionFailed": "Failed to save the image. Please try again."
       }
-    }
+    },
+    "dateNotSet": "Date not set"
   },
   "company": {
     "title": "Production companies"
@@ -124,7 +125,8 @@
     "overview": "Overview",
     "genres": "Genres",
     "vote_count": "Number of votes: {count}",
-    "no_overview": "No description available."
+    "no_overview": "No description available.",
+    "no_poster": "No poster available."
   },
   "navbar": {
     "dropdown": {

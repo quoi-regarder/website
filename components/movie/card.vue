@@ -4,10 +4,20 @@
   >
     <!-- Movie Poster -->
     <NuxtImg
+      v-if="movie.poster_path"
       :src="`https://image.tmdb.org/t/p/original/${movie.poster_path}`"
       :alt="`${movie.title} poster`"
       class="rounded-lg shadow-xl w-full tablet:w-1/2 laptop:w-1/3"
     />
+
+    <div v-else class="relative rounded-lg shadow-xl w-full tablet:w-1/2 laptop:w-1/3 h-[500px]">
+      <USkeleton />
+      <div class="absolute inset-0 flex items-center justify-center">
+        <p class="text-lg font-semibold text-gray-400">
+          {{ $t('movie.no_poster') }}
+        </p>
+      </div>
+    </div>
 
     <!-- Movie Details -->
     <div
@@ -85,7 +95,7 @@ const props = defineProps({
 })
 
 const movieDetails = computed(() => {
-  const genreDetails = props.movie.genre_ids.map((id) =>
+  const genreDetails = props.movie.genre_ids?.map((id) =>
     props.genres.find((genre) => genre.id === id)
   )
 
@@ -112,7 +122,7 @@ const movieDetails = computed(() => {
     },
     {
       label: t('movie.genres'),
-      value: genreDetails.filter(Boolean),
+      value: genreDetails?.filter(Boolean),
       type: 'badge'
     }
   ]
