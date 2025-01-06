@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col laptop:flex-row items-center w-full h-full p-4 border-2 border-gray-200 rounded-xl dark:border-gray-500"
+    class="flex flex-col laptop:flex-row items-center w-full h-full p-4 border-2 border-gray-200 rounded-xl dark:border-gray-500 bg-white dark:bg-gray-800"
   >
     <!-- Movie Poster -->
     <NuxtImg
