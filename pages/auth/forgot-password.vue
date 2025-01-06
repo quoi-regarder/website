@@ -56,8 +56,7 @@ useHead({
 })
 
 definePageMeta({
-  middleware: ['guest'],
-  layout: false
+  middleware: ['guest']
 })
 
 const onSubmit = async () => {

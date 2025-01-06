@@ -52,10 +52,6 @@ useHead({
   ]
 })
 
-definePageMeta({
-  layout: false
-})
-
 const onSubmit = async () => {
   const { error } = await client.auth.updateUser({
     password: state.password
