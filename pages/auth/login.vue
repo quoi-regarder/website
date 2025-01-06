@@ -80,8 +80,7 @@ useHead({
 })
 
 definePageMeta({
-  middleware: ['guest'],
-  layout: false
+  middleware: ['guest']
 })
 
 const login = async (provider: 'google') => {

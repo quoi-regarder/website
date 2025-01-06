@@ -111,8 +111,7 @@ useHead({
 })
 
 definePageMeta({
-  middleware: ['guest'],
-  layout: false
+  middleware: ['guest']
 })
 
 const signup = async (provider: 'google') => {
