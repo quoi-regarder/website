@@ -97,7 +97,7 @@ export default defineNuxtConfig({
         files: ['fr-FR/general.json', 'fr-FR/seo.json']
       }
     ],
-    defaultLocale: 'en-US',
+    defaultLocale: 'fr-FR',
     langDir: 'locales/',
     strategy: 'prefix',
     lazy: true,
@@ -105,7 +105,7 @@ export default defineNuxtConfig({
       useCookie: true,
       cookieKey: 'i18n_redirected',
       alwaysRedirect: true,
-      fallbackLocale: 'en-US'
+      fallbackLocale: 'fr-FR'
     }
   },
 
