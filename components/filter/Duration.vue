@@ -3,7 +3,9 @@
     name="filter"
     :title="$t('duration.title')"
     :description="$t('duration.description')"
+    :hint="$t('duration.hint')"
     has-buttons
+    show-tooltip
   >
     <template #buttons>
       <UButton
