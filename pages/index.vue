@@ -1,5 +1,5 @@
 <template>
-  <div class="relative flex flex-col gap-8 laptop:gap-0">
+  <div class="relative flex flex-col gap-8 laptop:gap-4">
     <!-- Header -->
 
     <!-- Background Image -->
@@ -49,6 +49,7 @@
 
     <!-- Carousel Section -->
     <div
+      id="carousel"
       :class="{ 'opacity-100 min-h-[70vh]': showCarousel, 'opacity-0': !showCarousel }"
       class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in relative z-10"
     >
@@ -276,6 +277,7 @@ const searchQuery = async (reset = false, showToast = true) => {
     page.value = data.page
     totalPages.value = data.total_pages
     movies.value = [...movies.value, ...data.results]
+    window.scrollTo({ top: document.getElementById('carousel')?.offsetTop, behavior: 'smooth' })
   } catch (error) {
     console.error('Error fetching movies:', error)
   } finally {
