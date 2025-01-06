@@ -41,7 +41,7 @@
       <div
         class="flex flex-col mt-4 tablet:gap-x-4 w-11/12 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
       >
-        <FilterType ref="typeFilterRef" @update:model-value="modelValue = $event" />
+        <FilterType ref="typeFilterRef" @update:model-value="selectedType = $event" />
 
         <!-- <FilterKeyword class="w-full" @update:selected-keywords="selectedKeywords = $event" /> -->
       </div>
@@ -64,7 +64,7 @@
           <div
             class="mx-auto h-fit w-[98%] tablet:w-[90%] laptop:w-[80%] desktop:w-[60%] fullhd:w-[50%] flex flex-col items-start"
           >
-            <MovieCard :genres="genres" :movie="item" class="h-full" />
+            <MovieCard :genres="genres" :item="item" class="h-full" :type="selectedType" />
           </div>
         </template>
         <template #next="{ onClick, disabled }">
@@ -102,12 +102,14 @@
         <FilterGenre
           ref="genreFilterRef"
           class="laptop-md:col-span-3 laptop-md:row-span-2"
+          :type="selectedType"
           @update:genres="genres = $event"
           @update:selected-genres="selectedGenres = $event"
         />
         <FilterPlatform
           ref="platformFilterRef"
           class="laptop-md:col-span-2 laptop-md:row-span-1"
+          :type="selectedType"
           @update:selected-platforms="selectedPlatforms = $event"
           @update:platforms="platforms = $event"
         />
@@ -144,11 +146,13 @@
       <FilterBy
         ref="filterByRef"
         class="laptop-md:col-span-4 laptop-md:row-span-1 order-1 laptop-md:order-none"
+        :type="selectedType"
         @update:selected-by="selectedFilterBy = $event"
         @update:direction="selectedFilterByDirection = $event"
       />
 
       <FilterPerson
+        v-if="displayMovieFilters"
         ref="personFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-2 laptop-md:order-none"
         @update:selected-persons="selectedPersons = $event"
@@ -160,9 +164,19 @@
         @update:selected-monetization="selectedMonetization = $event"
       />
 
-      <FilterYear
+      <FilterDateRange
+        v-if="displaySeriesFilters"
+        ref="airDateFilterRef"
+        class="laptop-md:col-span-2 laptop-md:row-span-1 order-5 laptop-md:order-none"
+        :title="$t('dateRange.air_date')"
+        @update:from-date="airFromDate = $event"
+        @update:to-date="airToDate = $event"
+      />
+
+      <FilterDateRange
         ref="yearFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-5 laptop-md:order-none"
+        :title="selectedType === 'movie' ? $t('dateRange.title') : $t('dateRange.first_air_date')"
         @update:from-date="fromDate = $event"
         @update:to-date="toDate = $event"
       />
@@ -207,7 +221,9 @@ useHead({
 })
 
 // Filters state
-const selectedType = ref<'movie' | 'series'>('movie')
+const selectedType = ref<'movie' | 'tv'>('movie')
+const displayMovieFilters = computed(() => selectedType.value === 'movie')
+const displaySeriesFilters = computed(() => selectedType.value === 'tv')
 // const selectedKeywords = ref<Badge[]>([])
 const selectedGenres = ref<Badge[]>([])
 const selectedPlatforms = ref<Option[]>([])
@@ -224,6 +240,8 @@ const selectedPersons = ref<Option[]>([])
 const selectedCompanies = ref<Option[]>([])
 const fromDate = ref<Date | null>(null)
 const toDate = ref<Date | null>(null)
+const airFromDate = ref<Date | null>(null)
+const airToDate = ref<Date | null>(null)
 
 // Filters refs
 const typeFilterRef = ref()
@@ -234,6 +252,7 @@ const filterByRef = ref()
 const personFilterRef = ref()
 const monetizationFilterRef = ref()
 const yearFilterRef = ref()
+const airDateFilterRef = ref()
 const companyFilterRef = ref()
 const ageFilterRef = ref()
 const votesFilterRef = ref()
@@ -269,7 +288,12 @@ const searchQuery = async (reset = false, showToast = true) => {
   searching.value = true
 
   try {
-    const manager = new QueryParamsManager('/api/themoviedb/discover/movie')
+    let manager: QueryParamsManager
+    if (selectedType.value === 'movie') {
+      manager = new QueryParamsManager('/api/themoviedb/discover/movie')
+    } else {
+      manager = new QueryParamsManager('/api/themoviedb/discover/tv')
+    }
     handleQueryFilters(manager)
 
     const data = await $fetch(manager.toString())
@@ -299,32 +323,8 @@ const searchQuery = async (reset = false, showToast = true) => {
   }
 }
 
-const resetSearchState = () => {
-  movies.value = []
-  page.value = 1
-  totalPages.value = 0
-}
-
-const resetSeachAndFilters = () => {
-  resetSearchState()
-  showCarousel.value = false
-  typeFilterRef.value.reset()
-  genreFilterRef.value.reset()
-  platformFilterRef.value.reset()
-  markFilterRef.value.reset()
-  filterByRef.value.reset()
-  personFilterRef.value.reset()
-  monetizationFilterRef.value.reset()
-  yearFilterRef.value.reset()
-  companyFilterRef.value.reset()
-  ageFilterRef.value.reset()
-  votesFilterRef.value.reset()
-  durationFilterRef.value.reset()
-}
-
 const handleQueryFilters = (manager: QueryParamsManager) => {
-  manager.add('language', locale.value)
-  manager.add('page', page.value)
+  commonFilters(manager)
 
   // if (selectedKeywords.value.length > 0) {
   //   manager.addWithLogic(
@@ -333,6 +333,19 @@ const handleQueryFilters = (manager: QueryParamsManager) => {
   //     LogicalOperator.AND
   //   )
   // }
+
+  if (selectedType.value === 'movie') {
+    exclusiveMovieFilters(manager)
+  } else {
+    exclusiveSeriesFilters(manager)
+  }
+
+  return manager
+}
+
+const commonFilters = (manager: QueryParamsManager) => {
+  manager.add('language', locale.value)
+  manager.add('page', page.value)
 
   if (selectedGenres.value.length > 0) {
     manager.addWithLogic(
@@ -358,27 +371,12 @@ const handleQueryFilters = (manager: QueryParamsManager) => {
     manager.add('sort_by', `${selectedFilterBy.value}.${selectedFilterByDirection.value}`)
   }
 
-  if (selectedDuration.value !== null && selectedDurationMode.value !== null) {
-    if (selectedDurationMode.value === 'min') {
-      manager.add('with_runtime_gte', selectedDuration.value)
-    } else {
-      manager.add('with_runtime_lte', selectedDuration.value)
-    }
-  }
-
-  if (selectedAges.value.length > 0) {
+  if (selectedCompanies.value.length > 0) {
     manager.addWithLogic(
-      'certification',
-      selectedAges.value.map((age) => age.id),
-      LogicalOperator.AND
+      'with_companies',
+      selectedCompanies.value.map((company) => company.id),
+      LogicalOperator.OR
     )
-  }
-  if (fromDate.value !== null) {
-    manager.add('release_date_gte', format(fromDate.value, 'yyyy-MM-dd'))
-  }
-
-  if (toDate.value !== null) {
-    manager.add('release_date_lte', format(toDate.value, 'yyyy-MM-dd'))
   }
 
   if (selectedMonetization.value.length > 0) {
@@ -397,6 +395,24 @@ const handleQueryFilters = (manager: QueryParamsManager) => {
     }
   }
 
+  if (selectedAges.value.length > 0) {
+    manager.addWithLogic(
+      'certification',
+      selectedAges.value.map((age) => age.id),
+      LogicalOperator.AND
+    )
+  }
+
+  if (selectedDuration.value !== null && selectedDurationMode.value !== null) {
+    if (selectedDurationMode.value === 'min') {
+      manager.add('with_runtime_gte', selectedDuration.value)
+    } else {
+      manager.add('with_runtime_lte', selectedDuration.value)
+    }
+  }
+}
+
+const exclusiveMovieFilters = (manager: QueryParamsManager) => {
   if (selectedPersons.value.length > 0) {
     manager.addWithLogic(
       'with_people',
@@ -405,17 +421,77 @@ const handleQueryFilters = (manager: QueryParamsManager) => {
     )
   }
 
-  if (selectedCompanies.value.length > 0) {
-    manager.addWithLogic(
-      'with_companies',
-      selectedCompanies.value.map((company) => company.id),
-      LogicalOperator.OR
-    )
+  if (fromDate.value !== null) {
+    manager.add('release_date_gte', format(fromDate.value, 'yyyy-MM-dd'))
   }
 
-  return manager
+  if (toDate.value !== null) {
+    manager.add('release_date_lte', format(toDate.value, 'yyyy-MM-dd'))
+  }
 }
 
+const exclusiveSeriesFilters = (manager: QueryParamsManager) => {
+  if (fromDate.value !== null) {
+    manager.add('first_air_date_gte', format(fromDate.value, 'yyyy-MM-dd'))
+  }
+
+  if (toDate.value !== null) {
+    manager.add('first_air_date_lte', format(toDate.value, 'yyyy-MM-dd'))
+  }
+
+  if (airFromDate.value !== null) {
+    manager.add('air_date_gte', format(airFromDate.value, 'yyyy-MM-dd'))
+  }
+
+  if (airToDate.value !== null) {
+    manager.add('air_date_lte', format(airToDate.value, 'yyyy-MM-dd'))
+  }
+}
+
+const toggleMoreFilters = () => {
+  moreFilters.value = !moreFilters.value
+  moreFiltersTransition.value = true
+  setTimeout(() => {
+    const scrollTarget = moreFilters.value ? document.getElementById('filters')?.offsetTop : 0
+    window.scrollTo({ top: scrollTarget, behavior: 'smooth' })
+  }, 10)
+}
+
+// Reset
+const resetSearchState = () => {
+  movies.value = []
+  page.value = 1
+  totalPages.value = 0
+}
+
+const resetSeachAndFilters = () => {
+  resetSearchState()
+  showCarousel.value = false
+  resetFilters()
+}
+
+const resetFilters = () => {
+  genreFilterRef.value?.reset()
+  platformFilterRef.value?.reset()
+  markFilterRef.value?.reset()
+  filterByRef.value?.reset()
+  personFilterRef.value?.reset()
+  monetizationFilterRef.value?.reset()
+  yearFilterRef.value?.reset()
+  companyFilterRef.value?.reset()
+  ageFilterRef.value?.reset()
+  votesFilterRef.value?.reset()
+  durationFilterRef.value?.reset()
+}
+
+// Transition
+const handleTransitionEnd = () => {
+  if (!moreFilters.value) {
+    moreFiltersTransition.value = false
+  }
+}
+
+// Watchers
 watch(
   () => carouselRef.value?.page,
   (currentPage) => {
@@ -428,20 +504,12 @@ watch(
   }
 )
 
-const toggleMoreFilters = () => {
-  moreFilters.value = !moreFilters.value
-  moreFiltersTransition.value = true
-  setTimeout(() => {
-    const scrollTarget = moreFilters.value ? document.getElementById('filters').offsetTop : 0
-    window.scrollTo({ top: scrollTarget, behavior: 'smooth' })
-  }, 10)
-}
-
-const handleTransitionEnd = () => {
-  if (!moreFilters.value) {
-    moreFiltersTransition.value = false
+watch(
+  () => selectedType.value,
+  () => {
+    resetSeachAndFilters()
   }
-}
+)
 </script>
 
 <style scoped>

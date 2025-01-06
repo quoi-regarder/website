@@ -129,15 +129,17 @@
       "home": "Accueil"
     }
   },
-  "movie": {
+  "card": {
     "title": "Titre",
     "release_date": "Date de sortie en salle",
+    "first_air_date": "Date de première diffusion",
     "vote_average": "Note",
     "overview": "Synopsis",
     "genres": "Genres",
     "vote_count": "Nombre de votes : {count}",
     "no_overview": "Aucune description disponible.",
-    "no_poster": "Aucune image disponible."
+    "no_poster": "Aucune image disponible.",
+    "more_details": "Plus de détails"
   },
   "navbar": {
     "dropdown": {
@@ -173,10 +175,13 @@
     "hint": "La flèche vers le haut indique un tri croissant (du plus petit au plus grand, du plus ancien au plus récent, de A à Z, etc.). La flèche vers le bas indique un tri décroissant (du plus grand au plus petit, du plus récent au plus ancien, de Z à A, etc.).",
     "labels": {
       "original_title": "Titre original",
+      "original_name": "Titre original",
       "popularity": "Popularité",
       "revenue": "Recettes",
       "primary_release_date": "Date de sortie en salle",
+      "first_air_date": "Date de première diffusion",
       "title": "Titre",
+      "name": "Titre",
       "vote_average": "Note",
       "vote_count": "Nombre de votes"
     },
@@ -372,8 +377,10 @@
       "reset": "Réinitialiser"
     }
   },
-  "year": {
+  "dateRange": {
     "title": "Date de sortie en salle",
+    "first_air_date": "Date de première diffusion",
+    "air_date": "Date de diffusion",
     "from": "À partir du",
     "to": "Jusqu'au",
     "buttons": {

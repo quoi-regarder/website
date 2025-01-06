@@ -17,8 +17,12 @@
 <script lang="ts" setup>
 const { locale } = useI18n()
 
-const platforms = ref<Option[]>([])
-const multiSelectRef = ref()
+const props = defineProps({
+  type: {
+    type: String as PropType<'movie' | 'tv'>,
+    required: true
+  }
+})
 
 const emit = defineEmits({
   'update:selectedPlatforms': {
@@ -31,12 +35,22 @@ const emit = defineEmits({
   }
 })
 
+const platforms = ref<Option[]>([])
+const multiSelectRef = ref()
+
 onMounted(async () => {
   await fetchPlatforms()
 })
 
+const reset = () => {
+  platforms.value.forEach((platform) => {
+    platform.selected = false
+  })
+  multiSelectRef.value.reset()
+}
+
 const fetchPlatforms = async () => {
-  const manager = new QueryParamsManager('/api/themoviedb/watch/providers/movie')
+  const manager = new QueryParamsManager(`/api/themoviedb/watch/providers/${props.type}`)
   manager.add('language', locale.value)
   const data = await $fetch(manager.toString())
 
@@ -48,12 +62,14 @@ const fetchPlatforms = async () => {
   emit('update:platforms', platforms.value)
 }
 
-const reset = () => {
-  platforms.value.forEach((platform) => {
-    platform.selected = false
-  })
-  multiSelectRef.value.reset()
-}
+watch(
+  () => props.type,
+  (newType, prevType) => {
+    if (newType !== prevType) {
+      fetchPlatforms()
+    }
+  }
+)
 
 defineExpose({
   reset

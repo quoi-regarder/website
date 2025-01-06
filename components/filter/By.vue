@@ -16,7 +16,7 @@
         class="w-full h-full flex flex-row gap-2 justify-around items-center flex-wrap laptop-md:grid laptop-md:grid-cols-3 laptop-md:gap-2"
       >
         <UButton
-          v-for="item in items"
+          v-for="item in type === 'movie' ? movieItems : tvItems"
           :key="item.id"
           :variant="toggledId === item.id ? 'solid' : 'outline'"
           class="flex items-center justify-between"
@@ -45,6 +45,13 @@
 <script lang="ts" setup>
 const { t } = useI18n()
 
+const props = defineProps({
+  type: {
+    type: String as PropType<'movie' | 'tv'>,
+    required: true
+  }
+})
+
 const emit = defineEmits({
   'update:selected-by': {
     type: Function as PropType<(option: Option) => void>,
@@ -59,7 +66,7 @@ const emit = defineEmits({
 const toggledDirection = ref<Direction | null>(Direction.DESC)
 const toggledId = ref('')
 
-const items = ref<Option[]>([
+const movieItems = ref<Option[]>([
   {
     id: 'title',
     name: t('by.labels.title')
@@ -75,6 +82,29 @@ const items = ref<Option[]>([
   {
     id: 'revenue',
     name: t('by.labels.revenue')
+  },
+  {
+    id: 'vote_average',
+    name: t('by.labels.vote_average')
+  },
+  {
+    id: 'vote_count',
+    name: t('by.labels.vote_count')
+  }
+])
+
+const tvItems = ref<Option[]>([
+  {
+    id: 'name',
+    name: t('by.labels.name')
+  },
+  {
+    id: 'original_name',
+    name: t('by.labels.original_name')
+  },
+  {
+    id: 'first_air_date',
+    name: t('by.labels.first_air_date')
   },
   {
     id: 'vote_average',

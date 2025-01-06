@@ -9,9 +9,13 @@
 
 <script lang="ts" setup>
 const { locale } = useI18n()
-const colors = Object.values(Colors)
 
-const genres = ref([])
+const props = defineProps({
+  type: {
+    type: String as PropType<'movie' | 'tv'>,
+    required: true
+  }
+})
 
 const emit = defineEmits({
   'update:selectedGenres': {
@@ -23,6 +27,9 @@ const emit = defineEmits({
     required: false
   }
 })
+
+const colors = Object.values(Colors)
+const genres = ref([])
 
 onMounted(async () => {
   await fetchGenres()
@@ -37,7 +44,7 @@ const reset = () => {
 }
 
 const fetchGenres = async () => {
-  const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
+  const manager = new QueryParamsManager(`/api/themoviedb/genre/${props.type}/list`)
   manager.add('language', locale.value)
   const data = await $fetch(manager.toString())
 
@@ -50,6 +57,15 @@ const fetchGenres = async () => {
 
   emit('update:genres', genres.value)
 }
+
+watch(
+  () => props.type,
+  (newType, oldType) => {
+    if (newType !== oldType) {
+      fetchGenres()
+    }
+  }
+)
 
 defineExpose({
   reset
