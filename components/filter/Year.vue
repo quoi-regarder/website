@@ -67,16 +67,6 @@ const handleReset = () => {
   toDate.value = null
 }
 
-watch(fromDate, (value) => {
-  handleReverseDates()
-  emit('update:from-date', value)
-})
-
-watch(toDate, (value) => {
-  handleReverseDates()
-  emit('update:to-date', value)
-})
-
 const handleReverseDates = () => {
   if (!fromDate.value || !toDate.value) return
 
@@ -89,4 +79,22 @@ const handleReverseDates = () => {
   emit('update:from-date', fromDate.value)
   emit('update:to-date', toDate.value)
 }
+
+const reset = () => {
+  handleReset()
+}
+
+watch(fromDate, (value) => {
+  handleReverseDates()
+  emit('update:from-date', value)
+})
+
+watch(toDate, (value) => {
+  handleReverseDates()
+  emit('update:to-date', value)
+})
+
+defineExpose({
+  reset
+})
 </script>

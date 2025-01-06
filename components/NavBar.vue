@@ -8,11 +8,15 @@
           width="40"
           height="40"
           class="cursor-pointer"
-          @click="goToHome"
+          @click="navigateTo(localePath('/'))"
         />
-        <UButton variant="link" @click="goToHome">
+        <ULink
+          :to="localePath('/')"
+          active-class="text-primary underline"
+          class="hover:text-primary transition-colors duration-200"
+        >
           {{ $t('navbar.buttons.home') }}
-        </UButton>
+        </ULink>
       </div>
       <div class="flex items-center space-x-4">
         <ClientOnly>

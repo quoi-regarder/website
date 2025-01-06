@@ -110,6 +110,11 @@ const handleReset = () => {
   toggledDirection.value = Direction.DESC
 }
 
+const reset = () => {
+  toggledId.value = ''
+  toggledDirection.value = Direction.DESC
+}
+
 watchEffect(() => {
   if (toggledId.value === '' || toggledDirection.value === null) {
     emit('update:selected-by', null)
@@ -118,5 +123,9 @@ watchEffect(() => {
     emit('update:selected-by', toggledId.value)
     emit('update:direction', toggledDirection.value)
   }
+})
+
+defineExpose({
+  reset
 })
 </script>

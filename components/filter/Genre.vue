@@ -28,6 +28,14 @@ onMounted(async () => {
   await fetchGenres()
 })
 
+const reset = () => {
+  genres.value.forEach((genre) => {
+    genre.selected = false
+  })
+
+  emit('update:selectedGenres', [])
+}
+
 const fetchGenres = async () => {
   const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
   manager.add('language', locale.value)
@@ -42,4 +50,8 @@ const fetchGenres = async () => {
 
   emit('update:genres', genres.value)
 }
+
+defineExpose({
+  reset
+})
 </script>

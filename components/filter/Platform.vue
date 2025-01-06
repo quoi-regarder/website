@@ -3,6 +3,7 @@
     <template #content>
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
+          ref="multiSelectRef"
           name="platforms"
           :options="platforms"
           class="w-full"
@@ -17,6 +18,7 @@
 const { locale } = useI18n()
 
 const platforms = ref<Option[]>([])
+const multiSelectRef = ref()
 
 const emit = defineEmits({
   'update:selectedPlatforms': {
@@ -45,4 +47,15 @@ const fetchPlatforms = async () => {
 
   emit('update:platforms', platforms.value)
 }
+
+const reset = () => {
+  platforms.value.forEach((platform) => {
+    platform.selected = false
+  })
+  multiSelectRef.value.reset()
+}
+
+defineExpose({
+  reset
+})
 </script>

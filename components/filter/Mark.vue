@@ -35,7 +35,16 @@ const maxMark = 10
 
 const emit = defineEmits(['update:selected-mark'])
 
+const reset = () => {
+  mark.value = 0
+  emit('update:selected-mark', 0)
+}
+
 watch(mark, (value) => {
   emit('update:selected-mark', value)
+})
+
+defineExpose({
+  reset
 })
 </script>

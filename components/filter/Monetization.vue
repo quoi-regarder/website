@@ -7,8 +7,8 @@
     <template #content>
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
+          ref="multiSelectRef"
           name="monetization"
-          :api-to-fecth="'/api/themoviedb/search/monetization'"
           :options="monetization"
           class="w-full"
           @update:model-value="emit('update:selectedMonetization', $event)"
@@ -28,11 +28,24 @@ const monetization = ref<Option[]>([
   { id: 'rent', name: t('monetization.options.rent') },
   { id: 'buy', name: t('monetization.options.buy') }
 ])
+const multiSelectRef = ref()
 
 const emit = defineEmits({
   'update:selectedMonetization': {
     type: Function as PropType<(monetization: Option[]) => void>,
     required: true
   }
+})
+
+const reset = () => {
+  monetization.value.forEach((monetization) => {
+    monetization.selected = false
+  })
+
+  multiSelectRef.value.reset()
+}
+
+defineExpose({
+  reset
 })
 </script>

@@ -1,27 +1,39 @@
 <template>
-  <div class="flex flex-col gap-8">
+  <div class="flex flex-col gap-8 laptop:gap-0">
     <!-- Header -->
     <div
       :class="{
         'min-h-[30vh] laptop:min-h-[15vh]': showCarousel,
-        'min-h-[30vh] laptop:min-h-[48vh]': !showCarousel
+        'min-h-[30vh] laptop:min-h-[55vh]': !showCarousel
       }"
       class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out"
     >
       <h1 class="text-4xl font-bold text-center mb-2">{{ $t('home.title') }}</h1>
-      <h2 class="text-lg text-center mb-8">{{ $t('home.subtitle') }}</h2>
-      <UButton
-        :loading="searching"
-        class="h-fit tablet-md:mt-[-1rem]"
-        icon="i-heroicons-magnifying-glass"
-        size="xl"
-        @click="searchQuery(true)"
-      >
-        {{ $t('home.form.buttons.search') }}
-      </UButton>
+      <h2 class="text-lg font-semibold text-center mb-8">{{ $t('home.subtitle') }}</h2>
+
+      <div class="flex items-center justify-center gap-4">
+        <UTooltip :text="$t('home.form.tooltip.reset')" :popper="{ arrow: true }">
+          <UButton
+            icon="i-heroicons-arrow-path-rounded-square"
+            size="xl"
+            variant="outline"
+            @click="resetSeachAndFilters"
+          />
+        </UTooltip>
+        <UButton
+          :loading="searching"
+          icon="i-heroicons-magnifying-glass"
+          size="xl"
+          @click="searchQuery(true)"
+        >
+          {{ $t('home.form.buttons.search') }}
+        </UButton>
+      </div>
       <div
-        class="flex flex-col justify-center tablet:gap-x-4 w-11/12 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
+        class="flex flex-col mt-4 tablet:gap-x-4 w-11/12 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
       >
+        <FilterType ref="typeFilterRef" @update:model-value="modelValue = $event" />
+
         <!-- <FilterKeyword class="w-full" @update:selected-keywords="selectedKeywords = $event" /> -->
       </div>
     </div>
@@ -40,7 +52,7 @@
       >
         <template #default="{ item }">
           <div
-            class="mx-auto h-fit w-[98%] tablet:w-[90%] laptop:w-[85%] desktop:w-[65%] fullhd:w-[55%] flex flex-col items-start"
+            class="mx-auto h-fit w-[98%] tablet:w-[90%] laptop:w-[80%] desktop:w-[60%] fullhd:w-[50%] flex flex-col items-start"
           >
             <MovieCard :genres="genres" :movie="item" class="h-full" />
           </div>
@@ -73,21 +85,24 @@
       class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out"
       :class="{
         'min-h-[0vh] tablet:min-h-[0vh]': moreFilters,
-        'min-h-[0vh] tablet:min-h-[44vh]': !moreFilters
+        'min-h-[0vh] tablet:min-h-[45vh]': !moreFilters
       }"
     >
       <div class="grid grid-cols-1 items-center laptop-md:grid-cols-5 gap-4 p-4">
         <FilterGenre
+          ref="genreFilterRef"
           class="laptop-md:col-span-3 laptop-md:row-span-2"
           @update:genres="genres = $event"
           @update:selected-genres="selectedGenres = $event"
         />
         <FilterPlatform
+          ref="platformFilterRef"
           class="laptop-md:col-span-2 laptop-md:row-span-1"
           @update:selected-platforms="selectedPlatforms = $event"
           @update:platforms="platforms = $event"
         />
         <FilterMark
+          ref="markFilterRef"
           class="laptop-md:col-span-2 laptop-md:row-span-1"
           @update:selected-mark="selectedMark = $event"
         />
@@ -117,44 +132,52 @@
       @transitionend="handleTransitionEnd"
     >
       <FilterBy
+        ref="filterByRef"
         class="laptop-md:col-span-4 laptop-md:row-span-1 order-1 laptop-md:order-none"
         @update:selected-by="selectedFilterBy = $event"
         @update:direction="selectedFilterByDirection = $event"
       />
 
       <FilterPerson
+        ref="personFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-2 laptop-md:order-none"
         @update:selected-persons="selectedPersons = $event"
       />
 
       <FilterMonetization
+        ref="monetizationFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-4 laptop-md:order-none"
         @update:selected-monetization="selectedMonetization = $event"
       />
 
       <FilterYear
+        ref="yearFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-5 laptop-md:order-none"
         @update:from-date="fromDate = $event"
         @update:to-date="toDate = $event"
       />
 
       <FilterCompany
+        ref="companyFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-3 laptop-md:order-none"
         @update:selected-companies="selectedCompanies = $event"
       />
 
       <FilterAge
+        ref="ageFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-6 laptop-md:order-none"
         @update:selected-ages="selectedAges = $event"
       />
 
       <FilterVotes
+        ref="votesFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-7 laptop-md:order-none"
         @update:selected-votes="selectedVotes = $event"
         @update:mode="selectedVotesMode = $event"
       />
 
       <FilterDuration
+        ref="durationFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-8 laptop-md:order-none"
         @update:selected-duration="selectedDuration = $event"
         @update:mode="selectedDurationMode = $event"
@@ -174,7 +197,8 @@ useHead({
 })
 
 // Filters state
-const selectedKeywords = ref<Badge[]>([])
+const selectedType = ref<'movie' | 'series'>('movie')
+// const selectedKeywords = ref<Badge[]>([])
 const selectedGenres = ref<Badge[]>([])
 const selectedPlatforms = ref<Option[]>([])
 const selectedMark = ref<number>(0)
@@ -190,6 +214,20 @@ const selectedPersons = ref<Option[]>([])
 const selectedCompanies = ref<Option[]>([])
 const fromDate = ref<Date | null>(null)
 const toDate = ref<Date | null>(null)
+
+// Filters refs
+const typeFilterRef = ref()
+const genreFilterRef = ref()
+const platformFilterRef = ref()
+const markFilterRef = ref()
+const filterByRef = ref()
+const personFilterRef = ref()
+const monetizationFilterRef = ref()
+const yearFilterRef = ref()
+const companyFilterRef = ref()
+const ageFilterRef = ref()
+const votesFilterRef = ref()
+const durationFilterRef = ref()
 
 // Data
 const genres = ref([])
@@ -256,17 +294,34 @@ const resetSearchState = () => {
   totalPages.value = 0
 }
 
+const resetSeachAndFilters = () => {
+  resetSearchState()
+  showCarousel.value = false
+  typeFilterRef.value.reset()
+  genreFilterRef.value.reset()
+  platformFilterRef.value.reset()
+  markFilterRef.value.reset()
+  filterByRef.value.reset()
+  personFilterRef.value.reset()
+  monetizationFilterRef.value.reset()
+  yearFilterRef.value.reset()
+  companyFilterRef.value.reset()
+  ageFilterRef.value.reset()
+  votesFilterRef.value.reset()
+  durationFilterRef.value.reset()
+}
+
 const handleQueryFilters = (manager: QueryParamsManager) => {
   manager.add('language', locale.value)
   manager.add('page', page.value)
 
-  if (selectedKeywords.value.length > 0) {
-    manager.addWithLogic(
-      'with_keywords',
-      selectedKeywords.value.map((keyword) => keyword.id),
-      LogicalOperator.AND
-    )
-  }
+  // if (selectedKeywords.value.length > 0) {
+  //   manager.addWithLogic(
+  //     'with_keywords',
+  //     selectedKeywords.value.map((keyword) => keyword.id),
+  //     LogicalOperator.AND
+  //   )
+  // }
 
   if (selectedGenres.value.length > 0) {
     manager.addWithLogic(
