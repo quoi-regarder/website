@@ -14,7 +14,6 @@ export default defineEventHandler(async (event) => {
     with_runtime_lte,
     with_watch_monetization_types,
     vote_count_gte,
-    vote_count_lte,
     with_people,
     with_companies
   } = getQuery(event)
@@ -52,7 +51,6 @@ export default defineEventHandler(async (event) => {
           with_watch_monetization_types
         }),
         ...(vote_count_gte && { 'vote_count.gte': vote_count_gte }),
-        ...(vote_count_lte && { 'vote_count.lte': vote_count_lte }),
         ...(with_people && { with_people }),
         ...(with_companies && { with_companies })
       }

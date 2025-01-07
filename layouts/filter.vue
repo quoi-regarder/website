@@ -4,16 +4,19 @@
   >
     <aside class="w-full flex flex-row gap-4 laptop-md:flex-col laptop-md:w-1/3 desktop:w-1/4">
       <div
-        class="flex flex-col items-start laptop-md:w-full laptop-md:items-end"
+        class="flex flex-col laptop-md:items-justify laptop-md:w-full"
         :class="hasButtons ? 'w-1/2' : 'w-full'"
       >
-        <div class="flex flex-row items-center">
-          <h3 class="font-bold text-wrap text-end">
+        <div class="flex flex-row">
+          <h3 class="font-bold text-wrap text-justify">
             {{ title }}
           </h3>
 
           <template v-if="showTooltip">
-            <UTooltip :ui="{ base: 'h-full' }" :popper="{ arrow: true }">
+            <UTooltip
+              :ui="{ base: 'h-full [@media(pointer:coarse)]:!block' }"
+              :popper="{ arrow: true }"
+            >
               <UIcon
                 name="i-heroicons-information-circle-solid"
                 class="size-6 text-blue-500 dark:text-blue-300"
