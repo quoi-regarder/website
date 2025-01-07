@@ -3,15 +3,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   ssr: true,
 
-  // Site settings
   site: {
-    url: 'https://quoi-regarder.fr',
-    name: 'Quoi Regarder?'
+    name: 'Quoi regarder ?',
+    url: 'https://quoi-regarder.fr'
   },
 
   // Application metadata
   app: {
     head: {
+      titleTemplate: '%s - Quoi regarder ?',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       link: [
@@ -30,11 +30,13 @@ export default defineNuxtConfig({
         },
         {
           rel: 'shortcut icon',
+          type: 'image/x-icon',
           href: '/favicon.ico'
         },
         {
           rel: 'apple-touch-icon',
           sizes: '180x180',
+          type: 'image/png',
           href: '/apple-touch-icon.png'
         },
         {
@@ -101,7 +103,6 @@ export default defineNuxtConfig({
     defaultLocale: 'fr-FR',
     langDir: 'locales/',
     strategy: 'prefix',
-    lazy: true,
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',

@@ -4,7 +4,7 @@
     :label="label"
     :name="name"
     :required="required"
-    class="h-32 text-justify"
+    class="min-h-32 text-justify"
     size="xl"
   >
     <template #default="{ error }">

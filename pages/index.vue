@@ -21,7 +21,11 @@
       <h2 class="text-lg font-semibold text-center mb-8">{{ $t('home.subtitle') }}</h2>
 
       <div class="flex items-center justify-center gap-4">
-        <UTooltip :text="$t('home.form.tooltip.reset')" :popper="{ arrow: true }">
+        <UTooltip
+          :text="$t('home.form.tooltip.reset')"
+          :ui="{ base: '[@media(pointer:coarse)]:!block' }"
+          :popper="{ arrow: true }"
+        >
           <UButton
             icon="i-heroicons-arrow-path-rounded-square"
             size="xl"
@@ -197,14 +201,13 @@
         ref="votesFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-7 laptop-md:order-none"
         @update:selected-votes="selectedVotes = $event"
-        @update:mode="selectedVotesMode = $event"
       />
 
       <FilterDuration
         ref="durationFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-8 laptop-md:order-none"
-        @update:selected-duration="selectedDuration = $event"
-        @update:mode="selectedDurationMode = $event"
+        @update:selected-min-duration="selectedMinDuration = $event"
+        @update:selected-max-duration="selectedMaxDuration = $event"
       />
     </div>
   </div>
@@ -231,11 +234,10 @@ const selectedMark = ref<number>(0)
 const selectedFilterBy = ref<string | null>(null)
 const selectedFilterByDirection = ref<Direction | null>(null)
 const selectedAges = ref<Badge[]>([])
-const selectedDuration = ref<number | null>(null)
-const selectedDurationMode = ref<'min' | 'max' | null>(null)
+const selectedMaxDuration = ref<number | null>(null)
+const selectedMinDuration = ref<number | null>(null)
 const selectedMonetization = ref<Option[]>([])
 const selectedVotes = ref<number | null>(null)
-const selectedVotesMode = ref<'min' | 'max' | null>(null)
 const selectedPersons = ref<Option[]>([])
 const selectedCompanies = ref<Option[]>([])
 const fromDate = ref<Date | null>(null)
@@ -379,12 +381,8 @@ const commonFilters = (manager: QueryParamsManager) => {
     )
   }
 
-  if (selectedVotes.value !== null && selectedVotesMode.value !== null) {
-    if (selectedVotesMode.value === 'min') {
-      manager.add('vote_count_gte', selectedVotes.value)
-    } else {
-      manager.add('vote_count_lte', selectedVotes.value)
-    }
+  if (selectedVotes.value !== null) {
+    manager.add('vote_count_gte', selectedVotes.value)
   }
 
   if (selectedAges.value.length > 0) {
@@ -395,12 +393,12 @@ const commonFilters = (manager: QueryParamsManager) => {
     )
   }
 
-  if (selectedDuration.value !== null && selectedDurationMode.value !== null) {
-    if (selectedDurationMode.value === 'min') {
-      manager.add('with_runtime_gte', selectedDuration.value)
-    } else {
-      manager.add('with_runtime_lte', selectedDuration.value)
-    }
+  if (selectedMinDuration.value !== null) {
+    manager.add('with_runtime_gte', selectedMinDuration.value)
+  }
+
+  if (selectedMaxDuration.value !== null) {
+    manager.add('with_runtime_lte', selectedMaxDuration.value)
   }
 }
 

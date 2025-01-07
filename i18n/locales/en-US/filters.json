@@ -1,17 +1,16 @@
 {
   "age": {
-    "description": "By default, no minimum age is selected.",
+    "description": "By default, no age certification is selected.",
     "labels": {
       "eighteen": "18 years old",
       "sixteen": "16 years old",
       "ten": "10 years old",
       "twelve": "12 years old"
     },
-    "title": "Minimum age"
+    "title": "Age certification"
   },
   "badgeList": {
     "buttons": {
-      "selectAll": "Select all",
       "unselectAll": "Deselect all"
     }
   },
@@ -49,11 +48,12 @@
   },
   "duration": {
     "buttons": {
-      "mode": "Duration mode ({mode})",
       "reset": "Reset"
     },
-    "description": "By default, no duration is selected.",
-    "hint": "The 'max' mode selects items with the chosen duration or less. The 'min' mode selects items with the chosen duration or more.",
+    "mode": {
+      "max": "Maximum duration",
+      "min": "Minimum duration"
+    },
     "title": "Duration",
     "unit": "{count} minute | {count} minutes"
   },
@@ -103,12 +103,9 @@
   },
   "votes": {
     "buttons": {
-      "mode": "Vote mode ({mode})",
       "reset": "Reset"
     },
-    "description": "By default, no number of votes is selected.",
-    "hint": "The 'max' mode selects items with the chosen number of votes or fewer. The 'min' mode selects items with the chosen number of votes or more.",
-    "title": "Number of votes",
+    "title": "Minimum number of votes",
     "unit": "{count} vote | {count} votes"
   }
 }

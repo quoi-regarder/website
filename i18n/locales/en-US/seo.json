@@ -1,15 +1,16 @@
 {
   "seo": {
-    "title": "What to Watch? | Personalized Movie Recommendations",
+    "name": "What to Watch ?",
+    "title": "Personalized Movie Recommendations",
     "description": "Discover movies that match your mood on your favorite platforms. Find your next favorite movie in just a few clicks with What to Watch!",
     "pages": {
       "auth": {
-        "login": "Login | Access Your Personalized Movie Recommendations - What to Watch?",
-        "signup": "Sign Up | Join the Movie Enthusiast Community - What to Watch?",
-        "forgot-password": "Forgot Password | Recover Your Account - What to Watch?",
-        "update-password": "Security | Update Your Password - What to Watch?"
+        "login": "Login - Access Your Personalized Movie Recommendations",
+        "signup": "Sign Up - Join the Movie Enthusiast Community",
+        "forgot-password": "Forgot Password - Recover Your Account",
+        "update-password": "Security - Update Your Password"
       },
-      "profile": "Profile | Customize Your Movie Preferences - What to Watch?"
+      "profile": "Profile - Customize Your Movie Preferences"
     },
     "descriptions": {
       "auth": {

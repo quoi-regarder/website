@@ -1,100 +1,108 @@
 <template>
-  <NuxtLayout
-    name="filter"
-    :title="$t('duration.title')"
-    :description="$t('duration.description')"
-    :hint="$t('duration.hint')"
-    has-buttons
-    show-tooltip
-  >
+  <NuxtLayout name="filter" :title="$t('duration.title')" has-buttons>
     <template #buttons>
-      <UButton
-        :label="$t('duration.buttons.mode', { mode: mode })"
-        class="order-2 laptop-md:order-1"
-        variant="outline"
-        @click="toggleMode"
-      />
-
       <UButton
         :label="$t('duration.buttons.reset')"
         class="order-1 laptop-md:order-2"
-        @click="handleReset"
+        @click="reset"
       />
     </template>
 
     <template #content>
-      <URange
-        v-model="duration"
-        :max="maxDuration"
-        :min="minDuration"
-        :step="1"
-        class="w-full self-center"
-        :class="mode === 'max' ? '' : 'transform rotate-180'"
-        indicator
-        :ui="{
-          track: {
-            background:
-              '[&::-webkit-slider-runnable-track]:dark:bg-gray-400 [&::-moz-range-track]:dark:bg-gray-400'
-          }
-        }"
-      />
-      <div class="flex justify-end self-center min-w-32">
-        <p v-if="mode === 'max'" class="text-lg font-semibold text-gray-600 dark:text-gray-200">
-          {{ $t('duration.unit', { count: duration }) }}
-        </p>
-        <p v-else class="text-lg font-semibold text-gray-600 dark:text-gray-200">
-          {{
-            $t('duration.unit', {
-              count: duration !== null ? Math.abs(duration - maxDuration) : ''
-            })
-          }}
-        </p>
+      <div class="w-full flex flex-col">
+        <div class="w-full flex flex-col">
+          <p class="text-sm text-gray-500 dark:text-gray-200">
+            {{ $t('duration.mode.min') }}
+          </p>
+          <div class="flex w-full">
+            <URange
+              v-model="minDurationModel"
+              :max="maxDuration"
+              :min="minDuration"
+              :step="1"
+              class="w-full self-center"
+              indicator
+              :ui="{
+                track: {
+                  background:
+                    '[&::-webkit-slider-runnable-track]:dark:bg-gray-400 [&::-moz-range-track]:dark:bg-gray-400'
+                }
+              }"
+            />
+            <div class="flex justify-end self-center min-w-32">
+              <p class="text-lg font-semibold text-gray-600 dark:text-gray-200">
+                {{ $t('duration.unit', { count: minDurationModel }) }}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full flex flex-col mt-4">
+          <p class="text-sm text-gray-500 dark:text-gray-200">
+            {{ $t('duration.mode.max') }}
+          </p>
+          <div class="w-full flex">
+            <URange
+              v-model="maxDurationModel"
+              :max="maxDuration"
+              :min="minDuration"
+              :step="1"
+              class="w-full self-center transform rotate-180"
+              indicator
+              :ui="{
+                track: {
+                  background:
+                    '[&::-webkit-slider-runnable-track]:dark:bg-gray-400 [&::-moz-range-track]:dark:bg-gray-400'
+                }
+              }"
+            />
+            <div class="flex justify-end self-center min-w-32">
+              <p class="text-lg font-semibold text-gray-600 dark:text-gray-200">
+                {{
+                  $t('duration.unit', {
+                    count: maxDurationModel !== null ? maxDuration - maxDurationModel : 0
+                  })
+                }}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </template>
   </NuxtLayout>
 </template>
 
 <script lang="ts" setup>
-const duration = ref<number | null>(null)
+const minDurationModel = ref<number | null>(0)
+const maxDurationModel = ref<number | null>(0)
 const minDuration = 0
 const maxDuration = 400
 
-const mode = ref<'min' | 'max'>('max')
-
 const emit = defineEmits({
-  'update:selected-duration': {
+  'update:selected-min-duration': {
     type: Function as PropType<(value: number | null) => void>,
     required: true
   },
-  'update:mode': {
-    type: Function as PropType<(mode: 'min' | 'max') => void>,
-    required: false
+  'update:selected-max-duration': {
+    type: Function as PropType<(value: number | null) => void>,
+    required: true
   }
 })
 
-const toggleMode = () => {
-  mode.value = mode.value === 'min' ? 'max' : 'min'
-}
-
-const handleReset = () => {
-  duration.value = null
-}
-
 const reset = () => {
-  duration.value = null
-  mode.value = 'max'
+  minDurationModel.value = 0
+  maxDurationModel.value = 0
 }
 
 watchEffect(() => {
-  if (!duration.value) {
-    return
+  if (minDurationModel.value !== null && maxDurationModel.value !== null) {
+    if (minDurationModel.value > maxDuration - maxDurationModel.value) {
+      minDurationModel.value = maxDuration - maxDurationModel.value
+    }
   }
-  if (mode.value === 'min') {
-    emit('update:selected-duration', Math.abs(duration.value - maxDuration))
-  } else {
-    emit('update:selected-duration', duration.value)
-  }
-  emit('update:mode', mode.value)
+
+  emit('update:selected-min-duration', minDurationModel.value)
+  emit('update:selected-max-duration', maxDuration - maxDurationModel.value)
 })
 
 defineExpose({

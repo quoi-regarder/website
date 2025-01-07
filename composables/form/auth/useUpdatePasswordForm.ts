@@ -18,7 +18,7 @@ export const useUpdatePasswordForm = () => {
       .required(t('common.form.error.required'))
       .min(8, t('common.form.error.passwordMin'))
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d!@#$%^&*()_+]+$/,
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
         t('common.form.error.passwordComplex')
       ),
     passwordConfirmation: yup

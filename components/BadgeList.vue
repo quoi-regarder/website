@@ -2,12 +2,6 @@
   <NuxtLayout name="filter" :title="title" :description="description" has-buttons>
     <template #buttons>
       <UButton
-        :label="$t('badgeList.buttons.selectAll')"
-        :variant="isAllSelected ? 'outline' : 'solid'"
-        class="transition-colors duration-300 ease-in-out"
-        @click="selectAll"
-      />
-      <UButton
         :label="$t('badgeList.buttons.unselectAll')"
         :variant="isAllSelected ? 'solid' : 'outline'"
         class="transition-colors duration-300 ease-in-out"
@@ -64,14 +58,6 @@ const emit = defineEmits({
 })
 
 const isAllSelected = computed(() => props.badges.every((badge: Badge) => badge.selected))
-
-const selectAll = () => {
-  props.badges.forEach((badge: Badge) => (badge.selected = true))
-  emit(
-    'update:selectedBadges',
-    props.badges.filter((badge: Badge) => badge.selected)
-  )
-}
 
 const unselectAll = () => {
   props.badges.forEach((badge: Badge) => (badge.selected = false))

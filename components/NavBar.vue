@@ -22,7 +22,11 @@
         <ClientOnly>
           <Suspense>
             <UDropdown :items="colorModeItems" :popper="{ arrow: true }">
-              <UTooltip :text="$t('navbar.tooltips.colorMode')" :popper="{ arrow: true }">
+              <UTooltip
+                :text="$t('navbar.tooltips.colorMode')"
+                :popper="{ arrow: true }"
+                :ui="{ base: '[@media(pointer:coarse)]:!block' }"
+              >
                 <UIcon :name="colorModeIcon[colorMode.preference]" class="text-primary size-6" />
               </UTooltip>
 
@@ -41,7 +45,11 @@
         <ClientOnly>
           <Suspense>
             <UDropdown :items="localItems" :popper="{ arrow: true }">
-              <UTooltip :text="$t('navbar.tooltips.locale')" :popper="{ arrow: true }">
+              <UTooltip
+                :text="$t('navbar.tooltips.locale')"
+                :popper="{ arrow: true }"
+                :ui="{ base: '[@media(pointer:coarse)]:!block' }"
+              >
                 <UIcon class="text-primary size-6" name="i-heroicons-globe-alt" />
               </UTooltip>
 
@@ -92,7 +100,11 @@
 
           <!-- Login Button -->
           <template v-if="!isLogged">
-            <UTooltip :text="$t('navbar.buttons.login')" :popper="{ arrow: true }">
+            <UTooltip
+              :text="$t('navbar.buttons.login')"
+              :popper="{ arrow: true }"
+              :ui="{ base: '[@media(pointer:coarse)]:!block' }"
+            >
               <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
                 <UAvatar size="lg">
                   <UIcon

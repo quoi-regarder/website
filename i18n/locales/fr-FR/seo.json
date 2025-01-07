@@ -1,15 +1,16 @@
 {
   "seo": {
-    "title": "Quoi Regarder ? | Recommandations de films personnalisées",
+    "name": "Quoi Regarder ?",
+    "title": "Recommandations de films personnalisées",
     "description": "Découvrez des films adaptés à votre humeur sur vos plateformes préférées. Trouvez votre prochain coup de cœur en quelques clics avec Quoi Regarder !",
     "pages": {
       "auth": {
-        "login": "Connexion | Accédez à vos recommandations - Quoi Regarder ?",
-        "signup": "Inscription | Rejoignez la communauté cinéphile - Quoi Regarder ?",
-        "forgot-password": "Mot de passe oublié | Récupérez votre compte - Quoi Regarder ?",
-        "update-password": "Sécurité | Mise à jour du mot de passe - Quoi Regarder ?"
+        "login": "Connexion - Accédez à vos recommandations",
+        "signup": "Inscription - Rejoignez la communauté cinéphile",
+        "forgot-password": "Mot de passe oublié - Récupérez votre compte",
+        "update-password": "Sécurité - Mise à jour du mot de passe"
       },
-      "profile": "Profil | Personnalisez vos préférences cinéma - Quoi Regarder ?"
+      "profile": "Profil - Personnalisez vos préférences cinéma"
     },
     "descriptions": {
       "auth": {

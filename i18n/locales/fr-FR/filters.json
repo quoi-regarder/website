@@ -1,17 +1,16 @@
 {
   "age": {
-    "description": "Par défaut, aucun âge minimum n'est sélectionné.",
+    "description": "Par défaut, aucune certification d'âge n'est sélectionnée.",
     "labels": {
       "eighteen": "18 ans",
       "sixteen": "16 ans",
       "ten": "10 ans",
       "twelve": "12 ans"
     },
-    "title": "Âge minimum"
+    "title": "Certification d'âge"
   },
   "badgeList": {
     "buttons": {
-      "selectAll": "Tout sélectionner",
       "unselectAll": "Tout désélectionner"
     }
   },
@@ -49,11 +48,12 @@
   },
   "duration": {
     "buttons": {
-      "mode": "Mode de durée ({mode})",
       "reset": "Réinitialiser"
     },
-    "description": "Par défaut, aucune durée n'est sélectionnée.",
-    "hint": "Le mode 'max' sélectionne les éléments ayant la durée choisie ou moins. Le mode 'min' sélectionne les éléments ayant la durée choisie ou plus.",
+    "mode": {
+      "max": "Durée maximale",
+      "min": "Durée minimale"
+    },
     "title": "Durée",
     "unit": "{count} minute | {count} minutes"
   },
@@ -103,12 +103,9 @@
   },
   "votes": {
     "buttons": {
-      "mode": "Mode de votes ({mode})",
       "reset": "Réinitialiser"
     },
-    "description": "Par défaut, aucun nombre de votes n'est sélectionné.",
-    "hint": "Le mode 'max' sélectionne les éléments ayant le nombre de votes choisi ou moins. Le mode 'min' sélectionne les éléments ayant le nombre de votes choisi ou plus.",
-    "title": "Nombre de votes",
+    "title": "Nombre de votes minimum",
     "unit": "{count} vote | {count} votes"
   }
 }
