@@ -1,24 +1,24 @@
 {
   "seo": {
-    "title": "Trouvez le film parfait pour chaque moment de votre journée",
-    "description": "Découvrez notre moteur de recherche intelligent qui vous propose des films adaptés à vos goûts et à votre humeur. Simplifiez vos choix et vivez des soirées cinéma mémorables grâce à nos recommandations personnalisées !",
+    "title": "Quoi Regarder ? | Recommandations de films personnalisées",
+    "description": "Découvrez des films adaptés à votre humeur sur vos plateformes préférées. Trouvez votre prochain coup de cœur en quelques clics avec Quoi Regarder !",
     "pages": {
       "auth": {
-        "login": "Connectez-vous pour retrouver votre univers cinématographique personnalisé et accéder à vos recommandations sur mesure",
-        "signup": "Rejoignez notre communauté de cinéphiles et créez votre compte pour découvrir des films qui vous correspondent vraiment",
-        "forgot-password": "Vous avez oublié votre mot de passe ? Récupérez rapidement l'accès à votre compte en toute sécurité",
-        "update-password": "Renforcez la sécurité de votre compte en mettant à jour votre mot de passe avec notre processus simple et sécurisé"
+        "login": "Connexion | Accédez à vos recommandations - Quoi Regarder ?",
+        "signup": "Inscription | Rejoignez la communauté cinéphile - Quoi Regarder ?",
+        "forgot-password": "Mot de passe oublié | Récupérez votre compte - Quoi Regarder ?",
+        "update-password": "Sécurité | Mise à jour du mot de passe - Quoi Regarder ?"
       },
-      "profile": "Personnalisez votre expérience cinématographique en gérant vos préférences, votre historique et vos listes de films favoris"
+      "profile": "Profil | Personnalisez vos préférences cinéma - Quoi Regarder ?"
     },
     "descriptions": {
       "auth": {
-        "login": "Retrouvez votre espace personnel et accédez à toutes vos recommandations de films. Profitez d'une expérience sur mesure basée sur vos goûts cinématographiques",
-        "signup": "Commencez votre voyage cinématographique en créant votre compte. Découvrez des films qui vous ressemblent et construisez votre collection personnelle",
-        "forgot-password": "Retrouvez l'accès à votre compte en quelques clics. Notre processus sécurisé vous permet de réinitialiser votre mot de passe facilement",
-        "update-password": "Protégez votre compte en choisissant un nouveau mot de passe fort. Notre système garantit la sécurité de vos informations personnelles"
+        "login": "Connectez-vous pour accéder à vos recommandations de films sur mesure. Continuez votre exploration cinématographique dès maintenant !",
+        "signup": "Créez votre compte gratuit et recevez des suggestions de films adaptées à vos goûts. Rejoignez notre communauté de passionnés !",
+        "forgot-password": "Récupérez l'accès à votre compte Quoi Regarder en toute simplicité. Suivez notre processus sécurisé pour réinitialiser votre mot de passe.",
+        "update-password": "Renforcez la sécurité de votre compte Quoi Regarder. Mettez à jour votre mot de passe pour profiter sereinement de nos recommandations."
       },
-      "profile": "Votre espace personnel pour gérer vos préférences de visionnage, suivre votre historique, et affiner vos recommandations de films. Personnalisez votre expérience pour des suggestions toujours plus pertinentes"
+      "profile": "Affinez vos préférences, gérez votre historique et vos favoris. Notez et commentez pour des recommandations de films toujours plus pertinentes."
     }
   }
 }

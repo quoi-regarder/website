@@ -1,0 +1,114 @@
+{
+  "age": {
+    "description": "Par défaut, aucun âge minimum n'est sélectionné.",
+    "labels": {
+      "eighteen": "18 ans",
+      "sixteen": "16 ans",
+      "ten": "10 ans",
+      "twelve": "12 ans"
+    },
+    "title": "Âge minimum"
+  },
+  "badgeList": {
+    "buttons": {
+      "selectAll": "Tout sélectionner",
+      "unselectAll": "Tout désélectionner"
+    }
+  },
+  "by": {
+    "buttons": {
+      "reset": "Réinitialiser"
+    },
+    "description": "Un seul critère de tri peut être sélectionné à la fois.",
+    "hint": "La flèche vers le haut indique un tri croissant (du plus petit au plus grand, du plus ancien au plus récent, de A à Z, etc.). La flèche vers le bas indique un tri décroissant (du plus grand au plus petit, du plus récent au plus ancien, de Z à A, etc.).",
+    "labels": {
+      "first_air_date": "Date de première diffusion",
+      "original_name": "Titre original",
+      "original_title": "Titre original",
+      "popularity": "Popularité",
+      "primary_release_date": "Date de sortie en salle",
+      "revenue": "Recettes",
+      "title": "Titre",
+      "vote_average": "Note",
+      "vote_count": "Nombre de votes"
+    },
+    "title": "Trier par"
+  },
+  "company": {
+    "title": "Société de production"
+  },
+  "dateRange": {
+    "air_date": "Date de diffusion",
+    "buttons": {
+      "reset": "Réinitialiser"
+    },
+    "first_air_date": "Date de première diffusion",
+    "from": "À partir du",
+    "title": "Date de sortie en salle",
+    "to": "Jusqu'au"
+  },
+  "duration": {
+    "buttons": {
+      "mode": "Mode de durée ({mode})",
+      "reset": "Réinitialiser"
+    },
+    "description": "Par défaut, aucune durée n'est sélectionnée.",
+    "hint": "Le mode 'max' sélectionne les éléments ayant la durée choisie ou moins. Le mode 'min' sélectionne les éléments ayant la durée choisie ou plus.",
+    "title": "Durée",
+    "unit": "{count} minute | {count} minutes"
+  },
+  "filter": {
+    "options": {
+      "movie": "Films",
+      "tv": "Séries"
+    },
+    "type": "Voulez-vous rechercher parmi les films ou les séries ?"
+  },
+  "genre": {
+    "description": "Par défaut, aucun genre de contenu n'est sélectionné.",
+    "title": "Genre de contenu"
+  },
+  "mark": {
+    "description": "Par défaut, aucune note minimale n'est sélectionnée.",
+    "labels": {
+      "mark": "{count} étoile | {count} étoiles"
+    },
+    "title": "Note minimale"
+  },
+  "monetization": {
+    "description": "Par défaut, tous les types de disponibilité sont sélectionnés.",
+    "options": {
+      "ads": "En visionnage gratuit avec publicités",
+      "buy": "À l'achat",
+      "flatrate": "En streaming avec abonnement",
+      "free": "En visionnage gratuit",
+      "rent": "En location"
+    },
+    "title": "Type de disponibilité"
+  },
+  "multiSelect": {
+    "create": "Créer \"{name}\".",
+    "loading": "Commencez à taper pour rechercher des éléments...",
+    "noOptions": "Aucune option disponible.",
+    "noResults": "Aucun résultat trouvé pour \"{query}\".",
+    "search": "Rechercher...",
+    "selected": "Aucun élément sélectionné | {count} élément sélectionné | {count} éléments sélectionnés"
+  },
+  "person": {
+    "title": "Professionnels du cinéma"
+  },
+  "platforms": {
+    "placeholder": "Plateformes",
+    "title": "Plateformes de streaming"
+  },
+  "votes": {
+    "buttons": {
+      "mode": "Mode de votes ({mode})",
+      "reset": "Réinitialiser"
+    },
+    "description": "Par défaut, aucun nombre de votes n'est sélectionné.",
+    "hint": "Le mode 'max' sélectionne les éléments ayant le nombre de votes choisi ou moins. Le mode 'min' sélectionne les éléments ayant le nombre de votes choisi ou plus.",
+    "title": "Nombre de votes",
+    "unit": "{count} vote | {count} votes"
+  }
+}

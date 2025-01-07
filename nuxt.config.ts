@@ -12,7 +12,6 @@ export default defineNuxtConfig({
   // Application metadata
   app: {
     head: {
-      titleTemplate: 'Quoi Regarder? | %s',
       charset: 'utf-8',
       viewport: 'width=device-width, initial-scale=1',
       link: [
@@ -89,14 +88,14 @@ export default defineNuxtConfig({
         iso: 'en-US',
         language: 'en-US',
         name: 'English (US)',
-        files: ['en-US/general.json', 'en-US/seo.json']
+        files: ['en-US/general.json', 'en-US/seo.json', 'en-US/filters.json']
       },
       {
         code: 'fr-FR',
         iso: 'fr-FR',
         language: 'fr-FR',
         name: 'Français',
-        files: ['fr-FR/general.json', 'fr-FR/seo.json']
+        files: ['fr-FR/general.json', 'fr-FR/seo.json', 'fr-FR/filters.json']
       }
     ],
     defaultLocale: 'fr-FR',

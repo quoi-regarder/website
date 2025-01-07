@@ -96,7 +96,7 @@ const movieItems = ref<Option[]>([
 const tvItems = ref<Option[]>([
   {
     id: 'name',
-    name: t('by.labels.name')
+    name: t('by.labels.title')
   },
   {
     id: 'original_name',

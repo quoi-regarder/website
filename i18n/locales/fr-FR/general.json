@@ -1,390 +1,276 @@
 {
-  "age": {
-    "title": "Âge minimum",
-    "description": "Par défaut, aucun âge minimum n'est sélectionné.",
-    "labels": {
-      "ten": "10 ans",
-      "twelve": "12 ans",
-      "sixteen": "16 ans",
-      "eighteen": "18 ans"
-    }
-  },
   "avatar": {
     "buttons": {
-      "remove": "Supprimer l'image de profil",
-      "upload": "Télécharger une image"
+      "remove": "Supprimer la photo de profil",
+      "upload": "Téléverser une image"
     }
   },
-  "badgeList": {
-    "buttons": {
-      "selectAll": "Tout sélectionner",
-      "unselectAll": "Tout désélectionner",
-      "reset": "Réinitialiser"
-    }
+  "card": {
+    "first_air_date": "Date de première diffusion",
+    "genres": "Genres",
+    "more_details": "Voir plus de détails",
+    "no_overview": "Aucune description disponible.",
+    "no_poster": "Aucune image disponible.",
+    "overview": "Synopsis",
+    "release_date": "Date de sortie",
+    "title": "Titre",
+    "vote_average": "Note moyenne",
+    "vote_count": "Nombre de votes : {count}"
   },
   "common": {
     "api": {
       "error": {
-        "bad_request": "Une erreur est survenue lors de la récupération des données. Veuillez réessayer.",
+        "bad_request": "Une erreur est survenue lors du chargement des données. Veuillez réessayer.",
+        "forbidden": "Vous n’avez pas l’autorisation d’accéder à cette ressource.",
+        "internal_server_error": "Une erreur s’est produite sur le serveur. Veuillez réessayer plus tard.",
         "not_found": "La ressource demandée est introuvable.",
-        "username_already_exists": "Ce nom d'utilisateur est déjà utilisé.",
-        "internal_server_error": "Une erreur est survenue lors du traitement de la requête. Veuillez réessayer.",
-        "forbidden": "Vous n'êtes pas autorisé à accéder à cette ressource."
+        "username_already_exists": "Ce nom d’utilisateur est déjà pris."
       }
     },
-    "toasts": {
-      "title": {
-        "error": "Une erreur est survenue",
-        "success": "Succès",
-        "info": "Information"
+    "dateNotSet": "Date non définie",
+    "form": {
+      "error": {
+        "conversionFailed": "L’enregistrement de l’image a échoué. Veuillez réessayer.",
+        "email": "Entrez une adresse e-mail valide.",
+        "fileFormat": "Le format du fichier est invalide. Formats acceptés : {formats}.",
+        "fileSize": "La taille du fichier ne doit pas dépasser {size} Mo.",
+        "passwordComplex": "Le mot de passe doit contenir au moins une lettre minuscule, une majuscule, un chiffre et un caractère spécial.",
+        "passwordMatch": "Les mots de passe ne correspondent pas.",
+        "passwordMin": "Le mot de passe doit contenir au moins 8 caractères.",
+        "required": "Ce champ est obligatoire.",
+        "stringMin": "Ce champ doit contenir au moins {min} caractères."
       }
     },
     "hint": {
-      "optional": "Champ optionnel"
+      "optional": "Champ facultatif"
     },
-    "form": {
-      "error": {
-        "required": "Ce champ est obligatoire",
-        "email": "Veuillez saisir une adresse e-mail valide",
-        "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
-        "passwordMatch": "Les mots de passe ne correspondent pas",
-        "passwordComplex": "Le mot de passe doit contenir des lettres minuscules, majuscules, des chiffres et des caractères spéciaux",
-        "stringMin": "Ce champ doit contenir au moins {min} caractères",
-        "fileSize": "La taille du fichier ne doit pas dépasser {size} Mo",
-        "fileFormat": "Le fichier choisi n'est pas valide. Veuillez choisir un fichier de type {formats}.",
-        "conversionFailed": "L'enregistrement de l'image a échoué. Veuillez réessayer."
+    "toasts": {
+      "title": {
+        "error": "Erreur",
+        "info": "Information",
+        "success": "Succès"
       }
-    },
-    "dateNotSet": "Date non définie"
+    }
   },
-  "company": {
-    "title": "Société de production"
-  },
-  "duration": {
-    "title": "Durée",
-    "description": "Par défaut, aucune durée n'est sélectionnée.",
-    "hint": "Le mode 'max' sélectionne les éléments ayant la durée choisie ou moins. Le mode 'min' sélectionne les éléments ayant la durée choisie ou plus.",
-    "unit": "{count} minute | {count} minutes",
+  "error": {
     "buttons": {
-      "mode": "Mode de durée ({mode})",
-      "reset": "Réinitialiser"
-    }
-  },
-  "filter": {
-    "type": "Voulez-vous rechercher parmis les films ou les séries ?",
-    "options": {
-      "movie": "Films",
-      "tv": "Séries"
-    }
+      "home": "Retour à l’accueil"
+    },
+    "message": "La page que vous recherchez est introuvable ou une erreur s’est produite.",
+    "title": "Erreur"
   },
   "footer": {
-    "title": "Quoi regarder ?",
-    "tagline": "Une série ou un film à regarder par jour selon vos critères.",
+    "copyright": "© {year} Quoi Regarder",
     "links": {
       "home": "Accueil",
       "login": "Connexion",
-      "signup": "Inscription",
-      "profile": "Profil"
+      "profile": "Profil",
+      "signup": "Inscription"
     },
-    "copyright": "© {year} Quoi regarder ?"
+    "tagline": "Trouvez une série ou un film adapté à vos goûts chaque jour.",
+    "title": "Quoi Regarder"
   },
-  "home": {
-    "title": "Quoi regarder ?",
-    "subtitle": "Une série ou un film aléatoire à regarder par jour selon vos critères.",
+  "forgotPassword": {
     "form": {
       "buttons": {
-        "search": "Rechercher",
-        "moreFilters": "Plus de filtres"
+        "home": "Retour à l’accueil",
+        "login": "Se connecter",
+        "signup": "Créer un compte",
+        "submit": "Envoyer"
+      },
+      "fields": {
+        "email": "Adresse e-mail"
+      },
+      "placeholders": {
+        "email": "Entrez votre adresse e-mail"
+      }
+    },
+    "title": "Mot de passe oublié",
+    "toasts": {
+      "success": {
+        "sent": "Un e-mail de réinitialisation a été envoyé à {email}."
+      }
+    }
+  },
+  "home": {
+    "form": {
+      "buttons": {
+        "moreFilters": "Plus de filtres",
+        "search": "Rechercher"
+      },
+      "descriptions": {
+        "search": "Saisissez des mots-clés pour rechercher des films, séries ou documentaires."
       },
       "fields": {
         "search": "Mots-clés"
       },
-      "descriptions": {
-        "search": "Saisissez des mots-clés pour rechercher des films, séries, documentaires, etc."
-      },
       "tooltip": {
-        "reset": "Réinitialiser les filtres et la recherche"
+        "reset": "Réinitialiser les critères"
       }
     },
+    "subtitle": "Trouvez un film ou une série qui correspond à vos envies.",
+    "title": "Quoi Regarder",
     "toasts": {
-      "success": {
-        "search": "La recherche a été effectuée avec succès."
-      },
       "error": {
         "search": "Aucun résultat trouvé."
+      },
+      "success": {
+        "search": "Recherche effectuée avec succès."
       }
     }
   },
-  "mark": {
-    "title": "Note minimale",
-    "description": "Par défaut, aucune note minimale n'est sélectionnée.",
-    "labels": {
-      "mark": "{count} étoile | {count} étoiles"
+  "login": {
+    "form": {
+      "buttons": {
+        "forgotPassword": "Mot de passe oublié ?",
+        "google": "Se connecter avec Google",
+        "home": "Retour à l’accueil",
+        "signup": "Créer un compte",
+        "submit": "Se connecter"
+      },
+      "fields": {
+        "email": "Adresse e-mail",
+        "password": "Mot de passe"
+      },
+      "placeholders": {
+        "email": "Entrez votre adresse e-mail",
+        "password": "Entrez votre mot de passe"
+      }
+    },
+    "or": "ou",
+    "title": "Connexion",
+    "toasts": {
+      "error": {
+        "email_not_confirmed": "Votre e-mail n’est pas confirmé. Veuillez vérifier votre boîte de réception.",
+        "invalid_credentials": "Identifiants incorrects. Veuillez réessayer."
+      },
+      "success": {
+        "login": "Connexion réussie."
+      }
     }
-  },
-  "error": {
-    "title": "Une erreur est survenue",
-    "message": "La page que vous recherchez n'existe pas ou une erreur s'est produite.",
-    "buttons": {
-      "home": "Accueil"
-    }
-  },
-  "card": {
-    "title": "Titre",
-    "release_date": "Date de sortie en salle",
-    "first_air_date": "Date de première diffusion",
-    "vote_average": "Note",
-    "overview": "Synopsis",
-    "genres": "Genres",
-    "vote_count": "Nombre de votes : {count}",
-    "no_overview": "Aucune description disponible.",
-    "no_poster": "Aucune image disponible.",
-    "more_details": "Plus de détails"
   },
   "navbar": {
-    "dropdown": {
-      "account": "Connecté en tant que"
-    },
     "buttons": {
+      "colorMode": {
+        "dark": "Mode sombre",
+        "light": "Mode clair",
+        "system": "Thème par défaut"
+      },
       "home": "Accueil",
       "login": "Connexion",
       "logout": "Déconnexion",
-      "signup": "Inscription",
       "profile": "Profil",
-      "colorMode": {
-        "light": "Mode clair",
-        "dark": "Mode sombre",
-        "system": "Thème système"
-      }
+      "signup": "Créer un compte"
+    },
+    "dropdown": {
+      "account": "Connecté en tant que"
     },
     "toasts": {
       "success": {
-        "logout": "Vous êtes déconnecté.",
-        "locale": "La langue a été mise à jour.",
-        "colorMode": "Le thème a été mis à jour."
+        "colorMode": "Thème mis à jour avec succès.",
+        "locale": "Langue changée avec succès.",
+        "logout": "Déconnexion réussie."
       }
     },
     "tooltips": {
-      "colorMode": "Changer de thème",
-      "locale": "Changer de langue"
+      "colorMode": "Changer le thème",
+      "locale": "Changer la langue"
     }
-  },
-  "by": {
-    "title": "Trier par",
-    "description": "Un seul critère de tri peut être sélectionné à la fois.",
-    "hint": "La flèche vers le haut indique un tri croissant (du plus petit au plus grand, du plus ancien au plus récent, de A à Z, etc.). La flèche vers le bas indique un tri décroissant (du plus grand au plus petit, du plus récent au plus ancien, de Z à A, etc.).",
-    "labels": {
-      "original_title": "Titre original",
-      "original_name": "Titre original",
-      "popularity": "Popularité",
-      "revenue": "Recettes",
-      "primary_release_date": "Date de sortie en salle",
-      "first_air_date": "Date de première diffusion",
-      "title": "Titre",
-      "name": "Titre",
-      "vote_average": "Note",
-      "vote_count": "Nombre de votes"
-    },
-    "buttons": {
-      "reset": "Réinitialiser"
-    }
-  },
-  "forgotPassword": {
-    "title": "Mot de passe oublié",
-    "form": {
-      "buttons": {
-        "submit": "Envoyer",
-        "login": "Se connecter",
-        "home": "Retour à l'accueil",
-        "signup": "S'inscrire"
-      },
-      "fields": {
-        "email": "E-mail"
-      },
-      "placeholders": {
-        "email": "Adresse e-mail"
-      }
-    },
-    "toasts": {
-      "success": {
-        "sent": "Un e-mail de réinitialisation de mot de passe a été envoyé à l'adresse {email}"
-      }
-    }
-  },
-  "genre": {
-    "title": "Genre de contenu",
-    "description": "Par défaut, aucun genre de contenu n'est sélectionné."
-  },
-  "login": {
-    "title": "Connexion",
-    "or": "ou",
-    "form": {
-      "buttons": {
-        "submit": "Se connecter",
-        "forgotPassword": "Mot de passe oublié ?",
-        "signup": "S'inscrire",
-        "home": "Retour à l'accueil",
-        "google": "Se connecter avec Google"
-      },
-      "fields": {
-        "email": "E-mail",
-        "password": "Mot de passe"
-      },
-      "placeholders": {
-        "email": "Adresse e-mail",
-        "password": "Mot de passe"
-      }
-    },
-    "toasts": {
-      "error": {
-        "invalid_credentials": "Les identifiants fournis sont incorrects. Veuillez réessayer.",
-        "email_not_confirmed": "Votre adresse e-mail n'a pas été confirmée. Veuillez vérifier votre boîte de réception."
-      },
-      "success": {
-        "login": "Vous êtes connecté."
-      }
-    }
-  },
-  "monetization": {
-    "title": "Type de disponibilité",
-    "description": "Par défaut, tous les types de disponibilité sont sélectionnés.",
-    "options": {
-      "flatrate": "En streaming avec abonnement",
-      "free": "En visionnage gratuit",
-      "ads": "En visionnage gratuit avec publicités",
-      "rent": "En location",
-      "buy": "À l'achat"
-    }
-  },
-  "multiSelect": {
-    "search": "Rechercher...",
-    "selected": "Aucun élément sélectionné | {count} élément sélectionné | {count} éléments sélectionnés",
-    "noResults": "Aucun résultat trouvé pour \"{query}\".",
-    "create": "Créer \"{name}\".",
-    "noOptions": "Aucune option disponible.",
-    "loading": "Commencez à taper pour rechercher des éléments..."
-  },
-  "person": {
-    "title": "Professionnels du cinéma"
-  },
-  "platforms": {
-    "title": "Plateformes de streaming",
-    "placeholder": "Plateformes"
   },
   "profile": {
     "form": {
       "buttons": {
-        "submit": "Mettre à jour",
-        "deleteAccount": "Supprimer le compte"
+        "deleteAccount": "Supprimer mon compte",
+        "submit": "Mettre à jour"
       },
       "fields": {
-        "email": "E-mail",
-        "username": "Nom d'utilisateur",
+        "avatar": "Photo de profil",
+        "email": "Adresse e-mail",
         "firstName": "Prénom",
         "lastName": "Nom",
-        "avatar": "Image de profil"
+        "username": "Nom d’utilisateur"
       },
       "placeholders": {
-        "email": "Adresse e-mail",
-        "username": "Nom d'utilisateur",
-        "firstName": "Prénom",
-        "lastName": "Nom"
+        "email": "Entrez votre adresse e-mail",
+        "firstName": "Entrez votre prénom",
+        "lastName": "Entrez votre nom",
+        "username": "Entrez un nom d’utilisateur"
       }
     },
     "modals": {
       "deleteAccount": {
-        "title": "Supprimer le compte",
-        "description": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible. Toutes vos données seront perdues.",
         "buttons": {
           "cancel": "Annuler",
           "delete": "Supprimer"
-        }
+        },
+        "description": "Êtes-vous sûr de vouloir supprimer votre compte ? Cette action est irréversible.",
+        "title": "Supprimer le compte"
       }
     },
     "toasts": {
       "success": {
-        "updated": "Votre profil a été mis à jour.",
-        "avatarUpdated": "Votre image de profil a été mise à jour.",
-        "avatarRemoved": "Votre image de profil a été supprimée.",
-        "accountDeleted": "Votre compte a été supprimé."
+        "accountDeleted": "Compte supprimé avec succès.",
+        "avatarRemoved": "Photo de profil supprimée.",
+        "avatarUpdated": "Photo de profil mise à jour.",
+        "updated": "Profil mis à jour avec succès."
       }
     }
   },
   "signup": {
-    "title": "Inscription",
     "form": {
       "buttons": {
-        "submit": "S'inscrire",
-        "google": "S'inscrire avec Google",
+        "google": "Créer un compte avec Google",
+        "home": "Retour à l’accueil",
         "login": "Se connecter",
-        "home": "Retour à l'accueil"
+        "submit": "Créer un compte"
       },
       "fields": {
-        "email": "E-mail",
-        "username": "Nom d'utilisateur",
+        "email": "Adresse e-mail",
         "firstName": "Prénom",
         "lastName": "Nom",
         "password": "Mot de passe",
-        "passwordConfirmation": "Confirmer le mot de passe"
+        "passwordConfirmation": "Confirmer le mot de passe",
+        "username": "Nom d’utilisateur"
       },
       "placeholders": {
-        "email": "Adresse e-mail",
-        "username": "Nom d'utilisateur",
-        "firstName": "Prénom",
-        "lastName": "Nom",
-        "password": "Mot de passe",
-        "passwordConfirmation": "Confirmez le mot de passe"
+        "email": "Entrez votre adresse e-mail",
+        "firstName": "Entrez votre prénom",
+        "lastName": "Entrez votre nom",
+        "password": "Créez un mot de passe",
+        "passwordConfirmation": "Confirmez votre mot de passe",
+        "username": "Choisissez un nom d’utilisateur"
       }
     },
+    "title": "Créer un compte",
     "toasts": {
       "success": {
-        "registered": "Inscription réussie. Veuillez vérifier votre boîte de réception pour activer votre compte."
+        "registered": "Inscription réussie ! Consultez vos e-mails pour activer votre compte."
       }
     }
   },
   "updatePassword": {
-    "title": "Mettre à jour le mot de passe",
     "form": {
       "buttons": {
-        "submit": "Envoyer",
-        "home": "Retour à l'accueil"
+        "home": "Retour à l’accueil",
+        "submit": "Mettre à jour"
       },
       "fields": {
-        "password": "Mot de passe",
-        "passwordConfirmation": "Confirmer le mot de passe"
+        "password": "Nouveau mot de passe",
+        "passwordConfirmation": "Confirmer le nouveau mot de passe"
       },
       "placeholders": {
-        "password": "Nouveau mot de passe",
+        "password": "Créez un nouveau mot de passe",
         "passwordConfirmation": "Confirmez le nouveau mot de passe"
       }
     },
+    "title": "Mettre à jour le mot de passe",
     "toasts": {
-      "success": {
-        "updated": "Votre mot de passe a été mis à jour."
-      },
       "error": {
         "same_password": "Le nouveau mot de passe doit être différent de l'ancien."
+      },
+      "success": {
+        "updated": "Votre mot de passe a été mis à jour."
       }
-    }
-  },
-  "votes": {
-    "title": "Nombre de votes",
-    "description": "Par défaut, aucun nombre de votes n'est sélectionné.",
-    "hint": "Le mode 'max' sélectionne les éléments ayant le nombre de votes choisi ou moins. Le mode 'min' sélectionne les éléments ayant le nombre de votes choisi ou plus.",
-    "unit": "{count} vote | {count} votes",
-    "buttons": {
-      "mode": "Mode de votes ({mode})",
-      "reset": "Réinitialiser"
-    }
-  },
-  "dateRange": {
-    "title": "Date de sortie en salle",
-    "first_air_date": "Date de première diffusion",
-    "air_date": "Date de diffusion",
-    "from": "À partir du",
-    "to": "Jusqu'au",
-    "buttons": {
-      "reset": "Réinitialiser"
     }
   }
 }
