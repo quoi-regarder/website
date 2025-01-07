@@ -120,7 +120,7 @@
         />
       </div>
 
-      <UButton block class="mt-4" size="xl" variant="link" @click="toggleMoreFilters">
+      <UButton class="mt-4 self-center" size="xl" variant="link" @click="toggleMoreFilters">
         <div class="flex flex-col items-center justify-center gap-2">
           <span>{{ $t('home.form.buttons.moreFilters') }}</span>
           <UIcon
@@ -379,14 +379,6 @@ const commonFilters = (manager: QueryParamsManager) => {
     )
   }
 
-  if (selectedMonetization.value.length > 0) {
-    manager.addWithLogic(
-      'with_watch_monetization_types',
-      selectedMonetization.value.map((monetization) => monetization.id),
-      LogicalOperator.OR
-    )
-  }
-
   if (selectedVotes.value !== null && selectedVotesMode.value !== null) {
     if (selectedVotesMode.value === 'min') {
       manager.add('vote_count_gte', selectedVotes.value)
@@ -428,6 +420,14 @@ const exclusiveMovieFilters = (manager: QueryParamsManager) => {
   if (toDate.value !== null) {
     manager.add('release_date_lte', format(toDate.value, 'yyyy-MM-dd'))
   }
+
+  if (selectedMonetization.value.length > 0) {
+    manager.addWithLogic(
+      'with_watch_monetization_types',
+      selectedMonetization.value.map((monetization) => monetization.id),
+      LogicalOperator.OR
+    )
+  }
 }
 
 const exclusiveSeriesFilters = (manager: QueryParamsManager) => {
@@ -445,6 +445,20 @@ const exclusiveSeriesFilters = (manager: QueryParamsManager) => {
 
   if (airToDate.value !== null) {
     manager.add('air_date_lte', format(airToDate.value, 'yyyy-MM-dd'))
+  }
+
+  if (selectedMonetization.value.length > 0) {
+    manager.addWithLogic(
+      'with_watch_monetization_types',
+      selectedMonetization.value.map((monetization) => monetization.id),
+      LogicalOperator.OR
+    )
+  } else {
+    manager.addWithLogic(
+      'with_watch_monetization_types',
+      ['flatrate', 'free', 'ads', 'rent', 'buy'],
+      LogicalOperator.OR
+    )
   }
 }
 
