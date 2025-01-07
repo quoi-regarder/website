@@ -1,0 +1,114 @@
+{
+  "age": {
+    "description": "By default, no minimum age is selected.",
+    "labels": {
+      "eighteen": "18 years old",
+      "sixteen": "16 years old",
+      "ten": "10 years old",
+      "twelve": "12 years old"
+    },
+    "title": "Minimum age"
+  },
+  "badgeList": {
+    "buttons": {
+      "selectAll": "Select all",
+      "unselectAll": "Deselect all"
+    }
+  },
+  "by": {
+    "buttons": {
+      "reset": "Reset"
+    },
+    "description": "Only one sort criterion can be selected at a time.",
+    "hint": "The up arrow indicates ascending order (smallest to largest, oldest to newest, A to Z). The down arrow indicates descending order (largest to smallest, newest to oldest, Z to A).",
+    "labels": {
+      "first_air_date": "First air date",
+      "original_name": "Original name",
+      "original_title": "Original title",
+      "popularity": "Popularity",
+      "primary_release_date": "Release date",
+      "revenue": "Revenue",
+      "title": "Title",
+      "vote_average": "Rating",
+      "vote_count": "Number of votes"
+    },
+    "title": "Sort by"
+  },
+  "company": {
+    "title": "Production companies"
+  },
+  "dateRange": {
+    "air_date": "Air date",
+    "buttons": {
+      "reset": "Reset"
+    },
+    "first_air_date": "First air date",
+    "from": "From",
+    "title": "Theater release date",
+    "to": "To"
+  },
+  "duration": {
+    "buttons": {
+      "mode": "Duration mode ({mode})",
+      "reset": "Reset"
+    },
+    "description": "By default, no duration is selected.",
+    "hint": "The 'max' mode selects items with the chosen duration or less. The 'min' mode selects items with the chosen duration or more.",
+    "title": "Duration",
+    "unit": "{count} minute | {count} minutes"
+  },
+  "filter": {
+    "options": {
+      "movie": "Movies",
+      "tv": "Series"
+    },
+    "type": "Would you like to search among movies or series?"
+  },
+  "genre": {
+    "description": "By default, no content genre is selected.",
+    "title": "Content genre"
+  },
+  "mark": {
+    "description": "By default, no minimum rating is selected.",
+    "labels": {
+      "mark": "{count} star | {count} stars"
+    },
+    "title": "Minimum rating"
+  },
+  "monetization": {
+    "description": "By default, all availability types are selected.",
+    "options": {
+      "ads": "Free with ads",
+      "buy": "Available for purchase",
+      "flatrate": "Subscription streaming",
+      "free": "Free to watch",
+      "rent": "Available for rent"
+    },
+    "title": "Availability type"
+  },
+  "multiSelect": {
+    "create": "Create \"{name}\".",
+    "loading": "Start typing to search for items...",
+    "noOptions": "No options available.",
+    "noResults": "No results found for \"{query}\".",
+    "search": "Search...",
+    "selected": "No items selected | {count} item selected | {count} items selected"
+  },
+  "person": {
+    "title": "Film industry professionals"
+  },
+  "platforms": {
+    "placeholder": "Platforms",
+    "title": "Streaming platforms"
+  },
+  "votes": {
+    "buttons": {
+      "mode": "Vote mode ({mode})",
+      "reset": "Reset"
+    },
+    "description": "By default, no number of votes is selected.",
+    "hint": "The 'max' mode selects items with the chosen number of votes or fewer. The 'min' mode selects items with the chosen number of votes or more.",
+    "title": "Number of votes",
+    "unit": "{count} vote | {count} votes"
+  }
+}

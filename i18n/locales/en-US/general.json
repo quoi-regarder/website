@@ -1,205 +1,82 @@
 {
-  "age": {
-    "title": "Minimum age",
-    "description": "By default, no minimum age is selected.",
-    "labels": {
-      "ten": "10 years old",
-      "twelve": "12 years old",
-      "sixteen": "16 years old",
-      "eighteen": "18 years old"
-    }
-  },
   "avatar": {
     "buttons": {
       "remove": "Remove profile picture",
       "upload": "Upload a picture"
     }
   },
-  "badgeList": {
-    "buttons": {
-      "selectAll": "Select all",
-      "unselectAll": "Deselect all",
-      "reset": "Reset"
-    }
+  "card": {
+    "first_air_date": "First air date",
+    "genres": "Genres",
+    "more_details": "More details",
+    "no_overview": "No description available.",
+    "no_poster": "No poster available.",
+    "overview": "Overview",
+    "release_date": "Theater release date",
+    "title": "Title",
+    "vote_average": "Rating",
+    "vote_count": "Number of votes: {count}"
   },
   "common": {
     "api": {
       "error": {
         "bad_request": "An error occurred while fetching data. Please try again.",
-        "not_found": "The requested resource could not be found.",
-        "username_already_exists": "This username is already in use.",
+        "forbidden": "You are not authorized to access this resource.",
         "internal_server_error": "An error occurred while processing the request. Please try again.",
-        "forbidden": "You are not authorized to access this resource."
+        "not_found": "The requested resource could not be found.",
+        "username_already_exists": "This username is already in use."
       }
     },
-    "toasts": {
-      "title": {
-        "error": "An error occurred",
-        "success": "Success",
-        "info": "Information"
+    "dateNotSet": "Date not set",
+    "form": {
+      "error": {
+        "conversionFailed": "Failed to save the image. Please try again.",
+        "email": "Please enter a valid email address.",
+        "fileFormat": "Invalid file type. Please select a file of type {formats}.",
+        "fileSize": "File size must not exceed {size} MB.",
+        "passwordComplex": "Password must include lowercase letters, uppercase letters, numbers, and special characters.",
+        "passwordMatch": "Passwords do not match.",
+        "passwordMin": "Password must be at least 8 characters long.",
+        "required": "This field is required.",
+        "stringMin": "This field must be at least {min} characters long."
       }
     },
     "hint": {
       "optional": "Optional field"
     },
-    "form": {
-      "error": {
-        "required": "This field is required",
-        "email": "Please enter a valid email address",
-        "passwordMin": "Password must be at least 8 characters long",
-        "passwordMatch": "Passwords do not match",
-        "passwordComplex": "Password must include lowercase letters, uppercase letters, numbers, and special characters",
-        "stringMin": "This field must be at least {min} characters long",
-        "fileSize": "File size must not exceed {size} MB",
-        "fileFormat": "Invalid file type. Please select a file of type {formats}.",
-        "conversionFailed": "Failed to save the image. Please try again."
-      }
-    },
-    "dateNotSet": "Date not set"
-  },
-  "company": {
-    "title": "Production companies"
-  },
-  "duration": {
-    "title": "Duration",
-    "description": "By default, no duration is selected.",
-    "hint": "The 'max' mode selects items with the chosen duration or less. The 'min' mode selects items with the chosen duration or more.",
-    "unit": "{count} minute | {count} minutes",
-    "buttons": {
-      "mode": "Duration mode ({mode})",
-      "reset": "Reset"
-    }
-  },
-  "filter": {
-    "type": "Would you like to search among movies or series ?",
-    "options": {
-      "movie": "Movies",
-      "tv": "Series"
-    }
-  },
-  "footer": {
-    "title": "Quoi regarder ?",
-    "tagline": "A series or movie to watch each day based on your preferences.",
-    "links": {
-      "home": "Home",
-      "login": "Login",
-      "signup": "Sign up",
-      "profile": "Profile"
-    },
-    "copyright": "© {year} Quoi regarder ?"
-  },
-  "home": {
-    "title": "Quoi regarder ?",
-    "subtitle": "A random series or movie to watch each day based on your preferences.",
-    "form": {
-      "buttons": {
-        "search": "Search",
-        "moreFilters": "More filters"
-      },
-      "fields": {
-        "search": "Keywords"
-      },
-      "descriptions": {
-        "search": "Enter keywords to search for movies, TV shows, documentaries, etc."
-      },
-      "tooltip": {
-        "reset": "Reset filters and search"
-      }
-    },
     "toasts": {
-      "success": {
-        "search": "Search completed successfully."
-      },
-      "error": {
-        "search": "No results found."
-      },
-      "tooltip": {
-        "reset": "Reset filters and search"
+      "title": {
+        "error": "An error occurred",
+        "info": "Information",
+        "success": "Success"
       }
-    }
-  },
-  "mark": {
-    "title": "Minimum rating",
-    "description": "By default, no minimum rating is selected.",
-    "labels": {
-      "mark": "{count} star | {count} stars"
     }
   },
   "error": {
-    "title": "An error occurred",
-    "message": "The page you are looking for does not exist or an error occurred.",
     "buttons": {
       "home": "Home"
-    }
-  },
-  "card": {
-    "title": "Title",
-    "release_date": "Theater release date",
-    "first_air_date": "First air date",
-    "vote_average": "Rating",
-    "overview": "Overview",
-    "genres": "Genres",
-    "vote_count": "Number of votes: {count}",
-    "no_overview": "No description available.",
-    "no_poster": "No poster available.",
-    "more_details": "More details"
-  },
-  "navbar": {
-    "dropdown": {
-      "account": "Logged in as"
     },
-    "buttons": {
+    "message": "The page you are looking for does not exist or an error occurred.",
+    "title": "An error occurred"
+  },
+  "footer": {
+    "copyright": "© {year} What to Watch?",
+    "links": {
       "home": "Home",
       "login": "Login",
-      "logout": "Logout",
-      "signup": "Sign up",
       "profile": "Profile",
-      "colorMode": {
-        "light": "Light mode",
-        "dark": "Dark mode",
-        "system": "System theme"
-      }
+      "signup": "Sign up"
     },
-    "toasts": {
-      "success": {
-        "logout": "You have been logged out.",
-        "locale": "Language has been updated.",
-        "colorMode": "Theme has been updated."
-      }
-    },
-    "tooltips": {
-      "colorMode": "Change theme",
-      "locale": "Change language"
-    }
-  },
-  "by": {
-    "title": "Sort by",
-    "description": "Only one sort criterion can be selected at a time.",
-    "hint": "The up arrow indicates ascending order (smallest to largest, oldest to newest, A to Z). The down arrow indicates descending order (largest to smallest, newest to oldest, Z to A).",
-    "labels": {
-      "original_title": "Original title",
-      "original_name": "Original title",
-      "popularity": "Popularity",
-      "revenue": "Revenue",
-      "primary_release_date": "Release date",
-      "first_air_date": "First air date",
-      "title": "Title",
-      "name": "Title",
-      "vote_average": "Rating",
-      "vote_count": "Number of votes"
-    },
-    "buttons": {
-      "reset": "Reset"
-    }
+    "tagline": "A series or movie to watch each day based on your preferences.",
+    "title": "What to Watch?"
   },
   "forgotPassword": {
-    "title": "Forgot password",
     "form": {
       "buttons": {
-        "submit": "Submit",
-        "login": "Login",
         "home": "Back to home",
-        "signup": "Sign up"
+        "login": "Login",
+        "signup": "Sign up",
+        "submit": "Submit"
       },
       "fields": {
         "email": "Email"
@@ -208,26 +85,48 @@
         "email": "Email address"
       }
     },
+    "title": "Forgot password",
     "toasts": {
       "success": {
-        "sent": "A password reset email has been sent to {email}"
+        "sent": "A password reset email has been sent to {email}."
       }
     }
   },
-  "genre": {
-    "title": "Content genre",
-    "description": "By default, no content genre is selected."
-  },
-  "login": {
-    "title": "Login",
-    "or": "or",
+  "home": {
     "form": {
       "buttons": {
-        "submit": "Login",
+        "moreFilters": "More filters",
+        "search": "Search"
+      },
+      "descriptions": {
+        "search": "Enter keywords to search for movies, TV shows, documentaries, etc."
+      },
+      "fields": {
+        "search": "Keywords"
+      },
+      "tooltip": {
+        "reset": "Reset filters and search"
+      }
+    },
+    "subtitle": "A random series or movie to watch each day based on your preferences.",
+    "title": "What to Watch?",
+    "toasts": {
+      "error": {
+        "search": "No results found."
+      },
+      "success": {
+        "search": "Search completed successfully."
+      }
+    }
+  },
+  "login": {
+    "form": {
+      "buttons": {
         "forgotPassword": "Forgot password?",
-        "signup": "Sign up",
+        "google": "Login with Google",
         "home": "Back to home",
-        "google": "Login with Google"
+        "signup": "Sign up",
+        "submit": "Login"
       },
       "fields": {
         "email": "Email",
@@ -238,107 +137,111 @@
         "password": "Password"
       }
     },
+    "or": "or",
+    "title": "Login",
     "toasts": {
       "error": {
-        "invalid_credentials": "The credentials provided are incorrect. Please try again.",
-        "email_not_confirmed": "Your email address has not been confirmed. Please check your inbox."
+        "email_not_confirmed": "Your email address has not been confirmed. Please check your inbox.",
+        "invalid_credentials": "The credentials provided are incorrect. Please try again."
       },
       "success": {
         "login": "You have successfully logged in."
       }
     }
   },
-  "monetization": {
-    "title": "Availability type",
-    "description": "By default, all availability types are selected.",
-    "options": {
-      "flatrate": "Subscription streaming",
-      "free": "Free to watch",
-      "ads": "Free with ads",
-      "rent": "Available for rent",
-      "buy": "Available for purchase"
+  "navbar": {
+    "buttons": {
+      "colorMode": {
+        "dark": "Dark mode",
+        "light": "Light mode",
+        "system": "System theme"
+      },
+      "home": "Home",
+      "login": "Login",
+      "logout": "Logout",
+      "profile": "Profile",
+      "signup": "Sign up"
+    },
+    "dropdown": {
+      "account": "Logged in as"
+    },
+    "toasts": {
+      "success": {
+        "colorMode": "Theme has been updated.",
+        "locale": "Language has been updated.",
+        "logout": "You have been logged out."
+      }
+    },
+    "tooltips": {
+      "colorMode": "Change theme",
+      "locale": "Change language"
     }
-  },
-  "multiSelect": {
-    "search": "Search...",
-    "selected": "No items selected | {count} item selected | {count} items selected",
-    "noResults": "No results found for \"{query}\".",
-    "create": "Create \"{name}\".",
-    "noOptions": "No options available.",
-    "loading": "Start typing to search for items..."
-  },
-  "person": {
-    "title": "Film industry professionals"
-  },
-  "platforms": {
-    "title": "Streaming platforms",
-    "placeholder": "Platforms"
   },
   "profile": {
     "form": {
       "buttons": {
-        "submit": "Update",
-        "deleteAccount": "Delete account"
+        "deleteAccount": "Delete account",
+        "submit": "Update"
       },
       "fields": {
+        "avatar": "Profile picture",
         "email": "Email",
-        "username": "Username",
         "firstName": "First name",
         "lastName": "Last name",
-        "avatar": "Profile picture"
+        "username": "Username"
       },
       "placeholders": {
         "email": "Email address",
-        "username": "Username",
         "firstName": "First name",
-        "lastName": "Last name"
+        "lastName": "Last name",
+        "username": "Username"
       }
     },
     "modals": {
       "deleteAccount": {
-        "title": "Delete account",
-        "description": "Are you sure you want to delete your account? This action is irreversible. All your data will be lost.",
         "buttons": {
           "cancel": "Cancel",
           "delete": "Delete"
-        }
+        },
+        "description": "Are you sure you want to delete your account? This action is irreversible. All your data will be lost.",
+        "title": "Delete account"
       }
     },
     "toasts": {
       "success": {
-        "updated": "Your profile has been updated.",
-        "avatarUpdated": "Your profile picture has been updated.",
+        "accountDeleted": "Your account has been deleted.",
         "avatarRemoved": "Your profile picture has been removed.",
-        "accountDeleted": "Your account has been deleted."
+        "avatarUpdated": "Your profile picture has been updated.",
+        "updated": "Your profile has been updated."
       }
     }
   },
   "signup": {
-    "title": "Sign up",
     "form": {
       "buttons": {
-        "submit": "Sign up",
         "google": "Sign up with Google",
+        "home": "Back to home",
         "login": "Login",
-        "home": "Back to home"
+        "submit": "Sign up"
       },
       "fields": {
         "email": "Email",
-        "username": "Username",
         "firstName": "First name",
         "lastName": "Last name",
         "password": "Password",
-        "passwordConfirmation": "Confirm password"
+        "passwordConfirmation": "Confirm password",
+        "username": "Username"
       },
       "placeholders": {
         "email": "Email address",
-        "username": "Username",
         "firstName": "First name",
         "lastName": "Last name",
         "password": "Password",
-        "passwordConfirmation": "Confirm password"
+        "passwordConfirmation": "Confirm password",
+        "username": "Username"
       }
     },
+    "title": "Sign up",
     "toasts": {
       "success": {
         "registered": "Registration successful. Please check your inbox to activate your account."
@@ -346,11 +249,10 @@
     }
   },
   "updatePassword": {
-    "title": "Update password",
     "form": {
       "buttons": {
-        "submit": "Submit",
-        "home": "Back to home"
+        "home": "Back to home",
+        "submit": "Submit"
       },
       "fields": {
         "password": "Password",
@@ -361,33 +263,14 @@
         "passwordConfirmation": "Confirm new password"
       }
     },
+    "title": "Update password",
     "toasts": {
-      "success": {
-        "updated": "Your password has been updated."
-      },
       "error": {
         "same_password": "The new password must be different from the old one."
+      },
+      "success": {
+        "updated": "Your password has been updated."
       }
-    }
-  },
-  "votes": {
-    "title": "Number of votes",
-    "description": "By default, no number of votes is selected.",
-    "hint": "The 'max' mode selects items with the chosen number of votes or fewer. The 'min' mode selects items with the chosen number of votes or more.",
-    "unit": "{count} vote | {count} votes",
-    "buttons": {
-      "mode": "Vote mode ({mode})",
-      "reset": "Reset"
-    }
-  },
-  "dateRange": {
-    "title": "Theater release date",
-    "first_air_date": "First air date",
-    "air_date": "Air date",
-    "from": "From",
-    "to": "To",
-    "buttons": {
-      "reset": "Reset"
     }
   }
 }
