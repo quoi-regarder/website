@@ -1,0 +1,235 @@
+{
+  "cookies": {
+    "description": "Cookies policy for the website",
+    "lastUpdate": "Last update date",
+    "sections": {
+      "consent": {
+        "content": "On your first visit to our site, you will be presented with a Cookiebot banner. By accepting it, you consent to the use of cookies as described in this policy. You can choose to manage or refuse cookies that are not essential to the site's proper functioning through this banner. Preference cookies are mandatory and cannot be disabled. Analytical cookies (such as those from Google Analytics) are optional and can be managed via the Cookiebot banner. Cookies for preferences and Google Analytics are configured with the default values of Cookiebot, Google Analytics, and Google Tag Manager.",
+        "title": "4. Cookie Consent"
+      },
+      "contact": {
+        "content": "If you have any questions about our use of cookies or data privacy, please contact us at:",
+        "title": "10. Contact Us"
+      },
+      "control": {
+        "content": "You can manage your cookie preferences at any time via the Cookiebot banner on our site. If you wish to delete or block cookies, you can do so through your browser settings. Please note that if you block all cookies, some site features may not work properly.",
+        "title": "5. How to Control Cookies"
+      },
+      "cookieTypes": {
+        "analytics": {
+          "content": "We use cookies, particularly Google Analytics and Google Tag Manager cookies, to collect anonymous data about how visitors use our site. This allows us to improve user experience, analyze trends, and optimize content. These cookies are optional and can be managed through the Cookiebot banner.",
+          "title": "Analytical Cookies"
+        },
+        "preference": {
+          "content": "We use cookies to remember your preferences, such as your chosen theme and language. These cookies are mandatory for the proper functioning of the site and to remember your choices for future visits.",
+          "title": "Preference Cookies"
+        },
+        "title": "3. Types of Cookies Used"
+      },
+      "dataSharing": {
+        "content": "The cookies we use do not share your data with third parties. We only use collected data for internal analysis and functionality purposes.",
+        "title": "6. Data Sharing"
+      },
+      "introduction": {
+        "content": "This cookies policy explains how we use cookies on our website, in accordance with the General Data Protection Regulation. By continuing to use this site, you consent to the use of cookies as described below.",
+        "title": "1. Introduction"
+      },
+      "retention": {
+        "content": "Preference cookies are stored for as long as necessary to remember your settings. Analytical cookies (such as those used by Google Analytics) are typically kept for 13 months from your last visit.",
+        "title": "7. Data Retention Period"
+      },
+      "rights": {
+        "content": "You have the right to access, rectify, and delete your personal data. You can also withdraw your consent to cookies at any time by returning to the Cookiebot banner or adjusting your browser settings. For more information about how we process your data, please consult our Privacy Policy.",
+        "title": "8. Your Rights"
+      },
+      "updates": {
+        "content": "We may update this cookie policy from time to time. Any changes will be posted on this page, and we will inform you if necessary. Please check this page regularly for any updates.",
+        "title": "9. Updates to This Policy"
+      },
+      "whatIsCookie": {
+        "content": "A cookie is a small text file placed on your device when you visit a website. It allows the site to remember your preferences, improve your browsing experience, and perform various functions such as tracking your site usage for analysis purposes.",
+        "title": "2. What is a cookie?"
+      }
+    },
+    "title": "Cookies Policy",
+    "updateDate": "Wednesday, January 8, 2025"
+  },
+  "legal": {
+    "description": "Legal notice for the website",
+    "lastUpdate": "Last update date",
+    "sections": {
+      "contact": {
+        "content": "For any questions or requests related to the legal notice or your personal data, you can contact us at:",
+        "title": "7. Contact"
+      },
+      "cookies": {
+        "content": "The site uses cookies for the following purposes:",
+        "management": "Users can manage their preferences or withdraw their consent through the Cookiebot interface.",
+        "title": "4. Cookies",
+        "types": {
+          "analytics": "Analytical cookies: Collection of statistical data via Google Analytics (enabled only after consent via Cookiebot, data kept for 13 months).",
+          "functional": "Functional cookies: Saving personal preferences."
+        }
+      },
+      "dataProcessing": {
+        "cnil": {
+          "content": "The site publishers commit to responding to any request or inquiry from the French Data Protection Authority (CNIL). You can also contact CNIL for any complaint regarding the processing of your data.",
+          "title": "CNIL Commitment"
+        },
+        "intro": "In accordance with the General Data Protection Regulation (GDPR) and French legislation, the site collects and processes personal data in the following cases:",
+        "purposes": {
+          "auth": "Authentication: Data collection through OAuth systems.",
+          "traffic": "Traffic analysis: Use of Google Analytics to improve user experience (data kept for 13 months).",
+          "userSystem": "User account system: Account management, watched movies tracking, and watchlists."
+        },
+        "retention": {
+          "content": "Traffic analysis data via Google Analytics is kept for 13 months. Internal data related to user accounts is kept until voluntary deletion by the user. Consents managed through Cookiebot are kept for 12 months.",
+          "title": "Data Retention"
+        },
+        "rights": {
+          "contact": "To exercise your rights, contact us at",
+          "content": "Right of access, rectification, and deletion. Right to limit processing and data portability. Right to object and withdraw consent at any time.",
+          "intro": "You have the following rights regarding your personal data:",
+          "title": "Your Rights"
+        },
+        "title": "3. Personal Data Collection and Processing"
+      },
+      "hosting": {
+        "company": "Cloudflare, Inc.",
+        "content": "The site is hosted by:",
+        "details": {
+          "address": "Address: 101 Townsend St, San Francisco, CA 94107, United States",
+          "phone": "Phone: +1 888 993 5273",
+          "url": "www.cloudflare.com",
+          "website": "Website:"
+        },
+        "title": "2. Hosting"
+      },
+      "intellectualProperty": {
+        "content": "Content accessible on the site (texts, images, graphics, logos) is protected by intellectual property law. Any reproduction, modification, or use without authorization is prohibited.",
+        "title": "5. Intellectual Property"
+      },
+      "liability": {
+        "content": "The site publishers decline any responsibility in case of temporary service interruption or damage resulting from the use of information available on the site.",
+        "title": "6. Limitation of Liability"
+      },
+      "publishers": {
+        "content": "The site is published by:",
+        "owner1": "William Fontaine",
+        "owner2": "Marin Leroux",
+        "responsible": "Publication managers: William Fontaine and Marin Leroux.",
+        "title": "1. Website Publishers"
+      }
+    },
+    "title": "Legal Notice",
+    "updateDate": "Wednesday, January 8, 2025"
+  },
+  "privacy": {
+    "description": "Privacy policy and personal data processing",
+    "lastUpdate": "Last update date",
+    "sections": {
+      "contact": {
+        "content": "If you have any questions about this privacy policy or how your data is processed, you can contact us at:",
+        "title": "12. Contact Us"
+      },
+      "cookies": {
+        "content": "We use cookies to remember your preferences (theme, language) and to analyze site usage through Google Analytics. You can manage your cookie preferences via the Cookiebot banner.",
+        "title": "10. Cookies"
+      },
+      "dataCollected": {
+        "additional": "In addition to this information, if you use our backend service, we use Supabase, which may collect additional information such as IP addresses or usage data, according to Supabase's default settings.",
+        "content": "We collect the following personal data when you use our site.",
+        "mainData": "The personal data collected includes your last name, first name, and email address.",
+        "title": "2. Data Collected"
+      },
+      "dataPurpose": {
+        "content": "The data we collect is used solely for managing your user account. This includes creating your account, managing your profile information, and the ability to delete your account at any time.",
+        "title": "3. Purpose of Data Processing"
+      },
+      "dataRetention": {
+        "content": "Regarding the retention of your personal data, preference data such as theme and language are kept indefinitely. Google Analytics and cookie data are kept for 13 months. As for user account data, they are kept as long as your account is active, and you can delete your account and all associated data at any time from your profile.",
+        "title": "5. Data Retention Period"
+      },
+      "dataSecurity": {
+        "content": "We use appropriate security measures to protect your personal data. The site uses Supabase, a self-hosted backend service, which implements security measures to protect your information.",
+        "title": "7. Data Security"
+      },
+      "dataSharing": {
+        "content": "We do not share your personal data with third parties. The collected data is used solely for the internal purposes of the site.",
+        "title": "6. Sharing Data with Third Parties"
+      },
+      "internationalTransfer": {
+        "content": "We do not transfer your personal data outside the European Union.",
+        "title": "9. International Data Transfer"
+      },
+      "introduction": {
+        "content": "This privacy policy explains how we collect, use and protect your personal data when you use our site. We are committed to complying with current legislation, particularly the General Data Protection Regulation. By using this site, you accept the practices described in this privacy policy.",
+        "title": "1. Introduction"
+      },
+      "legalBasis": {
+        "content": "The processing of your personal data is based on your consent. By registering on our site, you consent to the collection and use of your data as described in this privacy policy.",
+        "title": "4. Legal Basis for Processing"
+      },
+      "policyUpdates": {
+        "content": "We reserve the right to update this privacy policy. Any changes will be posted on this page. Please check this page regularly to stay informed of any updates.",
+        "title": "11. Updates to This Policy"
+      },
+      "userRights": {
+        "contact": "To exercise your rights, please contact us at:",
+        "content": "Under GDPR, your rights regarding your personal data include the right of access to request access to the data we hold about you, the right to rectification to request correction of inaccurate or incomplete data, the right to erasure to delete your account and all associated data, the right to restriction of processing to request limitation of processing in certain situations, and the right to data portability to request to receive your personal data in a structured format.",
+        "title": "8. Your Rights"
+      }
+    },
+    "title": "Privacy Policy",
+    "updateDate": "Wednesday, January 8, 2025"
+  },
+  "terms": {
+    "description": "Terms Of Use for the website",
+    "lastUpdate": "Last update date",
+    "sections": {
+      "access": {
+        "content": "Access to this site is free and open to all users. However, users must have internet access and the necessary equipment to browse the site.",
+        "title": "3. Site Access"
+      },
+      "cookies": {
+        "content": "The site uses cookies to remember your preferences and analyze site usage through Google Analytics. You can manage your cookie preferences via the Cookiebot banner.",
+        "title": "10. Cookies"
+      },
+      "dataProtection": {
+        "content": "The site complies with the General Data Protection Regulation. We collect and process personal data only for user account management, and this data is not shared with third parties.",
+        "title": "9. Data Protection"
+      },
+      "introduction": {
+        "content": "These Terms Of Use govern access to and use of the What to Watch? website. By accessing and using this site, you agree to these terms. If you do not agree with these terms, you must stop using the site.",
+        "title": "1. Introduction"
+      },
+      "ip": {
+        "content": "The site content is protected by intellectual property laws. However, as the site interacts with a public API, the rights to use the content are limited. Users do not have rights to reproduce or distribute content without specific authorization.",
+        "title": "6. Intellectual Property"
+      },
+      "law": {
+        "content": "These ToS are governed by French law. In case of a dispute, French courts will have jurisdiction.",
+        "title": "8. Governing Law and Jurisdiction"
+      },
+      "liability": {
+        "content": "The site owner disclaims any liability for any malfunction, service interruption, or data loss. Users use this site at their own risk. The site owner will not be liable for any direct or indirect damages related to the use of the site.",
+        "title": "5. Liability"
+      },
+      "modifications": {
+        "content": "We reserve the right to modify these ToS at any time. Changes will be communicated to users via email. Continued use of the site after modifications to the ToS implies acceptance of those changes.",
+        "title": "7. ToS Modifications"
+      },
+      "siteOwner": {
+        "owner1": "William Fontaine",
+        "owner2": "Marin Leroux",
+        "title": "2. Site Owner"
+      },
+      "usage": {
+        "content": "The site content (text, images, videos, etc.) is provided for informational purposes. There are no specific rules for use, but users agree not to use the site for illegal or harmful purposes.",
+        "title": "4. Use of Site Content"
+      }
+    },
+    "title": "Terms Of Use (ToS)",
+    "updateDate": "Wednesday, January 8, 2025"
+  }
+}

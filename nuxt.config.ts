@@ -57,8 +57,7 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/eslint',
     '@nuxthub/core',
-    '@nuxt/scripts',
-    '@nuxt/content'
+    '@nuxt/scripts'
   ],
 
   // Environment variables
@@ -91,14 +90,14 @@ export default defineNuxtConfig({
         iso: 'en-US',
         language: 'en-US',
         name: 'English (US)',
-        files: ['us/general.json', 'us/seo.json', 'us/filters.json']
+        files: ['us/general.json', 'us/seo.json', 'us/filters.json', 'us/regulation.json']
       },
       {
         code: 'fr',
         iso: 'fr-FR',
         language: 'fr-FR',
         name: 'Français',
-        files: ['fr/general.json', 'fr/seo.json', 'fr/filters.json']
+        files: ['fr/general.json', 'fr/seo.json', 'fr/filters.json', 'fr/regulation.json']
       }
     ],
     defaultLocale: 'fr',
@@ -113,9 +112,9 @@ export default defineNuxtConfig({
     }
   },
 
-  // Nuxt content configuration
-  content: {
-    target: 'static'
+  // SEO configuration
+  routeRules: {
+    '**/regulation/**': { robots: false }
   },
 
   // Color mode configuration

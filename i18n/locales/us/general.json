@@ -60,20 +60,20 @@
     "title": "An error occurred"
   },
   "footer": {
-    "copyright": "© {year} What to Watch?",
     "category": {
       "general": "General",
       "regulations": "Regulations"
     },
+    "copyright": "© {year} What to Watch?",
     "links": {
+      "cookie": "Cookie policy",
       "home": "Home",
+      "legal": "Legal notice",
       "login": "Login",
+      "privacy": "Privacy policy",
       "profile": "Profile",
       "signup": "Sign up",
-      "cookie": "Cookie policy",
-      "privacy": "Privacy policy",
-      "legal": "Legal notice",
-      "terms": "Terms of use (ToS)"
+      "terms": "Terms Of Use"
     },
     "tagline": "A series or movie to watch each day based on your preferences.",
     "title": "What to Watch?"
@@ -238,8 +238,16 @@
         "lastName": "Last name",
         "password": "Password",
         "passwordConfirmation": "Confirm password",
-        "username": "Username",
-        "terms": "I accept the terms of service."
+        "terms": "I accept the Terms Of Use.",
+        "username": "Username"
+      },
+      "help": {
+        "terms": "By signing up, you agree to our Terms Of Use.",
+        "termsMessage": "Read our Terms Of Use :",
+        "termsTooltip": "Please read and accept our Terms Of Use."
+      },
+      "links": {
+        "terms": "Terms Of Use"
       },
       "placeholders": {
         "email": "Email address",
@@ -248,14 +256,6 @@
         "password": "Password",
         "passwordConfirmation": "Confirm password",
         "username": "Username"
-      },
-      "help": {
-        "terms": "By signing up, you agree to our terms of service.",
-        "termsMessage": "Read our terms of service :",
-        "termsTooltip": "Please read and accept our terms of service."
-      },
-      "links": {
-        "terms": "Terms of service"
       }
     },
     "title": "Sign up",
