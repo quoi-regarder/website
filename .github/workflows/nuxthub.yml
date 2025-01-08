@@ -3,7 +3,7 @@ on: push
 
 jobs:
   deploy:
-    name: "Deploy to NuxtHub"
+    name: 'Deploy to NuxtHub'
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
@@ -17,8 +17,8 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
-          with:
-            version: 9
+        with:
+          version: 9
 
       - name: Install Node.js
         uses: actions/setup-node@v4
@@ -36,4 +36,4 @@ jobs:
         uses: nuxt-hub/action@v1
         id: deploy
         with:
-          project-key: quoi-regarder-yu1t
+          project-key: quoi-regarder-n-i733
