@@ -61,11 +61,19 @@
   },
   "footer": {
     "copyright": "© {year} Quoi Regarder",
+    "category": {
+      "general": "Général",
+      "regulations": "Réglementation"
+    },
     "links": {
       "home": "Accueil",
       "login": "Connexion",
       "profile": "Profil",
-      "signup": "Inscription"
+      "signup": "Inscription",
+      "cookie": "Politique de cookies",
+      "privacy": "Politique de confidentialité (RGPD)",
+      "legal": "Mentions légales",
+      "terms": "Conditions d’utilisation"
     },
     "tagline": "Trouvez une série ou un film adapté à vos goûts chaque jour.",
     "title": "Quoi Regarder"
@@ -230,7 +238,8 @@
         "lastName": "Nom",
         "password": "Mot de passe",
         "passwordConfirmation": "Confirmer le mot de passe",
-        "username": "Nom d’utilisateur"
+        "username": "Nom d’utilisateur",
+        "terms": "J’accepte les conditions d’utilisation."
       },
       "placeholders": {
         "email": "Entrez votre adresse e-mail",
@@ -239,6 +248,14 @@
         "password": "Créez un mot de passe",
         "passwordConfirmation": "Confirmez votre mot de passe",
         "username": "Choisissez un nom d’utilisateur"
+      },
+      "help": {
+        "terms": "Vous devez accepter les conditions d’utilisation pour continuer.",
+        "termsMessage": "Consultez les conditions d’utilisation :",
+        "termsTooltip": "Veuillez lire et accepter les conditions d’utilisation."
+      },
+      "links": {
+        "terms": "Conditions d’utilisation"
       }
     },
     "title": "Créer un compte",

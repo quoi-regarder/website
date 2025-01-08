@@ -60,23 +60,56 @@
           </div>
         </div>
 
-        <UButton :label="$t('signup.form.buttons.submit')" block size="lg" type="submit" />
+        <FieldCheckBox
+          v-model="state.terms"
+          :label="$t('signup.form.fields.terms')"
+          name="terms"
+          required
+          :help="$t('signup.form.help.terms')"
+        />
+        <p class="text-sm mb-8">
+          {{ $t('signup.form.help.termsMessage') }}
+          <ULink
+            :to="localPath('/regulation/terms')"
+            class="text-primary underline"
+          >{{ $t('signup.form.links.terms') }}
+          </ULink>
+        </p>
+
+        <UTooltip
+          :text="state.terms === false ? $t('signup.form.help.termsTooltip') : ''"
+          class="w-full"
+        >
+          <UButton
+            :label="$t('signup.form.buttons.submit')"
+            block
+            size="lg"
+            type="submit"
+            :disabled="state.terms === false"
+          />
+        </UTooltip>
       </UForm>
     </template>
 
     <template #oauth>
-      <UButton
-        :label="$t('signup.form.buttons.google')"
-        block
-        size="lg"
-        type="button"
-        variant="outline"
-        @click="signup('google')"
+      <UTooltip
+        :text="state.terms === false ? $t('signup.form.help.termsTooltip') : ''"
+        class="w-full"
       >
-        <template #leading>
-          <UIcon name="i-logos-google-icon" size="lg" />
-        </template>
-      </UButton>
+        <UButton
+          :label="$t('signup.form.buttons.google')"
+          block
+          size="lg"
+          type="button"
+          variant="outline"
+          :disabled="state.terms === false"
+          @click="signup('google')"
+        >
+          <template #leading>
+            <UIcon name="i-logos-google-icon" size="lg" />
+          </template>
+        </UButton>
+      </UTooltip>
     </template>
 
     <template #links>

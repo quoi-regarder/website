@@ -9,7 +9,8 @@ export const useSignupForm = () => {
     firstName: '',
     lastName: '',
     password: '',
-    passwordConfirmation: ''
+    passwordConfirmation: '',
+    terms: false
   })
 
   const setState = (signup: Partial<typeof state>) => {
@@ -38,7 +39,8 @@ export const useSignupForm = () => {
     passwordConfirmation: yup
       .string()
       .oneOf([yup.ref('password')], t('common.form.error.passwordMatch'))
-      .required(t('common.form.error.required'))
+      .required(t('common.form.error.required')),
+    terms: yup.boolean().required(t('common.form.error.required'))
   })
 
   return { state, setState, schema }

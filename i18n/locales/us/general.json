@@ -61,11 +61,19 @@
   },
   "footer": {
     "copyright": "© {year} What to Watch?",
+    "category": {
+      "general": "General",
+      "regulations": "Regulations"
+    },
     "links": {
       "home": "Home",
       "login": "Login",
       "profile": "Profile",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "cookie": "Cookie policy",
+      "privacy": "Privacy policy",
+      "legal": "Legal notice",
+      "terms": "Terms of use (ToS)"
     },
     "tagline": "A series or movie to watch each day based on your preferences.",
     "title": "What to Watch?"
@@ -230,7 +238,8 @@
         "lastName": "Last name",
         "password": "Password",
         "passwordConfirmation": "Confirm password",
-        "username": "Username"
+        "username": "Username",
+        "terms": "I accept the terms of service."
       },
       "placeholders": {
         "email": "Email address",
@@ -239,6 +248,14 @@
         "password": "Password",
         "passwordConfirmation": "Confirm password",
         "username": "Username"
+      },
+      "help": {
+        "terms": "By signing up, you agree to our terms of service.",
+        "termsMessage": "Read our terms of service :",
+        "termsTooltip": "Please read and accept our terms of service."
+      },
+      "links": {
+        "terms": "Terms of service"
       }
     },
     "title": "Sign up",

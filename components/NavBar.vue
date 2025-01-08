@@ -134,7 +134,6 @@ const localePath = useLocalePath()
 const { profile } = useProfileChannel()
 const colorMode = useColorMode()
 
-const router = useRouter()
 const route = useRoute()
 
 const isLogged = computed(() => Boolean(user?.value))
@@ -164,8 +163,8 @@ const dropdownItems = computed(() => [
 ])
 
 const localIcon = {
-  'fr-FR': 'i-material-symbols-language-french',
-  'en-US': 'i-material-symbols-language-us'
+  fr: 'i-material-symbols-language-french',
+  us: 'i-material-symbols-language-us'
 }
 
 const localItems = computed(() =>

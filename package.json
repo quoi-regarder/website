@@ -16,7 +16,6 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "generate": "nuxt generate",
     "lint": "pnpm run lint:prettier && pnpm run lint:eslint",
     "lint:eslint": "eslint . --fix",
     "lint:prettier": "prettier --write --list-different .",
@@ -27,6 +26,7 @@
     "update": "pnpm update"
   },
   "dependencies": {
+    "@nuxt/content": "2.13.4",
     "@nuxt/fonts": "0.10.3",
     "@nuxt/icon": "1.10.3",
     "@nuxt/image": "1.8.1",
@@ -36,8 +36,9 @@
     "@nuxtjs/i18n": "9.1.1",
     "@nuxtjs/seo": "^2.0.2",
     "@nuxtjs/supabase": "1.4.5",
+    "@unhead/vue": "^1.11.15",
     "date-fns": "^4.1.0",
-    "nuxt": "^3.15.0",
+    "nuxt": "^3.15.1",
     "v-calendar": "^3.1.2",
     "yup": "^1.6.1"
   },
@@ -46,11 +47,12 @@
     "@iconify-json/logos": "^1.2.4",
     "@iconify-json/material-symbols": "^1.2.12",
     "@nuxt/eslint": "^0.7.4",
-    "eslint": "^9.10.0",
+    "eslint": "^9.17.0",
     "husky": "^9.1.7",
     "prettier": "^3.4.2",
+    "sass-embedded": "^1.83.1",
     "typescript": "^5.7.2",
-    "wrangler": "^3.99.0"
+    "wrangler": "^3.100.0"
   },
   "lockfileVersion": 9
 }
