@@ -57,7 +57,8 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     '@nuxt/eslint',
     '@nuxthub/core',
-    '@nuxt/scripts'
+    '@nuxt/scripts',
+    '@nuxt/content'
   ],
 
   // Environment variables
@@ -86,28 +87,29 @@ export default defineNuxtConfig({
     baseUrl: 'https://quoi-regarder.fr',
     locales: [
       {
-        code: 'en-US',
+        code: 'us',
         iso: 'en-US',
         language: 'en-US',
         name: 'English (US)',
-        files: ['en-US/general.json', 'en-US/seo.json', 'en-US/filters.json']
+        files: ['us/general.json', 'us/seo.json', 'us/filters.json']
       },
       {
-        code: 'fr-FR',
+        code: 'fr',
         iso: 'fr-FR',
         language: 'fr-FR',
         name: 'Français',
-        files: ['fr-FR/general.json', 'fr-FR/seo.json', 'fr-FR/filters.json']
+        files: ['fr/general.json', 'fr/seo.json', 'fr/filters.json']
       }
     ],
-    defaultLocale: 'fr-FR',
+    defaultLocale: 'fr',
     langDir: 'locales/',
     strategy: 'prefix',
+    lazy: true,
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: 'i18n_redirected',
       alwaysRedirect: true,
-      fallbackLocale: 'fr-FR'
+      fallbackLocale: 'fr'
     }
   },
 

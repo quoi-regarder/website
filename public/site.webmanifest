@@ -1,6 +1,6 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "Quoi Regarder ?",
+  "short_name": "Quoi Regarder ?",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
