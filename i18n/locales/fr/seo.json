@@ -1,25 +1,37 @@
 {
   "seo": {
-    "name": "Quoi Regarder ?",
-    "title": "Recommandations de films personnalisées",
     "description": "Découvrez des films adaptés à votre humeur sur vos plateformes préférées. Trouvez votre prochain coup de cœur en quelques clics avec Quoi Regarder !",
-    "pages": {
-      "auth": {
-        "login": "Connexion - Accédez à vos recommandations",
-        "signup": "Inscription - Rejoignez la communauté cinéphile",
-        "forgot-password": "Mot de passe oublié - Récupérez votre compte",
-        "update-password": "Sécurité - Mise à jour du mot de passe"
-      },
-      "profile": "Profil - Personnalisez vos préférences cinéma"
-    },
     "descriptions": {
       "auth": {
+        "forgot-password": "Récupérez l'accès à votre compte Quoi Regarder en toute simplicité. Suivez notre processus sécurisé pour réinitialiser votre mot de passe.",
         "login": "Connectez-vous pour accéder à vos recommandations de films sur mesure. Continuez votre exploration cinématographique dès maintenant !",
         "signup": "Créez votre compte gratuit et recevez des suggestions de films adaptées à vos goûts. Rejoignez notre communauté de passionnés !",
-        "forgot-password": "Récupérez l'accès à votre compte Quoi Regarder en toute simplicité. Suivez notre processus sécurisé pour réinitialiser votre mot de passe.",
         "update-password": "Renforcez la sécurité de votre compte Quoi Regarder. Mettez à jour votre mot de passe pour profiter sereinement de nos recommandations."
       },
-      "profile": "Affinez vos préférences, gérez votre historique et vos favoris. Notez et commentez pour des recommandations de films toujours plus pertinentes."
-    }
+      "profile": "Affinez vos préférences, gérez votre historique et vos favoris. Notez et commentez pour des recommandations de films toujours plus pertinentes.",
+      "regulation": {
+        "cookies": "Gérez vos préférences de cookies et découvrez comment nous utilisons ces fichiers pour améliorer votre expérience de navigation.",
+        "legal": "Informations légales concernant le site Quoi Regarder.",
+        "privacy": "Découvrez comment nous collectons, utilisons et protégeons vos données personnelles. Votre vie privée est notre priorité.",
+        "terms": "Consultez nos Conditions Générales d'utilisation pour connaître les règles d'accès et d'utilisation de notre site. En naviguant sur Quoi Regarder, vous acceptez nos CGU."
+      }
+    },
+    "name": "Quoi Regarder ?",
+    "pages": {
+      "auth": {
+        "forgot-password": "Mot de passe oublié - Récupérez votre compte",
+        "login": "Connexion - Accédez à vos recommandations",
+        "signup": "Inscription - Rejoignez la communauté cinéphile",
+        "update-password": "Sécurité - Mise à jour du mot de passe"
+      },
+      "profile": "Profil - Personnalisez vos préférences cinéma",
+      "regulation": {
+        "cookies": "Gestion des Cookies",
+        "legal": "Mentions Légales",
+        "privacy": "Politique de Confidentialité",
+        "terms": "Conditions Générales d'utilisation (CGU)"
+      }
+    },
+    "title": "Recommandations de films personnalisées"
   }
 }

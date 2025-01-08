@@ -21,16 +21,16 @@
     "api": {
       "error": {
         "bad_request": "Une erreur est survenue lors du chargement des données. Veuillez réessayer.",
-        "forbidden": "Vous n’avez pas l’autorisation d’accéder à cette ressource.",
-        "internal_server_error": "Une erreur s’est produite sur le serveur. Veuillez réessayer plus tard.",
+        "forbidden": "Vous n'avez pas l'autorisation d'accéder à cette ressource.",
+        "internal_server_error": "Une erreur s'est produite sur le serveur. Veuillez réessayer plus tard.",
         "not_found": "La ressource demandée est introuvable.",
-        "username_already_exists": "Ce nom d’utilisateur est déjà pris."
+        "username_already_exists": "Ce nom d'utilisateur est déjà pris."
       }
     },
     "dateNotSet": "Date non définie",
     "form": {
       "error": {
-        "conversionFailed": "L’enregistrement de l’image a échoué. Veuillez réessayer.",
+        "conversionFailed": "L'enregistrement de l'image a échoué. Veuillez réessayer.",
         "email": "Entrez une adresse e-mail valide.",
         "fileFormat": "Le format du fichier est invalide. Formats acceptés : {formats}.",
         "fileSize": "La taille du fichier ne doit pas dépasser {size} Mo.",
@@ -54,26 +54,26 @@
   },
   "error": {
     "buttons": {
-      "home": "Retour à l’accueil"
+      "home": "Retour à l'accueil"
     },
-    "message": "La page que vous recherchez est introuvable ou une erreur s’est produite.",
+    "message": "La page que vous recherchez est introuvable ou une erreur s'est produite.",
     "title": "Erreur"
   },
   "footer": {
-    "copyright": "© {year} Quoi Regarder",
     "category": {
       "general": "Général",
       "regulations": "Réglementation"
     },
+    "copyright": "© {year} Quoi Regarder",
     "links": {
+      "cookie": "Politique de cookies",
       "home": "Accueil",
+      "legal": "Mentions légales",
       "login": "Connexion",
+      "privacy": "Politique de confidentialité",
       "profile": "Profil",
       "signup": "Inscription",
-      "cookie": "Politique de cookies",
-      "privacy": "Politique de confidentialité (RGPD)",
-      "legal": "Mentions légales",
-      "terms": "Conditions d’utilisation"
+      "terms": "Conditions Générales d'utilisation"
     },
     "tagline": "Trouvez une série ou un film adapté à vos goûts chaque jour.",
     "title": "Quoi Regarder"
@@ -81,7 +81,7 @@
   "forgotPassword": {
     "form": {
       "buttons": {
-        "home": "Retour à l’accueil",
+        "home": "Retour à l'accueil",
         "login": "Se connecter",
         "signup": "Créer un compte",
         "submit": "Envoyer"
@@ -132,7 +132,7 @@
       "buttons": {
         "forgotPassword": "Mot de passe oublié ?",
         "google": "Se connecter avec Google",
-        "home": "Retour à l’accueil",
+        "home": "Retour à l'accueil",
         "signup": "Créer un compte",
         "submit": "Se connecter"
       },
@@ -149,7 +149,7 @@
     "title": "Connexion",
     "toasts": {
       "error": {
-        "email_not_confirmed": "Votre e-mail n’est pas confirmé. Veuillez vérifier votre boîte de réception.",
+        "email_not_confirmed": "Votre e-mail n'est pas confirmé. Veuillez vérifier votre boîte de réception.",
         "invalid_credentials": "Identifiants incorrects. Veuillez réessayer."
       },
       "success": {
@@ -196,13 +196,13 @@
         "email": "Adresse e-mail",
         "firstName": "Prénom",
         "lastName": "Nom",
-        "username": "Nom d’utilisateur"
+        "username": "Nom d'utilisateur"
       },
       "placeholders": {
         "email": "Entrez votre adresse e-mail",
         "firstName": "Entrez votre prénom",
         "lastName": "Entrez votre nom",
-        "username": "Entrez un nom d’utilisateur"
+        "username": "Entrez un nom d'utilisateur"
       }
     },
     "modals": {
@@ -228,7 +228,7 @@
     "form": {
       "buttons": {
         "google": "Créer un compte avec Google",
-        "home": "Retour à l’accueil",
+        "home": "Retour à l'accueil",
         "login": "Se connecter",
         "submit": "Créer un compte"
       },
@@ -238,8 +238,16 @@
         "lastName": "Nom",
         "password": "Mot de passe",
         "passwordConfirmation": "Confirmer le mot de passe",
-        "username": "Nom d’utilisateur",
-        "terms": "J’accepte les conditions d’utilisation."
+        "terms": "J'accepte les Conditions Générales d'utilisation.",
+        "username": "Nom d'utilisateur"
+      },
+      "help": {
+        "terms": "Vous devez accepter les Conditions Générales d'utilisation pour continuer.",
+        "termsMessage": "Consultez les Conditions Générales d'utilisation :",
+        "termsTooltip": "Veuillez lire et accepter les Conditions Générales d'utilisation."
+      },
+      "links": {
+        "terms": "Conditions Générales d'utilisation"
       },
       "placeholders": {
         "email": "Entrez votre adresse e-mail",
@@ -247,15 +255,7 @@
         "lastName": "Entrez votre nom",
         "password": "Créez un mot de passe",
         "passwordConfirmation": "Confirmez votre mot de passe",
-        "username": "Choisissez un nom d’utilisateur"
-      },
-      "help": {
-        "terms": "Vous devez accepter les conditions d’utilisation pour continuer.",
-        "termsMessage": "Consultez les conditions d’utilisation :",
-        "termsTooltip": "Veuillez lire et accepter les conditions d’utilisation."
-      },
-      "links": {
-        "terms": "Conditions d’utilisation"
+        "username": "Choisissez un nom d'utilisateur"
       }
     },
     "title": "Créer un compte",
@@ -268,7 +268,7 @@
   "updatePassword": {
     "form": {
       "buttons": {
-        "home": "Retour à l’accueil",
+        "home": "Retour à l'accueil",
         "submit": "Mettre à jour"
       },
       "fields": {

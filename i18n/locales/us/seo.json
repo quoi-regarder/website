@@ -1,25 +1,37 @@
 {
   "seo": {
-    "name": "What to Watch ?",
-    "title": "Personalized Movie Recommendations",
     "description": "Discover movies that match your mood on your favorite platforms. Find your next favorite movie in just a few clicks with What to Watch!",
-    "pages": {
-      "auth": {
-        "login": "Login - Access Your Personalized Movie Recommendations",
-        "signup": "Sign Up - Join the Movie Enthusiast Community",
-        "forgot-password": "Forgot Password - Recover Your Account",
-        "update-password": "Security - Update Your Password"
-      },
-      "profile": "Profile - Customize Your Movie Preferences"
-    },
     "descriptions": {
       "auth": {
+        "forgot-password": "Easily recover access to your What to Watch account. Follow our secure process to reset your password.",
         "login": "Log in to access tailored movie recommendations. Continue your cinematic journey now!",
         "signup": "Create a free account and receive movie suggestions that match your taste. Join our community of movie lovers!",
-        "forgot-password": "Easily recover access to your What to Watch account. Follow our secure process to reset your password.",
         "update-password": "Enhance the security of your What to Watch account. Update your password for a smoother recommendation experience."
       },
-      "profile": "Refine your preferences, manage your history and favorites. Rate and comment for even more personalized movie recommendations."
-    }
+      "profile": "Refine your preferences, manage your history and favorites. Rate and comment for even more personalized movie recommendations.",
+      "regulation": {
+        "cookies": "Manage your cookie preferences and learn how we use these files to enhance your browsing experience.",
+        "legal": "Legal information about the What to Watch site.",
+        "privacy": "Discover how we collect, use, and protect your personal data. Your privacy is our top priority.",
+        "terms": "Check out our Terms Of Use to learn about the rules for accessing and using our site. By browsing What to Watch, you agree to our ToS."
+      }
+    },
+    "name": "What to Watch ?",
+    "pages": {
+      "auth": {
+        "forgot-password": "Forgot Password - Recover Your Account",
+        "login": "Login - Access Your Personalized Movie Recommendations",
+        "signup": "Sign Up - Join the Movie Enthusiast Community",
+        "update-password": "Security - Update Your Password"
+      },
+      "profile": "Profile - Customize Your Movie Preferences",
+      "regulation": {
+        "cookies": "Cookie Management",
+        "legal": "Legal Notice",
+        "privacy": "Privacy Policy",
+        "terms": "Terms Of Use (ToS)"
+      }
+    },
+    "title": "Personalized Movie Recommendations"
   }
 }
