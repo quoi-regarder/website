@@ -117,10 +117,11 @@
           @update:selected-platforms="selectedPlatforms = $event"
           @update:platforms="platforms = $event"
         />
-        <FilterMark
-          ref="markFilterRef"
+
+        <FilterVotes
+          ref="votesFilterRef"
           class="laptop-md:col-span-2 laptop-md:row-span-1"
-          @update:selected-mark="selectedMark = $event"
+          @update:selected-votes="selectedVotes = $event"
         />
       </div>
 
@@ -197,10 +198,10 @@
         @update:selected-ages="selectedAges = $event"
       />
 
-      <FilterVotes
-        ref="votesFilterRef"
+      <FilterMark
+        ref="markFilterRef"
         class="laptop-md:col-span-2 laptop-md:row-span-1 order-7 laptop-md:order-none"
-        @update:selected-votes="selectedVotes = $event"
+        @update:selected-mark="selectedMark = $event"
       />
 
       <FilterDuration

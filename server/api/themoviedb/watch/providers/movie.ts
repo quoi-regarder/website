@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
   try {
     return await tmdbFetch('3/watch/providers/movie', {
       params: {
-        language,
+        language: formatLanguageToISO(language as string),
         watch_region: formatLanguageToString(language as string)
       }
     })

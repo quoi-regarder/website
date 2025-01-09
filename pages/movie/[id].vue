@@ -1,11 +1,94 @@
 <template>
-  <div class="w-screen h-screen flex justify-center items-center">
-    <h1 class="text-2xl">Work in progress</h1>
+  <div class="w-screen flex flex-col justify-center items-center">
+    <!-- Header -->
+    <LazyDetailMovieHeader
+      v-if="movie"
+      :title="movie?.title"
+      :release-date="movie?.release_date"
+      :poster-path="movie?.poster_path"
+      :backdrop-path="movie?.backdrop_path"
+      :vote-average="movie?.vote_average"
+      :vote-count="movie?.vote_count"
+      :overview="movie?.overview"
+      :genres="movie?.genres"
+      :runtime="movie?.runtime"
+    />
+    <USkeleton v-else class="w-full h-96" />
+
+    <!-- Provider -->
+    <LazyDetailMovieProvider
+      v-if="movie"
+      :providers="movie?.['watch/providers']?.results[locale.toUpperCase()]"
+    />
+    <USkeleton v-else class="w-11/12 h-96" />
+
+    <!-- Trailer -->
+    <LazyDetailMovieTrailer v-if="movie" :videos="movie?.videos.results" />
+    <USkeleton v-else class="w-11/12 h-96" />
+
+    <!-- Casting -->
+    <LazyDetailMovieCasting
+      v-if="movie"
+      :casts="movie?.credits.cast"
+      :crews="movie?.credits.crew"
+      :production="movie?.production_companies"
+    />
+    <USkeleton v-else class="w-11/12 h-96" />
+
+    <!-- Recommendations -->
+    <LazyDetailMovieRecommendations
+      v-if="movie"
+      :recommandations="movie?.recommendations.results"
+      :genres="genres"
+    />
+    <USkeleton v-else class="w-11/12 h-96" />
+
+    <!-- Similar -->
+    <LazyDetailMovieSimilar v-if="movie" :similar="movie?.similar.results" :genres="genres" />
+    <USkeleton v-else class="w-11/12 h-96" />
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute()
+const { locale, t } = useI18n()
+useHead({
+  title: t('seo.pages.detail.movie'),
+  meta: [
+    {
+      hid: 'description',
+      name: 'description',
+      content: t('seo.descriptions.detail.movie')
+    }
+  ]
+})
 
-console.log(route.params.id)
+const movie = ref<any>(null)
+const genres = ref<Badge[]>([])
+
+onMounted(async () => {
+  await fetchMovie()
+  await fetchGenres()
+})
+
+const fetchMovie = async () => {
+  const manager = new QueryParamsManager(`/api/themoviedb/movie/${route.params.id}`)
+  manager.add('language', locale.value)
+  movie.value = await $fetch(manager.toString())
+
+  console.log(movie.value)
+}
+
+const fetchGenres = async () => {
+  const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
+  manager.add('language', locale.value)
+  const data = await $fetch(manager.toString())
+
+  genres.value = data.genres.map((genre: any, index: number) => ({
+    id: genre.id,
+    name: genre.name,
+    color: getGenreColor(genre.id),
+    selected: false
+  }))
+}
 </script>

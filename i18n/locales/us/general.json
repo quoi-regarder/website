@@ -157,6 +157,46 @@
       }
     }
   },
+  "movieCasting": {
+    "as": "As {character}.",
+    "cast": "Main Cast",
+    "crew": "Crew",
+    "fullCast": "Full Cast",
+    "fullCrew": "Full Crew",
+    "knownFor": "Known for {title}.",
+    "production": "Production",
+    "showMore": "See More Details",
+    "title": "Cast"
+  },
+  "movieHeader": {
+    "duration": "Duration",
+    "genres": "Genres",
+    "no_overview": "No synopsis available in this language.",
+    "overview": "Synopsis",
+    "vote_average": "Average Rating",
+    "vote_count": "Number of Votes: {count}"
+  },
+  "movieProvider": {
+    "ads": "Free to watch with ads",
+    "buy": "For Purchase",
+    "flatrate": "Streaming with Subscription",
+    "free": "Free to Watch",
+    "no_providers": "No platform currently offers this movie.",
+    "rent": "For Rent",
+    "title": "Streaming Platforms"
+  },
+  "movieRecommandations": {
+    "no_recommendations": "No recommendations available.",
+    "title": "Our Recommendations"
+  },
+  "movieSimilar": {
+    "no_similar": "No similar movies available.",
+    "title": "Similar Movies"
+  },
+  "movieTrailer": {
+    "no_trailer": "No trailer available.",
+    "title": "Trailer"
+  },
   "navbar": {
     "buttons": {
       "colorMode": {

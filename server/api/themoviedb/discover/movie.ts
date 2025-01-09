@@ -21,14 +21,14 @@ export default defineEventHandler(async (event) => {
   const baseParams = {
     include_adult: false,
     include_video: false,
-    language: formatLanguageToString(language as string).toLowerCase(),
+    language: formatLanguageToISO(language as string),
     page,
-    watch_region: formatLanguageToString(language as string),
-    certification_country: formatLanguageToString(language as string),
+    watch_region: (language as string).toUpperCase(),
+    certification_country: (language as string).toUpperCase(),
     ...(release_date_gte || release_date_lte
       ? {
           with_release_type: 3,
-          region: formatLanguageToString(language as string)
+          region: (language as string).toUpperCase()
         }
       : {})
   }

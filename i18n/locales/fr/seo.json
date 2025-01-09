@@ -8,6 +8,9 @@
         "signup": "Créez votre compte gratuit et recevez des suggestions de films adaptées à vos goûts. Rejoignez notre communauté de passionnés !",
         "update-password": "Renforcez la sécurité de votre compte Quoi Regarder. Mettez à jour votre mot de passe pour profiter sereinement de nos recommandations."
       },
+      "detail": {
+        "movie": "Découvrez les informations détaillées d'un film : casting, bande-annonce, synopsis, avis de la presse et des spectateurs. Trouvez votre prochain coup de cœur !"
+      },
       "profile": "Affinez vos préférences, gérez votre historique et vos favoris. Notez et commentez pour des recommandations de films toujours plus pertinentes.",
       "regulation": {
         "cookies": "Gérez vos préférences de cookies et découvrez comment nous utilisons ces fichiers pour améliorer votre expérience de navigation.",
@@ -23,6 +26,9 @@
         "login": "Connexion - Accédez à vos recommandations",
         "signup": "Inscription - Rejoignez la communauté cinéphile",
         "update-password": "Sécurité - Mise à jour du mot de passe"
+      },
+      "detail": {
+        "movie": "Détails du film - Casting, bande-annonce, synopsis"
       },
       "profile": "Profil - Personnalisez vos préférences cinéma",
       "regulation": {

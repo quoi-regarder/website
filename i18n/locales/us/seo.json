@@ -8,6 +8,9 @@
         "signup": "Create a free account and receive movie suggestions that match your taste. Join our community of movie lovers!",
         "update-password": "Enhance the security of your What to Watch account. Update your password for a smoother recommendation experience."
       },
+      "detail": {
+        "movie": "Discover detailed information about a movie: cast, trailer, synopsis, press and audience reviews. Find your next favorite movie!"
+      },
       "profile": "Refine your preferences, manage your history and favorites. Rate and comment for even more personalized movie recommendations.",
       "regulation": {
         "cookies": "Manage your cookie preferences and learn how we use these files to enhance your browsing experience.",
@@ -23,6 +26,9 @@
         "login": "Login - Access Your Personalized Movie Recommendations",
         "signup": "Sign Up - Join the Movie Enthusiast Community",
         "update-password": "Security - Update Your Password"
+      },
+      "detail": {
+        "movie": "Movie Details - Cast, Trailer, Synopsis"
       },
       "profile": "Profile - Customize Your Movie Preferences",
       "regulation": {
