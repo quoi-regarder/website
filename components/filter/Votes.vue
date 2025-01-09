@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-const votes = ref<number | null>(null)
+const votes = ref<number | null>(500)
 const minVotes = 0
 const maxVotes = 1000
 
@@ -50,7 +50,7 @@ const handleReset = () => {
 
 const reset = () => {
   votes.value = null
-  emit('update:selected-votes', null)
+  emit('update:selected-votes', 500)
 }
 
 watchEffect(() => {

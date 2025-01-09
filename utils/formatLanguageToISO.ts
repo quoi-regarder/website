@@ -1,6 +1,6 @@
 export const formatLanguageToISO = (language: string | undefined) => {
   switch (language) {
-    case 'en':
+    case 'us':
       return 'en-US'
     case 'fr':
       return 'fr-FR'

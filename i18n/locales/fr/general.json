@@ -157,6 +157,46 @@
       }
     }
   },
+  "movieCasting": {
+    "as": "En tant que {character}.",
+    "cast": "Les têtes d'affiche",
+    "crew": "L'équipe technique",
+    "fullCast": "Tout le casting",
+    "fullCrew": "Toute l'équipe technique",
+    "knownFor": "Connu pour {title}.",
+    "production": "La production",
+    "showMore": "Voir plus de détails",
+    "title": "Casting"
+  },
+  "movieHeader": {
+    "duration": "Durée",
+    "genres": "Genres",
+    "no_overview": "Aucun synopsis disponible dans cette langue.",
+    "overview": "Synopsis",
+    "vote_average": "Note moyenne",
+    "vote_count": "Nombre de votes : {count}"
+  },
+  "movieProvider": {
+    "ads": "En visionnage gratuit avec publicités",
+    "buy": "À l'achat",
+    "flatrate": "En streaming avec abonnement",
+    "free": "En visionnage gratuit",
+    "no_providers": "Aucune plateforme ne propose ce film actuellement.",
+    "rent": "En location",
+    "title": "Plateformes de streaming"
+  },
+  "movieRecommandations": {
+    "no_recommendations": "Aucune recommandation disponible.",
+    "title": "Nos recommandations"
+  },
+  "movieSimilar": {
+    "no_similar": "Aucun film similaire disponible.",
+    "title": "Films similaires"
+  },
+  "movieTrailer": {
+    "no_trailer": "Aucune bande-annonce disponible.",
+    "title": "Bande-annonce"
+  },
   "navbar": {
     "buttons": {
       "colorMode": {

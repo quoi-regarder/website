@@ -28,7 +28,6 @@ const emit = defineEmits({
   }
 })
 
-const colors = Object.values(Colors)
 const genres = ref([])
 
 onMounted(async () => {
@@ -51,7 +50,7 @@ const fetchGenres = async () => {
   genres.value = data.genres.map((genre: any, index: number) => ({
     id: genre.id,
     name: genre.name,
-    color: colors[index % colors.length],
+    color: getGenreColor(genre.id),
     selected: false
   }))
 

@@ -35,10 +35,10 @@
           <!-- Value -->
           <div class="col-span-2">
             <!-- Render different types -->
-            <template v-if="field.type === 'button'">
-              <UButton :to="localPath(`/movie/${item.id}`)" variant="soft">
+            <template v-if="field.type === 'title'">
+              <h2 class="text-xl font-semibold text-primary">
                 {{ field.value }}
-              </UButton>
+              </h2>
             </template>
 
             <template v-else-if="field.type === 'date'">
@@ -119,7 +119,7 @@ const itemDetails = computed(() => {
       {
         label: t('card.title'),
         value: props.item.title,
-        type: 'button'
+        type: 'title'
       },
       {
         label: t('card.release_date'),
