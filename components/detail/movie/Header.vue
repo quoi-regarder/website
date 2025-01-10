@@ -1,7 +1,7 @@
 <template>
   <div class="w-screen">
     <div
-      class="flex justify-between items-center p-4 bg-cover bg-center bg-no-repeat tablet:p-8 tablet-md:p-12 laptop:p-16"
+      class="flex justify-between items-center p-4 bg-cover bg-no-repeat tablet:p-8 tablet-md:p-12 laptop:p-16"
       :style="{
         backgroundImage: `${linearGradient}, url(https://image.tmdb.org/t/p/original${props.backdropPath})`
       }"

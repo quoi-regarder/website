@@ -34,11 +34,7 @@
         {{ $t('movieCasting.crew') }}
       </h3>
 
-      <DetailPartPersonGrid
-        :people="visibleCrew"
-        role-field="department"
-        department-field="department"
-      />
+      <DetailPartPersonGrid :people="visibleCrew" role-field="job" department-field="department" />
 
       <UButton
         v-if="crews.length > visibleCrew.length"
@@ -52,7 +48,7 @@
         v-model="isCrewSlideOverOpen"
         :title="$t('movieCasting.fullCrew')"
         :people="crews"
-        role-field="department"
+        role-field="job"
         department-field="department"
         :card-ui="{
           body: { base: 'flex-1' },
@@ -102,4 +98,6 @@ const visibleCrew = computed(() => props.crews?.slice(0, 9))
 
 const isCastSlideOverOpen = ref(false)
 const isCrewSlideOverOpen = ref(false)
+
+console.log(props.crews)
 </script>

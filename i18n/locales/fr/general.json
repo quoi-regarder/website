@@ -329,5 +329,8 @@
         "updated": "Votre mot de passe a été mis à jour."
       }
     }
+  },
+  "movieCollection": {
+    "title": "Collection liée à ce film"
   }
 }
