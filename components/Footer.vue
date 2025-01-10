@@ -1,10 +1,9 @@
 <template>
   <footer class="bg-zinc-800 text-white py-6">
     <div
-      class="mx-8 flex flex-col items-center justify-between space-y-4 mobile:space-y-4 tablet:space-y-6 laptop:space-y-0 laptop:flex-row"
+      class="mx-8 flex flex-col items-center justify-between space-y-8 laptop:space-y-0 laptop:flex-row"
     >
-      <!-- Section de titre -->
-      <div class="text-center mobile-md:text-left">
+      <div class="text-center laptop:text-left laptop:w-1/5">
         <h3 class="text-lg font-semibold text-primary">
           {{ $t('footer.title') }}
         </h3>
@@ -13,10 +12,8 @@
         </p>
       </div>
 
-      <nav
-        class="flex flex-wrap justify-center mobile-md:justify-start tablet:justify-center laptop:justify-end gap-16"
-      >
-        <div class="flex flex-col items-center tablet:items-start laptop:items-start gap-2">
+      <nav class="laptop:w-3/5 flex flex-wrap justify-evenly gap-4">
+        <div class="flex flex-col items-center laptop:items-start gap-2">
           <h4 class="text-sm font-semibold text-primary">{{ $t('footer.category.general') }}</h4>
           <ULink
             v-for="link in generalLinks"
@@ -28,7 +25,7 @@
           </ULink>
         </div>
 
-        <div class="flex flex-col items-center tablet:items-start laptop:items-start gap-2">
+        <div class="flex flex-col items-center laptop:items-start gap-2">
           <h4 class="text-sm font-semibold text-primary">
             {{ $t('footer.category.regulations') }}
           </h4>
@@ -43,7 +40,9 @@
         </div>
       </nav>
 
-      <div class="flex flex-col gap-4 justify-center items-center text-xs text-zinc-300">
+      <div
+        class="laptop:w-1/5 flex flex-col gap-2 justify-center items-center text-xs text-zinc-300"
+      >
         <NuxtImg
           src="/favicon.png"
           alt="Logo"
@@ -52,7 +51,9 @@
           class="cursor-pointer"
           @click="navigateTo(localePath('/'))"
         />
-        {{ $t('footer.copyright', { year: new Date().getFullYear() }) }}
+        <p>
+          {{ $t('footer.copyright', { year: new Date().getFullYear() }) }}
+        </p>
       </div>
     </div>
   </footer>
