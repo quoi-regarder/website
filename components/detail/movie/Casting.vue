@@ -98,6 +98,4 @@ const visibleCrew = computed(() => props.crews?.slice(0, 9))
 
 const isCastSlideOverOpen = ref(false)
 const isCrewSlideOverOpen = ref(false)
-
-console.log(props.crews)
 </script>
