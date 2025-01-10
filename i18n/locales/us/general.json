@@ -329,5 +329,8 @@
         "updated": "Your password has been updated."
       }
     }
+  },
+  "movieCollection": {
+    "title": "Collection linked to this movie"
   }
 }

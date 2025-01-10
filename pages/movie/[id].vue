@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen flex flex-col justify-center items-center">
+  <div class="w-full flex flex-col justify-center items-center overflow-x-hidden">
     <!-- Header -->
     <LazyDetailMovieHeader
       v-if="movie"
@@ -21,11 +21,17 @@
         v-if="movie"
         :providers="movie?.['watch/providers']?.results[locale.toUpperCase()]"
       />
-      <USkeleton v-else class="w-11/12 h-96" />
+      <USkeleton v-else class="w-full h-96" />
 
       <!-- Trailer -->
       <LazyDetailMovieTrailer v-if="movie" :videos="movie?.videos.results" />
-      <USkeleton v-else class="w-11/12 h-96" />
+      <USkeleton v-else class="w-full h-96" />
+
+      <!-- Collection -->
+      <LazyDetailMovieCollection
+        v-if="movie && movie.belongs_to_collection"
+        :collection="movie?.belongs_to_collection"
+      />
 
       <!-- Casting -->
       <LazyDetailMovieCasting
@@ -34,7 +40,7 @@
         :crews="movie?.credits.crew"
         :production="movie?.production_companies"
       />
-      <USkeleton v-else class="w-11/12 h-96" />
+      <USkeleton v-else class="w-full h-96" />
 
       <!-- Recommendations -->
       <LazyDetailMovieRecommendations
@@ -42,11 +48,11 @@
         :recommandations="movie?.recommendations.results"
         :genres="genres"
       />
-      <USkeleton v-else class="w-11/12 h-96" />
+      <USkeleton v-else class="w-full h-96" />
 
       <!-- Similar -->
       <LazyDetailMovieSimilar v-if="movie" :similar="movie?.similar.results" :genres="genres" />
-      <USkeleton v-else class="w-11/12 h-96" />
+      <USkeleton v-else class="w-full h-96" />
     </div>
   </div>
 </template>

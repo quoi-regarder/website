@@ -147,7 +147,7 @@ const itemDetails = computed(() => {
       {
         label: t('card.title'),
         value: props.item.name,
-        type: 'button'
+        type: 'title'
       },
       {
         label: t('card.first_air_date'),
