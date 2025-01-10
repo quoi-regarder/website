@@ -1,8 +1,6 @@
 <template>
-  <div
-    class="w-full max-w-7xl space-y-4 p-4 tablet:p-8 tablet-md:p-12 laptop:p-16 bg-gray-100 shadow-lg dark:bg-gray-800"
-  >
-    <h2 class="text-2xl font-bold text-primary">
+  <div class="tablet:p-4 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800">
+    <h2 class="text-2xl p-4 tablet:p-0 font-bold text-primary">
       {{ $t('movieSimilar.title') }}
     </h2>
 
@@ -10,11 +8,11 @@
       v-if="similar?.length > 0"
       :items="similar"
       :ui="{ item: 'basis-full' }"
-      class="w-full"
+      class="w-full mt-4"
       arrows
     >
       <template #default="{ item }">
-        <div class="mx-auto h-fit w-10/12 flex flex-col items-start">
+        <div class="mx-auto h-fit tablet:w-10/12 flex flex-col items-start">
           <MovieCard :genres="genres" :item="item" class="h-full" type="movie" />
         </div>
       </template>
@@ -24,7 +22,6 @@
           :ui="{ rounded: 'rounded-full' }"
           class="absolute right-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
           icon="i-heroicons-chevron-right"
-          variant="soft"
           @click="onClick"
         />
       </template>
@@ -34,7 +31,6 @@
           :ui="{ rounded: 'rounded-full' }"
           class="absolute left-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
           icon="i-heroicons-chevron-left"
-          variant="soft"
           @click="onClick"
         />
       </template>
@@ -47,7 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   similar: {
     type: Object as PropType<any>,
     required: false,

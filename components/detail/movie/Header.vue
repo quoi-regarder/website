@@ -3,10 +3,10 @@
     <div
       class="flex justify-between items-center p-4 bg-cover bg-center bg-no-repeat tablet:p-8 tablet-md:p-12 laptop:p-16"
       :style="{
-        backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.85)), url(https://image.tmdb.org/t/p/original${props.backdropPath})`
+        backgroundImage: `${linearGradient}, url(https://image.tmdb.org/t/p/original${props.backdropPath})`
       }"
     >
-      <div class="flex flex-row items-center gap-4 w-full">
+      <div class="flex flex-row items-center gap-4 w-full max-w-7xl mx-auto">
         <NuxtImg
           v-if="props.posterPath !== null && props.title !== null"
           :src="`https://image.tmdb.org/t/p/original${props.posterPath}`"
@@ -23,122 +23,39 @@
             {{ props.title }}
           </h1>
 
-          <p v-if="props.releaseDate !== null" class="text-gray-900">
+          <p v-if="props.releaseDate !== null">
             {{ formatLocalDate(props.releaseDate) }}
           </p>
 
-          <div class="hidden laptop:flex flex-col gap-4">
-            <section>
-              <h3 class="text-l font-semibold text-primary">
-                {{ $t('movieHeader.vote_average') }}
-              </h3>
-
-              <UMeter :max="10" :min="0" :value="props.voteAverage" indicator>
-                <template #label>
-                  <p class="text-left text-gray-900">
-                    {{ $t('movieHeader.vote_count', { count: props.voteCount }) }}
-                  </p>
-                </template>
-              </UMeter>
-            </section>
-
-            <section>
-              <h3 class="text-l font-semibold text-primary">
-                {{ $t('movieHeader.overview') }}
-              </h3>
-
-              <p v-if="props.overview !== null && props.overview !== ''" class="text-gray-900">
-                {{ props.overview }}
-              </p>
-              <p v-else class="text-gray-900">
-                {{ $t('movieHeader.no_overview') }}
-              </p>
-            </section>
-
-            <section>
-              <h3 class="text-l font-semibold text-primary">
-                {{ $t('movieHeader.duration') }}
-              </h3>
-
-              <p class="text-gray-900">
-                {{ Math.floor(props.runtime / 60) }}h {{ props.runtime % 60 }}min
-              </p>
-            </section>
-
-            <section>
-              <h3 class="text-l font-semibold text-primary">
-                {{ $t('movieHeader.genres') }}
-              </h3>
-
-              <div class="flex flex-wrap gap-2">
-                <UBadge
-                  v-for="genre in props.genres"
-                  :key="genre.id"
-                  :color="getGenreColor(genre.id)"
-                  :label="genre.name"
-                />
-              </div>
-            </section>
+          <div class="hidden laptop:block">
+            <DetailPartMovieInfoContainer
+              :vote-average="props.voteAverage"
+              :vote-count="props.voteCount"
+              :overview="props.overview"
+              :runtime="props.runtime"
+              :genres="props.genres"
+            />
           </div>
         </div>
       </div>
     </div>
 
-    <div class="flex flex-col gap-4 p-4 laptop:hidden">
-      <section>
-        <h3 class="text-l font-semibold text-primary">
-          {{ $t('movieHeader.vote_average') }}
-        </h3>
-
-        <UMeter :max="10" :min="0" :value="voteAverage" indicator>
-          <template #label>
-            <p class="text-left">
-              {{ $t('movieHeader.vote_count', { count: voteCount }) }}
-            </p>
-          </template>
-        </UMeter>
-      </section>
-
-      <section>
-        <h3 class="text-l font-semibold text-primary">
-          {{ $t('movieHeader.overview') }}
-        </h3>
-
-        <p v-if="props.overview !== null && props.overview !== ''">
-          {{ props.overview }}
-        </p>
-        <p v-else>
-          {{ $t('movieHeader.no_overview') }}
-        </p>
-      </section>
-
-      <section>
-        <h3 class="text-l font-semibold text-primary">
-          {{ $t('movieHeader.duration') }}
-        </h3>
-
-        <p>{{ Math.floor(props.runtime / 60) }}h {{ props.runtime % 60 }}min</p>
-      </section>
-
-      <section>
-        <h3 class="text-l font-semibold text-primary">
-          {{ $t('movieHeader.genres') }}
-        </h3>
-
-        <div class="flex flex-wrap gap-2">
-          <UBadge
-            v-for="genre in genres"
-            :key="genre.id"
-            :color="getGenreColor(genre.id)"
-            :label="genre.name"
-          />
-        </div>
-      </section>
+    <div class="p-4 laptop:hidden">
+      <DetailPartMovieInfoContainer
+        :vote-average="props.voteAverage"
+        :vote-count="props.voteCount"
+        :overview="props.overview"
+        :runtime="props.runtime"
+        :genres="props.genres"
+        mobile
+      />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+const colorMode = useColorMode()
+
 const props = defineProps({
   title: {
     type: String,
@@ -177,12 +94,20 @@ const props = defineProps({
   genres: {
     type: Array,
     required: false,
-    default: null
+    default: () => []
   },
   runtime: {
     type: Number,
     required: false,
     default: null
+  }
+})
+
+const linearGradient = computed(() => {
+  if (colorMode.value === 'dark') {
+    return 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))'
+  } else {
+    return 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8))'
   }
 })
 </script>

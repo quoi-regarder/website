@@ -2,10 +2,13 @@
   <Html :lang="htmlAttrs.lang" :dir="htmlAttrs.dir">
     <Body>
       <template v-if="!isAuth">
-        <NavBar />
+        <NavBar
+          class="fixed top-0 left-0 w-full bg-white/60 backdrop-blur-md shadow-md z-50 dark:bg-gray-800/40"
+        />
       </template>
-      <slot />
-
+      <div class="pt-20">
+        <slot />
+      </div>
       <template v-if="!isAuth">
         <Footer />
       </template>

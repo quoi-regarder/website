@@ -15,37 +15,39 @@
     />
     <USkeleton v-else class="w-full h-96" />
 
-    <!-- Provider -->
-    <LazyDetailMovieProvider
-      v-if="movie"
-      :providers="movie?.['watch/providers']?.results[locale.toUpperCase()]"
-    />
-    <USkeleton v-else class="w-11/12 h-96" />
+    <div class="w-full max-w-7xl p-4 space-y-8">
+      <!-- Provider -->
+      <LazyDetailMovieProvider
+        v-if="movie"
+        :providers="movie?.['watch/providers']?.results[locale.toUpperCase()]"
+      />
+      <USkeleton v-else class="w-11/12 h-96" />
 
-    <!-- Trailer -->
-    <LazyDetailMovieTrailer v-if="movie" :videos="movie?.videos.results" />
-    <USkeleton v-else class="w-11/12 h-96" />
+      <!-- Trailer -->
+      <LazyDetailMovieTrailer v-if="movie" :videos="movie?.videos.results" />
+      <USkeleton v-else class="w-11/12 h-96" />
 
-    <!-- Casting -->
-    <LazyDetailMovieCasting
-      v-if="movie"
-      :casts="movie?.credits.cast"
-      :crews="movie?.credits.crew"
-      :production="movie?.production_companies"
-    />
-    <USkeleton v-else class="w-11/12 h-96" />
+      <!-- Casting -->
+      <LazyDetailMovieCasting
+        v-if="movie"
+        :casts="movie?.credits.cast"
+        :crews="movie?.credits.crew"
+        :production="movie?.production_companies"
+      />
+      <USkeleton v-else class="w-11/12 h-96" />
 
-    <!-- Recommendations -->
-    <LazyDetailMovieRecommendations
-      v-if="movie"
-      :recommandations="movie?.recommendations.results"
-      :genres="genres"
-    />
-    <USkeleton v-else class="w-11/12 h-96" />
+      <!-- Recommendations -->
+      <LazyDetailMovieRecommendations
+        v-if="movie"
+        :recommandations="movie?.recommendations.results"
+        :genres="genres"
+      />
+      <USkeleton v-else class="w-11/12 h-96" />
 
-    <!-- Similar -->
-    <LazyDetailMovieSimilar v-if="movie" :similar="movie?.similar.results" :genres="genres" />
-    <USkeleton v-else class="w-11/12 h-96" />
+      <!-- Similar -->
+      <LazyDetailMovieSimilar v-if="movie" :similar="movie?.similar.results" :genres="genres" />
+      <USkeleton v-else class="w-11/12 h-96" />
+    </div>
   </div>
 </template>
 

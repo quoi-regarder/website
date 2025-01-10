@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-full max-w-7xl space-y-4 p-4 tablet:p-8 tablet-md:p-12 laptop:p-16 bg-gray-100 shadow-lg dark:bg-gray-800"
-  >
+  <div class="p-4 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800">
     <h2 class="text-2xl font-bold text-primary">
       {{ $t('movieTrailer.title') }}
     </h2>
@@ -10,14 +8,32 @@
       v-if="videos.length > 0"
       :items="videos"
       :ui="{ item: 'basis-full' }"
-      class="mt-16"
+      class="w-full mt-4"
       arrows
     >
       <template #default="{ item }">
-        <div class="flex flex-col gap-4 max-w-[100vw] mx-auto">
+        <div class="flex flex-col max-w-[75vw] mx-auto">
           <ScriptYouTubePlayer :video-id="item.key" />
-          <p class="text-center text-gray-800">{{ item.name }}</p>
+          <p class="text-center text-wrap mt-4">{{ item.name }}</p>
         </div>
+      </template>
+      <template #next="{ onClick, disabled }">
+        <UButton
+          :disabled="disabled"
+          :ui="{ rounded: 'rounded-full' }"
+          class="absolute right-2 top-1/2"
+          icon="i-heroicons-chevron-right"
+          @click="onClick"
+        />
+      </template>
+      <template #prev="{ onClick, disabled }">
+        <UButton
+          :disabled="disabled"
+          :ui="{ rounded: 'rounded-full' }"
+          class="absolute left-2 top-1/2"
+          icon="i-heroicons-chevron-left"
+          @click="onClick"
+        />
       </template>
     </UCarousel>
 
@@ -28,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps({
+defineProps({
   videos: {
     type: Object as PropType<any>,
     required: false,

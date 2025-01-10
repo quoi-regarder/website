@@ -77,7 +77,6 @@
             :ui="{ rounded: 'rounded-full' }"
             class="absolute right-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
             icon="i-heroicons-chevron-right"
-            variant="soft"
             @click="onClick"
           />
         </template>
@@ -87,7 +86,6 @@
             :ui="{ rounded: 'rounded-full' }"
             class="absolute left-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
             icon="i-heroicons-chevron-left"
-            variant="soft"
             @click="onClick"
           />
         </template>
