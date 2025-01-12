@@ -50,7 +50,7 @@
                 <UBadge
                   v-for="genre in field.value"
                   :key="genre.id"
-                  :color="genre.color"
+                  :color="getGenreColor(genre.id)"
                   :label="genre.name"
                 />
               </div>

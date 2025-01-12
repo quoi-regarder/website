@@ -11,5 +11,7 @@ export default {
       fullhd: '1920px',
       ultrawide: '2200px'
     }
-  }
+  },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [require('tailwind-hamburgers')]
 }
