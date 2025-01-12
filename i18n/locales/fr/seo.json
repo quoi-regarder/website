@@ -19,7 +19,8 @@
         "legal": "Informations légales concernant le site Quoi Regarder.",
         "privacy": "Découvrez comment nous collectons, utilisons et protégeons vos données personnelles. Votre vie privée est notre priorité.",
         "terms": "Consultez nos Conditions Générales d'utilisation pour connaître les règles d'accès et d'utilisation de notre site. En naviguant sur Quoi Regarder, vous acceptez nos CGU."
-      }
+      },
+      "search": "Trouvez votre prochain coup de cœur cinématographique en quelques clics. Explorez notre catalogue de films et de séries pour des recommandations personnalisées."
     },
     "name": "Quoi Regarder ?",
     "pages": {
@@ -40,7 +41,8 @@
         "legal": "Mentions Légales",
         "privacy": "Politique de Confidentialité",
         "terms": "Conditions Générales d'utilisation (CGU)"
-      }
+      },
+      "search": "Recherche - Trouvez votre prochain coup de cœur"
     },
     "title": "Recommandations de films personnalisées"
   }

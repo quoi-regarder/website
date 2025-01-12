@@ -1,6 +1,22 @@
 <template>
   <div class="relative flex flex-col gap-8 laptop:gap-4">
-    <!-- Header -->
+    <!-- Back to top button -->
+    <UButton
+      :class="{
+        'opacity-100 visible': showButton,
+        'opacity-0 invisible': !showButton
+      }"
+      class="fixed top-24 left-1/2 -translate-x-1/2 z-50 shadow-lg transition-all ease-in duration-500"
+      size="xl"
+      variant="solid"
+      :label="$t('common.buttons.backToTop')"
+      :ui="{ rounded: 'rounded-full' }"
+      @click="scrollToTop"
+    >
+      <template #trailing>
+        <UIcon name="i-heroicons-arrow-up" class="size-6" />
+      </template>
+    </UButton>
 
     <!-- Background Image -->
     <NuxtImg
@@ -34,6 +50,7 @@
           />
         </UTooltip>
         <UButton
+          id="searchButton"
           :loading="searching"
           icon="i-heroicons-magnifying-glass"
           size="xl"
@@ -46,8 +63,6 @@
         class="flex flex-col mt-4 tablet:gap-x-4 w-11/12 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
       >
         <FilterType ref="typeFilterRef" @update:model-value="selectedType = $event" />
-
-        <!-- <FilterKeyword class="w-full" @update:selected-keywords="selectedKeywords = $event" /> -->
       </div>
     </div>
 
@@ -226,7 +241,6 @@ useHead({
 const selectedType = ref<'movie' | 'tv'>('movie')
 const displayMovieFilters = computed(() => selectedType.value === 'movie')
 const displaySeriesFilters = computed(() => selectedType.value === 'tv')
-// const selectedKeywords = ref<Badge[]>([])
 const selectedGenres = ref<Badge[]>([])
 const selectedPlatforms = ref<Option[]>([])
 const selectedMark = ref<number>(0)
@@ -279,6 +293,17 @@ const movies = ref([])
 const page = ref(1)
 const totalPages = ref(0)
 
+// Scroll to top
+const showButton = ref(false)
+
+onMounted(() => {
+  window.addEventListener('scroll', checkSearchButtonVisibility)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', checkSearchButtonVisibility)
+})
+
 // Méthodes
 const searchQuery = async (reset = false, showToast = true) => {
   if (reset) {
@@ -289,12 +314,7 @@ const searchQuery = async (reset = false, showToast = true) => {
   searching.value = true
 
   try {
-    let manager: QueryParamsManager
-    if (selectedType.value === 'movie') {
-      manager = new QueryParamsManager('/api/themoviedb/discover/movie')
-    } else {
-      manager = new QueryParamsManager('/api/themoviedb/discover/tv')
-    }
+    const manager = new QueryParamsManager(`/api/themoviedb/discover/${selectedType.value}`)
     handleQueryFilters(manager)
 
     const data = await $fetch(manager.toString())
@@ -302,7 +322,6 @@ const searchQuery = async (reset = false, showToast = true) => {
     page.value = data.page
     totalPages.value = data.total_pages
     movies.value = [...movies.value, ...data.results]
-    window.scrollTo({ top: document.getElementById('carousel')?.offsetTop, behavior: 'smooth' })
   } catch (error) {
     console.error('Error fetching movies:', error)
   } finally {
@@ -317,6 +336,8 @@ const searchQuery = async (reset = false, showToast = true) => {
           t('home.toasts.success.search')
         )
       }
+
+      window.scrollTo({ top: document.getElementById('carousel')?.offsetTop, behavior: 'smooth' })
     } else {
       showCarousel.value = false
       useNotifications().info(t('common.toasts.title.info'), t('home.toasts.error.search'))
@@ -327,14 +348,6 @@ const searchQuery = async (reset = false, showToast = true) => {
 const handleQueryFilters = (manager: QueryParamsManager) => {
   commonFilters(manager)
 
-  // if (selectedKeywords.value.length > 0) {
-  //   manager.addWithLogic(
-  //     'with_keywords',
-  //     selectedKeywords.value.map((keyword) => keyword.id),
-  //     LogicalOperator.AND
-  //   )
-  // }
-
   if (selectedType.value === 'movie') {
     exclusiveMovieFilters(manager)
   } else {
@@ -344,6 +357,7 @@ const handleQueryFilters = (manager: QueryParamsManager) => {
   return manager
 }
 
+// Filters
 const commonFilters = (manager: QueryParamsManager) => {
   manager.add('language', locale.value)
   manager.add('page', page.value)
@@ -466,6 +480,19 @@ const toggleMoreFilters = () => {
     const scrollTarget = moreFilters.value ? document.getElementById('filters')?.offsetTop : 0
     window.scrollTo({ top: scrollTarget, behavior: 'smooth' })
   }, 10)
+}
+
+// Scroll to top
+const checkSearchButtonVisibility = () => {
+  const searchButton = document.getElementById('searchButton')
+  if (searchButton) {
+    const rect = searchButton.getBoundingClientRect()
+    showButton.value = rect.top < 0 || rect.bottom > window.innerHeight
+  }
+}
+
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
 }
 
 // Reset

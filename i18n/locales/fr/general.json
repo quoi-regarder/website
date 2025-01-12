@@ -61,6 +61,9 @@
         "info": "Information",
         "success": "Succès"
       }
+    },
+    "buttons": {
+      "backToTop": "Retour en haut"
     }
   },
   "error": {
@@ -198,6 +201,7 @@
       "login": "Connexion",
       "logout": "Déconnexion",
       "profile": "Profil",
+      "search": "Rechercher",
       "signup": "Créer un compte"
     },
     "dropdown": {
@@ -263,6 +267,14 @@
     "rent": "En location",
     "title": "Plateformes de streaming"
   },
+  "search": {
+    "buttons": {
+      "search": "Lancer la recherche"
+    },
+    "description": "Recherchez un film ou une série par son titre pour découvrir des informations et des suggestions.",
+    "placeholder": "Titre du film ou de la série",
+    "title": "Explorez notre collection de films et séries"
+  },
   "signup": {
     "form": {
       "buttons": {
@@ -312,15 +324,26 @@
     }
   },
   "tvHeader": {
+    "finished": "Terminée",
     "first_air_date": "Première diffusion",
     "genres": "Genres",
+    "in_production": "En production",
     "last_air_date": "Dernière diffusion",
     "no_overview": "Aucun synopsis disponible dans cette langue.",
     "overview": "Synopsis",
     "vote_average": "Note moyenne",
-    "vote_count": "Nombre de votes : {count}",
-    "in_production": "En production",
-    "finished": "Terminée"
+    "vote_count": "Nombre de votes : {count}"
+  },
+  "tvSeasons": {
+    "air_date": "Date de sortie",
+    "episode": "Épisode {number}",
+    "episodes": "Pas d'épisodes disponibles. | {count} épisode disponible. | {count} épisodes disponibles.",
+    "no_overview": "Aucun synopsis disponible pour cette saison.",
+    "not_released": "Non sortie",
+    "released": "Sortie",
+    "title": "Saisons",
+    "vote_average": "Note moyenne",
+    "vote_count": "Nombre de votes : {count}"
   },
   "updatePassword": {
     "form": {
@@ -346,16 +369,5 @@
         "updated": "Votre mot de passe a été mis à jour."
       }
     }
-  },
-  "tvSeasons": {
-    "no_overview": "Aucun synopsis disponible pour cette saison.",
-    "episodes": "Pas d'épisodes disponibles. | {count} épisode disponible. | {count} épisodes disponibles.",
-    "title": "Saisons",
-    "air_date": "Date de sortie",
-    "vote_average": "Note moyenne",
-    "vote_count": "Nombre de votes : {count}",
-    "released": "Sortie",
-    "not_released": "Non sortie",
-    "episode": "Épisode {number}"
   }
 }

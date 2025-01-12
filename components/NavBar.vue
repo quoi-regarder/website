@@ -11,13 +11,16 @@
           @click="navigateTo(localePath('/'))"
         />
         <ULink
-          :to="localePath('/')"
+          v-for="link in links"
+          :key="link.to"
+          :to="link.to"
           active-class="text-primary underline"
-          class="hover:text-primary transition-colors duration-200"
+          class="hover:text-primary transition-colors duration-200 hidden laptop:block"
         >
-          {{ $t('navbar.buttons.home') }}
+          {{ link.label }}
         </ULink>
       </div>
+
       <div class="flex items-center space-x-4">
         <ClientOnly>
           <Suspense>
@@ -120,6 +123,39 @@
             <USkeleton class="size-12" :ui="{ rounded: 'rounded-full' }" />
           </template>
         </ClientOnly>
+
+        <div
+          :class="[
+            'tham',
+            'tham-e-squeeze',
+            'tham-w-8',
+            { 'tham-active': opened },
+            'cursor-pointer',
+            'z-50',
+            'laptop:hidden'
+          ]"
+          @click="toggleOpen"
+        >
+          <div class="tham-box">
+            <div class="tham-inner bg-primary"></div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        v-if="opened"
+        class="fixed inset-0 z-40 w-screen h-screen flex flex-col items-center justify-center bg-gray-100/95 dark:bg-black/90"
+        @click="toggleOpen"
+      >
+        <ULink
+          v-for="link in links"
+          :key="link.to"
+          :to="link.to"
+          active-class="text-primary underline"
+          class="hover:text-primary transition-colors duration-200 block text-center py-4"
+        >
+          {{ link.label }}
+        </ULink>
       </div>
     </div>
   </div>
@@ -137,6 +173,18 @@ const colorMode = useColorMode()
 const route = useRoute()
 
 const isLogged = computed(() => Boolean(user?.value))
+const opened = ref(false)
+
+const links = [
+  {
+    label: t('navbar.buttons.home'),
+    to: localePath('/')
+  },
+  {
+    label: t('navbar.buttons.search'),
+    to: localePath('/search')
+  }
+]
 
 const dropdownItems = computed(() => [
   [
@@ -196,12 +244,8 @@ const colorModeItems = computed(() =>
   ])
 )
 
-const goToHome = () => {
-  if (route.path === localePath('/')) {
-    window.location.reload()
-  }
-
-  navigateTo(localePath('/'))
+const toggleOpen = () => {
+  opened.value = !opened.value
 }
 
 const logout = async () => {

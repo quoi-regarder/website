@@ -61,6 +61,9 @@
         "info": "Information",
         "success": "Success"
       }
+    },
+    "buttons": {
+      "backToTop": "Back to top"
     }
   },
   "error": {
@@ -198,6 +201,7 @@
       "login": "Login",
       "logout": "Logout",
       "profile": "Profile",
+      "search": "Search",
       "signup": "Sign up"
     },
     "dropdown": {
@@ -262,6 +266,14 @@
     "no_providers": "No platform currently offers this movie.",
     "rent": "For Rent",
     "title": "Streaming Platforms"
+  },
+  "search": {
+    "buttons": {
+      "search": "Search"
+    },
+    "description": "Search for a movie or series by its title to find details and recommendations.",
+    "placeholder": "Movie or series title",
+    "title": "Browse Our Collection of Movies and Series"
   },
   "signup": {
     "form": {
