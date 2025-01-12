@@ -1,0 +1,108 @@
+<template>
+  <UCard
+    :class="[
+      'transition-all duration-200 ease-in-out',
+      isRealeased(season.air_date) ? 'cursor-pointer' : 'cursor-not-allowed opacity-75',
+      isSelected
+        ? 'ring-4 ring-primary ring-offset-2'
+        : isRealeased(season.air_date)
+          ? 'hover:ring-1 hover:ring-primary/70 hover:ring-offset-1'
+          : ''
+    ]"
+    @click="toggleSelection"
+  >
+    <template #header>
+      <div class="flex flex-col items-center">
+        <h2 class="text-2xl font-bold text-primary text-center">
+          {{ season.name }}
+        </h2>
+        <UBadge
+          v-if="isRealeased(season.air_date)"
+          color="green"
+          class="mt-2 text-sm"
+          :ui="{ rounded: 'rounded-full' }"
+        >
+          {{ $t('tvSeasons.released') }}
+        </UBadge>
+        <UBadge v-else color="orange" class="mt-2 text-sm" :ui="{ rounded: 'rounded-full' }">
+          {{ $t('tvSeasons.not_released') }}
+        </UBadge>
+      </div>
+    </template>
+
+    <template #default>
+      <div class="flex space-x-4 h-48">
+        <div class="w-1/3">
+          <NuxtImg
+            :src="getImageUrl(season.poster_path, 'w300')"
+            alt="season poster"
+            class="rounded-md"
+          />
+        </div>
+        <div class="w-2/3 max-h-48 overflow-hidden overflow-y-auto px-1">
+          <p v-if="season.overview" class="text-sm text-justify">
+            {{ season.overview }}
+          </p>
+          <p v-else class="text-sm text-justify">
+            {{ $t('tvSeasons.no_overview') }}
+          </p>
+        </div>
+      </div>
+    </template>
+
+    <template #footer>
+      <div class="flex flex-col justify-between space-y-2">
+        <div v-if="season.vote_average" class="flex flex-col items-center justify-between">
+          <p class="text-sm">
+            {{ $t('tvSeasons.vote_average') }}
+          </p>
+          <UMeter :max="10" :min="0" :value="season.vote_average" indicator> </UMeter>
+
+          <UDivider
+            :ui="{ border: { base: 'border-gray-400 dark:border-gray-400' } }"
+            class="pt-4"
+          />
+        </div>
+
+        <div>
+          <span
+            v-if="season.episode_count && isRealeased(season.air_date)"
+            class="text-sm font-semibold"
+          >
+            {{ $t('tvSeasons.episodes', { count: season.episode_count }) }}
+          </span>
+        </div>
+        <div>
+          <p class="text-sm">
+            {{ $t('tvSeasons.air_date') }}: {{ formatLocalDate(season.air_date) }}
+          </p>
+        </div>
+      </div>
+    </template>
+  </UCard>
+</template>
+
+<script lang="ts" setup>
+const props = defineProps({
+  season: {
+    type: Object as PropType<any>,
+    required: true
+  },
+  isSelected: {
+    type: Boolean,
+    required: true
+  }
+})
+
+const emit = defineEmits(['select'])
+
+function toggleSelection () {
+  if (!props.isSelected && isRealeased(props.season.air_date)) {
+    emit('select', props.season.id)
+  }
+}
+
+const isRealeased = (date: string) => {
+  return new Date(date) < new Date()
+}
+</script>

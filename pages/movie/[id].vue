@@ -17,14 +17,14 @@
 
     <div class="w-full max-w-7xl p-4 space-y-8">
       <!-- Provider -->
-      <LazyDetailMovieProvider
+      <LazyDetailCommonProvider
         v-if="movie"
         :providers="movie?.['watch/providers']?.results[locale.toUpperCase()]"
       />
       <USkeleton v-else class="w-full h-96" />
 
       <!-- Trailer -->
-      <LazyDetailMovieTrailer v-if="movie" :videos="movie?.videos.results" />
+      <LazyDetailCommonTrailer v-if="movie" :videos="movie?.videos.results" />
       <USkeleton v-else class="w-full h-96" />
 
       <!-- Collection -->
@@ -34,7 +34,7 @@
       />
 
       <!-- Casting -->
-      <LazyDetailMovieCasting
+      <LazyDetailCommonCasting
         v-if="movie"
         :casts="movie?.credits.cast"
         :crews="movie?.credits.crew"
@@ -42,16 +42,13 @@
       />
       <USkeleton v-else class="w-full h-96" />
 
-      <!-- Recommendations -->
-      <LazyDetailMovieRecommendations
-        v-if="movie"
-        :recommandations="movie?.recommendations.results"
-        :genres="genres"
-      />
-      <USkeleton v-else class="w-full h-96" />
-
       <!-- Similar -->
-      <LazyDetailMovieSimilar v-if="movie" :similar="movie?.similar.results" :genres="genres" />
+      <LazyDetailCommonSimilar
+        v-if="movie"
+        :similar="movie?.similar.results"
+        :genres="genres"
+        :title="$t('similar.title.movie')"
+      />
       <USkeleton v-else class="w-full h-96" />
     </div>
   </div>

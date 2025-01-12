@@ -3,13 +3,13 @@
     <div
       class="flex justify-between items-center p-4 bg-cover bg-no-repeat tablet:p-8 tablet-md:p-12 laptop:p-16"
       :style="{
-        backgroundImage: `${linearGradient}, url(https://image.tmdb.org/t/p/original${props.backdropPath})`
+        backgroundImage: `${linearGradient}, url(${getImageUrl(props.backdropPath, 'original')})`
       }"
     >
       <div class="flex flex-row items-center gap-4 w-full max-w-7xl mx-auto">
         <NuxtImg
           v-if="props.posterPath !== null && props.title !== null"
-          :src="`https://image.tmdb.org/t/p/original${props.posterPath}`"
+          :src="getImageUrl(props.posterPath, 'original')"
           :alt="props.title"
           class="w-32 h-48 rounded-lg tablet:w-48 tablet:h-72 tablet-md:w-64 tablet-md:h-96 laptop:w-[384px] laptop:h-[576px]"
         />

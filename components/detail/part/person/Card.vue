@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center space-y-2">
     <NuxtImg
       v-if="imagePath !== null"
-      :src="`https://image.tmdb.org/t/p/w92${imagePath}`"
+      :src="getImageUrl(imagePath, 'w92')"
       :alt="name"
       class="rounded-md shadow-lg"
     />
@@ -14,7 +14,7 @@
     <span class="text-sm text-center text-wrap font-medium">{{ name }}</span>
 
     <span v-if="role" class="text-xs text-center text-wrap text-gray-500 dark:text-gray-400">
-      {{ isCharacter ? $t('movieCasting.as', { character: role }) : role }}
+      {{ isCharacter ? $t('casting.as', { character: role }) : role }}
     </span>
 
     <span v-if="department" class="text-xs text-center text-wrap text-gray-700 dark:text-gray-300">

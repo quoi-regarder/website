@@ -1,14 +1,14 @@
 <template>
   <div class="p-4 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800">
     <h2 class="text-2xl font-bold text-primary">
-      {{ $t('movieProvider.title') }}
+      {{ $t('provider.title') }}
     </h2>
 
     <template v-if="hasProviders">
       <div v-for="(items, type) in providerSections" :key="type" class="space-y-4">
         <template v-if="items && items.length > 0">
           <h3 class="text-xl font-semibold">
-            {{ $t(`movieProvider.${type}`) }}
+            {{ $t(`provider.${type}`) }}
           </h3>
           <div
             class="grid grid-cols-2 gap-4 mobile-md:grid-cols-3 tablet:grid-cols-6 laptop:grid-cols-8 desktop:grid-cols-10"
@@ -19,7 +19,7 @@
               class="flex flex-col items-center space-y-2"
             >
               <NuxtImg
-                :src="`https://image.tmdb.org/t/p/w92${provider.logo_path}`"
+                :src="getImageUrl(provider.logo_path, 'w92')"
                 :alt="provider.provider_name"
                 class="rounded-md shadow-lg w-12 h-12 laptop:w-16 laptop:h-16"
               />
@@ -31,7 +31,7 @@
     </template>
 
     <div v-else>
-      <p>{{ $t('movieProvider.no_providers') }}</p>
+      <p>{{ $t('provider.no_providers') }}</p>
     </div>
   </div>
 </template>
