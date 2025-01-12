@@ -17,6 +17,17 @@
     "vote_average": "Rating",
     "vote_count": "Number of votes: {count}"
   },
+  "casting": {
+    "as": "As {character}.",
+    "cast": "Main Cast",
+    "crew": "Crew",
+    "fullCast": "Full Cast",
+    "fullCrew": "Full Crew",
+    "knownFor": "Known for {title}.",
+    "production": "Production",
+    "showMore": "See More Details",
+    "title": "Cast"
+  },
   "common": {
     "api": {
       "error": {
@@ -157,16 +168,8 @@
       }
     }
   },
-  "movieCasting": {
-    "as": "As {character}.",
-    "cast": "Main Cast",
-    "crew": "Crew",
-    "fullCast": "Full Cast",
-    "fullCrew": "Full Crew",
-    "knownFor": "Known for {title}.",
-    "production": "Production",
-    "showMore": "See More Details",
-    "title": "Cast"
+  "movieCollection": {
+    "title": "Collection linked to this movie"
   },
   "movieHeader": {
     "duration": "Duration",
@@ -176,22 +179,9 @@
     "vote_average": "Average Rating",
     "vote_count": "Number of Votes: {count}"
   },
-  "movieProvider": {
-    "ads": "Free to watch with ads",
-    "buy": "For Purchase",
-    "flatrate": "Streaming with Subscription",
-    "free": "Free to Watch",
-    "no_providers": "No platform currently offers this movie.",
-    "rent": "For Rent",
-    "title": "Streaming Platforms"
-  },
   "movieRecommandations": {
     "no_recommendations": "No recommendations available.",
     "title": "Our Recommendations"
-  },
-  "movieSimilar": {
-    "no_similar": "No similar movies available.",
-    "title": "Similar Movies"
   },
   "movieTrailer": {
     "no_trailer": "No trailer available.",
@@ -264,6 +254,15 @@
       }
     }
   },
+  "provider": {
+    "ads": "Free to watch with ads",
+    "buy": "For Purchase",
+    "flatrate": "Streaming with Subscription",
+    "free": "Free to Watch",
+    "no_providers": "No platform currently offers this movie.",
+    "rent": "For Rent",
+    "title": "Streaming Platforms"
+  },
   "signup": {
     "form": {
       "buttons": {
@@ -305,6 +304,35 @@
       }
     }
   },
+  "similar": {
+    "no_similar": "No similar movies available.",
+    "title": {
+      "movies": "Similar Movies",
+      "tv": "Similar TV Shows"
+    }
+  },
+  "tvHeader": {
+    "finished": "Finished",
+    "first_air_date": "First air date",
+    "genres": "Genres",
+    "in_production": "In production",
+    "last_air_date": "Last air date",
+    "no_overview": "No synopsis available in this language.",
+    "overview": "Synopsis",
+    "vote_average": "Average Rating",
+    "vote_count": "Number of Votes: {count}"
+  },
+  "tvSeasons": {
+    "air_date": "Air date",
+    "episode": "Episode {number}",
+    "episodes": "No episodes available. | {count} episode available. | {count} episodes available.",
+    "no_overview": "No synopsis available in this language.",
+    "not_released": "Not released",
+    "released": "Released",
+    "title": "Seasons",
+    "vote_average": "Average Rating",
+    "vote_count": "Number of Votes: {count}"
+  },
   "updatePassword": {
     "form": {
       "buttons": {
@@ -329,8 +357,5 @@
         "updated": "Your password has been updated."
       }
     }
-  },
-  "movieCollection": {
-    "title": "Collection linked to this movie"
   }
 }

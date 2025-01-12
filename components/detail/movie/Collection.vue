@@ -2,7 +2,7 @@
   <div
     class="p-4 rounded-md shadow-lg bg-cover bg-center bg-no-repeat space-y-8"
     :style="{
-      backgroundImage: `${linearGradient}, url(https://image.tmdb.org/t/p/original${collection.backdrop_path})`
+      backgroundImage: `${linearGradient}, url(${getImageUrl(collection.backdrop_path, 'original')})`
     }"
   >
     <h2 class="text-2xl font-bold text-primary">
@@ -12,7 +12,7 @@
     <div class="flex flex-col items-center space-y-2 mt-4">
       <NuxtImg
         v-if="collection.poster_path !== null"
-        :src="`https://image.tmdb.org/t/p/w300${collection.poster_path}`"
+        :src="getImageUrl(collection.poster_path, 'w300')"
         :alt="collection.name"
         class="max-w-[80vw] rounded-lg"
       />

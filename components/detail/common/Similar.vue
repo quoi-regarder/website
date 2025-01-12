@@ -1,15 +1,15 @@
 <template>
   <div class="tablet:p-4 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800">
     <h2 class="text-2xl p-4 tablet:p-0 font-bold text-primary">
-      {{ $t('movieRecommandations.title') }}
+      {{ title }}
     </h2>
 
     <UCarousel
-      v-if="recommandations?.length > 0"
-      :items="recommandations"
+      v-if="similar?.length > 0"
+      :items="similar"
       :ui="{ item: 'basis-full' }"
-      arrows
       class="w-full mt-4"
+      arrows
     >
       <template #default="{ item }">
         <div class="mx-auto h-fit tablet:w-10/12 flex flex-col items-start">
@@ -37,20 +37,24 @@
     </UCarousel>
 
     <p v-else>
-      {{ $t('movieRecommandations.no_recommandation') }}
+      {{ $t('similar.no_similar') }}
     </p>
   </div>
 </template>
 
 <script lang="ts" setup>
 defineProps({
-  recommandations: {
+  similar: {
     type: Object as PropType<any>,
     required: false,
     default: null
   },
   genres: {
     type: Array as PropType<Badge[]>,
+    required: true
+  },
+  title: {
+    type: String,
     required: true
   }
 })

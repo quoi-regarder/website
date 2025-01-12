@@ -9,8 +9,9 @@
         "update-password": "Renforcez la sécurité de votre compte Quoi Regarder. Mettez à jour votre mot de passe pour profiter sereinement de nos recommandations."
       },
       "detail": {
+        "collection": "Plongez dans l'univers d'une saga cinématographique. Découvrez les films de la collection et trouvez votre prochain coup de cœur !",
         "movie": "Découvrez les informations détaillées d'un film : casting, bande-annonce, synopsis, avis de la presse et des spectateurs. Trouvez votre prochain coup de cœur !",
-        "collection": "Plongez dans l'univers d'une saga cinématographique. Découvrez les films de la collection et trouvez votre prochain coup de cœur !"
+        "tv": "Découvrez les informations détaillées d'une série : casting, bande-annonce, synopsis, avis de la presse et des spectateurs. Trouvez votre prochain coup de cœur !"
       },
       "profile": "Affinez vos préférences, gérez votre historique et vos favoris. Notez et commentez pour des recommandations de films toujours plus pertinentes.",
       "regulation": {
@@ -29,8 +30,9 @@
         "update-password": "Sécurité - Mise à jour du mot de passe"
       },
       "detail": {
+        "collection": "Saga - Découvrez les films de la collection",
         "movie": "Détails du film - Casting, bande-annonce, synopsis",
-        "collection": "Saga - Découvrez les films de la collection"
+        "tv": "Détails de la série - Casting, bande-annonce, synopsis"
       },
       "profile": "Profil - Personnalisez vos préférences cinéma",
       "regulation": {

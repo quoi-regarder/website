@@ -4,7 +4,7 @@
       v-if="collection"
       class="w-full min-h-[74vh] rounded-md p-4 shadow-lg bg-cover bg-center bg-no-repeat flex flex-col items-center justify-evenly space-y-8"
       :style="{
-        backgroundImage: `${linearGradient}, url(https://image.tmdb.org/t/p/original${collection.backdrop_path})`
+        backgroundImage: `${linearGradient}, url(${getImageUrl(collection.backdrop_path, 'original')})`
       }"
     >
       <div class="w-full flex flex-col items-center space-y-4">
@@ -24,7 +24,7 @@
         >
           <NuxtImg
             v-if="part.poster_path !== null"
-            :src="`https://image.tmdb.org/t/p/w300${part.poster_path}`"
+            :src="getImageUrl(part.poster_path, 'w300')"
             :alt="part.name"
             class="w-[150px] h-[225px] rounded-lg"
           />
@@ -74,8 +74,6 @@ const fetchCollection = async () => {
   manager.add('language', locale.value)
 
   collection.value = await $fetch(manager.toString())
-
-  console.log(collection.value)
 }
 
 const linearGradient = computed(() => {

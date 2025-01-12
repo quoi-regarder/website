@@ -4,7 +4,7 @@
     :class="[mobile ? 'p-4 bg-gray-100 rounded-md shadow-lg dark:bg-gray-800' : '']"
   >
     <!-- Vote Average Section -->
-    <DetailPartInfoSection :title="$t('movieHeader.vote_average')">
+    <DetailPartInfoSection :title="$t('tvHeader.vote_average')">
       <UMeter
         :max="10"
         :min="0"
@@ -14,29 +14,24 @@
       >
         <template #label>
           <p class="text-left">
-            {{ $t('movieHeader.vote_count', { count: voteCount }) }}
+            {{ $t('tvHeader.vote_count', { count: voteCount }) }}
           </p>
         </template>
       </UMeter>
     </DetailPartInfoSection>
 
     <!-- Overview Section -->
-    <DetailPartInfoSection :title="$t('movieHeader.overview')">
+    <DetailPartInfoSection :title="$t('tvHeader.overview')">
       <p v-if="overview !== null && overview !== ''" class="text-justify">
         {{ overview }}
       </p>
       <p v-else>
-        {{ $t('movieHeader.no_overview') }}
+        {{ $t('tvHeader.no_overview') }}
       </p>
     </DetailPartInfoSection>
 
-    <!-- Duration Section -->
-    <DetailPartInfoSection :title="$t('movieHeader.duration')">
-      <p>{{ Math.floor(runtime / 60) }}h {{ runtime % 60 }}min</p>
-    </DetailPartInfoSection>
-
     <!-- Genres Section -->
-    <DetailPartInfoSection :title="$t('movieHeader.genres')">
+    <DetailPartInfoSection :title="$t('tvHeader.genres')">
       <div class="flex flex-wrap gap-2">
         <UBadge
           v-for="genre in genres"
@@ -50,7 +45,7 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
+const props = defineProps({
   voteAverage: {
     type: Number,
     required: true
@@ -63,10 +58,6 @@ defineProps({
     type: String,
     required: false,
     default: null
-  },
-  runtime: {
-    type: Number,
-    required: true
   },
   genres: {
     type: Array,

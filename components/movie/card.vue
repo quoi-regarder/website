@@ -5,7 +5,7 @@
     <!-- Movie Poster -->
     <NuxtImg
       v-if="item.poster_path"
-      :src="`https://image.tmdb.org/t/p/original/${item.poster_path}`"
+      :src="getImageUrl(item.poster_path, 'w500')"
       :alt="`${item.title || item.name} Poster`"
       class="rounded-lg shadow-xl w-full tablet:w-1/2 laptop:w-1/3"
     />

@@ -9,8 +9,9 @@
         "update-password": "Enhance the security of your What to Watch account. Update your password for a smoother recommendation experience."
       },
       "detail": {
+        "collection": "Dive into the universe of a movie saga. Discover the movies in the collection and find your next favorite movie!",
         "movie": "Discover detailed information about a movie: cast, trailer, synopsis, press and audience reviews. Find your next favorite movie!",
-        "collection": "Dive into the universe of a movie saga. Discover the movies in the collection and find your next favorite movie!"
+        "tv": "Discover detailed information about a TV show: cast, trailer, synopsis, press and audience reviews. Find your next favorite show!"
       },
       "profile": "Refine your preferences, manage your history and favorites. Rate and comment for even more personalized movie recommendations.",
       "regulation": {
@@ -29,8 +30,9 @@
         "update-password": "Security - Update Your Password"
       },
       "detail": {
+        "collection": "Saga - Discover Movies In The Collection",
         "movie": "Movie Details - Cast, Trailer, Synopsis",
-        "collection": "Saga - Discover Movies In The Collection"
+        "tv": "TV Show Details - Cast, Trailer, Synopsis"
       },
       "profile": "Profile - Customize Your Movie Preferences",
       "regulation": {

@@ -3,11 +3,11 @@ export default defineEventHandler(async (event) => {
   const { language } = getQuery(event)
   const id = getRouterParam(event, 'id')
 
-  const manager = new QueryParamsManager(`3/movie/${id}`, tmdbBaseUrl)
+  const manager = new QueryParamsManager(`3/tv/${id}`, tmdbBaseUrl)
   if (language) manager.add('language', formatLanguageToISO(language as string))
   manager.addWithLogic(
     'append_to_response',
-    ['videos', 'credits', 'recommendations', 'similar', 'watch/providers'],
+    ['videos', 'images', 'credits', 'recommendations', 'similar', 'watch/providers'],
     LogicalOperator.AND
   )
 
