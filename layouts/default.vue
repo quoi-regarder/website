@@ -6,7 +6,7 @@
           class="fixed top-0 left-0 w-full bg-white/60 backdrop-blur-md shadow-md z-50 dark:bg-gray-800/40"
         />
       </template>
-      <div class="pt-20">
+      <div :class="[isAuth ? 'mt-0' : 'mt-16']">
         <slot />
       </div>
       <template v-if="!isAuth">
