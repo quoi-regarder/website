@@ -47,7 +47,7 @@
         v-if="movie"
         :similar="movie?.similar.results"
         :genres="genres"
-        :title="$t('similar.title.movie')"
+        :title="$t('similar.title.movies')"
       />
       <USkeleton v-else class="w-full h-96" />
     </div>
