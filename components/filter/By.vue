@@ -119,15 +119,15 @@ const tvItems = ref<Option[]>([
 const toggle = (item: Option) => {
   if (toggledId.value === item.id) {
     switch (toggledDirection.value) {
-    case Direction.ASC:
-      toggledDirection.value = Direction.DESC
-      break
-    case Direction.DESC:
-      toggledDirection.value = null
-      break
-    default:
-      toggledDirection.value = Direction.ASC
-      break
+      case Direction.ASC:
+        toggledDirection.value = Direction.DESC
+        break
+      case Direction.DESC:
+        toggledDirection.value = null
+        break
+      default:
+        toggledDirection.value = Direction.ASC
+        break
     }
   } else {
     toggledId.value = item.id

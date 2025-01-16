@@ -80,10 +80,8 @@
             <p class="text-justify">{{ $t('legal.sections.dataProcessing.rights.content') }}</p>
             <p class="leading-relaxed">
               {{ $t('legal.sections.dataProcessing.rights.contact') }}
-              <a
-                href="mailto:egenr.pro@gmail.com"
-                class="text-primary hover:underline"
-              >egenr.pro@gmail.com</a
+              <a href="mailto:egenr.pro@gmail.com" class="text-primary hover:underline"
+                >egenr.pro@gmail.com</a
               >
             </p>
           </div>
@@ -130,10 +128,8 @@
         <h2 class="text-2xl font-bold text-primary">{{ $t('legal.sections.contact.title') }}</h2>
         <div class="space-y-2">
           <span class="text-justify">{{ $t('legal.sections.contact.content') }}</span>
-          <a
-            href="mailto:egenr.pro@gmail.com"
-            class="text-primary hover:underline ml-2"
-          >egenr.pro@gmail.com</a
+          <a href="mailto:egenr.pro@gmail.com" class="text-primary hover:underline ml-2"
+            >egenr.pro@gmail.com</a
           >
         </div>
       </section>

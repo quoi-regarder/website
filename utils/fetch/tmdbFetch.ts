@@ -1,4 +1,4 @@
-export async function tmdbFetch (
+export async function tmdbFetch(
   path: string,
   {
     params = {},
