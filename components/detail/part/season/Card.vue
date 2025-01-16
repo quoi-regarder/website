@@ -96,7 +96,7 @@ const props = defineProps({
 
 const emit = defineEmits(['select'])
 
-function toggleSelection () {
+function toggleSelection() {
   if (!props.isSelected && isRealeased(props.season.air_date)) {
     emit('select', props.season.id)
   }

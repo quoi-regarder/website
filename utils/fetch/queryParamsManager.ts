@@ -1,7 +1,7 @@
 export class QueryParamsManager {
   private url: URL
 
-  constructor (path: string, baseUrl?: string) {
+  constructor(path: string, baseUrl?: string) {
     if (!baseUrl && typeof window === 'undefined') {
       throw new Error('Base URL is required when running in a server environment.')
     }
@@ -21,7 +21,7 @@ export class QueryParamsManager {
    * @param key The name of the query parameter.
    * @param value The value to add.
    */
-  add (key: string, value: string | number): this {
+  add(key: string, value: string | number): this {
     const currentValues = this.url.searchParams.getAll(key)
     if (!currentValues.includes(String(value))) {
       currentValues.push(String(value))
@@ -37,7 +37,7 @@ export class QueryParamsManager {
    * @param values The list of values to add.
    * @param operator The logical operator (`AND` or `OR`).
    */
-  addWithLogic (
+  addWithLogic(
     key: string,
     values: (string | number | boolean)[],
     operator: LogicalOperator
@@ -68,7 +68,7 @@ export class QueryParamsManager {
    * @param key The name of the query parameter.
    * @param value The new value or array of values.
    */
-  replace (key: string, value: string | number | (string | number)[]): this {
+  replace(key: string, value: string | number | (string | number)[]): this {
     this.url.searchParams.delete(key)
     const values = Array.isArray(value) ? value : [value]
     values.forEach((val) => this.url.searchParams.append(key, String(val)))
@@ -80,7 +80,7 @@ export class QueryParamsManager {
    * @param key The name of the query parameter.
    * @param value (Optional) The value to remove.
    */
-  remove (key: string, value?: string | number): this {
+  remove(key: string, value?: string | number): this {
     if (value === undefined) {
       this.url.searchParams.delete(key)
     } else {
@@ -98,7 +98,7 @@ export class QueryParamsManager {
    * @param key The name of the query parameter.
    * @returns An array of values or an empty array if the parameter doesn't exist.
    */
-  getAll (key: string): string[] {
+  getAll(key: string): string[] {
     return this.url.searchParams.getAll(key)
   }
 
@@ -107,7 +107,7 @@ export class QueryParamsManager {
    * @param key The name of the query parameter.
    * @returns The first value or null if the parameter doesn't exist.
    */
-  getFirst (key: string): string | null {
+  getFirst(key: string): string | null {
     return this.url.searchParams.get(key)
   }
 
@@ -117,7 +117,7 @@ export class QueryParamsManager {
    * @param value The value to check.
    * @returns True if the value exists, otherwise false.
    */
-  contains (key: string, value: string | number): boolean {
+  contains(key: string, value: string | number): boolean {
     return this.url.searchParams.getAll(key).includes(String(value))
   }
 
@@ -125,7 +125,7 @@ export class QueryParamsManager {
    * Generates the full URL with the current query parameters.
    * @returns The full URL as a string.
    */
-  toString (): string {
+  toString(): string {
     return this.url.toString()
   }
 }

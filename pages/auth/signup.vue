@@ -69,10 +69,8 @@
         />
         <p class="text-sm mb-8">
           {{ $t('signup.form.help.termsMessage') }}
-          <ULink
-            :to="localPath('/regulation/terms')"
-            class="text-primary underline"
-          >{{ $t('signup.form.links.terms') }}
+          <ULink :to="localPath('/regulation/terms')" class="text-primary underline"
+            >{{ $t('signup.form.links.terms') }}
           </ULink>
         </p>
 
