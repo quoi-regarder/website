@@ -23,7 +23,7 @@
               />
               <template #text>
                 <div class="flex items-center gap-4 text-wrap text-justify">
-                  <p class="text-sm text-gray-500 dark:text-gray-200">
+                  <p class="text-sm">
                     {{ hint }}
                   </p>
                 </div>
