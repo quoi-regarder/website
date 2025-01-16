@@ -22,6 +22,7 @@
       </div>
     </div>
     <div class="grow flex flex-col w-full gap-2 md:px-2">
+      <UButton variant="outline" @click="addMovieToWatchlist"> add to watchlist </UButton>
       <div
         class="grid grid-cols-1 sm:grid-cols-3 p-2 h-[375px] gap-x-2 overflow-y-auto border-1 border-dashed rounded-lg"
       >
@@ -86,6 +87,9 @@
 </template>
 
 <script lang="ts" setup>
+const user = useSupabaseUser()
+const client = useSupabaseClient()
+
 const { t } = useI18n()
 const localPath = useLocalePath()
 
@@ -167,4 +171,14 @@ const itemDetails = computed(() => {
     ]
   }
 })
+
+const addMovieToWatchlist = async () => {
+  $fetch('/api/watchlist', {
+    method: 'POST',
+    body: {
+      user_id: user.value?.id,
+      movie_id: props.item.id
+    }
+  })
+}
 </script>
