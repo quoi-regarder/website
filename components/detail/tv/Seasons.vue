@@ -54,9 +54,16 @@
               <div class="flex space-x-4 h-56">
                 <div class="w-1/3">
                   <NuxtImg
+                    v-if="item.still_path"
                     :src="getImageUrl(item.still_path, 'original')"
                     alt="episode still"
                     class="rounded-md"
+                  />
+
+                  <USkeleton
+                    v-else
+                    class="w-full h-56"
+                    :ui="{ background: 'bg-gray-200 dark:bg-gray-700', base: '' }"
                   />
                 </div>
                 <div class="w-2/3 max-h-56 overflow-hidden overflow-y-auto px-1">
