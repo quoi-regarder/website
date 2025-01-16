@@ -13,7 +13,7 @@
     >
       <template #default="{ item }">
         <div class="mx-auto h-fit tablet:w-10/12 flex flex-col items-start">
-          <MovieCard :genres="genres" :item="item" class="h-full" type="movie" />
+          <MovieCard :genres="genres" :item="item" class="h-full" :type="type" />
         </div>
       </template>
       <template #next="{ onClick, disabled }">
@@ -56,6 +56,11 @@ defineProps({
   title: {
     type: String,
     required: true
+  },
+  type: {
+    type: String as PropType<'movie' | 'tv'>,
+    required: false,
+    default: 'movie'
   }
 })
 </script>
