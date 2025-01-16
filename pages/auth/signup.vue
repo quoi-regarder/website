@@ -77,8 +77,8 @@
         </p>
 
         <UTooltip
-          :ui="{ base: 'h-full [@media(pointer:coarse)]:!block' }"
-          :popper="{ arrow: true }"
+          :ui="{ base: 'h-full [@media(pointer:coarse)]:!block text-wrap' }"
+          :text="state.terms === false ? $t('signup.form.help.termsTooltip') : undefined"
           class="w-full"
         >
           <UButton
@@ -88,20 +88,14 @@
             type="submit"
             :disabled="state.terms === false"
           />
-
-          <template v-if="state.terms === false" #text>
-            <p class="flex items-center gap-4 text-wrap text-justify">
-              {{ $t('signup.form.help.termsTooltip') }}
-            </p>
-          </template>
         </UTooltip>
       </UForm>
     </template>
 
     <template #oauth>
       <UTooltip
-        :ui="{ base: 'h-full [@media(pointer:coarse)]:!block' }"
-        :popper="{ arrow: true }"
+        :ui="{ base: 'h-full [@media(pointer:coarse)]:!block text-wrap' }"
+        :text="state.terms === false ? $t('signup.form.help.termsTooltip') : undefined"
         class="w-full"
       >
         <UButton
@@ -117,12 +111,6 @@
             <UIcon name="i-logos-google-icon" size="lg" />
           </template>
         </UButton>
-
-        <template v-if="state.terms === false" #text>
-          <p class="flex items-center gap-4 text-wrap text-justify">
-            {{ $t('signup.form.help.termsTooltip') }}
-          </p>
-        </template>
       </UTooltip>
     </template>
 

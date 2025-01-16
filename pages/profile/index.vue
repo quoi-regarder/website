@@ -69,10 +69,10 @@
             </h3>
             <UButton
               class="-my-1"
-              color="gray"
+              color="black"
               icon="i-heroicons-x-mark-solid"
               size="lg"
-              variant="soft"
+              variant="outline"
               @click="isDeleteAccountModalOpen = false"
             />
           </div>
@@ -88,7 +88,7 @@
           <div class="flex justify-end space-x-4">
             <UButton
               :label="$t('profile.modals.deleteAccount.buttons.cancel')"
-              color="gray"
+              color="black"
               size="lg"
               variant="outline"
               @click="isDeleteAccountModalOpen = false"
