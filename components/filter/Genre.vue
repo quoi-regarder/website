@@ -1,6 +1,7 @@
 <template>
   <LazyBadgeList
-    :badges="genres"
+    ref="badgeList"
+    v-model="genres"
     :title="$t('genre.title')"
     :description="$t('genre.description')"
     @update:selected-badges="emit('update:selectedGenres', $event)"
@@ -17,46 +18,37 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits({
-  'update:selectedGenres': {
-    type: Function as PropType<(genres: Badge[]) => void>,
-    required: true
-  },
-  'update:genres': {
-    type: Array as PropType<Badge[]>,
-    required: false
-  }
+const genres = defineModel({
+  required: true,
+  default: [],
+  type: Array as PropType<Option[]>
 })
 
-const genres = ref([])
+const emit = defineEmits(['update:genres', 'update:selectedGenres'])
+
+const badgeList = ref()
 
 onMounted(async () => {
   await fetchGenres()
 })
-
-const reset = () => {
-  genres.value.forEach((genre) => {
-    genre.selected = false
-  })
-
-  emit('update:selectedGenres', [])
-}
 
 const fetchGenres = async () => {
   const manager = new QueryParamsManager(`/api/themoviedb/genre/${props.type}/list`)
   manager.add('language', locale.value)
   const data = await $fetch(manager.toString())
 
-  genres.value = data.genres.map((genre: any, index: number) => ({
+  genres.value = data.genres.map((genre: any) => ({
     id: genre.id,
-    name: genre.name,
-    color: getGenreColor(genre.id),
+    label: genre.name,
     selected: false
   }))
 
   emit('update:genres', genres.value)
 }
 
+const reset = () => {
+  badgeList.value.unselectAll()
+}
 watch(
   () => props.type,
   (newType, oldType) => {

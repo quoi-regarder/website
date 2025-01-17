@@ -1,30 +1,28 @@
 <template>
-  <div
-    class="p-4 rounded-md shadow-lg bg-cover bg-center bg-no-repeat space-y-8"
+  <UContainer
+    class="w-full p-4 rounded-lg shadow-lg bg-cover bg-center bg-no-repeat space-y-8"
     :style="{
       backgroundImage: `${linearGradient}, url(${getImageUrl(collection.backdrop_path, 'original')})`
     }"
   >
-    <h2 class="text-2xl font-bold text-primary">
+    <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
       {{ $t('movieCollection.title') }}
     </h2>
 
     <div class="flex flex-col items-center space-y-2 mt-4">
       <NuxtImg
         v-if="collection.poster_path !== null"
-        :src="getImageUrl(collection.poster_path, 'w300')"
+        :src="getImageUrl(collection.poster_path, 'w500')"
         :alt="collection.name"
-        class="max-w-[80vw] rounded-lg"
+        width="250"
+        class="rounded-lg"
       />
 
-      <ULink
-        :to="localPath(`/collection/${collection.id}`)"
-        class="text-lg font-bold text-primary underline hover:text-black dark:hover:text-white"
-      >
+      <ULink :to="localPath(`/collection/${collection.id}`)" class="text-lg font-bold">
         {{ collection.name }}
       </ULink>
     </div>
-  </div>
+  </UContainer>
 </template>
 
 <script lang="ts" setup>

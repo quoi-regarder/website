@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="flex mx-8 justify-between items-center py-4">
-      <div class="flex items-center space-x-4">
+    <div class="h-20 flex mx-8 justify-between items-center py-4">
+      <div class="flex items-center gap-x-4">
         <NuxtImg
           src="/favicon.png"
           alt="Logo"
@@ -14,57 +14,34 @@
           v-for="link in links"
           :key="link.to"
           :to="link.to"
-          active-class="text-primary underline"
-          class="hover:text-primary transition-colors duration-200 hidden laptop:block"
+          class="transition-all duration-500 hidden lg:block"
         >
           {{ link.label }}
         </ULink>
       </div>
 
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center gap-x-4">
         <ClientOnly>
           <Suspense>
-            <UDropdown :items="colorModeItems" :popper="{ arrow: true }">
-              <UTooltip
-                :text="$t('navbar.tooltips.colorMode')"
-                :popper="{ arrow: true }"
-                :ui="{ base: '[@media(pointer:coarse)]:!block' }"
-              >
-                <UIcon :name="colorModeIcon[colorMode.preference]" class="text-primary size-6" />
-              </UTooltip>
-
-              <template #item="{ item }">
-                <span class="truncate">{{ item.label }}</span>
-                <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-primary ms-auto" />
-              </template>
-            </UDropdown>
+            <UDropdownMenu :items="colorModeItems" class="cursor-pointer">
+              <UIcon :name="colorModeIcon[colorMode.preference]" class="size-6" />
+            </UDropdownMenu>
           </Suspense>
 
           <template #fallback>
-            <USkeleton class="size-6" :ui="{ rounded: 'rounded-full' }" />
+            <USkeleton class="size-6" />
           </template>
         </ClientOnly>
 
         <ClientOnly>
           <Suspense>
-            <UDropdown :items="localItems" :popper="{ arrow: true }">
-              <UTooltip
-                :text="$t('navbar.tooltips.locale')"
-                :popper="{ arrow: true }"
-                :ui="{ base: '[@media(pointer:coarse)]:!block' }"
-              >
-                <UIcon class="text-primary size-6" name="i-heroicons-globe-alt" />
-              </UTooltip>
-
-              <template #item="{ item }">
-                <span class="truncate">{{ item.label }}</span>
-                <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-primary ms-auto" />
-              </template>
-            </UDropdown>
+            <UDropdownMenu :items="localItems" class="cursor-pointer">
+              <UIcon class="size-6" name="i-heroicons-globe-alt" />
+            </UDropdownMenu>
           </Suspense>
 
           <template #fallback>
-            <USkeleton class="size-6" :ui="{ rounded: 'rounded-full' }" />
+            <USkeleton class="size-6" />
           </template>
         </ClientOnly>
 
@@ -72,19 +49,19 @@
           <!-- User Menu -->
           <Suspense>
             <template v-if="isLogged">
-              <UDropdown
-                :items="dropdownItems"
-                :popper="{ arrow: true }"
-                :ui="{ item: { disabled: 'cursor-text select-text' } }"
-              >
-                <UAvatar v-if="profile?.avatar_url" :src="profile.avatar_url" size="lg" />
-                <UAvatar v-else size="lg">
-                  <UIcon class="text-primary size-8" name="i-heroicons-user" />
-                </UAvatar>
+              <UDropdownMenu :items="dropdownItems" class="cursor-pointer">
+                <UAvatar v-if="profile?.avatar_url" :src="profile.avatar_url" size="xl" />
+                <UButton
+                  v-else
+                  size="xl"
+                  variant="outline"
+                  trailing-icon="i-heroicons-user"
+                  class="rounded-full"
+                />
 
                 <template #account="{ item }">
                   <div class="text-left text-sm">
-                    <p class="truncate font-extralight dark:text-white">
+                    <p class="truncate font-extraligh">
                       {{ $t('navbar.dropdown.account') }}
                     </p>
                     <p class="truncate font-light">
@@ -92,72 +69,90 @@
                     </p>
                   </div>
                 </template>
-
-                <template #item="{ item }">
-                  <span class="truncate">{{ item.label }}</span>
-                  <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-primary ms-auto" />
-                </template>
-              </UDropdown>
+              </UDropdownMenu>
             </template>
           </Suspense>
 
           <!-- Login Button -->
           <template v-if="!isLogged">
-            <UTooltip
-              :text="$t('navbar.buttons.login')"
-              :popper="{ arrow: true }"
-              :ui="{ base: '[@media(pointer:coarse)]:!block' }"
-            >
+            <UTooltip :text="$t('navbar.buttons.login')">
               <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
-                <UAvatar size="lg">
-                  <UIcon
-                    class="text-primary size-8"
-                    name="i-heroicons-arrow-right-end-on-rectangle"
-                  />
-                </UAvatar>
+                <UButton
+                  size="xl"
+                  variant="outline"
+                  trailing-icon="i-heroicons-arrow-right-end-on-rectangle"
+                  class="rounded-full"
+                >
+                </UButton>
               </div>
             </UTooltip>
           </template>
 
           <template #fallback>
-            <USkeleton class="size-12" :ui="{ rounded: 'rounded-full' }" />
+            <USkeleton class="size-8" />
           </template>
         </ClientOnly>
 
-        <div
-          :class="[
-            'tham',
-            'tham-e-squeeze',
-            'tham-w-8',
-            { 'tham-active': opened },
-            'cursor-pointer',
-            'z-50',
-            'laptop:hidden'
-          ]"
-          @click="toggleOpen"
-        >
-          <div class="tham-box">
-            <div class="tham-inner bg-primary"></div>
-          </div>
+        <div class="relative w-8 h-8 lg:hidden">
+          <transition
+            enter-active-class="transition-transform transform duration-300 ease-out"
+            enter-from-class="scale-0 opacity-0"
+            enter-to-class="scale-100 opacity-100"
+            leave-active-class="transition-transform transform duration-300 ease-in"
+            leave-from-class="scale-100 opacity-100"
+            leave-to-class="scale-0 opacity-0"
+          >
+            <UIcon
+              v-if="!opened"
+              key="menu-icon"
+              name="i-lucide-menu"
+              class="absolute inset-0 size-8 cursor-pointer z-50 lg:hidden"
+              @click="toggleOpen"
+            />
+          </transition>
+          <transition
+            enter-active-class="transition-transform transform duration-300 ease-out"
+            enter-from-class="scale-0 opacity-0"
+            enter-to-class="scale-100 opacity-100"
+            leave-active-class="transition-transform transform duration-300 ease-in"
+            leave-from-class="scale-100 opacity-100"
+            leave-to-class="scale-0 opacity-0"
+          >
+            <UIcon
+              v-if="opened"
+              key="close-icon"
+              name="i-lucide-x"
+              class="absolute inset-0 size-8 cursor-pointer z-50 lg:hidden"
+              @click="toggleOpen"
+            />
+          </transition>
         </div>
       </div>
+    </div>
 
+    <transition
+      enter-active-class="transition-all transform duration-300 ease-out"
+      leave-active-class="transition-all transform duration-300 ease-in"
+      enter-from-class="opacity-0 -translate-y-10"
+      enter-to-class="opacity-100 translate-y-0"
+      leave-from-class="opacity-100 translate-y-0"
+      leave-to-class="opacity-0 -translate-y-10"
+    >
       <div
         v-if="opened"
-        class="fixed inset-0 z-40 w-screen h-screen flex flex-col items-center justify-center bg-gray-100/95 dark:bg-black/90"
+        class="fixed inset-0 z-40 w-screen h-screen flex flex-col items-center justify-center gap-4 bg-[var(--ui-bg)]/95"
         @click="toggleOpen"
       >
         <ULink
           v-for="link in links"
           :key="link.to"
           :to="link.to"
-          active-class="text-primary underline"
-          class="hover:text-primary transition-colors duration-200 block text-center py-4"
+          class="transition-all duration-500 text-2xl"
         >
           {{ link.label }}
         </ULink>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -169,8 +164,6 @@ const switchLocalePath = useSwitchLocalePath()
 const localePath = useLocalePath()
 const { profile } = useProfileChannel()
 const colorMode = useColorMode()
-
-const route = useRoute()
 
 const isLogged = computed(() => Boolean(user?.value))
 const opened = ref(false)
@@ -198,14 +191,18 @@ const dropdownItems = computed(() => [
     {
       label: t('navbar.buttons.profile'),
       icon: 'i-heroicons-user',
-      click: () => navigateTo(localePath('/profile'))
+      onSelect () {
+        navigateTo(localePath('/profile'))
+      }
     }
   ],
   [
     {
       label: t('navbar.buttons.logout'),
       icon: 'i-heroicons-arrow-right-start-on-rectangle',
-      click: () => logout()
+      onSelect () {
+        logout()
+      }
     }
   ]
 ])
@@ -220,7 +217,9 @@ const localItems = computed(() =>
     {
       label: locale.name,
       icon: localIcon[locale.code],
-      click: () => updateLocale(locale.code)
+      onSelect () {
+        updateLocale(locale.code as Tables<Enums<'language_type'>>)
+      }
     }
   ])
 )
@@ -228,8 +227,7 @@ const localItems = computed(() =>
 const colorModeIcon = {
   light: 'i-heroicons-sun-solid',
   dark: 'i-heroicons-moon-solid',
-  system: 'i-heroicons-computer-desktop',
-  undefined: 'i-heroicons-computer-desktop'
+  system: 'i-heroicons-computer-desktop'
 }
 
 const availableColorModes = ['light', 'dark', 'system']
@@ -239,7 +237,9 @@ const colorModeItems = computed(() =>
     {
       label: t(`navbar.buttons.colorMode.${mode}`),
       icon: colorModeIcon[mode],
-      click: () => updateColorMode(mode)
+      onSelect () {
+        updateColorMode(mode)
+      }
     }
   ])
 )

@@ -1,10 +1,10 @@
 <template>
   <div
-    class="w-full p-2 gap-4 flex flex-col laptop-md:flex-row rounded-2xl bg-gray-100 dark:bg-gray-700"
+    class="w-full p-2 gap-4 flex flex-col xl:flex-row rounded-2xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
   >
-    <aside class="w-full flex flex-row gap-4 laptop-md:flex-col laptop-md:w-1/3 desktop:w-1/4">
+    <aside class="w-full flex justify-between flex-row gap-4 xl:flex-col xl:w-1/3 2xl:w-1/4">
       <div
-        class="flex flex-col laptop-md:items-justify laptop-md:w-full"
+        class="flex flex-col xl:items-justify xl:w-full"
         :class="hasButtons ? 'w-1/2' : 'w-full'"
       >
         <div class="flex flex-row">
@@ -14,39 +14,35 @@
 
           <template v-if="showTooltip">
             <UTooltip
-              :ui="{ base: 'h-full [@media(pointer:coarse)]:!block' }"
-              :popper="{ arrow: true }"
+              :text="hint"
+              arrow
+              :ui="{ content: 'w-96 h-full', text: 'text-wrap text-justify' }"
             >
               <UIcon
                 name="i-heroicons-information-circle-solid"
-                class="size-6 text-blue-500 dark:text-blue-300"
+                class="size-6 text-[var(--ui-info)]"
               />
-              <template #text>
-                <div class="flex items-center gap-4 text-wrap text-justify">
-                  <p class="text-sm">
-                    {{ hint }}
-                  </p>
-                </div>
-              </template>
             </UTooltip>
           </template>
         </div>
 
         <template v-if="description">
-          <p class="text-sm text-justify text-wrap text-gray-500 dark:text-gray-200">
+          <p class="text-sm text-justify text-wrap text-[var(--ui-text-toned)]">
             {{ description }}
           </p>
         </template>
       </div>
 
       <template v-if="hasButtons">
-        <div class="w-1/2 laptop-md:w-full flex flex-col items-end gap-y-2">
+        <div class="w-1/2 xl:w-full flex flex-col items-end gap-y-2">
           <slot name="buttons" />
         </div>
       </template>
     </aside>
 
-    <div class="w-full laptop-md:w-2/3 desktop:w-3/4 flex flex-row items-start">
+    <USeparator orientation="vertical" class="hidden xl:block" />
+
+    <div class="w-full xl:w-2/3 2xl:w-3/4 flex flex-row items-start">
       <slot name="content" />
     </div>
   </div>

@@ -1,6 +1,8 @@
 <template>
-  <div class="p-4 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800 space-y-4">
-    <h2 class="text-2xl font-bold text-primary">
+  <UContainer
+    class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] space-y-4"
+  >
+    <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
       {{ $t('casting.title') }}
     </h2>
 
@@ -12,21 +14,25 @@
 
       <DetailPartPersonGrid :people="visibleCast" is-character />
 
-      <UButton
-        v-if="casts.length > visibleCast.length"
-        variant="outline"
-        @click="isCastSlideOverOpen = true"
-      >
-        {{ $t('casting.showMore') }}
-      </UButton>
+      <USlideover v-if="casts.length > visibleCast.length" :title="$t('casting.fullCast')">
+        <UButton variant="outline">
+          {{ $t('casting.showMore') }}
+        </UButton>
 
-      <DetailPartPersonSlideOver
-        v-model="isCastSlideOverOpen"
-        :title="$t('casting.fullCast')"
-        :people="casts"
-        is-character
-      />
+        <template #body>
+          <DetailPartPersonGrid
+            :people="casts"
+            image-path="profile_path"
+            role-field="character"
+            department-field="known_for_department"
+            is-character
+            expanded
+          />
+        </template>
+      </USlideover>
     </div>
+
+    <USeparator class="my-4" />
 
     <!-- Crew Section -->
     <div v-if="props.crews" class="space-y-4">
@@ -36,27 +42,24 @@
 
       <DetailPartPersonGrid :people="visibleCrew" role-field="job" department-field="department" />
 
-      <UButton
-        v-if="crews.length > visibleCrew.length"
-        variant="outline"
-        @click="isCrewSlideOverOpen = true"
-      >
-        {{ $t('casting.showMore') }}
-      </UButton>
+      <USlideover v-if="crews.length > visibleCrew.length" :title="$t('casting.fullCrew')">
+        <UButton variant="outline">
+          {{ $t('casting.showMore') }}
+        </UButton>
 
-      <DetailPartPersonSlideOver
-        v-model="isCrewSlideOverOpen"
-        :title="$t('casting.fullCrew')"
-        :people="crews"
-        role-field="job"
-        department-field="department"
-        :card-ui="{
-          body: { base: 'flex-1' },
-          ring: '',
-          divide: 'divide-y divide-gray-100 dark:divide-gray-800'
-        }"
-      />
+        <template #body>
+          <DetailPartPersonGrid
+            :people="crews"
+            image-path="profile_path"
+            role-field="job"
+            department-field="department"
+            expanded
+          />
+        </template>
+      </USlideover>
     </div>
+
+    <USeparator class="my-4" />
 
     <!-- Production Section -->
     <div v-if="props.production" class="space-y-4">
@@ -64,14 +67,9 @@
         {{ $t('casting.production') }}
       </h3>
 
-      <DetailPartPersonGrid
-        :people="production"
-        image-path="logo_path"
-        :role-field="null"
-        :department-field="null"
-      />
+      <DetailPartPersonGrid :people="production" image-path="logo_path" />
     </div>
-  </div>
+  </UContainer>
 </template>
 
 <script lang="ts" setup>
@@ -95,7 +93,4 @@ const props = defineProps({
 
 const visibleCast = computed(() => props.casts?.slice(0, 9))
 const visibleCrew = computed(() => props.crews?.slice(0, 9))
-
-const isCastSlideOverOpen = ref(false)
-const isCrewSlideOverOpen = ref(false)
 </script>

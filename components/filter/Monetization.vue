@@ -8,10 +8,10 @@
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
           ref="multiSelectRef"
+          v-model="monetization"
           name="monetization"
-          :options="monetization"
           class="w-full"
-          @update:model-value="emit('update:selectedMonetization', $event)"
+          @update:selected-options="emit('update:selectedMonetization', $event)"
         />
       </div>
     </template>
@@ -21,28 +21,19 @@
 <script lang="ts" setup>
 const { t } = useI18n()
 
+const emit = defineEmits(['update:selectedMonetization'])
+
 const monetization = ref<Option[]>([
-  { id: 'flatrate', name: t('monetization.options.flatrate') },
-  { id: 'free', name: t('monetization.options.free') },
-  { id: 'ads', name: t('monetization.options.ads') },
-  { id: 'rent', name: t('monetization.options.rent') },
-  { id: 'buy', name: t('monetization.options.buy') }
+  { id: 'flatrate', label: t('monetization.options.flatrate'), selected: false },
+  { id: 'free', label: t('monetization.options.free'), selected: false },
+  { id: 'ads', label: t('monetization.options.ads'), selected: false },
+  { id: 'rent', label: t('monetization.options.rent'), selected: false },
+  { id: 'buy', label: t('monetization.options.buy'), selected: false }
 ])
 const multiSelectRef = ref()
 
-const emit = defineEmits({
-  'update:selectedMonetization': {
-    type: Function as PropType<(monetization: Option[]) => void>,
-    required: true
-  }
-})
-
 const reset = () => {
-  monetization.value.forEach((monetization) => {
-    monetization.selected = false
-  })
-
-  multiSelectRef.value.reset()
+  multiSelectRef.value.unselectAll()
 }
 
 defineExpose({

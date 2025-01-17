@@ -6,7 +6,6 @@
           ref="multiSelectRef"
           name="companies"
           :api-to-fecth="'/api/themoviedb/search/company'"
-          :options="companies"
           class="w-full"
           @update:model-value="emit('update:selectedCompanies', $event)"
         />
@@ -16,21 +15,12 @@
 </template>
 
 <script lang="ts" setup>
-const companies = ref<Option[]>([])
 const multiSelectRef = ref()
 
-const emit = defineEmits({
-  'update:selectedCompanies': {
-    type: Function as PropType<(companies: Option[]) => void>,
-    required: true
-  }
-})
+const emit = defineEmits(['update:selectedCompanies'])
 
 const reset = () => {
-  companies.value.forEach((company) => {
-    company.selected = false
-  })
-  multiSelectRef.value.reset()
+  multiSelectRef.value.unselectAll()
 }
 
 defineExpose({

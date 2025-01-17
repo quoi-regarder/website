@@ -1,11 +1,17 @@
 <template>
-  <div
-    class="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center dark:bg-gray-700"
-  >
-    <h1 class="text-4xl font-bold text-primary mb-4">
+  <div class="flex flex-col items-center gap-y-8 justify-center min-h-screen text-center">
+    <NuxtImg
+      src="/favicon.png"
+      alt="Logo"
+      width="160"
+      height="160"
+      class="cursor-pointer"
+      @click="navigateTo(localePath('/'))"
+    />
+    <h1 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
       {{ $t('error.title') }}
     </h1>
-    <p class="text-lg text-gray-600 mb-6 dark:text-gray-200">
+    <p class="text-lg">
       {{ $t('error.message') }}
     </p>
     <UButton :label="$t('error.buttons.home')" :to="localePath('/')" size="xl" />

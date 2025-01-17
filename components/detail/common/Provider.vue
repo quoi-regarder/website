@@ -1,18 +1,18 @@
 <template>
-  <div class="p-4 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800">
-    <h2 class="text-2xl font-bold text-primary">
+  <UContainer
+    class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
+  >
+    <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
       {{ $t('provider.title') }}
     </h2>
 
     <template v-if="hasProviders">
-      <div v-for="(items, type) in providerSections" :key="type" class="space-y-4">
+      <div v-for="(items, type, index) in providerSections" :key="type" class="space-y-4">
         <template v-if="items && items.length > 0">
           <h3 class="text-xl font-semibold">
             {{ $t(`provider.${type}`) }}
           </h3>
-          <div
-            class="grid grid-cols-2 gap-4 mobile-md:grid-cols-3 tablet:grid-cols-6 laptop:grid-cols-8 desktop:grid-cols-10"
-          >
+          <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-9">
             <div
               v-for="provider in items"
               :key="provider.provider_id"
@@ -21,11 +21,19 @@
               <NuxtImg
                 :src="getImageUrl(provider.logo_path, 'w92')"
                 :alt="provider.provider_name"
-                class="rounded-md shadow-lg w-12 h-12 laptop:w-16 laptop:h-16"
+                class="rounded-md shadow-lg w-12 h-12"
               />
               <span class="text-sm text-center font-medium">{{ provider.provider_name }}</span>
             </div>
           </div>
+
+          <USeparator
+            v-if="
+              index < Object.keys(providerSections).length - 1 &&
+                Object.values(providerSections)[index + 1].length > 0
+            "
+            class="my-4"
+          />
         </template>
       </div>
     </template>
@@ -33,7 +41,7 @@
     <div v-else>
       <p>{{ $t('provider.no_providers') }}</p>
     </div>
-  </div>
+  </UContainer>
 </template>
 
 <script lang="ts" setup>

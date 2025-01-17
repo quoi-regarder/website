@@ -1,11 +1,7 @@
 <template>
   <div
     class="grid gap-x-2 gap-y-4"
-    :class="[
-      expanded
-        ? 'grid-cols-2 mobile-md:grid-cols-3'
-        : 'grid-cols-3 tablet:grid-cols-6 laptop:grid-cols-9'
-    ]"
+    :class="[expanded ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-3 sm:grid-cols-6 lg:grid-cols-9']"
   >
     <DetailPartPersonCard
       v-for="person in people"

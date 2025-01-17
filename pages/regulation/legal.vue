@@ -1,18 +1,22 @@
 <template>
-  <div
-    class="max-w-4xl mx-auto px-4 py-8 my-8 space-y-8 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg"
+  <UContainer
+    class="mx-auto px-4 py-8 mt-28 mb-8 space-y-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
   >
     <!-- Header -->
     <header class="space-y-4">
-      <h1 class="text-4xl font-bold text-primary">{{ $t('legal.title') }}</h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">{{ $t('legal.description') }}</p>
+      <h1 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">{{ $t('legal.title') }}</h1>
+      <p class="text-lg">
+        {{ $t('legal.description') }}
+      </p>
     </header>
 
     <!-- Main Content -->
     <main class="space-y-12">
       <!-- Publishers -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">{{ $t('legal.sections.publishers.title') }}</h2>
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
+          {{ $t('legal.sections.publishers.title') }}
+        </h2>
         <div class="space-y-2">
           <p class="text-justify">{{ $t('legal.sections.publishers.content') }}</p>
           <ol class="space-y-2 pl-4 list-disc">
@@ -25,7 +29,9 @@
 
       <!-- Hosting -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">{{ $t('legal.sections.hosting.title') }}</h2>
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
+          {{ $t('legal.sections.hosting.title') }}
+        </h2>
         <div class="space-y-2">
           <div class="flex flex-row space-x-2">
             <p class="text-justify">{{ $t('legal.sections.hosting.content') }}</p>
@@ -36,12 +42,7 @@
           <p class="text-justify">{{ $t('legal.sections.hosting.details.phone') }}</p>
           <p class="text-justify">
             {{ $t('legal.sections.hosting.details.website') }}
-            <a
-              href="https://www.cloudflare.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="text-primary hover:underline"
-            >
+            <a href="https://www.cloudflare.com" target="_blank" rel="noopener noreferrer">
               {{ $t('legal.sections.hosting.details.url') }}
             </a>
           </p>
@@ -50,7 +51,7 @@
 
       <!-- Data Processing -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('legal.sections.dataProcessing.title') }}
         </h2>
         <div class="space-y-6">
@@ -65,7 +66,7 @@
 
           <!-- Retention -->
           <div class="space-y-2">
-            <h3 class="text-xl font-semibold text-primary">
+            <h3 class="text-xl font-semibold text-[var(--ui-color-primary-400)]">
               {{ $t('legal.sections.dataProcessing.retention.title') }}
             </h3>
             <p class="text-justify">{{ $t('legal.sections.dataProcessing.retention.content') }}</p>
@@ -73,22 +74,20 @@
 
           <!-- Rights -->
           <div class="space-y-2">
-            <h3 class="text-xl font-semibold text-primary">
+            <h3 class="text-xl font-semibold text-[var(--ui-color-primary-400)]">
               {{ $t('legal.sections.dataProcessing.rights.title') }}
             </h3>
             <p class="text-justify">{{ $t('legal.sections.dataProcessing.rights.intro') }}</p>
             <p class="text-justify">{{ $t('legal.sections.dataProcessing.rights.content') }}</p>
             <p class="leading-relaxed">
               {{ $t('legal.sections.dataProcessing.rights.contact') }}
-              <a href="mailto:egenr.pro@gmail.com" class="text-primary hover:underline"
-                >egenr.pro@gmail.com</a
-              >
+              <a href="mailto:egenr.pro@gmail.com">egenr.pro@gmail.com</a>
             </p>
           </div>
 
           <!-- CNIL -->
           <div class="space-y-2">
-            <h3 class="text-xl font-semibold text-primary">
+            <h3 class="text-xl font-semibold text-[var(--ui-color-primary-400)]">
               {{ $t('legal.sections.dataProcessing.cnil.title') }}
             </h3>
             <p class="text-justify">{{ $t('legal.sections.dataProcessing.cnil.content') }}</p>
@@ -98,7 +97,9 @@
 
       <!-- Cookies -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">{{ $t('legal.sections.cookies.title') }}</h2>
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
+          {{ $t('legal.sections.cookies.title') }}
+        </h2>
         <div class="space-y-4">
           <p class="text-justify">{{ $t('legal.sections.cookies.content') }}</p>
           <div class="space-y-2">
@@ -111,7 +112,7 @@
 
       <!-- Intellectual Property -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('legal.sections.intellectualProperty.title') }}
         </h2>
         <p class="text-justify">{{ $t('legal.sections.intellectualProperty.content') }}</p>
@@ -119,29 +120,31 @@
 
       <!-- Liability -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">{{ $t('legal.sections.liability.title') }}</h2>
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
+          {{ $t('legal.sections.liability.title') }}
+        </h2>
         <p class="text-justify">{{ $t('legal.sections.liability.content') }}</p>
       </section>
 
       <!-- Contact -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">{{ $t('legal.sections.contact.title') }}</h2>
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
+          {{ $t('legal.sections.contact.title') }}
+        </h2>
         <div class="space-y-2">
           <span class="text-justify">{{ $t('legal.sections.contact.content') }}</span>
-          <a href="mailto:egenr.pro@gmail.com" class="text-primary hover:underline ml-2"
-            >egenr.pro@gmail.com</a
-          >
+          <a href="mailto:egenr.pro@gmail.com"> egenr.pro@gmail.com </a>
         </div>
       </section>
     </main>
 
+    <USeparator />
+
     <!-- Footer -->
-    <footer class="pt-8 mt-12 border-t border-gray-300 dark:border-gray-700">
-      <p class="text-gray-600 dark:text-gray-400">
-        {{ $t('legal.lastUpdate') }}: {{ $t('legal.updateDate') }}
-      </p>
+    <footer>
+      <p>{{ $t('legal.lastUpdate') }}: {{ $t('legal.updateDate') }}</p>
     </footer>
-  </div>
+  </UContainer>
 </template>
 
 <script setup>

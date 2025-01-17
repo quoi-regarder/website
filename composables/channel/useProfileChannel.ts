@@ -1,6 +1,6 @@
 import type { RealtimeChannel } from '@supabase/channel-js'
 
-export function useProfileChannel() {
+export function useProfileChannel () {
   const client = useSupabaseClient()
   const user = useSupabaseUser()
   const profile = ref<Tables<'profiles'> | null>(null)

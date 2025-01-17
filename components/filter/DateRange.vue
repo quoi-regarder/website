@@ -6,40 +6,52 @@
 
     <template #content>
       <div class="w-full h-full grid grid-cols-3 gap-4 items-center justify-center">
-        <p class="text-sm text-gray-500 dark:text-gray-400 col-span-1 text-right">
+        <p class="text-sm col-span-1 text-right">
           {{ $t('dateRange.from') }}
         </p>
         <UPopover class="col-span-2">
           <UButton
             icon="i-heroicons-calendar-days-20-solid"
-            :label="fromDate ? formatLocalDate(fromDate) : ''"
+            class="w-fit"
+            :label="fromDate ? formatLocalDate(fromDate as CalendarDate) : ''"
           >
             <template #icon>
               <i class="text-xl" />
             </template>
           </UButton>
 
-          <template #panel="{ close }">
-            <FieldDatePicker v-model="fromDate" is-required @close="close" />
+          <template #content>
+            <UCalendar
+              v-model="fromDate"
+              is-required
+              fixed-weeks
+              @update:model-value="emit('update:from-date', fromDate)"
+            />
           </template>
         </UPopover>
 
-        <p class="text-sm text-gray-500 dark:text-gray-400 col-span-1 text-right">
+        <p class="text-sm col-span-1 text-right">
           {{ $t('dateRange.to') }}
         </p>
 
         <UPopover class="col-span-2">
           <UButton
             icon="i-heroicons-calendar-days-20-solid"
-            :label="toDate ? formatLocalDate(toDate) : ''"
+            class="w-fit"
+            :label="toDate ? formatLocalDate(toDate as CalendarDate) : ''"
           >
             <template #icon>
               <i class="text-xl" />
             </template>
           </UButton>
 
-          <template #panel="{ close }">
-            <FieldDatePicker v-model="toDate" is-required @close="close" />
+          <template #content>
+            <UCalendar
+              v-model="toDate"
+              is-required
+              fixed-weeks
+              @update:model-value="emit('update:to-date', toDate)"
+            />
           </template>
         </UPopover>
       </div>
@@ -48,30 +60,26 @@
 </template>
 
 <script lang="ts" setup>
-const fromDate = ref<Date | null>(null)
-const toDate = ref<Date | null>(null)
+import type { CalendarDate } from '@internationalized/date'
 
-const props = defineProps({
+const fromDate = ref<CalendarDate | null>()
+const toDate = ref<CalendarDate | null>()
+
+defineProps({
   title: {
     type: String,
     required: true
   }
 })
 
-const emit = defineEmits({
-  'update:from-date': {
-    type: Function as PropType<(date: Date | null) => void>,
-    required: true
-  },
-  'update:to-date': {
-    type: Function as PropType<(date: Date | null) => void>,
-    required: true
-  }
-})
+const emit = defineEmits(['update:from-date', 'update:to-date'])
 
 const handleReset = () => {
   fromDate.value = null
   toDate.value = null
+
+  emit('update:from-date', null)
+  emit('update:to-date', null)
 }
 
 const handleReverseDates = () => {
@@ -87,19 +95,11 @@ const handleReverseDates = () => {
   emit('update:to-date', toDate.value)
 }
 
+watch([fromDate, toDate], handleReverseDates, { immediate: true })
+
 const reset = () => {
   handleReset()
 }
-
-watch(fromDate, (value) => {
-  handleReverseDates()
-  emit('update:from-date', value)
-})
-
-watch(toDate, (value) => {
-  handleReverseDates()
-  emit('update:to-date', value)
-})
 
 defineExpose({
   reset

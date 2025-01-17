@@ -1,45 +1,34 @@
 <template>
-  <div class="tablet:p-4 rounded-md shadow-lg bg-gray-100 dark:bg-gray-800">
-    <h2 class="text-2xl p-4 tablet:p-0 font-bold text-primary">
+  <UContainer
+    class="w-full sm:p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
+  >
+    <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
       {{ title }}
     </h2>
 
-    <UCarousel
-      v-if="similar?.length > 0"
-      :items="similar"
-      :ui="{ item: 'basis-full' }"
-      class="w-full mt-4"
-      arrows
-    >
-      <template #default="{ item }">
-        <div class="mx-auto h-fit tablet:w-10/12 flex flex-col items-start">
-          <MovieCard :genres="genres" :item="item" class="h-full" :type="type" />
-        </div>
-      </template>
-      <template #next="{ onClick, disabled }">
-        <UButton
-          :disabled="disabled"
-          :ui="{ rounded: 'rounded-full' }"
-          class="absolute right-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
-          icon="i-heroicons-chevron-right"
-          @click="onClick"
-        />
-      </template>
-      <template #prev="{ onClick, disabled }">
-        <UButton
-          :disabled="disabled"
-          :ui="{ rounded: 'rounded-full' }"
-          class="absolute left-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
-          icon="i-heroicons-chevron-left"
-          @click="onClick"
-        />
-      </template>
-    </UCarousel>
+    <div v-if="similar?.length > 0" class="flex justify-center">
+      <UCarousel
+        :items="similar"
+        class-names
+        auto-height
+        class="max-w-[75vw] w-11/12"
+        arrows
+        :ui="{
+          item: 'basis-full lg:basis-[60%] lg:transition-opacity lg:[&:not(.is-snapped)]:opacity-30'
+        }"
+      >
+        <template #default="{ item }">
+          <div class="flex items-center flex-col">
+            <MovieCard :genres="genres" :item="item" class="h-full" :type="type" />
+          </div>
+        </template>
+      </UCarousel>
+    </div>
 
     <p v-else>
       {{ $t('similar.no_similar') }}
     </p>
-  </div>
+  </UContainer>
 </template>
 
 <script lang="ts" setup>
@@ -50,7 +39,7 @@ defineProps({
     default: null
   },
   genres: {
-    type: Array as PropType<Badge[]>,
+    type: Array as PropType<Option[]>,
     required: true
   },
   title: {

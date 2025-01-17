@@ -1,11 +1,12 @@
 export default defineEventHandler(async (event) => {
   const { tmdbBaseUrl } = useRuntimeConfig()
-  const { query, language } = getQuery(event)
+  const { query, language, page } = getQuery(event)
 
   const manager = new QueryParamsManager('3/search/movie', tmdbBaseUrl)
   if (query) manager.add('query', query as string)
   manager.add('language', formatLanguageToISO(language as string))
   manager.add('include_adult', 'false')
+  manager.add('page', page as string)
 
   try {
     return await tmdbFetch(manager.toString())

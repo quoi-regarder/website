@@ -1,8 +1,8 @@
 <template>
   <BadgeList
-    :badges="ages"
+    ref="badgeList"
+    v-model="ages"
     :title="$t('age.title')"
-    :description="$t('age.description')"
     @update:selected-badges="emit('update:selectedAges', $event)"
   />
 </template>
@@ -10,40 +10,19 @@
 <script lang="ts" setup>
 const { t } = useI18n()
 
-const ages = ref<Badge[]>([])
+const emit = defineEmits(['update:selectedAges'])
 
-const emit = defineEmits({
-  'update:selectedAges': {
-    type: Function as PropType<(ages: Badge[]) => void>,
-    required: true
-  },
-  'update:ages': {
-    type: Array as PropType<Badge[]>,
-    required: false
-  }
-})
+const badgeList = ref()
 
-onMounted(async () => {
-  await fetchAges()
-})
-
-const fetchAges = async () => {
-  ages.value = [
-    { id: 10, name: t('age.labels.ten'), color: 'lime', selected: false },
-    { id: 12, name: t('age.labels.twelve'), color: 'emerald', selected: false },
-    { id: 16, name: t('age.labels.sixteen'), color: 'cyan', selected: false },
-    { id: 18, name: t('age.labels.eighteen'), color: 'sky', selected: false }
-  ]
-
-  emit('update:ages', ages.value)
-}
+const ages = ref<Option[]>([
+  { id: 10, label: t('age.labels.ten'), selected: false },
+  { id: 12, label: t('age.labels.twelve'), selected: false },
+  { id: 16, label: t('age.labels.sixteen'), selected: false },
+  { id: 18, label: t('age.labels.eighteen'), selected: false }
+])
 
 const reset = () => {
-  ages.value.forEach((age) => {
-    age.selected = false
-  })
-
-  emit('update:selectedAges', [])
+  badgeList.value.unselectAll()
 }
 
 defineExpose({

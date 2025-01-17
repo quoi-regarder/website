@@ -4,11 +4,10 @@
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
           ref="multiSelectRef"
-          name="persons"
           :api-to-fecth="'/api/themoviedb/search/person'"
-          :options="persons"
+          name="persons"
           class="w-full"
-          @update:model-value="emit('update:selectedPersons', $event)"
+          @update:selected-options="emit('update:selectedPersons', $event)"
         />
       </div>
     </template>
@@ -16,21 +15,12 @@
 </template>
 
 <script lang="ts" setup>
-const persons = ref<Option[]>([])
 const multiSelectRef = ref()
 
-const emit = defineEmits({
-  'update:selectedPersons': {
-    type: Function as PropType<(persons: Option[]) => void>,
-    required: true
-  }
-})
+const emit = defineEmits(['update:selectedPersons'])
 
 const reset = () => {
-  persons.value.forEach((person) => {
-    person.selected = false
-  })
-  multiSelectRef.value.reset()
+  multiSelectRef.value.unselectAll()
 }
 
 defineExpose({

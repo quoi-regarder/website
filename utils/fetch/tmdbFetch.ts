@@ -1,4 +1,4 @@
-export async function tmdbFetch(
+export async function tmdbFetch (
   path: string,
   {
     params = {},
@@ -11,7 +11,6 @@ export async function tmdbFetch(
   const manager = new QueryParamsManager(path, baseUrl || tmdbBaseUrl)
   manager.add('api_key', tmdbApiKey)
 
-  // Ajout des paramètres fournis
   Object.entries(params).forEach(([key, value]) => {
     manager.add(key, value)
   })

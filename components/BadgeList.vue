@@ -5,22 +5,24 @@
         :label="$t('badgeList.buttons.unselectAll')"
         :variant="isAllSelected ? 'solid' : 'outline'"
         class="transition-colors duration-300 ease-in-out"
+        size="xl"
+        :ui="{ label: 'text-wrap' }"
         @click="unselectAll"
       />
     </template>
 
     <template #content>
       <div
-        class="flex flex-wrap justify-around p-2 gap-2 tablet:gap-4 w-full border-2 border-gray-400 border-dashed rounded-2xl self-center"
+        class="flex flex-wrap justify-evenly p-2 gap-2 sm:gap-4 w-full border-2 border-dashed rounded-2xl self-center"
       >
         <UBadge
-          v-for="badge in props.badges"
+          v-for="badge in badges"
           :key="badge.id"
-          :color="getBadgeColor(badge)"
-          :icon="getBadgeIcon(badge)"
-          :label="badge.name"
-          class="cursor-pointer gap-1 laptop-md:gap-2 transition-colors duration-300 ease-in-out"
-          size="md"
+          :icon="badge.selected ? 'i-heroicons-check-20-solid' : 'i-heroicons-x-mark-20-solid'"
+          :color="badge.selected ? 'primary' : 'neutral'"
+          :label="badge.label"
+          class="cursor-pointer gap-1 lg:gap-2 transition-colors duration-300 ease-in-out"
+          size="lg"
           @click="toggleBadge(badge)"
         />
       </div>
@@ -29,13 +31,7 @@
 </template>
 
 <script setup lang="ts">
-const colorMode = useColorMode()
-
 const props = defineProps({
-  badges: {
-    type: Array as PropType<Badge[]>,
-    required: true
-  },
   title: {
     type: String,
     required: true
@@ -50,36 +46,33 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits({
-  'update:selectedBadges': {
-    type: Function as PropType<(badges: Badge[]) => void>,
-    required: true
-  }
+const badges = defineModel({
+  required: true,
+  default: [],
+  type: Array as PropType<Option[]>
 })
 
-const isAllSelected = computed(() => props.badges.every((badge: Badge) => badge.selected))
+const emit = defineEmits(['update:selectedBadges'])
+
+const isAllSelected = computed(() => badges.value.every((badge: Option) => badge.selected))
 
 const unselectAll = () => {
-  props.badges.forEach((badge: Badge) => (badge.selected = false))
+  badges.value.forEach((badge: Option) => (badge.selected = false))
   emit('update:selectedBadges', [])
 }
 
-const toggleBadge = (badge: Badge) => {
+const toggleBadge = (badge: Option) => {
   if (props.uniqueSelection) {
-    props.badges.forEach((badge: Badge) => (badge.selected = false))
+    badges.value.forEach((badge: Option) => (badge.selected = false))
   }
   badge.selected = !badge.selected
   emit(
     'update:selectedBadges',
-    props.badges.filter((badge: Badge) => badge.selected)
+    badges.value.filter((badge: Option) => badge.selected)
   )
 }
 
-const getBadgeColor = (badge: Badge) => {
-  return badge.selected ? badge.color : colorMode.value === 'light' ? 'gray' : 'black'
-}
-
-const getBadgeIcon = (badge: Badge) => {
-  return badge.selected ? 'i-heroicons-check-20-solid' : 'i-heroicons-x-mark-20-solid'
-}
+defineExpose({
+  unselectAll
+})
 </script>

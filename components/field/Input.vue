@@ -1,27 +1,51 @@
 <template>
-  <UFormGroup
+  <UFormField
     :hint="required || !displayHint ? undefined : $t('common.hint.optional')"
     :label="label"
     :name="name"
     :required="required"
-    class="min-h-32 text-justify"
-    size="xl"
+    class="text-justify w-full"
+    :class="minHeight"
   >
     <template #default="{ error }">
       <UInput
         v-model="model as string"
         :disabled="disabled"
-        :icon="icon"
         :placeholder="placeholder"
-        :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
-        :type="type"
-      />
+        :type="comptuedType"
+        class="w-full"
+        size="xl"
+      >
+        <template #leading>
+          <UIcon :name="icon" class="size-6" />
+        </template>
+
+        <template #trailing>
+          <UButton
+            v-if="props.type === 'password'"
+            variant="link"
+            color="neutral"
+            size="sm"
+            :icon="show ? 'i-lucide-eye-off' : 'i-lucide-eye'"
+            aria-label="show ? 'Hide password' : 'Show password'"
+            :aria-pressed="show"
+            aria-controls="password"
+            @click="show = !show"
+          />
+
+          <UIcon
+            v-else-if="error"
+            name="i-heroicons-exclamation-triangle-20-solid"
+            class="text-[var(--ui-error)] size-6"
+          />
+        </template>
+      </UInput>
     </template>
 
     <template #error="{ error }">
-      <span class="text-red-500 text-wrap">{{ error }}</span>
+      <span class="text-wrap">{{ error }}</span>
     </template>
-  </UFormGroup>
+  </UFormField>
 </template>
 
 <script lang="ts" setup>
@@ -54,9 +78,22 @@ const props = defineProps({
   type: {
     type: String as PropType<'email' | 'password' | 'input' | 'tel' | 'number'>,
     default: 'input'
+  },
+  minHeight: {
+    type: String,
+    default: 'min-h-32'
   }
 })
 const model = defineModel<string | number | null>()
+const show = ref(false)
+
+const comptuedType = computed(() => {
+  if (show.value === true) {
+    return 'text'
+  } else {
+    return props.type
+  }
+})
 
 const icon = computed(() => {
   if (props.type === 'email') {
