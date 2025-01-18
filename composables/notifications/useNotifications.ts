@@ -6,7 +6,7 @@ export const useNotifications = () => {
       title,
       description: message,
       icon: 'i-heroicons-check-circle',
-      color: 'green'
+      color: 'success'
     })
   }
 
@@ -15,7 +15,7 @@ export const useNotifications = () => {
       title,
       description: message,
       icon: 'i-heroicons-exclamation-triangle',
-      color: 'red'
+      color: 'error'
     })
   }
 
@@ -24,7 +24,7 @@ export const useNotifications = () => {
       title,
       description: message,
       icon: 'i-heroicons-information-circle',
-      color: 'blue'
+      color: 'info'
     })
   }
 

@@ -1,72 +1,77 @@
 <template>
   <div class="w-screen">
     <div
-      class="flex justify-between items-center p-4 bg-cover bg-no-repeat tablet:p-8 tablet-md:p-12 laptop:p-16"
+      class="flex justify-center items-center p-4 bg-cover bg-no-repeat sm:p-8 md:p-12 lg:p-16"
       :style="{
         backgroundImage: `${linearGradient}, url(${getImageUrl(props.backdropPath, 'original')})`
       }"
     >
-      <div class="flex flex-row items-center gap-4 w-full max-w-7xl mx-auto">
+      <div class="max-w-6xl flex flex-row items-center justify-evenly w-full gap-x-2">
         <NuxtImg
           v-if="props.posterPath !== null && props.name !== null"
           :src="getImageUrl(props.posterPath, 'original')"
           :alt="props.name"
-          class="w-32 h-48 rounded-lg tablet:w-48 tablet:h-72 tablet-md:w-64 tablet-md:h-96 laptop:w-[384px] laptop:h-[576px]"
+          class="w-32 h-48 rounded-lg sm:w-48 sm:h-72 md:w-64 md:h-96 lg:w-[384px] lg:h-[576px]"
         />
         <USkeleton
           v-else
-          class="w-32 h-48 rounded-lg tablet:w-48 tablet:h-72 tablet-md:w-64 tablet-md:h-96 laptop:w-[384px] laptop:h-[576px]"
+          class="w-32 h-48 rounded-lg sm:w-48 sm:h-72 md:w-64 md:h-96 lg:w-[384px] lg:h-[576px]"
         />
 
-        <div class="h-full ml-4 flex flex-col gap-2">
-          <div class="flex flex-col items-start gap-2 laptop:flex-row laptop:items-center">
-            <h1 v-if="props.name !== null" class="text-2xl font-bold text-primary">
-              {{ props.name }}
-            </h1>
-            <UBadge
-              v-if="props.inProduction"
-              color="green"
-              class="text-xs"
-              :ui="{ rounded: 'rounded-full' }"
+        <div class="h-full flex flex-col gap-2">
+          <div class="flex flex-col items-center">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-2 mb-2">
+              <h1
+                v-if="props.name !== null"
+                class="text-2xl font-bold text-[var(--ui-color-primary-400)]"
+              >
+                {{ props.name }}
+              </h1>
+              <UBadge v-if="props.inProduction" color="success" class="text-xs">
+                {{ $t('tvHeader.in_production') }}
+              </UBadge>
+
+              <UBadge v-else color="warning" class="text-xs">
+                {{ $t('tvHeader.finished') }}
+              </UBadge>
+            </div>
+
+            <div
+              class="ring-1 ring-[var(--ui-color-primary-400)]/70 rounded-3xl space-y-1 py-2 px-4"
             >
-              {{ $t('tvHeader.in_production') }}
-            </UBadge>
-
-            <UBadge v-else color="orange" class="text-xs" :ui="{ rounded: 'rounded-full' }">
-              {{ $t('tvHeader.finished') }}
-            </UBadge>
-          </div>
-
-          <div
-            v-if="props.firstAirDate !== null || props.lastAirDate !== null"
-            class="flex flex-col items-start gap-2"
-          >
-            <div class="flex flex-col items-start laptop:flex-row laptop:items-center">
-              <div class="flex items-center gap-2">
-                <UIcon name="i-heroicons-calendar" class="w-4 h-4" />
-                <p v-if="props.firstAirDate !== null" class="text-primary mr-2">
-                  {{ $t('tvHeader.first_air_date') }}
+              <div
+                v-if="props.firstAirDate !== null"
+                class="flex flex-col items-start sm:flex-row sm:items-center gap-x-1.5"
+              >
+                <div class="flex items-center gap-x-0.5">
+                  <UIcon name="i-heroicons-calendar" class="w-6 h-6" />
+                  <p class="text-[var(--ui-color-primary-400)] md:text-lg">
+                    {{ $t('tvHeader.first_air_date') }}
+                  </p>
+                </div>
+                <p>
+                  {{ formatLocalDate(props.firstAirDate) }}
                 </p>
               </div>
-              <p v-if="props.firstAirDate !== null">
-                {{ formatLocalDate(props.firstAirDate) }}
-              </p>
-            </div>
 
-            <div class="flex flex-col items-start laptop:flex-row laptop:items-center">
-              <div class="flex items-center gap-2">
-                <UIcon name="i-heroicons-calendar" class="w-4 h-4" />
-                <p v-if="props.lastAirDate !== null" class="text-primary mr-2">
-                  {{ $t('tvHeader.last_air_date') }}
+              <div
+                v-if="props.lastAirDate !== null"
+                class="flex flex-col items-start sm:flex-row sm:items-center gap-x-1.5"
+              >
+                <div class="flex items-center gap-x-0.5">
+                  <UIcon name="i-heroicons-calendar" class="w-6 h-6" />
+                  <p class="text-[var(--ui-color-primary-400)] md:text-lg">
+                    {{ $t('tvHeader.last_air_date') }}
+                  </p>
+                </div>
+                <p>
+                  {{ formatLocalDate(props.lastAirDate) }}
                 </p>
               </div>
-              <p v-if="props.lastAirDate !== null">
-                {{ formatLocalDate(props.lastAirDate) }}
-              </p>
             </div>
           </div>
 
-          <div class="hidden laptop:block">
+          <div class="hidden lg:block">
             <DetailPartTvInfoContainer
               :vote-average="props.voteAverage"
               :vote-count="props.voteCount"
@@ -78,7 +83,7 @@
       </div>
     </div>
 
-    <div class="p-4 laptop:hidden">
+    <div class="pt-4 lg:hidden">
       <DetailPartTvInfoContainer
         :vote-average="props.voteAverage"
         :vote-count="props.voteCount"

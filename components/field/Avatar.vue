@@ -1,20 +1,19 @@
 <template>
-  <UFormGroup
+  <UFormField
     :label="label"
     :name="name"
-    class="h-40 flex flex-col items-center justify-center"
+    class="w-full h-40 flex flex-col items-center justify-start"
     size="xl"
   >
     <input ref="fileInput" :name="name" class="hidden" type="file" @change="onFileChange" />
-    <div class="flex items-center space-x-4 w-1/3">
+
+    <div class="flex justify-center items-center space-x-4">
       <div
         class="w-fit h-fit flex items-center justify-center rounded-full"
         @click="triggerFileInput"
       >
         <UAvatar v-if="model" :src="model" class="cursor-pointer" size="3xl" />
-        <UAvatar v-else class="cursor-pointer" size="3xl">
-          <UIcon class="text-primary" name="i-heroicons-plus" />
-        </UAvatar>
+        <UAvatar v-else class="cursor-pointer" size="3xl" icon="i-lucide-image" />
       </div>
 
       <UButton
@@ -27,10 +26,10 @@
       <UButton v-else :label="$t('avatar.buttons.upload')" size="sm" @click="triggerFileInput" />
     </div>
 
-    <div v-if="error" class="text-red-500 text-sm mt-1">
+    <UContainer v-if="error" class="text-[var(--ui-error)] text-justify text-sm mt-2">
       {{ error }}
-    </div>
-  </UFormGroup>
+    </UContainer>
+  </UFormField>
 </template>
 
 <script lang="ts" setup>

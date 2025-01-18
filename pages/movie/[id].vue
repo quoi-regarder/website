@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex flex-col justify-center items-center overflow-x-hidden">
+  <div class="w-full flex flex-col justify-center items-center overflow-x-hidden gap-y-4 my-4">
     <!-- Header -->
     <LazyDetailMovieHeader
       v-if="movie"
@@ -15,42 +15,40 @@
     />
     <USkeleton v-else class="w-full h-96" />
 
-    <div class="w-full max-w-7xl p-4 space-y-8">
-      <!-- Provider -->
-      <LazyDetailCommonProvider
-        v-if="movie"
-        :providers="movie?.['watch/providers']?.results[locale.toUpperCase()]"
-      />
-      <USkeleton v-else class="w-full h-96" />
+    <!-- Provider -->
+    <LazyDetailCommonProvider
+      v-if="movie"
+      :providers="movie?.['watch/providers']?.results[locale.toUpperCase()]"
+    />
+    <USkeleton v-else class="w-full h-96" />
 
-      <!-- Trailer -->
-      <LazyDetailCommonTrailer v-if="movie" :videos="movie?.videos.results" />
-      <USkeleton v-else class="w-full h-96" />
+    <!-- Trailer -->
+    <LazyDetailCommonTrailer v-if="movie" :videos="movie?.videos.results" />
+    <USkeleton v-else class="w-full h-96" />
 
-      <!-- Collection -->
-      <LazyDetailMovieCollection
-        v-if="movie && movie.belongs_to_collection"
-        :collection="movie?.belongs_to_collection"
-      />
+    <!-- Collection -->
+    <LazyDetailMovieCollection
+      v-if="movie && movie.belongs_to_collection"
+      :collection="movie?.belongs_to_collection"
+    />
 
-      <!-- Casting -->
-      <LazyDetailCommonCasting
-        v-if="movie"
-        :casts="movie?.credits.cast"
-        :crews="movie?.credits.crew"
-        :production="movie?.production_companies"
-      />
-      <USkeleton v-else class="w-full h-96" />
+    <!-- Casting -->
+    <LazyDetailCommonCasting
+      v-if="movie"
+      :casts="movie?.credits.cast"
+      :crews="movie?.credits.crew"
+      :production="movie?.production_companies"
+    />
+    <USkeleton v-else class="w-full h-96" />
 
-      <!-- Similar -->
-      <LazyDetailCommonSimilar
-        v-if="movie"
-        :similar="movie?.similar.results"
-        :genres="genres"
-        :title="$t('similar.title.movies')"
-      />
-      <USkeleton v-else class="w-full h-96" />
-    </div>
+    <!-- Similar -->
+    <LazyDetailCommonSimilar
+      v-if="movie"
+      :similar="movie?.similar.results"
+      :genres="genres"
+      :title="$t('similar.title.movies')"
+    />
+    <USkeleton v-else class="w-full h-96" />
   </div>
 </template>
 
@@ -69,7 +67,7 @@ useHead({
 })
 
 const movie = ref<any>(null)
-const genres = ref<Badge[]>([])
+const genres = ref<Option[]>([])
 
 onMounted(async () => {
   await fetchMovie()
@@ -89,8 +87,7 @@ const fetchGenres = async () => {
 
   genres.value = data.genres.map((genre: any, index: number) => ({
     id: genre.id,
-    name: genre.name,
-    color: getGenreColor(genre.id),
+    label: genre.name,
     selected: false
   }))
 }

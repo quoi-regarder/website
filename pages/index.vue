@@ -1,16 +1,15 @@
 <template>
-  <div class="relative flex flex-col gap-8 laptop:gap-4">
+  <div class="relative flex flex-col gap-y-8">
     <!-- Back to top button -->
     <UButton
       :class="{
         'opacity-100 visible': showButton,
         'opacity-0 invisible': !showButton
       }"
-      class="fixed top-24 left-1/2 -translate-x-1/2 z-50 shadow-lg transition-all ease-in duration-500"
+      class="fixed top-24 left-1/2 -translate-x-1/2 z-50 rounded-xl shadow-lg transition-all ease-in duration-500"
       size="xl"
       variant="solid"
       :label="$t('common.buttons.backToTop')"
-      :ui="{ rounded: 'rounded-full' }"
       @click="scrollToTop"
     >
       <template #trailing>
@@ -23,25 +22,25 @@
       alt="Background image"
       class="absolute object-cover w-full h-[60vh] opacity-50 bg-gradient-radial z-0"
       src="/img/background.webp"
+      format="webp"
+      preload
     />
 
     <!-- Content Section -->
-    <div
+    <UContainer
       :class="{
-        'min-h-[30vh] laptop:min-h-[15vh]': showCarousel,
-        'min-h-[30vh] laptop:min-h-[55vh]': !showCarousel
+        'lg:min-h-[35vh]': showCarousel,
+        'lg:min-h-[55vh]': !showCarousel
       }"
-      class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out relative z-10"
+      class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out relative"
     >
-      <h1 class="text-4xl font-bold text-center mb-2">{{ $t('home.title') }}</h1>
+      <h1 class="text-4xl text-[var(--ui-color-primary-400)] font-bold text-center mb-2">
+        {{ $t('home.title') }}
+      </h1>
       <h2 class="text-lg font-semibold text-center mb-8">{{ $t('home.subtitle') }}</h2>
 
       <div class="flex items-center justify-center gap-4">
-        <UTooltip
-          :text="$t('home.form.tooltip.reset')"
-          :ui="{ base: '[@media(pointer:coarse)]:!block' }"
-          :popper="{ arrow: true }"
-        >
+        <UTooltip :text="$t('home.form.tooltip.reset')">
           <UButton
             icon="i-heroicons-arrow-path-rounded-square"
             size="xl"
@@ -59,50 +58,29 @@
           {{ $t('home.form.buttons.search') }}
         </UButton>
       </div>
-      <div
-        class="flex flex-col mt-4 tablet:gap-x-4 w-11/12 tablet-md:w-[60%] laptop:w-[50%] desktop:w-[40%]"
-      >
-        <FilterType ref="typeFilterRef" @update:model-value="selectedType = $event" />
+      <div class="flex flex-col mt-4">
+        <FilterType v-model="selectedType" @update:model-value="resetSeachAndFilters" />
       </div>
-    </div>
+    </UContainer>
 
     <!-- Carousel Section -->
     <div
       id="carousel"
-      :class="{ 'opacity-100 min-h-[70vh]': showCarousel, 'opacity-0': !showCarousel }"
+      :class="{ 'opacity-100': showCarousel, 'opacity-0': !showCarousel }"
       class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in relative z-10"
     >
       <UCarousel
-        ref="carouselRef"
-        :items="movies"
-        :ui="{ item: 'basis-full' }"
+        ref="carousel"
+        :items="results"
+        class-names
+        class="max-w-[75vw]"
         arrows
-        class="w-full"
+        :ui="{
+          item: 'basis-full lg:basis-[60%] lg:transition-opacity lg:[&:not(.is-snapped)]:opacity-30'
+        }"
       >
         <template #default="{ item }">
-          <div
-            class="mx-auto h-fit w-[98%] tablet:w-[90%] laptop:w-[80%] desktop:w-[60%] fullhd:w-[50%] flex flex-col items-start"
-          >
-            <MovieCard :genres="genres" :item="item" class="h-full" :type="selectedType" />
-          </div>
-        </template>
-        <template #next="{ onClick, disabled }">
-          <UButton
-            :disabled="disabled"
-            :ui="{ rounded: 'rounded-full' }"
-            class="absolute right-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
-            icon="i-heroicons-chevron-right"
-            @click="onClick"
-          />
-        </template>
-        <template #prev="{ onClick, disabled }">
-          <UButton
-            :disabled="disabled"
-            :ui="{ rounded: 'rounded-full' }"
-            class="absolute left-2 top-[calc(3/2*100vw-1rem)] tablet:top-[calc((3/2*100vw-1rem)/2)] laptop:top-1/2"
-            icon="i-heroicons-chevron-left"
-            @click="onClick"
-          />
+          <MovieCard :genres="genres" :item="item" class="h-full" :type="selectedType" />
         </template>
       </UCarousel>
     </div>
@@ -110,40 +88,35 @@
     <!-- Bottom Section -->
     <div
       class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out relative z-10"
-      :class="{
-        'min-h-[0vh] tablet:min-h-[0vh]': moreFilters,
-        'min-h-[0vh] tablet:min-h-[45vh]': !moreFilters
-      }"
     >
-      <div class="grid grid-cols-1 items-center laptop-md:grid-cols-5 gap-4 p-4">
+      <div class="grid grid-cols-1 xl:grid-cols-5 gap-4 p-4">
         <FilterGenre
           ref="genreFilterRef"
-          class="laptop-md:col-span-3 laptop-md:row-span-2"
+          v-model="genres"
           :type="selectedType"
-          @update:genres="genres = $event"
+          class="xl:col-span-3 xl:row-span-2 h-full"
           @update:selected-genres="selectedGenres = $event"
         />
         <FilterPlatform
           ref="platformFilterRef"
-          class="laptop-md:col-span-2 laptop-md:row-span-1"
+          class="xl:col-span-2 xl:row-span-1 h-full"
           :type="selectedType"
           @update:selected-platforms="selectedPlatforms = $event"
-          @update:platforms="platforms = $event"
         />
 
         <FilterVotes
           ref="votesFilterRef"
-          class="laptop-md:col-span-2 laptop-md:row-span-1"
+          class="xl:col-span-2 xl:row-span-1 h-full"
           @update:selected-votes="selectedVotes = $event"
         />
       </div>
 
-      <UButton class="mt-4 self-center" size="xl" variant="link" @click="toggleMoreFilters">
-        <div class="flex flex-col items-center justify-center gap-2">
+      <UButton class="my-4 self-center" size="xl" variant="link" @click="toggleMoreFilters">
+        <div class="flex flex-col items-center justify-center">
           <span>{{ $t('home.form.buttons.moreFilters') }}</span>
           <UIcon
             :class="{ 'rotate-180': moreFilters }"
-            class="text-primary size-6 transition-all duration-300"
+            class="text-[var(--ui-color-primary-400)] size-6 transition-all duration-300"
             name="i-heroicons-chevron-down"
           />
         </div>
@@ -155,15 +128,15 @@
       v-if="moreFilters || moreFiltersTransition"
       id="filters"
       :class="{
-        'min-h-fit opacity-100 visible': moreFilters,
-        'min-h-0 opacity-0 invisible': !moreFilters
+        'opacity-100 visible': moreFilters,
+        'opacity-0 invisible': !moreFilters
       }"
-      class="grid grid-cols-1 items-center laptop-md:grid-cols-6 gap-4 p-4 transition-all duration-1000 ease-in-out"
+      class="grid grid-cols-1 items-center xl:grid-cols-6 gap-4 p-4 transition-all duration-1000 ease-in-out"
       @transitionend="handleTransitionEnd"
     >
       <FilterBy
         ref="filterByRef"
-        class="laptop-md:col-span-4 laptop-md:row-span-1 order-1 laptop-md:order-none"
+        class="xl:col-span-4 xl:row-span-1 order-1 xl:order-none h-full"
         :type="selectedType"
         @update:selected-by="selectedFilterBy = $event"
         @update:direction="selectedFilterByDirection = $event"
@@ -172,20 +145,20 @@
       <FilterPerson
         v-if="displayMovieFilters"
         ref="personFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-2 laptop-md:order-none"
+        class="xl:col-span-2 xl:row-span-1 order-2 xl:order-none h-full"
         @update:selected-persons="selectedPersons = $event"
       />
 
       <FilterMonetization
         ref="monetizationFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-4 laptop-md:order-none"
+        class="xl:col-span-2 xl:row-span-1 order-4 xl:order-none h-full"
         @update:selected-monetization="selectedMonetization = $event"
       />
 
       <FilterDateRange
         v-if="displaySeriesFilters"
         ref="airDateFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-5 laptop-md:order-none"
+        class="xl:col-span-2 xl:row-span-1 order-5 xl:order-none h-full"
         :title="$t('dateRange.air_date')"
         @update:from-date="airFromDate = $event"
         @update:to-date="airToDate = $event"
@@ -193,7 +166,7 @@
 
       <FilterDateRange
         ref="yearFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-5 laptop-md:order-none"
+        class="xl:col-span-2 xl:row-span-1 order-5 xl:order-none h-full"
         :title="selectedType === 'movie' ? $t('dateRange.title') : $t('dateRange.first_air_date')"
         @update:from-date="fromDate = $event"
         @update:to-date="toDate = $event"
@@ -201,35 +174,33 @@
 
       <FilterCompany
         ref="companyFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-3 laptop-md:order-none"
+        class="xl:col-span-2 xl:row-span-1 order-3 xl:order-none h-full"
         @update:selected-companies="selectedCompanies = $event"
       />
 
       <FilterAge
         ref="ageFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-6 laptop-md:order-none"
+        class="xl:col-span-2 xl:row-span-1 order-6 xl:order-none h-full"
         @update:selected-ages="selectedAges = $event"
       />
 
       <FilterMark
         ref="markFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-7 laptop-md:order-none"
+        class="xl:col-span-2 xl:row-span-1 order-7 xl:order-none h-full"
         @update:selected-mark="selectedMark = $event"
       />
 
       <FilterDuration
         ref="durationFilterRef"
-        class="laptop-md:col-span-2 laptop-md:row-span-1 order-8 laptop-md:order-none"
-        @update:selected-min-duration="selectedMinDuration = $event"
-        @update:selected-max-duration="selectedMaxDuration = $event"
+        class="xl:col-span-2 xl:row-span-1 order-8 xl:order-none h-full"
+        @update:duration="selectedDuration = $event"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { format } from 'date-fns'
-
+import type { CalendarDate } from '@internationalized/date'
 const { locale, t } = useI18n()
 
 useHead({
@@ -241,25 +212,23 @@ useHead({
 const selectedType = ref<'movie' | 'tv'>('movie')
 const displayMovieFilters = computed(() => selectedType.value === 'movie')
 const displaySeriesFilters = computed(() => selectedType.value === 'tv')
-const selectedGenres = ref<Badge[]>([])
+const selectedGenres = ref<Option[]>([])
 const selectedPlatforms = ref<Option[]>([])
 const selectedMark = ref<number>(0)
 const selectedFilterBy = ref<string | null>(null)
-const selectedFilterByDirection = ref<Direction | null>(null)
-const selectedAges = ref<Badge[]>([])
-const selectedMaxDuration = ref<number | null>(null)
-const selectedMinDuration = ref<number | null>(null)
+const selectedFilterByDirection = ref<'asc' | 'desc' | null>(null)
+const selectedAges = ref<Option[]>([])
+const selectedDuration = ref<number[]>([0, 0])
 const selectedMonetization = ref<Option[]>([])
 const selectedVotes = ref<number | null>(null)
 const selectedPersons = ref<Option[]>([])
 const selectedCompanies = ref<Option[]>([])
-const fromDate = ref<Date | null>(null)
-const toDate = ref<Date | null>(null)
-const airFromDate = ref<Date | null>(null)
-const airToDate = ref<Date | null>(null)
+const fromDate = ref<CalendarDate | null>(null)
+const toDate = ref<CalendarDate | null>(null)
+const airFromDate = ref<CalendarDate | null>(null)
+const airToDate = ref<CalendarDate | null>(null)
 
 // Filters refs
-const typeFilterRef = ref()
 const genreFilterRef = ref()
 const platformFilterRef = ref()
 const markFilterRef = ref()
@@ -274,20 +243,19 @@ const votesFilterRef = ref()
 const durationFilterRef = ref()
 
 // Data
-const genres = ref([])
-const platforms = ref([])
+const genres = ref<Option[]>([])
 const moreFilters = ref(false)
 
 // Carousel
 const searching = ref(false)
-const carouselRef = ref()
+const carousel = useTemplateRef('carousel')
 const showCarousel = ref(false)
 
 // Transition
 const moreFiltersTransition = ref(false)
 
-// Movies
-const movies = ref([])
+// Results
+const results = ref([])
 
 // Pagination
 const page = ref(1)
@@ -321,13 +289,13 @@ const searchQuery = async (reset = false, showToast = true) => {
 
     page.value = data.page
     totalPages.value = data.total_pages
-    movies.value = [...movies.value, ...data.results]
+    results.value = [...results.value, ...data.results]
   } catch (error) {
     console.error('Error fetching movies:', error)
   } finally {
     searching.value = false
 
-    if (movies.value.length > 0) {
+    if (results.value.length > 0) {
       showCarousel.value = true
 
       if (showToast) {
@@ -374,7 +342,7 @@ const commonFilters = (manager: QueryParamsManager) => {
     manager.addWithLogic(
       'with_watch_providers',
       selectedPlatforms.value.map((platform) => platform.id),
-      LogicalOperator.AND
+      LogicalOperator.OR
     )
   }
 
@@ -406,12 +374,12 @@ const commonFilters = (manager: QueryParamsManager) => {
     )
   }
 
-  if (selectedMinDuration.value !== null) {
-    manager.add('with_runtime_gte', selectedMinDuration.value)
+  if (selectedDuration.value[0] !== 0) {
+    manager.add('with_runtime_gte', selectedDuration.value[0])
   }
 
-  if (selectedMaxDuration.value !== null) {
-    manager.add('with_runtime_lte', selectedMaxDuration.value)
+  if (selectedDuration.value[1] !== 0) {
+    manager.add('with_runtime_lte', selectedDuration.value[1])
   }
 }
 
@@ -425,11 +393,11 @@ const exclusiveMovieFilters = (manager: QueryParamsManager) => {
   }
 
   if (fromDate.value !== null) {
-    manager.add('release_date_gte', format(fromDate.value, 'yyyy-MM-dd'))
+    manager.add('release_date_gte', fromDate.value.toString())
   }
 
   if (toDate.value !== null) {
-    manager.add('release_date_lte', format(toDate.value, 'yyyy-MM-dd'))
+    manager.add('release_date_lte', toDate.value.toString())
   }
 
   if (selectedMonetization.value.length > 0) {
@@ -443,19 +411,19 @@ const exclusiveMovieFilters = (manager: QueryParamsManager) => {
 
 const exclusiveSeriesFilters = (manager: QueryParamsManager) => {
   if (fromDate.value !== null) {
-    manager.add('first_air_date_gte', format(fromDate.value, 'yyyy-MM-dd'))
+    manager.add('first_air_date_gte', fromDate.value.toString())
   }
 
   if (toDate.value !== null) {
-    manager.add('first_air_date_lte', format(toDate.value, 'yyyy-MM-dd'))
+    manager.add('first_air_date_lte', toDate.value.toString())
   }
 
   if (airFromDate.value !== null) {
-    manager.add('air_date_gte', format(airFromDate.value, 'yyyy-MM-dd'))
+    manager.add('air_date_gte', airFromDate.value.toString())
   }
 
   if (airToDate.value !== null) {
-    manager.add('air_date_lte', format(airToDate.value, 'yyyy-MM-dd'))
+    manager.add('air_date_lte', airToDate.value.toString())
   }
 
   if (selectedMonetization.value.length > 0) {
@@ -497,7 +465,7 @@ const scrollToTop = () => {
 
 // Reset
 const resetSearchState = () => {
-  movies.value = []
+  results.value = []
   page.value = 1
   totalPages.value = 0
 }
@@ -530,24 +498,17 @@ const handleTransitionEnd = () => {
 }
 
 // Watchers
-watch(
-  () => carouselRef.value?.page,
-  (currentPage) => {
-    if (!carouselRef.value) return
-    const isLastPage = currentPage === carouselRef.value.pages - 2
-    if (isLastPage && page.value < totalPages.value) {
-      page.value += 1
-      searchQuery(false, false)
-    }
+watch(carousel, () => {
+  if (carousel.value?.emblaApi) {
+    carousel.value.emblaApi.on('select', () => {
+      const index = carousel.value?.emblaApi?.selectedScrollSnap()
+      if (index === results.value.length - 5) {
+        page.value++
+        searchQuery(false, false)
+      }
+    })
   }
-)
-
-watch(
-  () => selectedType.value,
-  () => {
-    resetSeachAndFilters()
-  }
-)
+})
 </script>
 
 <style scoped>

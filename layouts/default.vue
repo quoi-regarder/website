@@ -3,7 +3,7 @@
     <Body>
       <template v-if="!isAuth">
         <NavBar
-          class="fixed top-0 left-0 w-full bg-white/60 backdrop-blur-md shadow-md z-50 dark:bg-gray-800/40"
+          class="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-50 bg-[var(--ui-bg)]/5"
         />
       </template>
       <div :class="[isAuth ? 'mt-0' : 'mt-20']">

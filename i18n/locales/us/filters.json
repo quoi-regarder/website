@@ -1,6 +1,5 @@
 {
   "age": {
-    "description": "By default, no age certification is selected.",
     "labels": {
       "eighteen": "18 years old",
       "sixteen": "16 years old",
@@ -22,6 +21,7 @@
     "hint": "The up arrow indicates ascending order (smallest to largest, oldest to newest, A to Z). The down arrow indicates descending order (largest to smallest, newest to oldest, Z to A).",
     "labels": {
       "first_air_date": "First air date",
+      "name": "Title",
       "original_name": "Original name",
       "original_title": "Original title",
       "popularity": "Popularity",
@@ -47,12 +47,10 @@
     "to": "To"
   },
   "duration": {
+    "and": "and",
+    "between": "Between",
     "buttons": {
       "reset": "Reset"
-    },
-    "mode": {
-      "max": "Maximum duration",
-      "min": "Minimum duration"
     },
     "title": "Duration",
     "unit": "{count} minute | {count} minutes"
@@ -87,11 +85,8 @@
     "title": "Availability type"
   },
   "multiSelect": {
-    "create": "Create \"{name}\".",
     "loading": "Start typing to search for items...",
-    "noOptions": "No options available.",
-    "noResults": "No results found for \"{query}\".",
-    "search": "Search...",
+    "noOptions": "No data",
     "selected": "No items selected | {count} item selected | {count} items selected"
   },
   "person": {

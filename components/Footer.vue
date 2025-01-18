@@ -1,48 +1,46 @@
 <template>
-  <footer class="bg-zinc-800 text-white py-6">
-    <div
-      class="mx-8 flex flex-col items-center justify-between space-y-8 laptop:space-y-0 laptop:flex-row"
-    >
-      <div class="text-center laptop:text-left laptop:w-1/5">
-        <h3 class="text-lg font-semibold text-primary">
+  <footer class="py-6 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]">
+    <div class="mx-8 flex flex-col items-center justify-between space-y-8 lg:space-y-0 lg:flex-row">
+      <div class="text-center lg:text-left lg:w-1/5">
+        <h3 class="text-lg font-semibold text-[var(--ui-color-primary-400)]">
           {{ $t('footer.title') }}
         </h3>
-        <p class="text-sm text-zinc-300">
+        <p class="text-sm">
           {{ $t('footer.tagline') }}
         </p>
       </div>
 
-      <nav class="laptop:w-3/5 flex flex-wrap justify-evenly gap-4">
-        <div class="flex flex-col items-center laptop:items-start gap-2">
-          <h4 class="text-sm font-semibold text-primary">{{ $t('footer.category.general') }}</h4>
+      <nav class="lg:w-3/5 flex flex-wrap justify-evenly gap-4">
+        <div class="flex flex-col items-center lg:items-start gap-2">
+          <h4 class="font-semibold text-[var(--ui-color-primary-400)]">
+            {{ $t('footer.category.general') }}
+          </h4>
           <ULink
             v-for="link in generalLinks"
             :key="link.label"
             :to="localePath(link.to)"
-            class="text-xs hover:text-primary transition-colors duration-200"
+            class="text-sm transition-colors duration-200"
           >
             {{ $t(link.label) }}
           </ULink>
         </div>
 
-        <div class="flex flex-col items-center laptop:items-start gap-2">
-          <h4 class="text-sm font-semibold text-primary">
+        <div class="flex flex-col items-center lg:items-start gap-2">
+          <h4 class="font-semibold text-[var(--ui-color-primary-400)]">
             {{ $t('footer.category.regulations') }}
           </h4>
           <ULink
             v-for="link in regulationLinks"
             :key="link.label"
             :to="localePath(link.to)"
-            class="text-xs hover:text-primary transition-colors duration-200"
+            class="text-sm transition-colors duration-200"
           >
             {{ $t(link.label) }}
           </ULink>
         </div>
       </nav>
 
-      <div
-        class="laptop:w-1/5 flex flex-col gap-2 justify-center items-center text-xs text-zinc-300"
-      >
+      <div class="lg:w-1/5 flex flex-col gap-2 justify-center items-center text-sm">
         <NuxtImg
           src="/favicon.png"
           alt="Logo"

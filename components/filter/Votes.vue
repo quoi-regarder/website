@@ -1,15 +1,11 @@
 <template>
   <NuxtLayout name="filter" :title="$t('votes.title')" has-buttons>
     <template #buttons>
-      <UButton
-        :label="$t('votes.buttons.reset')"
-        class="order-1 laptop-md:order-2"
-        @click="handleReset"
-      />
+      <UButton :label="$t('votes.buttons.reset')" class="order-1 lg:order-2" @click="reset" />
     </template>
 
     <template #content>
-      <URange
+      <USlider
         v-model="votes"
         :max="maxVotes"
         :min="minVotes"
@@ -17,14 +13,14 @@
         class="w-full self-center"
         indicator
         :ui="{
-          track: {
-            background:
-              '[&::-webkit-slider-runnable-track]:dark:bg-gray-400 [&::-moz-range-track]:dark:bg-gray-400'
+          slider: {
+            track: 'bg-[var(--ui-bg-accented)]'
           }
         }"
+        @update:model-value="emit('update:selected-votes', $event)"
       />
       <div class="flex justify-end self-center min-w-32">
-        <p class="text-lg font-semibold text-gray-600 dark:text-gray-200">
+        <p class="text-lg font-semibold">
           {{ $t('votes.unit', { count: votes }) }}
         </p>
       </div>
@@ -33,33 +29,18 @@
 </template>
 
 <script lang="ts" setup>
-const votes = ref<number | null>(500)
+const votes = ref<number | number[] | undefined>(500)
 const minVotes = 0
 const maxVotes = 1000
 
-const emit = defineEmits({
-  'update:selected-votes': {
-    type: Function as PropType<(value: number | null) => void>,
-    required: true
-  }
-})
+const emit = defineEmits(['update:selected-votes'])
 
-const handleReset = () => {
-  votes.value = null
-}
+emit('update:selected-votes', votes.value)
 
 const reset = () => {
-  votes.value = null
-  emit('update:selected-votes', 500)
-}
-
-watchEffect(() => {
-  if (!votes.value) {
-    return
-  }
-
+  votes.value = 500
   emit('update:selected-votes', votes.value)
-})
+}
 
 defineExpose({
   reset

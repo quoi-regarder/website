@@ -1,7 +1,13 @@
 <template>
-  <div>
-    <UForm :schema="schema" :state="state" @submit="onSubmit">
-      <div class="flex justify-center">
+  <UContainer
+    class="px-4 py-8 mt-28 mb-8 space-y-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
+  >
+    <h1 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
+      {{ $t('profile.title') }}
+    </h1>
+
+    <UForm :schema="schema" :state="state" class="flex flex-col items-center" @submit="onSubmit">
+      <div class="flex justify-center w-full">
         <LazyFieldAvatar
           v-model="state.avatar_url"
           :label="$t('profile.form.fields.avatar')"
@@ -10,8 +16,8 @@
         />
       </div>
 
-      <div class="grid grid-cols-2 mt-8">
-        <div class="w-2/3 mx-auto">
+      <div class="grid md:grid-cols-2 gap-4 w-full justify-items-center">
+        <div class="md:w-2/3">
           <LazyFieldInput
             v-model="state.last_name as string"
             :label="$t('profile.form.fields.lastName')"
@@ -26,7 +32,7 @@
             name="firstName"
           />
         </div>
-        <div class="w-2/3 mx-auto">
+        <div class="md:w-2/3">
           <LazyFieldInput
             v-model="state.username"
             :label="$t('profile.form.fields.username')"
@@ -50,60 +56,35 @@
       <UButton :label="$t('profile.form.buttons.submit')" size="lg" type="submit" />
     </UForm>
 
-    <div class="mt-8">
-      <UButton
-        :label="$t('profile.form.buttons.deleteAccount')"
-        color="black"
-        size="lg"
-        variant="outline"
-        @click="isDeleteAccountModalOpen = true"
-      />
-    </div>
+    <USeparator />
 
-    <UModal v-model="isDeleteAccountModalOpen" :ui="{ container: 'items-center', width: 'w-fit' }">
-      <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100' }" class="max-w-lg">
-        <template #header>
-          <div class="flex items-center justify-between">
-            <h3 class="text-primary font-semibold text-xl">
-              {{ $t('profile.modals.deleteAccount.title') }}
-            </h3>
-            <UButton
-              class="-my-1"
-              color="black"
-              icon="i-heroicons-x-mark-solid"
-              size="lg"
-              variant="outline"
-              @click="isDeleteAccountModalOpen = false"
-            />
-          </div>
-        </template>
-
-        <div>
-          <p class="text-gray-500 text-justify">
-            {{ $t('profile.modals.deleteAccount.description') }}
-          </p>
-        </div>
-
-        <template #footer>
+    <div class="flex justify-center w-full">
+      <UModal
+        v-model:open="isDeleteAccountModalOpen"
+        :title="$t('profile.modals.deleteAccount.title')"
+        :description="$t('profile.modals.deleteAccount.description')"
+      >
+        <UButton :label="$t('profile.form.buttons.deleteAccount')" color="neutral" size="lg" />
+        <template #body>
           <div class="flex justify-end space-x-4">
             <UButton
               :label="$t('profile.modals.deleteAccount.buttons.cancel')"
-              color="black"
+              color="neutral"
+              variant="soft"
               size="lg"
-              variant="outline"
               @click="isDeleteAccountModalOpen = false"
             />
             <UButton
               :label="$t('profile.modals.deleteAccount.buttons.delete')"
-              color="red"
+              color="error"
               size="lg"
               @click="handleDeleteAccount"
             />
           </div>
         </template>
-      </UCard>
-    </UModal>
-  </div>
+      </UModal>
+    </div>
+  </UContainer>
 </template>
 
 <script lang="ts" setup>

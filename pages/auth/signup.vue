@@ -6,9 +6,9 @@
 
     <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
-        <div class="laptop:grid laptop:grid-cols-2 laptop:gap-x-8">
+        <div class="lg:grid lg:grid-cols-2 lg:gap-x-8">
           <div>
-            <field-input
+            <FieldInput
               v-model="state.username"
               :label="$t('signup.form.fields.username')"
               :placeholder="$t('signup.form.placeholders.username')"
@@ -16,14 +16,14 @@
               required
             />
 
-            <field-input
+            <FieldInput
               v-model="state.lastName"
               :label="$t('signup.form.fields.lastName')"
               :placeholder="$t('signup.form.placeholders.lastName')"
               name="lastName"
             />
 
-            <field-input
+            <FieldInput
               v-model="state.firstName"
               :label="$t('signup.form.fields.firstName')"
               :placeholder="$t('signup.form.placeholders.firstName')"
@@ -31,7 +31,7 @@
             />
           </div>
           <div>
-            <field-input
+            <FieldInput
               v-model="state.email"
               :label="$t('signup.form.fields.email')"
               :placeholder="$t('signup.form.placeholders.email')"
@@ -40,7 +40,7 @@
               type="email"
             />
 
-            <field-input
+            <FieldInput
               v-model="state.password"
               :label="$t('signup.form.fields.password')"
               :placeholder="$t('signup.form.placeholders.password')"
@@ -49,7 +49,7 @@
               type="password"
             />
 
-            <field-input
+            <FieldInput
               v-model="state.passwordConfirmation"
               :label="$t('signup.form.fields.passwordConfirmation')"
               :placeholder="$t('signup.form.placeholders.passwordConfirmation')"
@@ -69,20 +69,20 @@
         />
         <p class="text-sm mb-8">
           {{ $t('signup.form.help.termsMessage') }}
-          <ULink :to="localPath('/regulation/terms')" class="text-primary underline"
-            >{{ $t('signup.form.links.terms') }}
+          <ULink :to="localPath('/regulation/terms')">
+            {{ $t('signup.form.links.terms') }}
           </ULink>
         </p>
 
         <UTooltip
-          :ui="{ base: 'h-full [@media(pointer:coarse)]:!block text-wrap' }"
-          :text="state.terms === false ? $t('signup.form.help.termsTooltip') : undefined"
-          class="w-full"
+          :disabled="state.terms === true"
+          :text="$t('signup.form.help.termsTooltip')"
+          arrow
         >
           <UButton
             :label="$t('signup.form.buttons.submit')"
             block
-            size="lg"
+            size="xl"
             type="submit"
             :disabled="state.terms === false"
           />
@@ -91,15 +91,11 @@
     </template>
 
     <template #oauth>
-      <UTooltip
-        :ui="{ base: 'h-full [@media(pointer:coarse)]:!block text-wrap' }"
-        :text="state.terms === false ? $t('signup.form.help.termsTooltip') : undefined"
-        class="w-full"
-      >
+      <UTooltip :disabled="state.terms === true" :text="$t('signup.form.help.termsTooltip')" arrow>
         <UButton
           :label="$t('signup.form.buttons.google')"
           block
-          size="lg"
+          size="xl"
           type="button"
           variant="outline"
           :disabled="state.terms === false"
@@ -113,16 +109,10 @@
     </template>
 
     <template #links>
-      <ULink
-        :to="localPath('/auth/login')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localPath('/auth/login')" class="transition-colors duration-200">
         {{ $t('signup.form.buttons.login') }}
       </ULink>
-      <ULink
-        :to="localPath('/')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localPath('/')" class="transition-colors duration-200">
         {{ $t('signup.form.buttons.home') }}
       </ULink>
     </template>

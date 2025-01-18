@@ -28,17 +28,18 @@ export default defineNuxtConfig({
   },
 
   modules: [
-    '@nuxt/icon',
+    '@nuxt/ui',
     '@nuxtjs/i18n',
     '@nuxtjs/supabase',
     '@nuxt/image',
-    '@nuxt/fonts',
-    '@nuxt/ui',
     '@nuxtjs/seo',
     '@nuxt/eslint',
     '@nuxthub/core',
-    '@nuxt/scripts'
+    '@nuxt/scripts',
+    '@vueuse/nuxt'
   ],
+
+  css: ['/assets/css/main.css'],
 
   // Environment variables
   runtimeConfig: {
@@ -134,5 +135,5 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2024-12-29'
+  compatibilityDate: '2025-01-16'
 })

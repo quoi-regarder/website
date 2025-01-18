@@ -8,27 +8,26 @@
     show-tooltip
   >
     <template #buttons>
-      <UButton :label="$t('by.buttons.reset')" @click="handleReset" />
+      <UButton :label="$t('by.buttons.reset')" @click="reset" />
     </template>
 
     <template #content>
       <div
-        class="w-full h-full flex flex-row gap-2 justify-around items-center flex-wrap laptop-md:grid laptop-md:grid-cols-3 laptop-md:gap-2"
+        class="w-full h-full flex flex-wrap gap-2 justify-around items-center lg:grid lg:grid-cols-3 lg:gap-2"
       >
         <UButton
-          v-for="item in type === 'movie' ? movieItems : tvItems"
+          v-for="item in items"
           :key="item.id"
-          :variant="toggledId === item.id ? 'solid' : 'outline'"
+          :variant="item.selected ? 'solid' : 'outline'"
           class="flex items-center justify-between"
           @click="toggle(item)"
         >
-          {{ item.name }}
-
+          {{ item.label }}
           <template #trailing>
             <UIcon
-              v-if="toggledId === item.id"
+              v-if="item.selected"
               :name="
-                toggledDirection === Direction.ASC
+                toggledDirection === 'asc'
                   ? 'i-heroicons-chevron-up-solid'
                   : 'i-heroicons-chevron-down-solid'
               "
@@ -43,6 +42,8 @@
 </template>
 
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
+
 const { t } = useI18n()
 
 const props = defineProps({
@@ -52,108 +53,69 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits({
-  'update:selected-by': {
-    type: Function as PropType<(option: Option) => void>,
-    required: true
-  },
-  'update:direction': {
-    type: Function as PropType<(direction: Direction) => void>,
-    required: false
-  }
-})
+const emit = defineEmits(['update:selected-by', 'update:direction'])
 
-const toggledDirection = ref<Direction | null>(Direction.DESC)
-const toggledId = ref('')
+const toggledDirection = ref<'asc' | 'desc' | null>(null)
 
-const movieItems = ref<Option[]>([
-  {
-    id: 'title',
-    name: t('by.labels.title')
-  },
-  {
-    id: 'original_title',
-    name: t('by.labels.original_title')
-  },
-  {
-    id: 'primary_release_date',
-    name: t('by.labels.primary_release_date')
-  },
-  {
-    id: 'revenue',
-    name: t('by.labels.revenue')
-  },
-  {
-    id: 'vote_average',
-    name: t('by.labels.vote_average')
-  },
-  {
-    id: 'vote_count',
-    name: t('by.labels.vote_count')
-  }
-])
-
-const tvItems = ref<Option[]>([
-  {
-    id: 'name',
-    name: t('by.labels.title')
-  },
-  {
-    id: 'original_name',
-    name: t('by.labels.original_name')
-  },
-  {
-    id: 'first_air_date',
-    name: t('by.labels.first_air_date')
-  },
-  {
-    id: 'vote_average',
-    name: t('by.labels.vote_average')
-  },
-  {
-    id: 'vote_count',
-    name: t('by.labels.vote_count')
-  }
-])
-
-const toggle = (item: Option) => {
-  if (toggledId.value === item.id) {
-    switch (toggledDirection.value) {
-      case Direction.ASC:
-        toggledDirection.value = Direction.DESC
-        break
-      case Direction.DESC:
-        toggledDirection.value = null
-        break
-      default:
-        toggledDirection.value = Direction.ASC
-        break
-    }
-  } else {
-    toggledId.value = item.id
-    toggledDirection.value = Direction.ASC
-  }
+type Option = {
+  id: string
+  label: string
+  selected: boolean
 }
 
-const handleReset = () => {
-  toggledId.value = ''
-  toggledDirection.value = Direction.DESC
+const createItems = (type: 'movie' | 'tv'): Option[] => {
+  let labels: string[]
+
+  if (type === 'movie') {
+    labels = [
+      'title',
+      'original_title',
+      'primary_release_date',
+      'revenue',
+      'vote_average',
+      'vote_count'
+    ]
+  } else {
+    labels = ['name', 'original_name', 'first_air_date', 'vote_average', 'vote_count']
+  }
+
+  return labels.map((id) => ({
+    id,
+    label: t(`by.labels.${id}`),
+    selected: false
+  }))
+}
+
+const movieItems = ref(createItems('movie'))
+const tvItems = ref(createItems('tv'))
+
+const items = computed(() => (props.type === 'movie' ? movieItems.value : tvItems.value))
+
+const toggle = (item: Option) => {
+  if (item.selected) {
+    toggledDirection.value = toggledDirection.value === 'asc' ? 'desc' : 'asc'
+  } else {
+    unselectAll()
+    item.selected = true
+    toggledDirection.value = 'asc'
+  }
+
+  emit('update:selected-by', item.id)
+  emit('update:direction', toggledDirection.value)
 }
 
 const reset = () => {
-  toggledId.value = ''
-  toggledDirection.value = Direction.DESC
+  unselectAll()
+  emit('update:selected-by', null)
+  emit('update:direction', null)
 }
 
-watchEffect(() => {
-  if (toggledId.value === '' || toggledDirection.value === null) {
-    emit('update:selected-by', null)
-    emit('update:direction', null)
-  } else {
-    emit('update:selected-by', toggledId.value)
-    emit('update:direction', toggledDirection.value)
-  }
-})
+const unselectAll = () => {
+  ;[...movieItems.value, ...tvItems.value].forEach((item) => {
+    item.selected = false
+  })
+  toggledDirection.value = null
+}
 
 defineExpose({
   reset

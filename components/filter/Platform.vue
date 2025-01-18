@@ -4,10 +4,10 @@
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
           ref="multiSelectRef"
+          v-model="platforms"
           name="platforms"
-          :options="platforms"
           class="w-full"
-          @update:model-value="emit('update:selectedPlatforms', $event)"
+          @update:selected-options="emit('update:selectedPlatforms', $event)"
         />
       </div>
     </template>
@@ -24,16 +24,7 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits({
-  'update:selectedPlatforms': {
-    type: Function as PropType<(platforms: Option[]) => void>,
-    required: true
-  },
-  'update:platforms': {
-    type: Array as PropType<Option[]>,
-    required: false
-  }
-})
+const emit = defineEmits(['update:selectedPlatforms'])
 
 const platforms = ref<Option[]>([])
 const multiSelectRef = ref()
@@ -42,13 +33,6 @@ onMounted(async () => {
   await fetchPlatforms()
 })
 
-const reset = () => {
-  platforms.value.forEach((platform) => {
-    platform.selected = false
-  })
-  multiSelectRef.value.reset()
-}
-
 const fetchPlatforms = async () => {
   const manager = new QueryParamsManager(`/api/themoviedb/watch/providers/${props.type}`)
   manager.add('language', locale.value)
@@ -56,10 +40,12 @@ const fetchPlatforms = async () => {
 
   platforms.value = data.results.map((platform: any) => ({
     id: platform.provider_id,
-    name: platform.provider_name
+    label: platform.provider_name
   }))
+}
 
-  emit('update:platforms', platforms.value)
+const reset = () => {
+  multiSelectRef.value.unselectAll()
 }
 
 watch(

@@ -1,5 +1,5 @@
 <template>
-  <UFormGroup v-slot="{ error }" size="xl" :name="name" class="tablet:min-w-96 pb-6 text-justify">
+  <UFormField v-slot="{ error }" size="xl" :name="name" class="sm:min-w-96 pb-6 text-justify">
     <UCheckbox
       v-model="model"
       :label="label"
@@ -7,8 +7,9 @@
       :required="required"
       :help="help"
       :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
+      :ui="{ base: 'ring-[var(--ui-color-primary-400)]' }"
     />
-  </UFormGroup>
+  </UFormField>
 </template>
 
 <script lang="ts" setup>

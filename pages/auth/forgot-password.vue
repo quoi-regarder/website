@@ -6,7 +6,7 @@
 
     <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
-        <field-input
+        <FieldInput
           v-model="state.email"
           :label="$t('forgotPassword.form.fields.email')"
           :placeholder="$t('forgotPassword.form.placeholders.email')"
@@ -15,27 +15,18 @@
           type="email"
         />
 
-        <UButton :label="$t('forgotPassword.form.buttons.submit')" block size="lg" type="submit" />
+        <UButton :label="$t('forgotPassword.form.buttons.submit')" block size="xl" type="submit" />
       </UForm>
     </template>
 
     <template #links>
-      <ULink
-        :to="localPath('/auth/login')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localPath('/auth/login')" class="transition-colors duration-200">
         {{ $t('forgotPassword.form.buttons.login') }}
       </ULink>
-      <ULink
-        :to="localPath('/auth/signup')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localPath('/auth/signup')" class="transition-colors duration-200">
         {{ $t('forgotPassword.form.buttons.signup') }}
       </ULink>
-      <ULink
-        :to="localPath('/')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localPath('/')" class="transition-colors duration-200">
         {{ $t('forgotPassword.form.buttons.home') }}
       </ULink>
     </template>

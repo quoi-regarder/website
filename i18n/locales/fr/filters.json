@@ -1,6 +1,5 @@
 {
   "age": {
-    "description": "Par défaut, aucune certification d'âge n'est sélectionnée.",
     "labels": {
       "eighteen": "18 ans",
       "sixteen": "16 ans",
@@ -22,6 +21,7 @@
     "hint": "La flèche vers le haut indique un tri croissant (du plus petit au plus grand, du plus ancien au plus récent, de A à Z, etc.). La flèche vers le bas indique un tri décroissant (du plus grand au plus petit, du plus récent au plus ancien, de Z à A, etc.).",
     "labels": {
       "first_air_date": "Date de première diffusion",
+      "name": "Titre",
       "original_name": "Titre original",
       "original_title": "Titre original",
       "popularity": "Popularité",
@@ -47,12 +47,10 @@
     "to": "Jusqu'au"
   },
   "duration": {
+    "and": "et",
+    "between": "Entre",
     "buttons": {
       "reset": "Réinitialiser"
-    },
-    "mode": {
-      "max": "Durée maximale",
-      "min": "Durée minimale"
     },
     "title": "Durée",
     "unit": "{count} minute | {count} minutes"
@@ -87,11 +85,8 @@
     "title": "Type de disponibilité"
   },
   "multiSelect": {
-    "create": "Créer \"{name}\".",
     "loading": "Commencez à taper pour rechercher des éléments...",
-    "noOptions": "Aucune option disponible.",
-    "noResults": "Aucun résultat trouvé pour \"{query}\".",
-    "search": "Rechercher...",
+    "noOptions": "Aucune donnée",
     "selected": "Aucun élément sélectionné | {count} élément sélectionné | {count} éléments sélectionnés"
   },
   "person": {

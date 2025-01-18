@@ -6,16 +6,17 @@
 
     <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
-        <field-input
+        <FieldInput
           v-model="state.email"
           :label="$t('login.form.fields.email')"
           :placeholder="$t('login.form.placeholders.email')"
           name="email"
           required
           type="email"
+          class="w-full"
         />
 
-        <field-input
+        <FieldInput
           v-model="state.password"
           :label="$t('login.form.fields.password')"
           :placeholder="$t('login.form.placeholders.password')"
@@ -24,7 +25,7 @@
           type="password"
         />
 
-        <UButton :label="$t('login.form.buttons.submit')" block size="lg" type="submit" />
+        <UButton :label="$t('login.form.buttons.submit')" block size="xl" type="submit" />
       </UForm>
     </template>
 
@@ -32,7 +33,7 @@
       <UButton
         :label="$t('login.form.buttons.google')"
         block
-        size="lg"
+        size="xl"
         type="button"
         variant="outline"
         @click="login('google')"
@@ -44,22 +45,13 @@
     </template>
 
     <template #links>
-      <ULink
-        :to="localePath('/auth/forgot-password')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localePath('/auth/forgot-password')" class="transition-colors duration-200">
         {{ $t('login.form.buttons.forgotPassword') }}
       </ULink>
-      <ULink
-        :to="localePath('/auth/signup')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localePath('/auth/signup')" class="transition-colors duration-200">
         {{ $t('login.form.buttons.signup') }}
       </ULink>
-      <ULink
-        :to="localePath('/')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localePath('/')" class="transition-colors duration-200">
         {{ $t('login.form.buttons.home') }}
       </ULink>
     </template>

@@ -8,10 +8,10 @@
       }"
     >
       <div class="w-full flex flex-col items-center space-y-4">
-        <h2 class="text-4xl font-bold text-primary">
+        <h2 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
           {{ collection.name }}
         </h2>
-        <p class="text-lg text-center text-dark dark:text-white">
+        <p class="text-lg text-center">
           {{ collection.overview }}
         </p>
       </div>
@@ -26,16 +26,16 @@
             v-if="part.poster_path !== null"
             :src="getImageUrl(part.poster_path, 'w300')"
             :alt="part.name"
-            class="w-[150px] h-[225px] rounded-lg"
+            class="w-[150px] h-[225px] rounded-md"
           />
           <USkeleton
             v-else
-            class="w-[150px] h-[225px] rounded-lg"
-            :ui="{ background: 'bg-gray-200 dark:bg-gray-700', base: '' }"
+            class="w-[150px] h-[225px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
           />
+
           <ULink
             :to="localPath(`/movie/${part.id}`)"
-            class="text-lg text-wrap text-center font-bold text-primary underline hover:text-black dark:hover:text-white"
+            class="text-xl text-wrap text-center font-bold"
           >
             {{ part.title }}
           </ULink>

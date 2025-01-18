@@ -1,23 +1,25 @@
 <template>
-  <div
+  <UContainer
     class="flex flex-col gap-4"
-    :class="[mobile ? 'p-4 bg-gray-100 rounded-md shadow-lg dark:bg-gray-800' : '']"
+    :class="[
+      mobile
+        ? 'w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]'
+        : ''
+    ]"
   >
     <!-- Vote Average Section -->
     <DetailPartInfoSection :title="$t('movieHeader.vote_average')">
-      <UMeter
+      <UProgress
+        :model-value="voteAverage"
         :max="10"
         :min="0"
-        :value="voteAverage"
-        indicator
-        :ui="{ indicator: { text: 'dark:text-white text-dark' } }"
+        status
+        :ui="{ status: 'text-[var(--ui-text)' }"
       >
-        <template #label>
-          <p class="text-left">
-            {{ $t('movieHeader.vote_count', { count: voteCount }) }}
-          </p>
-        </template>
-      </UMeter>
+      </UProgress>
+      <p class="text-left text-sm mt-2">
+        {{ $t('movieHeader.vote_count', { count: voteCount }) }}
+      </p>
     </DetailPartInfoSection>
 
     <!-- Overview Section -->
@@ -38,15 +40,10 @@
     <!-- Genres Section -->
     <DetailPartInfoSection :title="$t('movieHeader.genres')">
       <div class="flex flex-wrap gap-2">
-        <UBadge
-          v-for="genre in genres"
-          :key="genre.id"
-          :color="getGenreColor(genre.id)"
-          :label="genre.name"
-        />
+        <UBadge v-for="genre in genres" :key="genre.id" :label="genre.name" />
       </div>
     </DetailPartInfoSection>
-  </div>
+  </UContainer>
 </template>
 
 <script lang="ts" setup>

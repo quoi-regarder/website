@@ -6,7 +6,7 @@
 
     <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
-        <field-input
+        <FieldInput
           v-model="state.password"
           :label="$t('updatePassword.form.fields.password')"
           :placeholder="$t('updatePassword.form.placeholders.password')"
@@ -15,7 +15,7 @@
           type="password"
         />
 
-        <field-input
+        <FieldInput
           v-model="state.passwordConfirmation"
           :label="$t('updatePassword.form.fields.passwordConfirmation')"
           :placeholder="$t('updatePassword.form.placeholders.passwordConfirmation')"
@@ -24,15 +24,12 @@
           type="password"
         />
 
-        <UButton :label="$t('updatePassword.form.buttons.submit')" block size="lg" type="submit" />
+        <UButton :label="$t('updatePassword.form.buttons.submit')" block size="xl" type="submit" />
       </UForm>
     </template>
 
     <template #links>
-      <ULink
-        :to="localPath('/')"
-        class="hover:text-primary transition-colors duration-200 underline"
-      >
+      <ULink :to="localPath('/')" class="transition-colors duration-200">
         {{ $t('updatePassword.form.buttons.home') }}
       </ULink>
     </template>

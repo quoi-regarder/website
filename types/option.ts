@@ -1,4 +1,5 @@
 export interface Option {
   id: string | number
-  name: string
+  label: string
+  selected: boolean | undefined
 }

@@ -2,29 +2,24 @@
   <UCard
     :class="[
       'transition-all duration-200 ease-in-out',
-      isRealeased(season.air_date) ? 'cursor-pointer' : 'cursor-not-allowed opacity-75',
+      isRealeased(season.air_date) ? 'cursor-pointer' : 'cursor-not-allowed opacity-50',
       isSelected
-        ? 'ring-4 ring-primary ring-offset-2'
+        ? 'ring-4 ring-[var(--ui-color-primary-400)]'
         : isRealeased(season.air_date)
-          ? 'hover:ring-1 hover:ring-primary/70 hover:ring-offset-1'
+          ? 'hover:ring-1 hover:ring-[var(--ui-color-primary-400)]/70'
           : ''
     ]"
     @click="toggleSelection"
   >
     <template #header>
       <div class="flex flex-col items-center">
-        <h2 class="text-2xl font-bold text-primary text-center">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)] text-center">
           {{ season.name }}
         </h2>
-        <UBadge
-          v-if="isRealeased(season.air_date)"
-          color="green"
-          class="mt-2 text-sm"
-          :ui="{ rounded: 'rounded-full' }"
-        >
+        <UBadge v-if="isRealeased(season.air_date)" color="success" class="mt-2 text-sm">
           {{ $t('tvSeasons.released') }}
         </UBadge>
-        <UBadge v-else color="orange" class="mt-2 text-sm" :ui="{ rounded: 'rounded-full' }">
+        <UBadge v-else color="warning" class="mt-2 text-sm">
           {{ $t('tvSeasons.not_released') }}
         </UBadge>
       </div>
@@ -56,12 +51,17 @@
           <p class="text-sm">
             {{ $t('tvSeasons.vote_average') }}
           </p>
-          <UMeter :max="10" :min="0" :value="season.vote_average" indicator> </UMeter>
+          <UProgress
+            :model-value="season.vote_average"
+            :max="10"
+            :min="0"
+            :value="season.vote_average"
+            status
+            :ui="{ base: 'dark:bg-[var(--ui-bg-muted)]', status: 'text-[var(--ui-text)' }"
+          >
+          </UProgress>
 
-          <UDivider
-            :ui="{ border: { base: 'border-gray-400 dark:border-gray-400' } }"
-            class="pt-4"
-          />
+          <USeparator class="pt-4" />
         </div>
 
         <div>
@@ -96,7 +96,7 @@ const props = defineProps({
 
 const emit = defineEmits(['select'])
 
-function toggleSelection() {
+function toggleSelection () {
   if (!props.isSelected && isRealeased(props.season.air_date)) {
     emit('select', props.season.id)
   }

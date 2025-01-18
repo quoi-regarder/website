@@ -1,13 +1,13 @@
 <template>
-  <div
-    class="max-w-4xl mx-auto px-4 py-8 my-8 space-y-8 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg"
+  <UContainer
+    class="mx-auto px-4 py-8 mt-28 mb-8 space-y-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
   >
     <!-- Header -->
     <header class="space-y-4">
-      <h1 class="text-4xl font-bold text-primary">
+      <h1 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
         {{ $t('terms.title') }}
       </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">
+      <p class="text-lg">
         {{ $t('terms.description') }}
       </p>
     </header>
@@ -16,7 +16,7 @@
     <main class="space-y-12">
       <!-- Introduction -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.introduction.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -26,7 +26,7 @@
 
       <!-- Site Owner -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.siteOwner.title') }}
         </h2>
         <ol class="space-y-2 pl-4 list-disc">
@@ -37,7 +37,7 @@
 
       <!-- Access -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.access.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -47,7 +47,7 @@
 
       <!-- Usage -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.usage.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -57,7 +57,7 @@
 
       <!-- Liability -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.liability.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -67,7 +67,7 @@
 
       <!-- IP -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.ip.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -77,7 +77,7 @@
 
       <!-- Modifications -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.modifications.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -87,7 +87,7 @@
 
       <!-- Law -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.law.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -97,7 +97,7 @@
 
       <!-- Data Protection -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.dataProtection.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -107,7 +107,7 @@
 
       <!-- Cookies -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('terms.sections.cookies.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -116,13 +116,13 @@
       </section>
     </main>
 
+    <USeparator />
+
     <!-- Footer -->
-    <footer class="pt-8 mt-12 border-t border-gray-300 dark:border-gray-700">
-      <p class="text-gray-600 dark:text-gray-400">
-        {{ $t('terms.lastUpdate') }}: {{ $t('terms.updateDate') }}
-      </p>
+    <footer>
+      <p>{{ $t('terms.lastUpdate') }}: {{ $t('terms.updateDate') }}</p>
     </footer>
-  </div>
+  </UContainer>
 </template>
 
 <script setup>

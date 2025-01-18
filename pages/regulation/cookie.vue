@@ -1,13 +1,13 @@
 <template>
-  <div
-    class="max-w-4xl mx-auto px-4 py-8 my-8 space-y-8 bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg"
+  <UContainer
+    class="px-4 py-8 mt-28 mb-8 space-y-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
   >
     <!-- Header -->
     <header class="space-y-4">
-      <h1 class="text-4xl font-bold text-primary">
+      <h1 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
         {{ $t('cookies.title') }}
       </h1>
-      <p class="text-lg text-gray-600 dark:text-gray-400">
+      <p class="text-l">
         {{ $t('cookies.description') }}
       </p>
     </header>
@@ -16,7 +16,7 @@
     <main class="space-y-12">
       <!-- Introduction -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.introduction.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -26,7 +26,7 @@
 
       <!-- What is Cookie -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.whatIsCookie.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -36,17 +36,17 @@
 
       <!-- Cookie Types -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.cookieTypes.title') }}
         </h2>
         <div class="space-y-4">
-          <h3 class="text-xl font-semibold text-primary">
+          <h3 class="text-xl font-semibold text-[var(--ui-color-primary-400)]">
             {{ $t('cookies.sections.cookieTypes.preference.title') }}
           </h3>
           <p class="leading-relaxed text-justify">
             {{ $t('cookies.sections.cookieTypes.preference.content') }}
           </p>
-          <h3 class="text-xl font-semibold text-primary">
+          <h3 class="text-xl font-semibold text-[var(--ui-color-primary-400)]">
             {{ $t('cookies.sections.cookieTypes.analytics.title') }}
           </h3>
           <p class="leading-relaxed text-justify">
@@ -57,7 +57,7 @@
 
       <!-- Consent -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.consent.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -67,7 +67,7 @@
 
       <!-- Control -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.control.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -77,7 +77,7 @@
 
       <!-- Data Sharing -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.dataSharing.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -87,7 +87,7 @@
 
       <!-- Retention -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.retention.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -97,7 +97,7 @@
 
       <!-- Rights -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.rights.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -107,7 +107,7 @@
 
       <!-- Updates -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.updates.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
@@ -117,25 +117,23 @@
 
       <!-- Contact -->
       <section class="space-y-4">
-        <h2 class="text-2xl font-bold text-primary">
+        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('cookies.sections.contact.title') }}
         </h2>
         <p class="leading-relaxed text-justify">
           {{ $t('cookies.sections.contact.content') }}
-          <a href="mailto:egenr.pro@gmail.com" class="text-primary hover:underline">
-            egenr.pro@gmail.com
-          </a>
+          <a href="mailto:egenr.pro@gmail.com"> egenr.pro@gmail.com </a>
         </p>
       </section>
     </main>
 
+    <USeparator />
+
     <!-- Footer -->
-    <footer class="pt-8 mt-12 border-t border-gray-300 dark:border-gray-700">
-      <p class="text-gray-600 dark:text-gray-400">
-        {{ $t('cookies.lastUpdate') }}: {{ $t('cookies.updateDate') }}
-      </p>
+    <footer>
+      <p>{{ $t('cookies.lastUpdate') }}: {{ $t('cookies.updateDate') }}</p>
     </footer>
-  </div>
+  </UContainer>
 </template>
 
 <script setup>
