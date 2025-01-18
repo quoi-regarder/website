@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center space-y-2">
+  <div class="flex flex-col items-center gap-y-2">
     <h3 class="text-lg text-center">
       {{ $t('filter.type') }}
     </h3>

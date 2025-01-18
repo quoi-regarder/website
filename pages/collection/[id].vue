@@ -2,12 +2,12 @@
   <div class="w-screen flex flex-col justify-center items-center p-4">
     <div
       v-if="collection"
-      class="w-full min-h-[74vh] rounded-md p-4 shadow-lg bg-cover bg-center bg-no-repeat flex flex-col items-center justify-evenly space-y-8"
+      class="w-full min-h-[74vh] rounded-md p-4 shadow-lg bg-cover bg-center bg-no-repeat flex flex-col items-center justify-evenly gap-y-8"
       :style="{
         backgroundImage: `${linearGradient}, url(${getImageUrl(collection.backdrop_path, 'original')})`
       }"
     >
-      <div class="w-full flex flex-col items-center space-y-4">
+      <div class="w-full flex flex-col items-center gap-y-4">
         <h2 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
           {{ collection.name }}
         </h2>
@@ -20,7 +20,7 @@
         <div
           v-for="part in collection.parts"
           :key="part.id"
-          class="flex flex-col items-center w-[300px] max-w-full space-y-2"
+          class="flex flex-col items-center w-[300px] max-w-full gap-y-2"
         >
           <NuxtImg
             v-if="part.poster_path !== null"

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col md:flex-row items-center md:items-start w-full space-y-2 p-2 border-1 rounded-xl bg-[var(--ui-bg)]"
+    class="flex flex-col md:flex-row items-center md:items-start w-full gap-y-2 p-2 border-1 rounded-xl bg-[var(--ui-bg)]"
   >
     <!-- Movie Poster -->
     <NuxtImg

@@ -36,9 +36,7 @@
               </UBadge>
             </div>
 
-            <div
-              class="ring-1 ring-[var(--ui-color-primary-400)]/70 rounded-3xl space-y-1 py-2 px-4"
-            >
+            <div class="ring-1 ring-[var(--ui-color-primary-400)]/70 rounded-3xl gap-y-1 py-2 px-4">
               <div
                 v-if="props.firstAirDate !== null"
                 class="flex flex-col items-start sm:flex-row sm:items-center gap-x-1.5"

@@ -7,7 +7,7 @@
     </h2>
 
     <template v-if="hasProviders">
-      <div v-for="(items, type, index) in providerSections" :key="type" class="space-y-4">
+      <div v-for="(items, type, index) in providerSections" :key="type" class="gap-y-4">
         <template v-if="items && items.length > 0">
           <h3 class="text-xl font-semibold">
             {{ $t(`provider.${type}`) }}
@@ -16,7 +16,7 @@
             <div
               v-for="provider in items"
               :key="provider.provider_id"
-              class="flex flex-col items-center space-y-2"
+              class="flex flex-col items-center gap-y-2"
             >
               <NuxtImg
                 :src="getImageUrl(provider.logo_path, 'w92')"

@@ -1,6 +1,6 @@
 <template>
   <UContainer
-    class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] space-y-4"
+    class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] gap-y-4"
   >
     <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
       {{ $t('tvSeasons.title') }}
@@ -76,7 +76,7 @@
               </template>
 
               <template #footer>
-                <div class="flex flex-col space-y-2">
+                <div class="flex flex-col gap-y-2">
                   <div v-if="item.vote_average" class="flex flex-col items-start">
                     <p class="text-sm">
                       {{ $t('tvSeasons.vote_average') }}

@@ -1,6 +1,6 @@
 <template>
   <UContainer
-    class="px-4 py-8 mt-28 mb-8 space-y-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
+    class="px-4 py-8 mt-28 mb-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
   >
     <h1 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
       {{ $t('profile.title') }}
@@ -56,7 +56,7 @@
       <UButton :label="$t('profile.form.buttons.submit')" size="lg" type="submit" />
     </UForm>
 
-    <USeparator />
+    <USeparator class="py-4" />
 
     <div class="flex justify-center w-full">
       <UModal
@@ -66,7 +66,7 @@
       >
         <UButton :label="$t('profile.form.buttons.deleteAccount')" color="neutral" size="lg" />
         <template #body>
-          <div class="flex justify-end space-x-4">
+          <div class="flex justify-end gap-x-4">
             <UButton
               :label="$t('profile.modals.deleteAccount.buttons.cancel')"
               color="neutral"

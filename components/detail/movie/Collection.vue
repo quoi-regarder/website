@@ -1,6 +1,6 @@
 <template>
   <UContainer
-    class="w-full p-4 rounded-lg shadow-lg bg-cover bg-center bg-no-repeat space-y-8"
+    class="w-full p-4 rounded-lg shadow-lg bg-cover bg-center bg-no-repeat gap-y-8"
     :style="{
       backgroundImage: `${linearGradient}, url(${getImageUrl(collection.backdrop_path, 'original')})`
     }"
@@ -9,7 +9,7 @@
       {{ $t('movieCollection.title') }}
     </h2>
 
-    <div class="flex flex-col items-center space-y-2 mt-4">
+    <div class="flex flex-col items-center gap-y-2 mt-4">
       <NuxtImg
         v-if="collection.poster_path !== null"
         :src="getImageUrl(collection.poster_path, 'w500')"

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center space-y-2">
+  <div class="flex flex-col items-center gap-y-2">
     <NuxtImg
       v-if="imagePath !== null"
       :src="getImageUrl(imagePath, 'w92')"

@@ -1,6 +1,6 @@
 <template>
   <footer class="py-6 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]">
-    <div class="mx-8 flex flex-col items-center justify-between space-y-8 lg:space-y-0 lg:flex-row">
+    <div class="mx-8 flex flex-col items-center justify-between gap-y-8 lg:gap-y-0 lg:flex-row">
       <div class="text-center lg:text-left lg:w-1/5">
         <h3 class="text-lg font-semibold text-[var(--ui-color-primary-400)]">
           {{ $t('footer.title') }}

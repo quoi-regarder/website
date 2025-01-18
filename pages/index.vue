@@ -70,6 +70,7 @@
       class="w-full flex items-center justify-center overflow-hidden transition-all duration-500 ease-in relative z-10"
     >
       <UCarousel
+        v-if="showCarousel && results.length > 0"
         ref="carousel"
         :items="results"
         class-names
