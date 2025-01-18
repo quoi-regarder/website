@@ -1,9 +1,9 @@
 <template>
   <UContainer
-    class="mx-auto px-4 py-8 mt-28 mb-8 space-y-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
+    class="mx-auto px-4 py-8 mt-28 mb-8 gap-y-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
   >
     <!-- Header -->
-    <header class="space-y-4">
+    <header class="flex flex-col gap-y-4">
       <h1 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
         {{ $t('privacy.title') }}
       </h1>
@@ -13,9 +13,9 @@
     </header>
 
     <!-- Main Content -->
-    <main class="space-y-12">
+    <main class="flex flex-col gap-y-12">
       <!-- Introduction -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.introduction.title') }}
         </h2>
@@ -25,7 +25,7 @@
       </section>
 
       <!-- Data Collected -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.dataCollected.title') }}
         </h2>
@@ -41,7 +41,7 @@
       </section>
 
       <!-- Data Purpose -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.dataPurpose.title') }}
         </h2>
@@ -51,7 +51,7 @@
       </section>
 
       <!-- Legal Basis -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.legalBasis.title') }}
         </h2>
@@ -61,7 +61,7 @@
       </section>
 
       <!-- Data Retention -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.dataRetention.title') }}
         </h2>
@@ -71,7 +71,7 @@
       </section>
 
       <!-- Data Sharing -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.dataSharing.title') }}
         </h2>
@@ -81,7 +81,7 @@
       </section>
 
       <!-- Data Security -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.dataSecurity.title') }}
         </h2>
@@ -91,7 +91,7 @@
       </section>
 
       <!-- User Rights -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.userRights.title') }}
         </h2>
@@ -105,7 +105,7 @@
       </section>
 
       <!-- International Transfer -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.internationalTransfer.title') }}
         </h2>
@@ -115,7 +115,7 @@
       </section>
 
       <!-- Cookies -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.cookies.title') }}
         </h2>
@@ -125,7 +125,7 @@
       </section>
 
       <!-- Policy Updates -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.policyUpdates.title') }}
         </h2>
@@ -135,7 +135,7 @@
       </section>
 
       <!-- Contact -->
-      <section class="space-y-4">
+      <section class="flex flex-col gap-y-4">
         <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)]">
           {{ $t('privacy.sections.contact.title') }}
         </h2>
@@ -146,7 +146,7 @@
       </section>
     </main>
 
-    <USeparator />
+    <USeparator class="py-4" />
 
     <!-- Footer -->
     <footer>

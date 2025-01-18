@@ -26,12 +26,18 @@
     </template>
 
     <template #default>
-      <div class="flex space-x-4 h-48">
+      <div class="flex gap-x-4 h-48">
         <div class="w-1/3">
           <NuxtImg
+            v-if="season.poster_path"
             :src="getImageUrl(season.poster_path, 'w300')"
             alt="season poster"
             class="rounded-md"
+          />
+
+          <USkeleton
+            v-else
+            class="w-20 h-28 rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
           />
         </div>
         <div class="w-2/3 max-h-48 overflow-hidden overflow-y-auto px-1">
@@ -46,7 +52,7 @@
     </template>
 
     <template #footer>
-      <div class="flex flex-col justify-between space-y-2">
+      <div class="flex flex-col justify-between gap-y-2">
         <div v-if="season.vote_average" class="flex flex-col items-center justify-between">
           <p class="text-sm">
             {{ $t('tvSeasons.vote_average') }}

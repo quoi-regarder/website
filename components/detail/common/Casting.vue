@@ -1,13 +1,13 @@
 <template>
   <UContainer
-    class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] space-y-4"
+    class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] gap-y-4"
   >
     <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
       {{ $t('casting.title') }}
     </h2>
 
     <!-- Cast Section -->
-    <div v-if="props.casts" class="space-y-4">
+    <div v-if="props.casts" class="gap-y-4">
       <h3 class="text-xl font-semibold">
         {{ $t('casting.cast') }}
       </h3>
@@ -35,7 +35,7 @@
     <USeparator class="my-4" />
 
     <!-- Crew Section -->
-    <div v-if="props.crews" class="space-y-4">
+    <div v-if="props.crews" class="gap-y-4">
       <h3 class="text-xl font-semibold">
         {{ $t('casting.crew') }}
       </h3>
@@ -62,7 +62,7 @@
     <USeparator class="my-4" />
 
     <!-- Production Section -->
-    <div v-if="props.production" class="space-y-4">
+    <div v-if="props.production" class="gap-y-4">
       <h3 class="text-xl font-semibold">
         {{ $t('casting.production') }}
       </h3>

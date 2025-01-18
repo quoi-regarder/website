@@ -49,10 +49,27 @@
           <!-- User Menu -->
           <Suspense>
             <template v-if="isLogged">
-              <UDropdownMenu :items="dropdownItems" class="cursor-pointer">
-                <UAvatar v-if="profile?.avatar_url" :src="profile.avatar_url" size="xl" />
+              <UDropdownMenu
+                v-if="profile?.avatar_url"
+                :items="dropdownItems"
+                class="cursor-pointer"
+              >
+                <UAvatar :src="profile.avatar_url" size="xl" />
+
+                <template #account="{ item }">
+                  <div class="text-left text-sm">
+                    <p class="truncate font-extraligh">
+                      {{ $t('navbar.dropdown.account') }}
+                    </p>
+                    <p class="truncate font-light">
+                      {{ item.label }}
+                    </p>
+                  </div>
+                </template>
+              </UDropdownMenu>
+
+              <UDropdownMenu v-else :items="dropdownItems" class="cursor-pointer">
                 <UButton
-                  v-else
                   size="xl"
                   variant="outline"
                   trailing-icon="i-heroicons-user"

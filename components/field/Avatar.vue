@@ -7,7 +7,7 @@
   >
     <input ref="fileInput" :name="name" class="hidden" type="file" @change="onFileChange" />
 
-    <div class="flex justify-center items-center space-x-4">
+    <div class="flex justify-center items-center gap-x-4">
       <div
         class="w-fit h-fit flex items-center justify-center rounded-full"
         @click="triggerFileInput"
