@@ -220,7 +220,8 @@
       "logout": "Déconnexion",
       "profile": "Profil",
       "search": "Rechercher",
-      "signup": "Créer un compte"
+      "signup": "Créer un compte",
+      "movie": "Mes films"
     },
     "dropdown": {
       "account": "Connecté en tant que"
@@ -275,6 +276,19 @@
         "avatarUpdated": "Photo de profil mise à jour.",
         "updated": "Profil mis à jour avec succès."
       }
+    },
+    "tabs": {
+      "profile": "Profil",
+      "movies": "Films",
+      "series": "Séries"
+    },
+    "movie": {
+      "title": "Mes films",
+      "watchTime": "Temps de visionnage total",
+      "toWatch": "À voir",
+      "watched": "Déjà vu",
+      "noWatched": "Aucun film déjà vu.",
+      "noToWatch": "Aucun film à voir."
     }
   },
   "provider": {
@@ -388,5 +402,12 @@
         "updated": "Votre mot de passe a été mis à jour."
       }
     }
+  },
+  "time": {
+    "years": "Années",
+    "months": "Mois",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes"
   }
 }

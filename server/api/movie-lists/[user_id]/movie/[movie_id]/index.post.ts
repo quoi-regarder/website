@@ -16,7 +16,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const { error } = await client.from<Tables<'user_movie_lists'>>('user_movie_lists').upsert({
+  const { error } = await client.from('user_movie_lists').upsert({
     user_id,
     tmdb_id: movie_id,
     status: body.status

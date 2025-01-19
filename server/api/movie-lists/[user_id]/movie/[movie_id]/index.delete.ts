@@ -7,10 +7,11 @@ export default defineEventHandler(async (event) => {
   const movie_id = getRouterParam(event, 'movie_id')
 
   const { error } = await client
-    .from<Tables<'user_movie_lists'>>('user_movie_lists')
+    .from('user_movie_lists')
     .delete()
-    .eq('user_id', user_id)
-    .eq('tmdb_id', movie_id)
+    .eq('user_id', user_id as string)
+    .eq('tmdb_id', movie_id as string)
+    .returns<Tables<'user_movie_lists'>[]>()
 
   if (error) {
     throw createError({

@@ -14,9 +14,18 @@
           v-for="link in links"
           :key="link.to"
           :to="link.to"
+          :active="link.to === $route.fullPath"
           class="transition-all duration-500 hidden lg:block"
         >
-          {{ link.label }}
+          <UChip v-if="link.chip?.value" :text="link.chip.value" size="3xl" :ui="{ base: 'p-1' }">
+            <p class="leading-8">
+              {{ link.label }}
+            </p>
+          </UChip>
+
+          <p v-else>
+            {{ link.label }}
+          </p>
         </ULink>
       </div>
 
@@ -164,9 +173,18 @@
           v-for="link in links"
           :key="link.to"
           :to="link.to"
+          :active="link.to === $route.fullPath"
           class="transition-all duration-500 text-2xl"
         >
-          {{ link.label }}
+          <UChip v-if="link.chip?.value" :text="link.chip?.value" size="3xl" :ui="{ base: 'p-1' }">
+            <p class="leading-8">
+              {{ link.label }}
+            </p>
+          </UChip>
+
+          <p v-else>
+            {{ link.label }}
+          </p>
         </ULink>
       </div>
     </transition>
@@ -174,13 +192,14 @@
 </template>
 
 <script lang="ts" setup>
-const client = useSupabaseClient()
-const user = useSupabaseUser()
-const { t, locales } = useI18n()
 const switchLocalePath = useSwitchLocalePath()
-const localePath = useLocalePath()
+const { getToWatchCount, reset } = useMovieListStore()
 const { profile } = useProfileChannel()
+const client = useSupabaseClient()
+const localePath = useLocalePath()
+const { t, locales } = useI18n()
 const colorMode = useColorMode()
+const user = useSupabaseUser()
 useMovieListChannel()
 
 const isLogged = computed(() => Boolean(user?.value))
@@ -194,6 +213,11 @@ const links = [
   {
     label: t('navbar.buttons.search'),
     to: localePath('/search')
+  },
+  {
+    label: t('navbar.buttons.movie'),
+    to: localePath('/profile?tab=movies'),
+    chip: getToWatchCount
   }
 ]
 
@@ -270,6 +294,7 @@ const logout = async () => {
   await client.auth.signOut()
   await navigateTo(localePath('/'))
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
+  reset()
 }
 
 const updateLocale = async (locale: Enums<'language_type'>) => {

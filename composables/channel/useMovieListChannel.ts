@@ -5,7 +5,7 @@ export const useMovieListChannel = () => {
   const user = useSupabaseUser()
   const movieList = ref<Tables<'user_movie_lists'> | null>(null)
   let movieListChannel: RealtimeChannel | null = null
-  const { setMovies, removeMovie, addMovie } = useMovieListStoreStore()
+  const { setMovies, removeMovie, addMovie } = useMovieListStore()
 
   const fetchMovieList = async () => {
     if (!user.value) return

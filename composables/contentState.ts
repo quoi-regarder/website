@@ -1,5 +1,5 @@
 export const useContentState = () => {
-  const { getMovieByTmdbId } = useMovieListStoreStore()
+  const { getMovieByTmdbId } = useMovieListStore()
   const localPath = useLocalePath()
   const user = useSupabaseUser()
   const { t } = useI18n()

@@ -1,11 +1,12 @@
 import { defineStore } from 'pinia'
 
-export const useMovieListStoreStore = defineStore('movie_list', {
+export const useMovieListStore = defineStore('movie_list', {
   state: (): { movieList: Tables<'user_movie_lists'>[] } => ({
     movieList: []
   }),
   getters: {
-    getMovie: (state) => state.movieList,
+    getToWatchCount: (state) =>
+      computed(() => state.movieList.filter((m) => m.status === 'to_watch').length),
     getMovieByTmdbId: (state) => (tmdbId: number) => {
       return state.movieList.find((m) => m.tmdb_id === tmdbId)
     }
@@ -24,6 +25,9 @@ export const useMovieListStoreStore = defineStore('movie_list', {
     },
     setMovies (movieList: Tables<'user_movie_lists'>[]) {
       this.movieList = movieList
+    },
+    reset () {
+      this.movieList = []
     }
   },
   persist: {

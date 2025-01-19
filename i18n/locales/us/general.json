@@ -220,7 +220,8 @@
       "logout": "Logout",
       "profile": "Profile",
       "search": "Search",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "movie": "My movies"
     },
     "dropdown": {
       "account": "Logged in as"
@@ -275,6 +276,19 @@
         "avatarUpdated": "Your profile picture has been updated.",
         "updated": "Your profile has been updated."
       }
+    },
+    "tabs": {
+      "profile": "Profile",
+      "movies": "Movies",
+      "series": "TV Shows"
+    },
+    "movie": {
+      "title": "My Movies",
+      "watchTime": "Total watch time",
+      "toWatch": "To Watch",
+      "watched": "Watched",
+      "noWatched": "No movies watched.",
+      "noToWatch": "No movies to watch."
     }
   },
   "provider": {
@@ -388,5 +402,12 @@
         "updated": "Your password has been updated."
       }
     }
+  },
+  "time": {
+    "years": "Years",
+    "months": "Months",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes"
   }
 }
