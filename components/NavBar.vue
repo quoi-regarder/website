@@ -181,6 +181,7 @@ const switchLocalePath = useSwitchLocalePath()
 const localePath = useLocalePath()
 const { profile } = useProfileChannel()
 const colorMode = useColorMode()
+useMovieListChannel()
 
 const isLogged = computed(() => Boolean(user?.value))
 const opened = ref(false)
@@ -235,7 +236,7 @@ const localItems = computed(() =>
       label: locale.name,
       icon: localIcon[locale.code],
       onSelect () {
-        updateLocale(locale.code as Tables<Enums<'language_type'>>)
+        updateLocale(locale.code as Enums<'language_type'>)
       }
     }
   ])
@@ -255,7 +256,7 @@ const colorModeItems = computed(() =>
       label: t(`navbar.buttons.colorMode.${mode}`),
       icon: colorModeIcon[mode],
       onSelect () {
-        updateColorMode(mode)
+        updateColorMode(mode as Enums<'color_mode_type'>)
       }
     }
   ])
@@ -271,7 +272,7 @@ const logout = async () => {
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
 }
 
-const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
+const updateLocale = async (locale: Enums<'language_type'>) => {
   navigateTo(switchLocalePath(locale))
 
   if (!user.value) return
@@ -286,7 +287,7 @@ const updateLocale = async (locale: Tables<Enums<'language_type'>>) => {
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.locale'))
 }
 
-const updateColorMode = async (mode: Tables<Enums<'color_mode_type'>>) => {
+const updateColorMode = async (mode: Enums<'color_mode_type'>) => {
   colorMode.preference = mode
 
   if (!user.value) return

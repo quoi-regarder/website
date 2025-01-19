@@ -22,14 +22,38 @@
           <div class="flex flex-col items-center mb-8">
             <h1
               v-if="props.title !== null"
-              class="text-2xl font-bold text-[var(--ui-color-primary-400)]"
+              class="text-2xl font-bold text-center text-[var(--ui-color-primary-400)]"
             >
               {{ props.title }}
             </h1>
 
-            <p v-if="props.releaseDate !== null">
+            <p v-if="props.releaseDate !== null" class="text-sm text-center">
               {{ formatLocalDate(props.releaseDate) }}
             </p>
+
+            <div class="flex gap-2 pr-2 justify-end mt-2">
+              <UButton
+                :variant="isContentWatched('movie', movieId) ? 'solid' : 'outline'"
+                class="self-center"
+                :trailing-icon="
+                  isContentWatched('movie', movieId) ? 'i-lucide:check' : 'i-lucide:eye'
+                "
+                @click="addContentToViewedList('movie', movieId)"
+              >
+                {{ $t('common.content.add_to_viewed_list') }}
+              </UButton>
+
+              <UButton
+                :variant="isContentToWatch('movie', movieId) ? 'solid' : 'outline'"
+                class="self-center"
+                :trailing-icon="
+                  isContentToWatch('movie', movieId) ? 'i-lucide:check' : 'i-lucide:plus'
+                "
+                @click="addContentToWatchlist('movie', movieId)"
+              >
+                {{ $t('common.content.add_to_watch_list') }}
+              </UButton>
+            </div>
           </div>
 
           <div class="hidden lg:block">
@@ -59,7 +83,10 @@
 </template>
 
 <script lang="ts" setup>
+const { isContentWatched, isContentToWatch, addContentToViewedList, addContentToWatchlist } =
+  useContentState()
 const colorMode = useColorMode()
+const route = useRoute()
 
 const props = defineProps({
   title: {
@@ -107,6 +134,8 @@ const props = defineProps({
     default: null
   }
 })
+
+const movieId = ref(Number(route.params.id))
 
 const linearGradient = computed(() => {
   if (colorMode.value === 'dark') {

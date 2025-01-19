@@ -41,6 +41,24 @@
     "buttons": {
       "backToTop": "Retour en haut"
     },
+    "content": {
+      "add_to_viewed_list": "Déjà vu",
+      "add_to_watch_list": "À voir",
+      "toasts": {
+        "success": {
+          "movie": {
+            "addedToList": {
+              "to_watch": "Film ajouté à la liste des films à voir.",
+              "watched": "Film ajouté à la liste des films déjà vus."
+            },
+            "removedFromList": {
+              "to_watch": "Film retiré de la liste des films à voir.",
+              "watched": "Film retiré de la liste des films déjà vus."
+            }
+          }
+        }
+      }
+    },
     "dateNotSet": "Date non définie",
     "form": {
       "error": {

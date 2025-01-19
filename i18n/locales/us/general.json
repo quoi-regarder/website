@@ -41,6 +41,24 @@
     "buttons": {
       "backToTop": "Back to top"
     },
+    "content": {
+      "add_to_viewed_list": "Watched",
+      "add_to_watch_list": "To Watch",
+      "toasts": {
+        "success": {
+          "movie": {
+            "addedToList": {
+              "to_watch": "Movie added to the watchlist.",
+              "watched": "Movie added to the watched list."
+            },
+            "removedFromList": {
+              "to_watch": "Movie removed from the watchlist.",
+              "watched": "Movie removed from the watched list."
+            }
+          }
+        }
+      }
+    },
     "dateNotSet": "Date not set",
     "form": {
       "error": {

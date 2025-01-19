@@ -1,22 +1,25 @@
 import { serverSupabaseServiceRole } from '#supabase/server'
-import type { H3Event } from 'h3'
 
 export default defineEventHandler(async (event) => {
   const client = serverSupabaseServiceRole(event)
 
-  const body: { user_id: string; movie_id: string } = await readBody(event)
+  const user_id = getRouterParam(event, 'user_id')
+  const movie_id = getRouterParam(event, 'movie_id')
 
-  if (!body.user_id || !body.movie_id) {
+  const body: { status: Enums<'movie_list_status'> } = await readBody(event)
+
+  if (!user_id || !movie_id || !body.status) {
     throw createError({
       statusCode: 400,
       statusMessage: 'bad_request',
-      statusText: 'userId and movieId are required'
+      statusText: 'userId, movieId and status are required'
     })
   }
 
-  const { error } = await client.from<Tables<'user_movie_lists'>>('user_movie_lists').insert({
-    user_id: body.user_id,
-    tmdb_id: body.movie_id
+  const { error } = await client.from<Tables<'user_movie_lists'>>('user_movie_lists').upsert({
+    user_id,
+    tmdb_id: movie_id,
+    status: body.status
   })
 
   if (error) {

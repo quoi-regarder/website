@@ -36,7 +36,9 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@nuxthub/core',
     '@nuxt/scripts',
-    '@vueuse/nuxt'
+    '@vueuse/nuxt',
+    '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt'
   ],
 
   css: ['/assets/css/main.css'],
@@ -53,7 +55,7 @@ export default defineNuxtConfig({
   // Nitro configuration
   nitro: {
     imports: {
-      dirs: ['types/**', 'utils/**']
+      dirs: ['types/**', 'utils/**', 'store/**']
     }
   },
 
