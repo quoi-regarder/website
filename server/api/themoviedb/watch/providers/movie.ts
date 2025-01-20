@@ -1,5 +1,4 @@
 export default defineEventHandler(async (event) => {
-  const { tmdbBaseUrl } = useRuntimeConfig()
   const { language } = getQuery(event)
 
   try {

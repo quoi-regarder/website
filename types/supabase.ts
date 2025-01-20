@@ -67,7 +67,7 @@ export type Database = {
           email: string | null
           first_name: string | null
           id: string
-          language: Database['public']['Enums']['language_type'] | null
+          language: Database['public']['Enums']['language_iso_type']
           last_name: string | null
           updated_at: string | null
           username: string
@@ -79,7 +79,7 @@ export type Database = {
           email?: string | null
           first_name?: string | null
           id: string
-          language?: Database['public']['Enums']['language_type'] | null
+          language?: Database['public']['Enums']['language_iso_type']
           last_name?: string | null
           updated_at?: string | null
           username: string
@@ -91,7 +91,7 @@ export type Database = {
           email?: string | null
           first_name?: string | null
           id?: string
-          language?: Database['public']['Enums']['language_type'] | null
+          language?: Database['public']['Enums']['language_iso_type']
           last_name?: string | null
           updated_at?: string | null
           username?: string
@@ -173,7 +173,6 @@ export type Database = {
     Enums: {
       color_mode_type: 'light' | 'dark' | 'system'
       language_iso_type: 'fr-FR' | 'en-US'
-      language_type: 'fr' | 'us'
       movie_list_status: 'recommended' | 'to_watch' | 'watched'
     }
     CompositeTypes: {

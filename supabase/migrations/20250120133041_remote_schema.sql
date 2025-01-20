@@ -105,15 +105,6 @@ CREATE TYPE "public"."language_iso_type" AS ENUM (
 ALTER TYPE "public"."language_iso_type" OWNER TO "supabase_admin";
 
 
-CREATE TYPE "public"."language_type" AS ENUM (
-    'fr',
-    'us'
-);
-
-
-ALTER TYPE "public"."language_type" OWNER TO "supabase_admin";
-
-
 CREATE TYPE "public"."movie_list_status" AS ENUM (
     'recommended',
     'to_watch',
@@ -155,7 +146,7 @@ BEGIN
         '&language=' || p_language;
     
     SELECT content::jsonb INTO v_response
-    FROM http_get(v_url);
+    FROM extensions.http_get(v_url);
 
     INSERT INTO movie_translations (tmdb_id, language, title, overview)
     VALUES (
@@ -190,7 +181,7 @@ BEGIN
         '?api_key=' || v_api_key || 
         '&language=en-US';
     SELECT content::jsonb INTO v_response
-    FROM http_get(v_url);
+    FROM extensions.http_get(v_url);
     RETURN v_response;
 END;$$;
 
@@ -199,7 +190,7 @@ ALTER FUNCTION "public"."get_movie_data"("p_tmdb_id" integer) OWNER TO "supabase
 
 
 CREATE OR REPLACE FUNCTION "public"."get_tmdb_api_key"() RETURNS "text"
-    LANGUAGE "plpgsql"
+    LANGUAGE "plpgsql" SECURITY DEFINER
     AS $$BEGIN
     RETURN (
         SELECT decrypted_secret 
@@ -224,7 +215,7 @@ CREATE OR REPLACE FUNCTION "public"."handle_new_user"() RETURNS "trigger"
     new.raw_user_meta_data->>'last_name',
     new.raw_user_meta_data->>'avatar_url',
     new.email,
-    coalesce((new.raw_user_meta_data->>'language'), 'en-US')::public.language_type,
+    coalesce((new.raw_user_meta_data->>'language'), 'fr-FR')::public.language_type,
     coalesce((new.raw_user_meta_data->>'color_mode'), 'system')::public.color_mode_type
   );
   return new;
@@ -332,7 +323,7 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
     "created_at" timestamp with time zone DEFAULT ("now"() AT TIME ZONE 'utc'::"text"),
     "updated_at" timestamp with time zone,
     "color_mode" "public"."color_mode_type" DEFAULT 'light'::"public"."color_mode_type" NOT NULL,
-    "language" "public"."language_type" DEFAULT 'fr'::"public"."language_type",
+    "language" "public"."language_iso_type" DEFAULT 'fr-FR'::"public"."language_iso_type" NOT NULL,
     CONSTRAINT "username_length" CHECK (("char_length"("username") >= 3))
 );
 
@@ -408,7 +399,7 @@ CREATE POLICY "Enable delete for users based on user_id" ON "public"."user_movie
 
 
 
-CREATE POLICY "Enable insert for users based on user_id" ON "public"."user_movie_lists" FOR INSERT TO "authenticated" WITH CHECK ((( SELECT "auth"."uid"() AS "uid") = "user_id"));
+CREATE POLICY "Enable insert for authenticated users only" ON "public"."user_movie_lists" FOR INSERT TO "authenticated" WITH CHECK (true);
 
 
 
@@ -464,6 +455,10 @@ ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
 
 
 ALTER PUBLICATION "supabase_realtime" ADD TABLE ONLY "public"."profiles";
+
+
+
+ALTER PUBLICATION "supabase_realtime" ADD TABLE ONLY "public"."user_movie_lists";
 
 
 
