@@ -1,12 +1,12 @@
 import type { RealtimeChannel } from '@supabase/channel-js'
 
 export function useProfileChannel () {
-  const client = useSupabaseClient()
-  const user = useSupabaseUser()
   const profile = ref<Tables<'profiles'> | null>(null)
   let profileChannel: RealtimeChannel | null = null
   const switchLocalePath = useSwitchLocalePath()
+  const client = useSupabaseClient()
   const colorMode = useColorMode()
+  const user = useSupabaseUser()
 
   const fetchProfile = async () => {
     if (!user.value) return
@@ -51,8 +51,8 @@ export function useProfileChannel () {
 
     fetchProfile().then(
       () => {
-        navigateTo(switchLocalePath(profile.value?.language as string))
-        colorMode.preference = profile.value?.color_mode as string
+        navigateTo(switchLocalePath(formatLanguageToString(profile.value?.language as string)))
+        colorMode.preference = (profile.value?.color_mode as string) || 'system'
         setupChannel()
       },
       (error) => {

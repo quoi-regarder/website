@@ -4,12 +4,14 @@ export default defineEventHandler(async (event) => {
   const client = await serverSupabaseClient(event)
 
   const user_id = getRouterParam(event, 'user_id')
+  const movie_id = getRouterParam(event, 'movie_id')
 
-  const { data: movieList, error } = await client
-    .from('user_movie_lists')
-    .select('*')
+  const { error } = await client
+    .from('user_movie_list')
+    .delete()
     .eq('user_id', user_id as string)
-    .returns<Tables<'user_movie_lists'>[]>()
+    .eq('tmdb_id', movie_id as string)
+    .returns<Tables<'user_movie_list'>[]>()
 
   if (error) {
     throw createError({
@@ -18,6 +20,4 @@ export default defineEventHandler(async (event) => {
       statusText: error.message
     })
   }
-
-  return movieList
 })

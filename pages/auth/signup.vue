@@ -152,7 +152,7 @@ const onSubmit = async () => {
         username: state.username,
         first_name: state.firstName,
         last_name: state.lastName,
-        language: locale.value,
+        language: formatLanguageToISO(locale.value),
         color_mode: colorMode.value
       }
     }
@@ -161,7 +161,7 @@ const onSubmit = async () => {
   await onRegister(error)
 }
 
-const onRegister = async (error: AuthError, isOAuth = false) => {
+const onRegister = async (error: AuthError | null, isOAuth = false) => {
   if (error) {
     useNotifications().error(
       t('common.toasts.title.error'),

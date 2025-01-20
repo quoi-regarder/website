@@ -205,7 +205,7 @@ useMovieListChannel()
 const isLogged = computed(() => Boolean(user?.value))
 const opened = ref(false)
 
-const links = [
+const links = computed(() => [
   {
     label: t('navbar.buttons.home'),
     to: localePath('/')
@@ -219,7 +219,7 @@ const links = [
     to: localePath('/profile?tab=movies'),
     chip: getToWatchCount
   }
-]
+])
 
 const dropdownItems = computed(() => [
   [
@@ -305,7 +305,7 @@ const updateLocale = async (locale: Enums<'language_type'>) => {
   await $fetch(manager.toString(), {
     method: 'PUT',
     body: {
-      language: locale
+      language: formatLanguageToISO(locale)
     }
   })
 

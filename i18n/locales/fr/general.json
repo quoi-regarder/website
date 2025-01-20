@@ -218,10 +218,11 @@
       "home": "Accueil",
       "login": "Connexion",
       "logout": "Déconnexion",
+      "movie": "Mes films",
       "profile": "Profil",
       "search": "Rechercher",
-      "signup": "Créer un compte",
-      "movie": "Mes films"
+      "series": "Mes séries",
+      "signup": "Créer un compte"
     },
     "dropdown": {
       "account": "Connecté en tant que"
@@ -268,6 +269,22 @@
         "title": "Supprimer le compte"
       }
     },
+    "movie": {
+      "noToWatch": "Aucun film à voir.",
+      "noWatched": "Aucun film déjà vu.",
+      "title": "Mes films",
+      "toWatch": "À voir",
+      "watchTime": "Temps de visionnage total",
+      "watched": "Déjà vu"
+    },
+    "serie": {
+      "title": "Mes séries"
+    },
+    "tabs": {
+      "movies": "Films",
+      "profile": "Profil",
+      "series": "Séries"
+    },
     "title": "Profil",
     "toasts": {
       "success": {
@@ -276,19 +293,6 @@
         "avatarUpdated": "Photo de profil mise à jour.",
         "updated": "Profil mis à jour avec succès."
       }
-    },
-    "tabs": {
-      "profile": "Profil",
-      "movies": "Films",
-      "series": "Séries"
-    },
-    "movie": {
-      "title": "Mes films",
-      "watchTime": "Temps de visionnage total",
-      "toWatch": "À voir",
-      "watched": "Déjà vu",
-      "noWatched": "Aucun film déjà vu.",
-      "noToWatch": "Aucun film à voir."
     }
   },
   "provider": {
@@ -356,6 +360,13 @@
       "tv": "Séries similaires"
     }
   },
+  "time": {
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes",
+    "months": "Mois",
+    "years": "Années"
+  },
   "tvHeader": {
     "finished": "Terminée",
     "first_air_date": "Première diffusion",
@@ -402,12 +413,5 @@
         "updated": "Votre mot de passe a été mis à jour."
       }
     }
-  },
-  "time": {
-    "years": "Années",
-    "months": "Mois",
-    "days": "Jours",
-    "hours": "Heures",
-    "minutes": "Minutes"
   }
 }

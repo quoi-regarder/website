@@ -7,13 +7,13 @@ export const useContentState = () => {
   const getContentFromList = (
     type: 'movie' | 'tv',
     id: number
-  ): Tables<'user_movie_lists'> | undefined => {
+  ): Tables<'user_movie_list'> | undefined => {
     if (!user.value) {
       return undefined
     }
 
     if (type === 'movie') {
-      return getMovieByTmdbId(id) as Tables<'user_movie_lists'>
+      return getMovieByTmdbId(id) as Tables<'user_movie_list'>
     } else {
       // TODO: Get TV show from list
     }
@@ -25,7 +25,6 @@ export const useContentState = () => {
     }
 
     const content = getContentFromList(type, id)
-
     if (!content) {
       return false
     }
@@ -49,7 +48,7 @@ export const useContentState = () => {
 
   const addContentToWatchlist = async (type: 'movie' | 'tv', id: number) => {
     if (type === 'movie') {
-      return addMovieToList(id, 'to_watch', type, getContentFromList(type, id))
+      return addMovieToList(id, 'to_watch', type)
     } else {
       // TODO: Add TV show to watchlist
     }
@@ -57,41 +56,22 @@ export const useContentState = () => {
 
   const addContentToViewedList = async (type: 'movie' | 'tv', id: number) => {
     if (type === 'movie') {
-      addMovieToList(id, 'watched', type, getContentFromList(type, id))
+      addMovieToList(id, 'watched', type)
     } else {
       // TODO: Add TV show to watched list
     }
   }
 
   const addMovieToList = async (
-    movie_id: number | string,
+    movie_id: number,
     status: Enums<'movie_list_status'>,
-    type: 'movie' | 'tv',
-    movie?: Tables<'user_movie_lists'>
+    type: 'movie' | 'tv'
   ) => {
     if (!user.value) {
       navigateTo(localPath('/auth/login'))
     }
 
-    if (movie && movie.status === status) {
-      $fetch(`/api/movie-lists/${user.value.id}/movie/${movie_id}`, {
-        method: 'DELETE'
-      })
-
-      useNotifications().success(
-        t('common.toasts.title.success'),
-        t(`common.content.toasts.success.${type}.removedFromList.${status}`)
-      )
-
-      return
-    }
-
-    $fetch(`/api/movie-lists/${user.value.id}/movie/${movie_id}`, {
-      method: 'POST',
-      body: {
-        status
-      }
-    })
+    useMovie().addMovieToList(movie_id, status)
 
     useNotifications().success(
       t('common.toasts.title.success'),
