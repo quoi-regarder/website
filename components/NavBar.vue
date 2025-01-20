@@ -305,7 +305,7 @@ const updateLocale = async (locale: Enums<'language_type'>) => {
   await $fetch(manager.toString(), {
     method: 'PUT',
     body: {
-      language: locale
+      language: formatLanguageToISO(locale)
     }
   })
 

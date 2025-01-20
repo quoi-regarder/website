@@ -218,10 +218,10 @@
       "home": "Home",
       "login": "Login",
       "logout": "Logout",
+      "movie": "My movies",
       "profile": "Profile",
       "search": "Search",
-      "signup": "Sign up",
-      "movie": "My movies"
+      "signup": "Sign up"
     },
     "dropdown": {
       "account": "Logged in as"
@@ -268,6 +268,22 @@
         "title": "Delete account"
       }
     },
+    "movie": {
+      "noToWatch": "No movies to watch.",
+      "noWatched": "No movies watched.",
+      "title": "My Movies",
+      "toWatch": "To Watch",
+      "watchTime": "Total watch time",
+      "watched": "Watched"
+    },
+    "serie": {
+      "title": "My TV Shows"
+    },
+    "tabs": {
+      "movies": "Movies",
+      "profile": "Profile",
+      "series": "TV Shows"
+    },
     "title": "Profile",
     "toasts": {
       "success": {
@@ -276,19 +292,6 @@
         "avatarUpdated": "Your profile picture has been updated.",
         "updated": "Your profile has been updated."
       }
-    },
-    "tabs": {
-      "profile": "Profile",
-      "movies": "Movies",
-      "series": "TV Shows"
-    },
-    "movie": {
-      "title": "My Movies",
-      "watchTime": "Total watch time",
-      "toWatch": "To Watch",
-      "watched": "Watched",
-      "noWatched": "No movies watched.",
-      "noToWatch": "No movies to watch."
     }
   },
   "provider": {
@@ -356,6 +359,13 @@
       "tv": "Similar TV Shows"
     }
   },
+  "time": {
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "months": "Months",
+    "years": "Years"
+  },
   "tvHeader": {
     "finished": "Finished",
     "first_air_date": "First air date",
@@ -402,12 +412,5 @@
         "updated": "Your password has been updated."
       }
     }
-  },
-  "time": {
-    "years": "Years",
-    "months": "Months",
-    "days": "Days",
-    "hours": "Hours",
-    "minutes": "Minutes"
   }
 }

@@ -39,10 +39,15 @@ const props = defineProps({
   }
 })
 
-// Computed properties for each time unit
-const years = computed(() => Math.floor(props.runtime / 60 / 24 / 365))
-const months = computed(() => Math.floor((props.runtime / 60 / 24 / 30) % 12))
-const days = computed(() => Math.floor((props.runtime / 60 / 24) % 30))
-const hours = computed(() => Math.floor((props.runtime / 60) % 24))
-const minutes = computed(() => props.runtime % 60)
+const years = computed(() =>
+  isFinite(props.runtime) ? Math.floor(props.runtime / 60 / 24 / 365) : 0
+)
+const months = computed(() =>
+  isFinite(props.runtime) ? Math.floor((props.runtime / 60 / 24 / 30) % 12) : 0
+)
+const days = computed(() =>
+  isFinite(props.runtime) ? Math.floor((props.runtime / 60 / 24) % 30) : 0
+)
+const hours = computed(() => (isFinite(props.runtime) ? Math.floor((props.runtime / 60) % 24) : 0))
+const minutes = computed(() => (isFinite(props.runtime) ? Math.floor(props.runtime % 60) : 0))
 </script>

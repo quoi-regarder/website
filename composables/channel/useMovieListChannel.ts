@@ -1,23 +1,44 @@
 import type { RealtimeChannel } from '@supabase/channel-js'
 
 export const useMovieListChannel = () => {
+  const { setMovies, removeMovie, addMovie, updateMovie } = useMovieListStore()
+  let movieListChannel: RealtimeChannel | null = null
   const client = useSupabaseClient()
   const user = useSupabaseUser()
-  const movieList = ref<Tables<'user_movie_lists'> | null>(null)
-  let movieListChannel: RealtimeChannel | null = null
-  const { setMovies, removeMovie, addMovie } = useMovieListStore()
+  const { locale } = useI18n()
 
   const fetchMovieList = async () => {
     if (!user.value) return
     try {
-      const manager = new QueryParamsManager(`/api/movie-lists/${user.value.id}`)
+      const manager = new QueryParamsManager(
+        `/api/user-movie-list-with-translation/${user.value.id}`
+      )
+      manager.add('language', locale.value)
 
-      movieList.value = await $fetch(manager.toString(), {
+      const data: Tables<'user_movie_list'>[] = await $fetch(manager.toString(), {
         method: 'GET'
       })
-      setMovies(movieList.value)
+
+      setMovies(data)
     } catch (error: any) {
       console.error('Error fetching movie list:', error)
+    }
+  }
+
+  const fetchMovie = async (tmdbId: number) => {
+    try {
+      const manager = new QueryParamsManager(
+        `/api/user-movie-list-with-translation/${user.value?.id}/${tmdbId}`
+      )
+      manager.add('language', locale.value)
+
+      const data: Tables<'user_movie_list'> = await $fetch(manager.toString(), {
+        method: 'GET'
+      })
+
+      return data
+    } catch (error: any) {
+      console.error('Error fetching movie:', error)
     }
   }
 
@@ -29,14 +50,20 @@ export const useMovieListChannel = () => {
       {
         event: '*',
         schema: 'public',
-        table: 'user_movie_lists',
+        table: 'user_movie_list',
         filter: `user_id=eq.${user.value?.id}`
       },
-      (payload: any) => {
+      async (payload: any) => {
         if (payload.eventType === 'DELETE') {
           removeMovie(payload.old.tmdb_id)
+        } else if (payload.eventType === 'UPDATE') {
+          updateMovie(payload.new)
         } else {
-          addMovie(payload.new)
+          const movie: Tables<'user_movie_list'> | undefined = await fetchMovie(payload.new.tmdb_id)
+          if (!movie) {
+            return
+          }
+          addMovie(movie)
         }
       }
     )
@@ -66,8 +93,4 @@ export const useMovieListChannel = () => {
   onUnmounted(() => {
     cleanupChannel()
   })
-
-  return {
-    movieList
-  }
 }

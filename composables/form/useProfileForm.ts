@@ -12,7 +12,7 @@ export const useProfileForm = () => {
     id: '',
     last_name: '',
     username: '',
-    language: 'fr',
+    language: 'fr-FR',
     color_mode: 'system'
   })
 
