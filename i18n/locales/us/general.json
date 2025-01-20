@@ -221,7 +221,9 @@
       "movie": "My movies",
       "profile": "Profile",
       "search": "Search",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "movie": "My movies",
+      "series": "My TV shows"
     },
     "dropdown": {
       "account": "Logged in as"

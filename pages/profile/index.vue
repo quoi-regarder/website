@@ -7,7 +7,9 @@
       <template #movies>
         <ProfileMovie />
       </template>
-      <template #series> </template>
+      <template #series>
+        <ProfileSeries />
+      </template>
     </UTabs>
   </UContainer>
 </template>
@@ -40,8 +42,7 @@ const tabs = [
   {
     label: t('profile.tabs.series'),
     icon: 'i-lucide-tv-minimal-play',
-    slot: 'series',
-    disabled: true
+    slot: 'series'
   }
 ]
 

@@ -193,7 +193,6 @@
 
 <script lang="ts" setup>
 const switchLocalePath = useSwitchLocalePath()
-const { getToWatchCount, reset } = useMovieListStore()
 const { profile } = useProfileChannel()
 const client = useSupabaseClient()
 const localePath = useLocalePath()
@@ -217,7 +216,12 @@ const links = [
   {
     label: t('navbar.buttons.movie'),
     to: localePath('/profile?tab=movies'),
-    chip: getToWatchCount
+    chip: useMovieListStore().getToWatchCount
+  },
+  {
+    label: t('navbar.buttons.series'),
+    to: localePath('/profile?tab=series'),
+    chip: useSerieListStore().getToWatchCount
   }
 ]
 
@@ -294,7 +298,7 @@ const logout = async () => {
   await client.auth.signOut()
   await navigateTo(localePath('/'))
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
-  reset()
+  useMovieListStore().reset()
 }
 
 const updateLocale = async (locale: Enums<'language_type'>) => {

@@ -222,8 +222,9 @@
       "movie": "Mes films",
       "profile": "Profil",
       "search": "Rechercher",
-      "series": "Mes séries",
-      "signup": "Créer un compte"
+      "signup": "Créer un compte",
+      "movie": "Mes films",
+      "series": "Mes séries"
     },
     "dropdown": {
       "account": "Connecté en tant que"
