@@ -41,6 +41,24 @@
     "buttons": {
       "backToTop": "Retour en haut"
     },
+    "content": {
+      "add_to_viewed_list": "Déjà vu",
+      "add_to_watch_list": "À voir",
+      "toasts": {
+        "success": {
+          "movie": {
+            "addedToList": {
+              "to_watch": "Film ajouté à la liste des films à voir.",
+              "watched": "Film ajouté à la liste des films déjà vus."
+            },
+            "removedFromList": {
+              "to_watch": "Film retiré de la liste des films à voir.",
+              "watched": "Film retiré de la liste des films déjà vus."
+            }
+          }
+        }
+      }
+    },
     "dateNotSet": "Date non définie",
     "form": {
       "error": {
@@ -202,7 +220,8 @@
       "logout": "Déconnexion",
       "profile": "Profil",
       "search": "Rechercher",
-      "signup": "Créer un compte"
+      "signup": "Créer un compte",
+      "movie": "Mes films"
     },
     "dropdown": {
       "account": "Connecté en tant que"
@@ -257,6 +276,19 @@
         "avatarUpdated": "Photo de profil mise à jour.",
         "updated": "Profil mis à jour avec succès."
       }
+    },
+    "tabs": {
+      "profile": "Profil",
+      "movies": "Films",
+      "series": "Séries"
+    },
+    "movie": {
+      "title": "Mes films",
+      "watchTime": "Temps de visionnage total",
+      "toWatch": "À voir",
+      "watched": "Déjà vu",
+      "noWatched": "Aucun film déjà vu.",
+      "noToWatch": "Aucun film à voir."
     }
   },
   "provider": {
@@ -370,5 +402,12 @@
         "updated": "Votre mot de passe a été mis à jour."
       }
     }
+  },
+  "time": {
+    "years": "Années",
+    "months": "Mois",
+    "days": "Jours",
+    "hours": "Heures",
+    "minutes": "Minutes"
   }
 }

@@ -41,6 +41,24 @@
     "buttons": {
       "backToTop": "Back to top"
     },
+    "content": {
+      "add_to_viewed_list": "Watched",
+      "add_to_watch_list": "To Watch",
+      "toasts": {
+        "success": {
+          "movie": {
+            "addedToList": {
+              "to_watch": "Movie added to the watchlist.",
+              "watched": "Movie added to the watched list."
+            },
+            "removedFromList": {
+              "to_watch": "Movie removed from the watchlist.",
+              "watched": "Movie removed from the watched list."
+            }
+          }
+        }
+      }
+    },
     "dateNotSet": "Date not set",
     "form": {
       "error": {
@@ -202,7 +220,8 @@
       "logout": "Logout",
       "profile": "Profile",
       "search": "Search",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "movie": "My movies"
     },
     "dropdown": {
       "account": "Logged in as"
@@ -257,6 +276,19 @@
         "avatarUpdated": "Your profile picture has been updated.",
         "updated": "Your profile has been updated."
       }
+    },
+    "tabs": {
+      "profile": "Profile",
+      "movies": "Movies",
+      "series": "TV Shows"
+    },
+    "movie": {
+      "title": "My Movies",
+      "watchTime": "Total watch time",
+      "toWatch": "To Watch",
+      "watched": "Watched",
+      "noWatched": "No movies watched.",
+      "noToWatch": "No movies to watch."
     }
   },
   "provider": {
@@ -370,5 +402,12 @@
         "updated": "Your password has been updated."
       }
     }
+  },
+  "time": {
+    "years": "Years",
+    "months": "Months",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes"
   }
 }

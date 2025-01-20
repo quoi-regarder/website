@@ -304,9 +304,8 @@ const searchQuery = async (reset = false, showToast = true) => {
           t('common.toasts.title.success'),
           t('home.toasts.success.search')
         )
+        window.scrollTo({ top: document.getElementById('carousel')?.offsetTop, behavior: 'smooth' })
       }
-
-      window.scrollTo({ top: document.getElementById('carousel')?.offsetTop, behavior: 'smooth' })
     } else {
       showCarousel.value = false
       useNotifications().info(t('common.toasts.title.info'), t('home.toasts.error.search'))

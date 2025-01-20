@@ -3,6 +3,62 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Database = {
   public: {
     Tables: {
+      movie_translations: {
+        Row: {
+          created_at: string
+          language: Database['public']['Enums']['language_iso_type']
+          overview: string | null
+          title: string
+          tmdb_id: number
+        }
+        Insert: {
+          created_at?: string
+          language: Database['public']['Enums']['language_iso_type']
+          overview?: string | null
+          title: string
+          tmdb_id?: number
+        }
+        Update: {
+          created_at?: string
+          language?: Database['public']['Enums']['language_iso_type']
+          overview?: string | null
+          title?: string
+          tmdb_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'movie_translations_tmdb_id_fkey'
+            columns: ['tmdb_id']
+            isOneToOne: false
+            referencedRelation: 'movies'
+            referencedColumns: ['tmdb_id']
+          }
+        ]
+      }
+      movies: {
+        Row: {
+          created_at: string
+          poster_path: string | null
+          release_date: string | null
+          runtime: number | null
+          tmdb_id: number
+        }
+        Insert: {
+          created_at?: string
+          poster_path?: string | null
+          release_date?: string | null
+          runtime?: number | null
+          tmdb_id?: number
+        }
+        Update: {
+          created_at?: string
+          poster_path?: string | null
+          release_date?: string | null
+          runtime?: number | null
+          tmdb_id?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -11,7 +67,7 @@ export type Database = {
           email: string | null
           first_name: string | null
           id: string
-          language: Database['public']['Enums']['language_type']
+          language: Database['public']['Enums']['language_type'] | null
           last_name: string | null
           updated_at: string | null
           username: string
@@ -23,7 +79,7 @@ export type Database = {
           email?: string | null
           first_name?: string | null
           id: string
-          language?: Database['public']['Enums']['language_type']
+          language?: Database['public']['Enums']['language_type'] | null
           last_name?: string | null
           updated_at?: string | null
           username: string
@@ -35,23 +91,90 @@ export type Database = {
           email?: string | null
           first_name?: string | null
           id?: string
-          language?: Database['public']['Enums']['language_type']
+          language?: Database['public']['Enums']['language_type'] | null
           last_name?: string | null
           updated_at?: string | null
           username?: string
         }
         Relationships: []
       }
+      user_movie_lists: {
+        Row: {
+          added_at: string
+          status: Database['public']['Enums']['movie_list_status']
+          tmdb_id: number
+          user_id: string
+        }
+        Insert: {
+          added_at?: string
+          status?: Database['public']['Enums']['movie_list_status']
+          tmdb_id: number
+          user_id: string
+        }
+        Update: {
+          added_at?: string
+          status?: Database['public']['Enums']['movie_list_status']
+          tmdb_id?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'user_movie_lists_tmdb_id_fkey'
+            columns: ['tmdb_id']
+            isOneToOne: false
+            referencedRelation: 'movies'
+            referencedColumns: ['tmdb_id']
+          },
+          {
+            foreignKeyName: 'user_movie_lists_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'profiles'
+            referencedColumns: ['id']
+          }
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      fetch_and_store_translation: {
+        Args: {
+          p_tmdb_id: number
+          p_language: string
+        }
+        Returns: {
+          created_at: string
+          language: Database['public']['Enums']['language_iso_type']
+          overview: string | null
+          title: string
+          tmdb_id: number
+        }
+      }
+      get_movie_data: {
+        Args: {
+          p_tmdb_id: number
+        }
+        Returns: Json
+      }
+      get_tmdb_api_key: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
+      sync_missing_translations: {
+        Args: {
+          p_tmdb_ids: number[]
+          p_language: Database['public']['Enums']['language_iso_type']
+        }
+        Returns: undefined
+      }
     }
     Enums: {
       color_mode_type: 'light' | 'dark' | 'system'
-      language_type: 'fr-FR' | 'en-US'
+      language_iso_type: 'fr-FR' | 'en-US'
+      language_type: 'fr' | 'us'
+      movie_list_status: 'recommended' | 'to_watch' | 'watched'
     }
     CompositeTypes: {
       [_ in never]: never
