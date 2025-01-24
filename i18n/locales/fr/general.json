@@ -378,7 +378,11 @@
   "trending": {
     "description": "Découvrez les films et séries les plus populaires du moment.",
     "placeholder": "Titre du film ou de la série",
-    "title": "Les tendances du moment"
+    "title": "Les tendances du moment",
+    "stickers": {
+      "movie": "Film",
+      "tv": "Série"
+    }
   },
   "signup": {
     "form": {

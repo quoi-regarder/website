@@ -378,7 +378,11 @@
   "trending": {
     "description": "Discover the most popular movies and series of the moment.",
     "placeholder": "Movie or series title",
-    "title": "Trending Movies and Series"
+    "title": "Trending Movies and Series",
+    "stickers": {
+      "movie": "Movie",
+      "tv": "TV Show"
+    }
   },
   "signup": {
     "form": {

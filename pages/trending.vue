@@ -8,15 +8,15 @@
       preload
     />
 
-    <div class="relative z-10 flex flex-col items-center justify-start min-h-[92vh] gap-4 pt-[5vh]">
-      <h1 class="text-4xl text-[var(--ui-color-primary-400)] text-center font-bold mb-2">
+    <div class="relative z-10 flex flex-col items-center justify-start min-h-[92vh] gap-4 pt-[2vh]">
+      <h1 class="text-4xl text-[var(--ui-color-primary-400)] text-center font-bold">
         {{ $t('trending.title') }}
       </h1>
       <h2 class="text-center">
         {{ $t('trending.description') }}
       </h2>
 
-      <div id="sticker" class="flex gap-4">
+      <div id="sticker" class="flex gap-30 mt-4 mb-4">
         <MovieSticker v-if="results_movies[0]" :item="results_movies[0]" />
         <MovieSticker v-if="results_tv[0]" :item="results_tv[0]" />
       </div>
