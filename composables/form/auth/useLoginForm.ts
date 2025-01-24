@@ -3,14 +3,10 @@ import * as yup from 'yup'
 export const useLoginForm = () => {
   const { t } = useI18n()
 
-  const state = reactive<Login>({
+  const state = reactive<Partial<User>>({
     email: '',
     password: ''
   })
-
-  const setState = (login: Partial<typeof state>) => {
-    Object.assign(state, login)
-  }
 
   const schema = yup.object({
     email: yup
@@ -27,5 +23,5 @@ export const useLoginForm = () => {
       )
   })
 
-  return { state, setState, schema }
+  return { state, schema }
 }

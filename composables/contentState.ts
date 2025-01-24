@@ -1,88 +1,154 @@
+type ContentType = 'movie' | 'tv' | 'season' | 'episode'
+
 export const useContentState = () => {
-  const { getMovieByTmdbId } = useMovieListStore()
+  const movieWatchlistService: WatchlistService = useMovieWatchlistService()
+  const serieWatchlistService: WatchlistService = useSerieWatchlistService()
+  const seasonWatchlistService: WatchlistService = useSeasonWatchlistService()
+  const episodeWatchlistService: WatchlistService = useEpisodeWatchlistService()
+
+  const { isAuthenticated, getUserId } = useAuthStore()
   const localPath = useLocalePath()
-  const user = useSupabaseUser()
   const { t } = useI18n()
 
-  const getContentFromList = (
-    type: 'movie' | 'tv',
-    id: number
-  ): Tables<'user_movie_list'> | undefined => {
-    if (!user.value) {
-      return undefined
-    }
-
-    if (type === 'movie') {
-      return getMovieByTmdbId(id) as Tables<'user_movie_list'>
-    } else {
-      // TODO: Get TV show from list
-    }
-  }
-
-  const isContentWatched = (type: 'movie' | 'tv', id: number) => {
-    if (!user.value) {
-      return false
-    }
-
-    const content = getContentFromList(type, id)
-    if (!content) {
-      return false
-    }
-
-    return content.status === 'watched'
-  }
-
-  const isContentToWatch = (type: 'movie' | 'tv', id: number) => {
-    if (!user.value) {
-      return false
-    }
-
-    const content = getContentFromList(type, id)
-
-    if (!content) {
-      return false
-    }
-
-    return content.status === 'to_watch'
-  }
-
-  const addContentToWatchlist = async (type: 'movie' | 'tv', id: number) => {
-    if (type === 'movie') {
-      return addMovieToList(id, 'to_watch', type)
-    } else {
-      // TODO: Add TV show to watchlist
+  const getServiceAndStore = (type: ContentType) => {
+    switch (type) {
+      case 'movie':
+        return { service: movieWatchlistService, store: useMovieListStore() }
+      case 'tv':
+        return { service: serieWatchlistService, store: useSerieListStore() }
+      case 'season':
+        return { service: seasonWatchlistService, store: useSeasonListStore() }
+      case 'episode':
+        return { service: episodeWatchlistService, store: useEpisodeListStore() }
+      default:
+        throw new Error(`Unsupported content type: ${type}`)
     }
   }
 
-  const addContentToViewedList = async (type: 'movie' | 'tv', id: number) => {
-    if (type === 'movie') {
-      addMovieToList(id, 'watched', type)
-    } else {
-      // TODO: Add TV show to watched list
+  /**
+   *
+   * @param type Content type (movie, tv, season, episode)
+   * @param typeId Content ID
+   * @returns Content object from storage
+   *
+   * @description Get content object from storage.
+   *
+   * Precisions:
+   * - If we want to get a season, the typeId should be the season ID. etc.
+   */
+  const getContentFromList = (type: ContentType, typeId: number) => {
+    if (!isAuthenticated.value) return undefined
+
+    switch (type) {
+      case 'movie':
+        return useMovieListStore().getMovieByTmdbId(typeId)
+      case 'tv':
+        return useSerieListStore().getSerieByTmdbId(typeId)
+      case 'season':
+        return useSeasonListStore().getSeasonByTmdbId(typeId)
+      case 'episode':
+        return useEpisodeListStore().getEpisodeByTmdbId(typeId)
+      default:
+        throw new Error(`Unsupported content type: ${type}`)
     }
   }
 
-  const addMovieToList = async (
-    movie_id: number,
-    status: Enums<'movie_list_status'>,
-    type: 'movie' | 'tv'
+  /**
+   *
+   * @param type Content type (movie, tv, season, episode)
+   * @param typeId Content ID
+   * @returns Watch status (to_watch, watching, watched)
+   *
+   * @description Get the watch status of a content.
+   *
+   * Precisions:
+   * - If we want to get the status of a season, the typeId should be the season ID. etc.
+   */
+  const getContentStatus = (type: ContentType, typeId: number) => {
+    const content = getContentFromList(type, typeId)
+    return content ? content.status : null
+  }
+
+  /**
+   *
+   * @param type Content type (movie, tv, season, episode)
+   * @param primaryId Primary content ID
+   * @param status Watch status (to_watch, watching, watched)
+   * @param contentId Content ID (optional)
+   * @param seasonNumber Season number (optional)
+   * @returns void
+   *
+   * @description Add content to watchlist or viewed list.
+   * If the content is already in the list, it will be removed.
+   * If the content is in the list with a different status, it will be updated.
+   * If the content is not in the list, it will be added.
+   *
+   * Precisions:
+   * - If we are adding a movie, the primaryId should be the movie ID. Other IDs should be null.
+   * - If we are adding a serie, the primaryId should be the serie ID. Other IDs should be null.
+   * - If we are adding a season, the primaryId should be the serie ID and the contentId should be the season ID.
+   * - If we are adding an episode, the primaryId should be the serie ID and the contentId should be the episode ID and the seasonNumber should be the season number.
+   */
+  const addContentToList = async (
+    type: ContentType,
+    primaryId: number,
+    status: WatchStatus,
+    contentId?: number | null,
+    seasonNumber?: number | null
   ) => {
-    if (!user.value) {
+    if (!isAuthenticated.value) {
       navigateTo(localPath('/auth/login'))
+      return
     }
 
-    useMovie().addMovieToList(movie_id, status)
+    const idOfContent = contentId || primaryId
 
-    useNotifications().success(
-      t('common.toasts.title.success'),
-      t(`common.content.toasts.success.${type}.addedToList.${status}`)
-    )
+    const { service } = getServiceAndStore(type)
+    const content = getContentFromList(type, idOfContent)
+
+    if (content) {
+      if (content.status === status) {
+        service.removeWatchlist(getUserId.value, idOfContent, primaryId)
+        useNotifications().success(
+          t('common.toasts.title.success'),
+          t(`common.content.toasts.success.${type}.removedFromList.${status}`)
+        )
+      } else {
+        service.updateWatchlist(getUserId.value, idOfContent, status, primaryId)
+        useNotifications().success(
+          t('common.toasts.title.success'),
+          t(`common.content.toasts.success.${type}.addedToList.${status}`)
+        )
+      }
+    } else {
+      const watch = {
+        userId: getUserId.value,
+        tmdbId: idOfContent,
+        status: status,
+        seasonNumber: seasonNumber
+      } as MovieWatchlist | SerieWatchlist | SerieSeasonWatchlist | SerieEpisodeWatchlist
+
+      service.createWatchlist(getUserId.value, watch, primaryId)
+      useNotifications().success(
+        t('common.toasts.title.success'),
+        t(`common.content.toasts.success.${type}.addedToList.${status}`)
+      )
+    }
   }
 
   return {
-    isContentWatched,
-    isContentToWatch,
-    addContentToWatchlist,
-    addContentToViewedList
+    getContentStatus,
+    addContentToWatchlist: (
+      type: ContentType,
+      primaryId: number,
+      seasonId?: number | null,
+      seasonNumber?: number | null
+    ) => addContentToList(type, primaryId, WatchStatus.TO_WATCH, seasonId, seasonNumber),
+    addContentToViewedList: (
+      type: ContentType,
+      primaryId: number,
+      seasonId?: number | null,
+      seasonNumber?: number | null
+    ) => addContentToList(type, primaryId, WatchStatus.WATCHED, seasonId, seasonNumber)
   }
 }

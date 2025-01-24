@@ -34,10 +34,10 @@
 </template>
 
 <script lang="ts" setup>
-const client = useSupabaseClient()
 const { state, schema } = useForgotPasswordForm()
-const { t } = useI18n()
+const authService = useAuthService()
 const localPath = useLocalePath()
+const { t } = useI18n()
 
 useHead({
   title: t('seo.pages.auth.forgot-password'),
@@ -51,7 +51,11 @@ definePageMeta({
 })
 
 const onSubmit = async () => {
-  await client.auth.resetPasswordForEmail(state.email)
+  const response: ApiResponse = await authService.forgotPassword(state.email)
+
+  if (response.status === 'error') {
+    return
+  }
 
   await navigateTo(localPath('/'))
   useNotifications().success(

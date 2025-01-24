@@ -35,7 +35,7 @@
     <div class="flex justify-center">
       <UCarousel
         v-if="getToWatchCount > 0"
-        :items="getToWatchList"
+        :items="toWatchList"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
@@ -47,7 +47,7 @@
             <UButton
               trailing-icon="i-lucide-eye"
               class="absolute top-15 right-1"
-              @click="addToWatchedLists(item.tmdb_id)"
+              @click="addToWatchedLists(item.tmdbId)"
             >
               {{ $t('common.content.add_to_viewed_list') }}
             </UButton>
@@ -78,10 +78,11 @@
       {{ $t('profile.movie.watched') }}
     </h2>
 
+    <!-- TODO: fetch list from database, with pagination -->
     <div class="flex justify-center">
       <UCarousel
         v-if="getWatchedCount > 0"
-        :items="getWatchedList"
+        :items="watchedList"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
@@ -101,16 +102,46 @@
 </template>
 
 <script lang="ts" setup>
-const { getToWatchCount, getToWatchList, getWatchedCount, getWatchedList, getTotalRuntime } =
-  useMovieListStore()
+const { getToWatchCount, getWatchedCount, getTotalRuntime } = useMovieListStore()
+const movieWatchlistService = useMovieWatchlistService()
+const watchedList = ref<MovieWatchlist[]>([])
+const toWatchList = ref<MovieWatchlist[]>([])
+const watchedPage = ref(1)
+const toWatchPage = ref(1)
+const { getUserId } = useAuthStore()
 const { t } = useI18n()
 
-const addToWatchedLists = (tmdb_id: number) => {
-  useMovie().addMovieToList(tmdb_id, 'watched')
+onMounted(() => {
+  fetchMovieLists()
+})
+
+const addToWatchedLists = async (tmdb_id: number) => {
+  await movieWatchlistService.updateWatchlist(getUserId.value, tmdb_id, WatchStatus.WATCHED)
+  await fetchMovieLists()
 
   useNotifications().success(
     t('common.toasts.title.success'),
     t('common.content.toasts.success.movie.addedToList.watched')
   )
+}
+
+const fetchMovieLists = async () => {
+  const watchedResponse = await movieWatchlistService.getWatchlistWithDetails(
+    getUserId.value,
+    WatchStatus.WATCHED,
+    watchedPage.value
+  )
+
+  watchedList.value = watchedResponse.data
+  toWatchPage.value = Math.min(watchedResponse.meta.lastPage, watchedPage.value + 1)
+
+  const toWatchResponse = await movieWatchlistService.getWatchlistWithDetails(
+    getUserId.value,
+    WatchStatus.TO_WATCH,
+    toWatchPage.value
+  )
+
+  toWatchList.value = toWatchResponse.data
+  toWatchPage.value = Math.min(toWatchResponse.meta.lastPage, toWatchPage.value + 1)
 }
 </script>

@@ -55,6 +55,8 @@
 <script setup lang="ts">
 const route = useRoute()
 const { locale, t } = useI18n()
+useSerieEpisodeListChannel()
+useSerieSeasonListChannel()
 
 useHead({
   title: t('seo.pages.detail.tv'),

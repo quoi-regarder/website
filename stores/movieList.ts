@@ -1,43 +1,41 @@
 import { defineStore } from 'pinia'
+import { WatchStatus } from '../types/watchStatus'
 
 export const useMovieListStore = defineStore('movie_list', {
-  state: (): { movieList: Tables<'user_movie_list'>[] } => ({
+  state: (): { movieList: MovieWatchlist[] } => ({
     movieList: []
   }),
   getters: {
     getToWatchCount: (state) =>
-      computed(() => state.movieList?.filter((m) => m.status === 'to_watch').length),
-    getToWatchList: (state) =>
-      computed(() => state.movieList?.filter((m) => m.status === 'to_watch')),
+      computed(() => state.movieList?.filter((m) => m.status === WatchStatus.TO_WATCH).length),
     getWatchedCount: (state) =>
-      computed(() => state.movieList?.filter((m) => m.status === 'watched').length),
-    getWatchedList: (state) =>
-      computed(() => state.movieList?.filter((m) => m.status === 'watched')),
+      computed(() => state.movieList?.filter((m) => m.status === WatchStatus.WATCHED).length),
     getTotalRuntime: (state) =>
       computed(() =>
         state.movieList
-          ?.filter((m) => m.status === 'watched')
-          .reduce((acc, m) => acc + m.runtime, 0)
+          ?.filter((m) => m.status === WatchStatus.WATCHED)
+          .reduce((acc, m) => acc + m?.movie?.runtime, 0)
       ),
     getMovieByTmdbId: (state) => (tmdbId: number) => {
-      return state.movieList.find((m) => m.tmdb_id === tmdbId)
-    },
-    getMovieList: (state) => computed(() => state.movieList)
+      return state.movieList.find((m) => {
+        return m.tmdbId.toString() === tmdbId.toString()
+      })
+    }
   },
   actions: {
-    addMovie (movie: Tables<'user_movie_list'>) {
-      this.movieList = this.movieList.filter((m) => m.tmdb_id !== movie.tmdb_id)
+    addMovie (movie: MovieWatchlist) {
+      this.movieList = this.movieList.filter((m) => m.tmdbId !== movie.tmdbId)
       this.movieList.push(movie)
     },
-    updateMovie (movie: Tables<'user_movie_list'>) {
+    updateMovie (movie: MovieWatchlist) {
       this.movieList = this.movieList.map((m) =>
-        m.tmdb_id === movie.tmdb_id ? { ...m, status: movie.status } : m
+        m.tmdbId === movie.tmdbId ? { ...m, ...movie } : m
       )
     },
-    removeMovie (id: number) {
-      this.movieList = this.movieList.filter((m) => m.tmdb_id !== id)
+    removeMovie (movie: MovieWatchlist) {
+      this.movieList = this.movieList.filter((m) => m.tmdbId !== movie.tmdbId)
     },
-    setMovies (movieList: Tables<'user_movie_list'>[]) {
+    setMovies (movieList: MovieWatchlist[]) {
       this.movieList = movieList
     },
     reset () {

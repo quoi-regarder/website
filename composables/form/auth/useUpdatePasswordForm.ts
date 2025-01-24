@@ -3,7 +3,7 @@ import * as yup from 'yup'
 export const useUpdatePasswordForm = () => {
   const { t } = useI18n()
 
-  const state = reactive<UpdatePassword>({
+  const state = reactive<Partial<User> & { passwordConfirmation: string }>({
     password: '',
     passwordConfirmation: ''
   })

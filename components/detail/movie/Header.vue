@@ -33,10 +33,10 @@
 
             <div class="flex gap-2 pr-2 justify-end mt-2">
               <UButton
-                :variant="isContentWatched('movie', movieId) ? 'solid' : 'outline'"
+                :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
                 class="self-center"
                 :trailing-icon="
-                  isContentWatched('movie', movieId) ? 'i-lucide:check' : 'i-lucide:eye'
+                  computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
                 "
                 @click="addContentToViewedList('movie', movieId)"
               >
@@ -44,10 +44,10 @@
               </UButton>
 
               <UButton
-                :variant="isContentToWatch('movie', movieId) ? 'solid' : 'outline'"
+                :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
                 class="self-center"
                 :trailing-icon="
-                  isContentToWatch('movie', movieId) ? 'i-lucide:check' : 'i-lucide:plus'
+                  computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
                 "
                 @click="addContentToWatchlist('movie', movieId)"
               >
@@ -83,8 +83,8 @@
 </template>
 
 <script lang="ts" setup>
-const { isContentWatched, isContentToWatch, addContentToViewedList, addContentToWatchlist } =
-  useContentState()
+const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
+
 const colorMode = useColorMode()
 const route = useRoute()
 
@@ -136,6 +136,8 @@ const props = defineProps({
 })
 
 const movieId = ref(Number(route.params.id))
+
+const computedStatus = computed(() => getContentStatus('movie', movieId.value))
 
 const linearGradient = computed(() => {
   if (colorMode.value === 'dark') {

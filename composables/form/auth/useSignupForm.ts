@@ -3,19 +3,18 @@ import * as yup from 'yup'
 export const useSignupForm = () => {
   const { t } = useI18n()
 
-  const state = reactive<Signup>({
+  const state = reactive<Partial<Profile> & Partial<User> & { passwordConfirmation: string }>({
     email: '',
     username: '',
     firstName: '',
     lastName: '',
     password: '',
-    passwordConfirmation: '',
-    terms: false
+    passwordConfirmation: ''
   })
 
-  const setState = (signup: Partial<typeof state>) => {
-    Object.assign(state, signup)
-  }
+  const termsState = reactive({
+    terms: false
+  })
 
   const schema = yup.object({
     email: yup
@@ -39,9 +38,12 @@ export const useSignupForm = () => {
     passwordConfirmation: yup
       .string()
       .oneOf([yup.ref('password')], t('common.form.error.passwordMatch'))
-      .required(t('common.form.error.required')),
+      .required(t('common.form.error.required'))
+  })
+
+  const termsSchema = yup.object({
     terms: yup.boolean().required(t('common.form.error.required'))
   })
 
-  return { state, setState, schema }
+  return { state, schema, termsState, termsSchema }
 }

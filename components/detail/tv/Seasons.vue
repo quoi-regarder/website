@@ -39,63 +39,7 @@
           }"
         >
           <template #default="{ item }">
-            <UCard :item="item" class="mx-auto w-11/12">
-              <template #header>
-                <div class="flex flex-col items-center">
-                  <h2 class="text-l font-bold text-[var(--ui-color-primary-400)] text-center">
-                    {{ $t('tvSeasons.episode', { number: item.episode_number }) }} - {{ item.name }}
-                  </h2>
-                </div>
-              </template>
-
-              <template #default>
-                <div class="flex flex-col lg:flex-row justify-center-center">
-                  <div class="lg:w-1/3">
-                    <NuxtImg
-                      v-if="item.still_path"
-                      :src="getImageUrl(item.still_path, 'original')"
-                      alt="episode still"
-                      class="rounded-md mx-auto"
-                    />
-
-                    <USkeleton
-                      v-else
-                      class="w-full h-32 rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
-                    />
-                  </div>
-
-                  <div class="h-56 overflow-hidden overflow-y-auto px-1 lg:w-2/3 lg:h-32">
-                    <p v-if="item.overview" class="text-sm text-justify">
-                      {{ item.overview }}
-                    </p>
-                    <p v-else class="text-sm text-justify">
-                      {{ $t('tvSeasons.no_overview') }}
-                    </p>
-                  </div>
-                </div>
-              </template>
-
-              <template #footer>
-                <div class="flex flex-col gap-y-2">
-                  <div v-if="item.vote_average" class="flex flex-col items-start">
-                    <p class="text-sm">
-                      {{ $t('tvSeasons.vote_average') }}
-                    </p>
-                    <UProgress
-                      :model-value="item.vote_average"
-                      :max="10"
-                      :min="0"
-                      status
-                      :ui="{ base: 'dark:bg-[var(--ui-bg-muted)]', status: 'text-[var(--ui-text)' }"
-                    >
-                    </UProgress>
-                    <p class="text-left text-sm mt-2">
-                      {{ $t('tvSeasons.vote_count', { count: item.vote_count }) }}
-                    </p>
-                  </div>
-                </div>
-              </template>
-            </UCard>
+            <LazyDetailPartEpisodeCard :episode="item" />
           </template>
         </UCarousel>
       </div>
@@ -104,9 +48,12 @@
 </template>
 
 <script lang="ts" setup>
-const route = useRoute()
+const episodeWatchlistService = useEpisodeWatchlistService()
+const { isAuthenticated, getUserId } = useAuthStore()
+const { setEpisodes } = useEpisodeListStore()
 const { locale } = useI18n()
-defineProps({
+const route = useRoute()
+const props = defineProps({
   seasons: {
     type: Array as PropType<any[]>,
     required: true
@@ -131,10 +78,30 @@ const fetchSeasons = async () => {
     `/api/themoviedb/tv/${route.params.id}/season/${selectedNumber.value}`
   )
   manager.add('language', locale.value)
-  const data = await $fetch(manager.toString())
+  const data: any = await $fetch(manager.toString())
 
   episodes.value = data.episodes
 
   carousel.value?.emblaApi?.scrollTo(0)
+
+  if (!isAuthenticated.value) return
+  fetchEpisodeWatchlist(selectedNumber.value)
+}
+
+const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
+  if (!seasonNumber) return
+  const fetchedEpisodeWatchlist: SerieEpisodeWatchlist = await episodeWatchlistService.getWatchlist(
+    getUserId.value,
+    route.params.id as string,
+    props.seasons.filter((season: any) => season.season_number === seasonNumber)[0].id
+  )
+
+  if (!fetchedEpisodeWatchlist) {
+    throw new Error('Failed to fetch episode watchlist')
+  }
+
+  const watchedEpisodes = fetchedEpisodeWatchlist as unknown as SerieEpisodeWatchlist[]
+
+  setEpisodes(watchedEpisodes)
 }
 </script>

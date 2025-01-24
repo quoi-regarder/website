@@ -40,8 +40,7 @@ const tabs = [
   {
     label: t('profile.tabs.series'),
     icon: 'i-lucide-tv-minimal-play',
-    slot: 'series',
-    disabled: true
+    slot: 'series'
   }
 ]
 

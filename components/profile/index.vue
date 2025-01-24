@@ -9,7 +9,7 @@
     <UForm :schema="schema" :state="state" class="flex flex-col items-center" @submit="onSubmit">
       <div class="flex justify-center w-full">
         <LazyFieldAvatar
-          v-model="state.avatar_url"
+          v-model="state.avatarUrl"
           :label="$t('profile.form.fields.avatar')"
           name="avatar"
           @update:file="handleAvatarChange"
@@ -19,14 +19,14 @@
       <div class="grid md:grid-cols-2 gap-4 w-full justify-items-center">
         <div class="md:w-2/3">
           <LazyFieldInput
-            v-model="state.last_name as string"
+            v-model="state.lastName"
             :label="$t('profile.form.fields.lastName')"
             :placeholder="$t('profile.form.placeholders.lastName')"
             name="lastName"
           />
 
           <LazyFieldInput
-            v-model="state.first_name as string"
+            v-model="state.firstName"
             :label="$t('profile.form.fields.firstName')"
             :placeholder="$t('profile.form.placeholders.firstName')"
             name="firstName"
@@ -42,7 +42,7 @@
           />
 
           <LazyFieldInput
-            v-model="state.email as string"
+            v-model="email"
             :label="$t('profile.form.fields.email')"
             :placeholder="$t('profile.form.placeholders.email')"
             disabled
@@ -90,106 +90,53 @@
 <script lang="ts" setup>
 const { state, setState, schema } = useProfileForm()
 const isDeleteAccountModalOpen = ref(false)
-const client = useSupabaseClient()
+const profileService = useProfileService()
+const userService = useUserService()
+const { getUserId } = useAuthStore()
 const localPath = useLocalePath()
-const user = useSupabaseUser()
+const email = ref('')
 const { t } = useI18n()
 
 onMounted(async () => {
-  try {
-    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    const profile = await $fetch(manager.toString(), {
-      method: 'GET'
-    })
-    setState(profile)
-  } catch (error: any) {
-    useNotifications().error(
-      t('common.toasts.title.error'),
-      t(`common.api.error.${error.statusMessage}`)
-    )
-  }
+  const profile: Profile = await profileService.getProfile(getUserId.value)
+  email.value = profile.user.email
+
+  setState(profile)
 })
 
 const onSubmit = async () => {
-  try {
-    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    await $fetch(manager.toString(), {
-      method: 'PUT',
-      body: state
-    })
+  const profile: Profile = await profileService.updateProfile(getUserId.value, state)
+
+  if (profile) {
+    setState(profile)
     useNotifications().success(
       t('common.toasts.title.success'),
       t('profile.toasts.success.updated')
-    )
-  } catch (error: any) {
-    useNotifications().error(
-      t('common.toasts.title.error'),
-      t(`common.api.error.${error.statusMessage}`)
     )
   }
 }
 
 const handleAvatarChange = async (file: File) => {
-  try {
-    const formData = new FormData()
-    formData.append('file', file)
+  const profile: Profile = await profileService.updateAvatar(getUserId.value, file)
 
-    if (file === null) {
-      const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
-      await $fetch(manager.toString(), {
-        method: 'DELETE'
-      })
-
-      useNotifications().success(
-        t('common.toasts.title.success'),
-        t('profile.toasts.success.avatarRemoved')
-      )
-    } else {
-      const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/avatar`)
-      await $fetch(manager.toString(), {
-        method: 'POST',
-        body: formData
-      })
-
-      useNotifications().success(
-        t('common.toasts.title.success'),
-        t('profile.toasts.success.avatarUpdated')
-      )
-    }
-
-    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
-    const profile = await $fetch(manager.toString(), {
-      method: 'GET'
-    })
-
+  if (profile) {
     setState(profile)
-  } catch (error: any) {
-    useNotifications().error(
-      t('common.toasts.title.error'),
-      t(`common.api.error.${error.statusMessage}`)
+    useNotifications().success(
+      t('common.toasts.title.success'),
+      t('profile.toasts.success.avatarUpdated')
     )
   }
 }
 
 const handleDeleteAccount = async () => {
-  try {
-    const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}`)
+  await userService.deleteUser(getUserId.value)
 
-    await $fetch(manager.toString(), {
-      method: 'DELETE'
-    })
-    await client.auth.signOut()
-    await navigateTo(localPath('/'))
+  useNotifications().success(
+    t('common.toasts.title.success'),
+    t('profile.toasts.success.accountDeleted')
+  )
 
-    useNotifications().success(
-      t('common.toasts.title.success'),
-      t('profile.toasts.success.accountDeleted')
-    )
-  } catch (error: any) {
-    useNotifications().error(
-      t('common.toasts.title.error'),
-      t(`common.api.error.${error.statusMessage}`)
-    )
-  }
+  useAuthStore().resetAuth()
+  navigateTo(localPath('/'))
 }
 </script>

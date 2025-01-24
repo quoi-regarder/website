@@ -10,7 +10,7 @@
   },
   "engines": {
     "node": ">= 20.0.0",
-    "pnpm": ">=9.0.0 <10.0.0"
+    "npm": ">= 8.0.0"
   },
   "scripts": {
     "dev": "nuxt dev",
@@ -26,13 +26,13 @@
     "update": "pnpm update"
   },
   "dependencies": {
+    "@adonisjs/transmit-client": "^1.0.0",
     "@nuxt/image": "1.9.0",
     "@nuxt/scripts": "0.9.5",
     "@nuxt/ui": "3.0.0-alpha.11",
     "@nuxthub/core": "0.8.12",
     "@nuxtjs/i18n": "9.1.1",
     "@nuxtjs/seo": "^2.0.3",
-    "@nuxtjs/supabase": "1.4.5",
     "@pinia/nuxt": "^0.9.0",
     "@vueuse/nuxt": "12.4.0",
     "nuxt": "^3.15.2",
@@ -50,6 +50,5 @@
     "prettier": "^3.4.2",
     "typescript": "^5.7.2",
     "wrangler": "^3.103.2"
-  },
-  "lockfileVersion": 9
+  }
 }

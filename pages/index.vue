@@ -202,7 +202,10 @@
 
 <script lang="ts" setup>
 import type { CalendarDate } from '@internationalized/date'
+const authService = useAuthService()
+const localPath = useLocalePath()
 const { locale, t } = useI18n()
+const route = useRoute()
 
 useHead({
   title: t('seo.title'),
@@ -266,6 +269,8 @@ const totalPages = ref(0)
 const showButton = ref(false)
 
 onMounted(() => {
+  handleRegisterToken()
+
   window.addEventListener('scroll', checkSearchButtonVisibility)
 })
 
@@ -495,6 +500,21 @@ const handleTransitionEnd = () => {
   if (!moreFilters.value) {
     moreFiltersTransition.value = false
   }
+}
+
+// Register token
+const handleRegisterToken = async () => {
+  const token = route.query.token
+  if (!token) return
+  const response: ApiResponse = await authService.verifyEmail(token as string)
+
+  if (response.status === 'error') {
+    navigateTo(localPath('/'))
+    return
+  }
+
+  await navigateTo(localPath('/'))
+  useNotifications().success(t('common.toasts.title.success'), t('home.toasts.success.token'))
 }
 
 // Watchers

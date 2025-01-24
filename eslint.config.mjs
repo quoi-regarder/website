@@ -3,7 +3,7 @@ import withNuxt from './.nuxt/eslint.config.mjs'
 export default withNuxt(
   // your custom flat configs go here, for example:
   {
-    ignores: ['node_modules', '.nuxt', '.output', 'dist', 'supabase'],
+    ignores: ['node_modules', '.nuxt', '.output', 'dist'],
     files: ['**/*.ts', '**/*.vue'],
     rules: {
       'no-console': 'off',

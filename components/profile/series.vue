@@ -10,6 +10,6 @@
   </UContainer>
 </template>
 
-<script lang="ts" setup></script>
+<!-- Page avec le composant "Accordion". On veut 3 parties ("TO_WATCH, WATCHING, WATCHED") avec des Accordion à 3 niveau (série, saison, épisode) -->
 
-<style></style>
+<script lang="ts" setup></script>

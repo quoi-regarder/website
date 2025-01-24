@@ -1,8 +1,8 @@
 export default defineNuxtRouteMiddleware(() => {
-  const user = useSupabaseUser()
+  const { isAuthenticated } = useAuthStore()
   const localePath = useLocalePath()
 
-  if (!user.value) {
+  if (!isAuthenticated.value) {
     return navigateTo(localePath('/auth/login'))
   }
 })

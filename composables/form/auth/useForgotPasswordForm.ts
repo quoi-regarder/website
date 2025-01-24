@@ -3,13 +3,9 @@ import * as yup from 'yup'
 export const useForgotPasswordForm = () => {
   const { t } = useI18n()
 
-  const state = reactive<ForgotPassword>({
+  const state = reactive<Partial<User>>({
     email: ''
   })
-
-  const setState = (forgotPassword: Partial<typeof state>) => {
-    Object.assign(state, forgotPassword)
-  }
 
   const schema = yup.object({
     email: yup
@@ -18,5 +14,5 @@ export const useForgotPasswordForm = () => {
       .required(t('common.form.error.required'))
   })
 
-  return { state, setState, schema }
+  return { state, schema }
 }
