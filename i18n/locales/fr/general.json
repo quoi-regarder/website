@@ -277,7 +277,8 @@
       "profile": "Profil",
       "search": "Rechercher",
       "series": "Mes séries",
-      "signup": "Créer un compte"
+      "signup": "Créer un compte",
+      "trending": "Tendance"
     },
     "dropdown": {
       "account": "Connecté en tant que"
@@ -373,6 +374,11 @@
     "description": "Recherchez un film ou une série par son titre pour découvrir des informations et des suggestions.",
     "placeholder": "Titre du film ou de la série",
     "title": "Explorez notre collection de films et séries"
+  },
+  "trending": {
+    "description": "Découvrez les films et séries les plus populaires du moment.",
+    "placeholder": "Titre du film ou de la série",
+    "title": "Les tendances du moment"
   },
   "signup": {
     "form": {

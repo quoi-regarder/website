@@ -20,7 +20,8 @@
         "privacy": "Discover how we collect, use, and protect your personal data. Your privacy is our top priority.",
         "terms": "Check out our Terms Of Use to learn about the rules for accessing and using our site. By browsing What to Watch, you agree to our ToS."
       },
-      "search": "Find your next favorite movie in just a few clicks. Explore our catalog of movies and TV shows for personalized recommendations."
+      "search": "Find your next favorite movie in just a few clicks. Explore our catalog of movies and TV shows for personalized recommendations.",
+      "trending": "Discover the most popular movies and TV shows of the moment. Don't miss out on the latest cinematic trends!"
     },
     "name": "What to Watch ?",
     "pages": {
@@ -42,7 +43,8 @@
         "privacy": "Privacy Policy",
         "terms": "Terms Of Use (ToS)"
       },
-      "search": "Search - Find Your Next Favorite Movie"
+      "search": "Search - Find Your Next Favorite Movie",
+      "trending": "Trends - Popular Movies And TV Shows"
     },
     "title": "Personalized Movie Recommendations"
   }

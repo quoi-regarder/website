@@ -277,7 +277,8 @@
       "profile": "Profile",
       "search": "Search",
       "series": "My TV Shows",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "trending": "Trending"
     },
     "dropdown": {
       "account": "Logged in as"
@@ -373,6 +374,11 @@
     "description": "Search for a movie or series by its title to find details and recommendations.",
     "placeholder": "Movie or series title",
     "title": "Browse Our Collection of Movies and Series"
+  },
+  "trending": {
+    "description": "Discover the most popular movies and series of the moment.",
+    "placeholder": "Movie or series title",
+    "title": "Trending Movies and Series"
   },
   "signup": {
     "form": {
