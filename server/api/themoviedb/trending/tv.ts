@@ -2,11 +2,11 @@ export default defineEventHandler(async (event) => {
   const { tmdbBaseUrl } = useRuntimeConfig()
   const { query, language, page } = getQuery(event)
 
-  console.log('query:', query)
-  console.log('language:', language)
-  console.log('page:', page)
+  // console.log('query:', query)
+  // console.log('language:', language)
+  // console.log('page:', page)
 
-  const manager = new QueryParamsManager('3/movie/now_playing', tmdbBaseUrl)
+  const manager = new QueryParamsManager('3/trending/tv/day', tmdbBaseUrl)
   if (query) manager.add('query', query as string)
   manager.add('language', formatLanguageToISO(language as string))
   manager.add('include_adult', 'false')

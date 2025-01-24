@@ -17,7 +17,8 @@
       </h2>
 
       <div id="sticker" class="flex gap-4">
-        <MovieSticker v-if="results[0]" :item="results[0]" />
+        <MovieSticker v-if="results_movies[0]" :item="results_movies[0]" />
+        <MovieSticker v-if="results_tv[0]" :item="results_tv[0]" />
       </div>
     </div>
   </div>
@@ -42,33 +43,46 @@ const trending = ref(false)
 const trend = ref<string>('')
 const page = ref(1)
 const totalPages = ref(0)
-const results = ref([])
+const results_movies = ref<any[]>([])
+const results_tv = ref<any[]>([])
 
 const trendingQuery = async (reset = false, showToast = true) => {
   if (reset) {
     page.value = 1
-    results.value = []
+    results_movies.value = []
+    results_tv.value = []
     totalPages.value = 0
   }
   if (page.value > totalPages.value && totalPages.value !== 0) return
 
-  let data
+  let dataMovies
+  let dataTv
 
   try {
     trending.value = true
 
-    if (selectedType.value === 'movie') {
-      const manager = new QueryParamsManager('/api/themoviedb/movie/now_playing')
-      manager.add('query', trend.value || '')
-      manager.add('page', page.value)
-      manager.add('language', locale.value)
+    const movieManager = new QueryParamsManager('/api/themoviedb/trending/movie')
+    movieManager.add('query', trend.value || '')
+    movieManager.add('page', page.value)
+    movieManager.add('language', locale.value)
 
-      data = await $fetch(manager.toString())
-    }
-    console.log(data)
-    page.value = data.page
-    totalPages.value = data.total_pages
-    results.value = [...results.value, ...data.results]
+    dataMovies = await $fetch(movieManager.toString())
+    // results_movies.value = data.results
+
+    const tvManager = new QueryParamsManager('/api/themoviedb/trending/tv')
+    tvManager.add('query', trend.value || '')
+    tvManager.add('page', page.value)
+    tvManager.add('language', locale.value)
+
+    dataTv = await $fetch(tvManager.toString())
+    // results_tv.value = data.results
+
+    console.log(dataMovies, dataTv)
+
+    page.value = dataMovies.page
+    totalPages.value = dataMovies.total_pages
+    results_movies.value = [...results_movies.value, ...dataMovies.results]
+    results_tv.value = [...results_tv.value, ...dataTv.results]
   } catch (error) {
     console.error(error)
   } finally {

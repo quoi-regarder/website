@@ -238,7 +238,7 @@ const dropdownItems = computed(() => [
     {
       label: t('navbar.buttons.profile'),
       icon: 'i-heroicons-user',
-      onSelect() {
+      onSelect () {
         navigateTo(localePath('/profile'))
       }
     }
@@ -247,7 +247,7 @@ const dropdownItems = computed(() => [
     {
       label: t('navbar.buttons.logout'),
       icon: 'i-heroicons-arrow-right-start-on-rectangle',
-      onSelect() {
+      onSelect () {
         logout()
       }
     }
