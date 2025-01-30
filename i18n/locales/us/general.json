@@ -35,6 +35,7 @@
     "content": {
       "add_to_viewed_list": "Watched",
       "add_to_watch_list": "To Watch",
+      "watching": "Watching",
       "toasts": {
         "success": {
           "movie": {

@@ -35,9 +35,6 @@
         <p class="leading-relaxed text-justify">
           {{ $t('privacy.sections.dataCollected.mainData') }}
         </p>
-        <p class="leading-relaxed text-justify">
-          {{ $t('privacy.sections.dataCollected.additional') }}
-        </p>
       </section>
 
       <!-- Data Purpose -->

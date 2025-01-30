@@ -35,7 +35,7 @@
           class="max-w-[75vw] w-11/12"
           arrows
           :ui="{
-            item: 'basis-full lg:basis-[60%] lg:transition-opacity lg:[&:not(.is-snapped)]:opacity-30'
+            item: 'basis-full 2xl:basis-[65%] lg:transition-opacity lg:[&:not(.is-snapped)]:opacity-30'
           }"
         >
           <template #default="{ item }">

@@ -35,6 +35,7 @@
     "content": {
       "add_to_viewed_list": "Déjà vu",
       "add_to_watch_list": "À voir",
+      "watching": "En cours",
       "toasts": {
         "success": {
           "movie": {

@@ -11,6 +11,16 @@
       </UButton>
 
       <UButton
+        v-if="computedStatus === WatchStatus.WATCHING"
+        class="self-center"
+        trailing-icon="i-lucide:popcorn"
+        disabled
+      >
+        {{ $t('common.content.watching') }}
+      </UButton>
+
+      <UButton
+        v-if="computedStatus !== WatchStatus.WATCHING"
         :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
         class="self-center"
         :trailing-icon="
@@ -22,7 +32,7 @@
       </UButton>
     </div>
 
-    <div class="flex flex-col md:flex-row items-start gap-2">
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-2">
       <!-- Movie Poster -->
       <NuxtImg
         v-if="item.poster_path"

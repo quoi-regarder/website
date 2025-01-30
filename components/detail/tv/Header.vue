@@ -81,6 +81,16 @@
               </UButton>
 
               <UButton
+                v-if="computedStatus === WatchStatus.WATCHING"
+                class="self-center"
+                trailing-icon="i-lucide:popcorn"
+                disabled
+              >
+                {{ $t('common.content.watching') }}
+              </UButton>
+
+              <UButton
+                v-if="computedStatus !== WatchStatus.WATCHING"
                 :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
                 class="self-center"
                 :trailing-icon="

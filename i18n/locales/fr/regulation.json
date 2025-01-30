@@ -137,7 +137,6 @@
         "title": "10. Cookies"
       },
       "dataCollected": {
-        "additional": "En plus de ces informations, si vous utilisez notre service backend, nous utilisons Supabase, qui peut collecter des informations supplémentaires telles que des adresses IP ou des données d'utilisation, selon les paramètres par défaut de Supabase.",
         "content": "Nous collectons les données personnelles suivantes lorsque vous utilisez notre site.",
         "mainData": "Les données personnelles collectées comprennent votre nom, votre prénom et votre adresse e-mail.",
         "title": "2. Données Collectées"
@@ -151,7 +150,7 @@
         "title": "5. Durée de Conservation des Données"
       },
       "dataSecurity": {
-        "content": "Nous utilisons des mesures de sécurité appropriées pour protéger vos données personnelles. Le site utilise Supabase, un service backend autohébergé, qui met en place des mesures de sécurité pour protéger vos informations.",
+        "content": "Nous utilisons des mesures de sécurité appropriées pour protéger vos données personnelles.",
         "title": "7. Sécurité des Données"
       },
       "dataSharing": {
