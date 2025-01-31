@@ -137,7 +137,6 @@
         "title": "10. Cookies"
       },
       "dataCollected": {
-        "additional": "In addition to this information, if you use our backend service, we use Supabase, which may collect additional information such as IP addresses or usage data, according to Supabase's default settings.",
         "content": "We collect the following personal data when you use our site.",
         "mainData": "The personal data collected includes your last name, first name, and email address.",
         "title": "2. Data Collected"
@@ -151,7 +150,7 @@
         "title": "5. Data Retention Period"
       },
       "dataSecurity": {
-        "content": "We use appropriate security measures to protect your personal data. The site uses Supabase, a self-hosted backend service, which implements security measures to protect your information.",
+        "content": "We use appropriate security measures to protect your personal data.",
         "title": "7. Data Security"
       },
       "dataSharing": {

@@ -29,15 +29,6 @@
     "title": "Casting"
   },
   "common": {
-    "api": {
-      "error": {
-        "bad_request": "Une erreur est survenue lors du chargement des données. Veuillez réessayer.",
-        "forbidden": "Vous n'avez pas l'autorisation d'accéder à cette ressource.",
-        "internal_server_error": "Une erreur s'est produite sur le serveur. Veuillez réessayer plus tard.",
-        "not_found": "La ressource demandée est introuvable.",
-        "username_already_exists": "Ce nom d'utilisateur est déjà pris."
-      }
-    },
     "buttons": {
       "backToTop": "Retour en haut"
     },
@@ -46,6 +37,16 @@
       "add_to_watch_list": "À voir",
       "toasts": {
         "success": {
+          "episode": {
+            "addedToList": {
+              "to_watch": "Épisode ajouté à la liste des épisodes à voir.",
+              "watched": "Épisode ajouté à la liste des épisodes déjà vus."
+            },
+            "removedFromList": {
+              "to_watch": "Épisode retiré de la liste des épisodes à voir.",
+              "watched": "Épisode retiré de la liste des épisodes déjà vus."
+            }
+          },
           "movie": {
             "addedToList": {
               "to_watch": "Film ajouté à la liste des films à voir.",
@@ -55,9 +56,30 @@
               "to_watch": "Film retiré de la liste des films à voir.",
               "watched": "Film retiré de la liste des films déjà vus."
             }
+          },
+          "season": {
+            "addedToList": {
+              "to_watch": "Saison ajoutée à la liste des saisons à voir.",
+              "watched": "Saison ajoutée à la liste des saisons déjà vues."
+            },
+            "removedFromList": {
+              "to_watch": "Saison retirée de la liste des saisons à voir.",
+              "watched": "Saison retirée de la liste des saisons déjà vues."
+            }
+          },
+          "tv": {
+            "addedToList": {
+              "to_watch": "Série ajoutée à la liste des séries à voir.",
+              "watched": "Série ajoutée à la liste des séries déjà vues."
+            },
+            "removedFromList": {
+              "to_watch": "Série retirée de la liste des séries à voir.",
+              "watched": "Série retirée de la liste des séries déjà vues."
+            }
           }
         }
-      }
+      },
+      "watching": "En cours"
     },
     "dateNotSet": "Date non définie",
     "form": {
@@ -77,6 +99,20 @@
       "optional": "Champ facultatif"
     },
     "toasts": {
+      "errors": {
+        "database": {
+          "unique": {
+            "email": "Cette adresse e-mail est déjà utilisée.",
+            "username": "Ce nom d'utilisateur est déjà utilisé."
+          }
+        },
+        "email": {
+          "email": "Adresse e-mail invalide."
+        },
+        "invalid_password_reset_token": "Le lien de réinitialisation est invalide. Veuillez réessayer.",
+        "invalid_user_credentials": "Adresse e-mail ou mot de passe incorrect.",
+        "invalid_verify_email_token": "Le lien de vérification est invalide. Veuillez réessayer."
+      },
       "title": {
         "error": "Erreur",
         "info": "Information",
@@ -132,6 +168,16 @@
       }
     }
   },
+  "google": {
+    "toasts": {
+      "error": {
+        "email": "Votre adresse e-mail est déjà utilisée. Veuillez vous connecter avec vos identifiants."
+      },
+      "success": {
+        "login": "Vous êtes maintenant connecté avec Google."
+      }
+    }
+  },
   "home": {
     "form": {
       "buttons": {
@@ -152,10 +198,12 @@
     "title": "Quoi Regarder",
     "toasts": {
       "error": {
-        "search": "Aucun résultat trouvé."
+        "search": "Aucun résultat trouvé.",
+        "token": "Le lien de réinitialisation est invalide. Veuillez réessayer."
       },
       "success": {
-        "search": "Recherche effectuée avec succès."
+        "search": "Recherche effectuée avec succès.",
+        "token": "Votre email à bien été confirmé. Vous pouvez maintenant vous connecter."
       }
     }
   },
@@ -180,10 +228,6 @@
     "or": "ou",
     "title": "Connexion",
     "toasts": {
-      "error": {
-        "email_not_confirmed": "Votre e-mail n'est pas confirmé. Veuillez vérifier votre boîte de réception.",
-        "invalid_credentials": "Identifiants incorrects. Veuillez réessayer."
-      },
       "success": {
         "login": "Connexion réussie."
       }
@@ -278,7 +322,14 @@
       "watched": "Déjà vu"
     },
     "serie": {
-      "title": "Mes séries"
+      "noToWatch": "Aucune série à voir.",
+      "noWatched": "Aucune série déjà vue.",
+      "noWatching": "Aucune série en cours de visionnage.",
+      "title": "Mes séries",
+      "toWatch": "À voir",
+      "watchTime": "Temps de visionnage total",
+      "watched": "Déjà vu",
+      "watching": "En cours de visionnage"
     },
     "tabs": {
       "movies": "Films",

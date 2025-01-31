@@ -67,6 +67,40 @@
                 </p>
               </div>
             </div>
+
+            <div class="flex gap-2 pr-2 justify-end mt-2">
+              <UButton
+                :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
+                class="self-center"
+                :trailing-icon="
+                  computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
+                "
+                @click="addContentToViewedList('tv', tvId)"
+              >
+                {{ $t('common.content.add_to_viewed_list') }}
+              </UButton>
+
+              <UButton
+                v-if="computedStatus === WatchStatus.WATCHING"
+                class="self-center"
+                trailing-icon="i-lucide:popcorn"
+                disabled
+              >
+                {{ $t('common.content.watching') }}
+              </UButton>
+
+              <UButton
+                v-if="computedStatus !== WatchStatus.WATCHING"
+                :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+                class="self-center"
+                :trailing-icon="
+                  computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
+                "
+                @click="addContentToWatchlist('tv', tvId)"
+              >
+                {{ $t('common.content.add_to_watch_list') }}
+              </UButton>
+            </div>
           </div>
 
           <div class="hidden lg:block">
@@ -94,7 +128,10 @@
 </template>
 
 <script lang="ts" setup>
+const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
+
 const colorMode = useColorMode()
+const route = useRoute()
 
 const props = defineProps({
   name: {
@@ -147,6 +184,10 @@ const props = defineProps({
     default: () => []
   }
 })
+
+const tvId = ref(Number(route.params.id))
+
+const computedStatus = computed(() => getContentStatus('tv', tvId.value))
 
 const linearGradient = computed(() => {
   if (colorMode.value === 'dark') {

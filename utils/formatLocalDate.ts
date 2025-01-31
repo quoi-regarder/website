@@ -1,6 +1,6 @@
 import type { CalendarDate } from '@internationalized/date'
 
-export const formatLocalDate = (date: string | CalendarDate): string => {
+export const formatLocalDate = (date: string | undefined | CalendarDate): string => {
   const { locale, t } = useI18n()
   if (!date) return t('common.dateNotSet')
 

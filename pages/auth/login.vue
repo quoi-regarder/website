@@ -59,12 +59,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { AuthError } from '@supabase/auth-js'
-
-const client = useSupabaseClient()
 const { state, schema } = useLoginForm()
-const { t } = useI18n()
+const authService = useAuthService()
 const localePath = useLocalePath()
+const { t } = useI18n()
 
 useHead({
   title: t('seo.pages.auth.login'),
@@ -76,30 +74,21 @@ definePageMeta({
 })
 
 const login = async (provider: 'google') => {
-  const { error } = await client.auth.signInWithOAuth({ provider })
+  const redirectUrl = await authService.socialLogin(provider)
 
-  await onLogin(error, true)
+  if (redirectUrl) {
+    window.location.href = redirectUrl
+  }
 }
 
 const onSubmit = async () => {
-  const { error } = await client.auth.signInWithPassword({
-    email: state.email,
-    password: state.password
-  })
+  const response: ApiResponse = await authService.login(state)
 
-  await onLogin(error)
-}
-
-const onLogin = async (error: AuthError, isOAuth = false) => {
-  if (error) {
-    useNotifications().error(t('common.toasts.title.error'), t(`login.toasts.error.${error.code}`))
+  if (response.status === 'error') {
     return
   }
 
-  if (isOAuth) {
-    return
-  }
-
+  useAuthStore().setAuth(response.data)
   await navigateTo(localePath('/'))
   useNotifications().success(t('common.toasts.title.success'), t('login.toasts.success.login'))
 }

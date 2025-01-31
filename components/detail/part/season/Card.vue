@@ -23,6 +23,42 @@
           {{ $t('tvSeasons.not_released') }}
         </UBadge>
       </div>
+
+      <div class="flex gap-2 pr-2 justify-center mt-2">
+        <UButton
+          :disabled="!isRealeased(season.air_date)"
+          :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
+          class="self-center"
+          :trailing-icon="
+            computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
+          "
+          @click="addContentToViewedList('season', tvId, season.id)"
+        >
+          {{ $t('common.content.add_to_viewed_list') }}
+        </UButton>
+
+        <UButton
+          v-if="computedStatus === WatchStatus.WATCHING"
+          class="self-center"
+          trailing-icon="i-lucide:popcorn"
+          disabled
+        >
+          {{ $t('common.content.watching') }}
+        </UButton>
+
+        <UButton
+          v-if="computedStatus !== WatchStatus.WATCHING"
+          :disabled="!isRealeased(season.air_date)"
+          :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+          class="self-center"
+          :trailing-icon="
+            computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
+          "
+          @click="addContentToWatchlist('season', tvId, season.id)"
+        >
+          {{ $t('common.content.add_to_watch_list') }}
+        </UButton>
+      </div>
     </template>
 
     <template #default>
@@ -89,6 +125,8 @@
 </template>
 
 <script lang="ts" setup>
+const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
+const route = useRoute()
 const props = defineProps({
   season: {
     type: Object as PropType<any>,
@@ -101,6 +139,10 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['select'])
+
+const tvId = ref(Number(route.params.id))
+
+const computedStatus = computed(() => getContentStatus('season', props.season.id))
 
 function toggleSelection () {
   if (!props.isSelected && isRealeased(props.season.air_date)) {

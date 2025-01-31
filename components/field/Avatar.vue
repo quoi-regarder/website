@@ -12,8 +12,20 @@
         class="w-fit h-fit flex items-center justify-center rounded-full"
         @click="triggerFileInput"
       >
-        <UAvatar v-if="model" :src="model" class="cursor-pointer" size="3xl" />
-        <UAvatar v-else class="cursor-pointer" size="3xl" icon="i-lucide-image" />
+        <NuxtImg
+          v-if="model"
+          :src="model"
+          width="48"
+          height="48"
+          class="rounded-full bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+          provider="avatarProvider"
+        />
+        <UAvatar
+          v-else
+          size="3xl"
+          icon="i-lucide-image"
+          class="bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)] cursor-pointer"
+        />
       </div>
 
       <UButton
@@ -128,4 +140,13 @@ const convertToWebP = async (file: File): Promise<File> => {
 const triggerFileInput = () => {
   fileInput.value?.click()
 }
+
+watch(
+  () => model.value,
+  (value) => {
+    if (value === null) {
+      fileInput.value!.value = ''
+    }
+  }
+)
 </script>

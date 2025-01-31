@@ -60,22 +60,24 @@
           </div>
         </div>
 
-        <FieldCheckBox
-          v-model="state.terms"
-          :label="$t('signup.form.fields.terms')"
-          name="terms"
-          required
-          :help="$t('signup.form.help.terms')"
-        />
-        <p class="text-sm mb-8">
-          {{ $t('signup.form.help.termsMessage') }}
-          <ULink :to="localPath('/regulation/terms')">
-            {{ $t('signup.form.links.terms') }}
-          </ULink>
-        </p>
+        <UForm :schema="termsSchema" :state="termsState">
+          <FieldCheckBox
+            v-model="termsState.terms"
+            :label="$t('signup.form.fields.terms')"
+            name="terms"
+            required
+            :help="$t('signup.form.help.terms')"
+          />
+          <p class="text-sm mb-8">
+            {{ $t('signup.form.help.termsMessage') }}
+            <ULink :to="localPath('/regulation/terms')">
+              {{ $t('signup.form.links.terms') }}
+            </ULink>
+          </p>
+        </UForm>
 
         <UTooltip
-          :disabled="state.terms === true"
+          :disabled="termsState.terms === true"
           :text="$t('signup.form.help.termsTooltip')"
           arrow
         >
@@ -84,21 +86,25 @@
             block
             size="xl"
             type="submit"
-            :disabled="state.terms === false"
+            :disabled="termsState.terms === false"
           />
         </UTooltip>
       </UForm>
     </template>
 
     <template #oauth>
-      <UTooltip :disabled="state.terms === true" :text="$t('signup.form.help.termsTooltip')" arrow>
+      <UTooltip
+        :disabled="termsState.terms === true"
+        :text="$t('signup.form.help.termsTooltip')"
+        arrow
+      >
         <UButton
           :label="$t('signup.form.buttons.google')"
           block
           size="xl"
           type="button"
           variant="outline"
-          :disabled="state.terms === false"
+          :disabled="termsState.terms === false"
           @click="signup('google')"
         >
           <template #leading>
@@ -120,13 +126,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { AuthError } from '@supabase/auth-js'
-
-const client = useSupabaseClient()
-const { state, schema } = useSignupForm()
-const { locale, t } = useI18n()
+const { state, schema, termsSchema, termsState } = useSignupForm()
+const authService = useAuthService()
 const localPath = useLocalePath()
 const colorMode = useColorMode()
+const { locale, t } = useI18n()
 
 useHead({
   title: t('seo.pages.auth.signup'),
@@ -138,39 +142,25 @@ definePageMeta({
 })
 
 const signup = async (provider: 'google') => {
-  const { error } = await client.auth.signInWithOAuth({ provider })
+  const redirectUrl = await authService.socialLogin(provider)
 
-  await onRegister(error, true)
+  if (redirectUrl) {
+    window.location.href = redirectUrl
+  }
 }
 
 const onSubmit = async () => {
-  const { error } = await client.auth.signUp({
+  const response: ApiResponse = await authService.register({
     email: state.email,
     password: state.password,
-    options: {
-      data: {
-        username: state.username,
-        first_name: state.firstName,
-        last_name: state.lastName,
-        language: formatLanguageToISO(locale.value),
-        color_mode: colorMode.value
-      }
-    }
+    username: state.username,
+    firstName: state.firstName,
+    lastName: state.lastName,
+    language: formatLanguageToISO(locale.value) as languageIsoType,
+    colorMode: colorMode.value as ColorModeType
   })
 
-  await onRegister(error)
-}
-
-const onRegister = async (error: AuthError | null, isOAuth = false) => {
-  if (error) {
-    useNotifications().error(
-      t('common.toasts.title.error'),
-      t(`signup.toasts.error.${error.message}`)
-    )
-    return
-  }
-
-  if (isOAuth) {
+  if (response.status === 'error') {
     return
   }
 

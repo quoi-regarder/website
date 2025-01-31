@@ -8,8 +8,7 @@ the [TMDb API](https://www.themoviedb.org/documentation/api) to fetch data.
 ## Introduction
 
 This project is built with [Nuxt.js](https://nuxtjs.org/), a Vue.js framework. It
-uses [Tailwind CSS](https://tailwindcss.com/) and a self-hosted [Supabase](https://supabase.io/) instance for user
-authentication and data storage.
+uses [Tailwind CSS](https://tailwindcss.com/) and an Adonis.js backend [Adonis.js](https://adonisjs.com/).
 
 ## Setup
 
@@ -69,35 +68,4 @@ Lint and format your code:
 
 ```bash
 pnpm lint
-```
-
-## Supabase
-
-This project uses a self-hosted Supabase instance for user authentication and data storage. You can access the Supabase
-dashboard at [supastudio.quoi-regarder.fr](https://supastudio.quoi-regarder.fr/).
-
-### Migration
-
-#### Install the CLI
-
-```bash
-pnpm install -g supabase
-```
-
-#### Pull migrations
-
-```bash
-supabase db pull --db-url "postgres://[user].[tenant-id]:[password]@[ip]:[port]/[db-name]"
-```
-
-#### Push migrations
-
-```bash
-supabase db push --db-url "postgres://[user].[tenant-id]:[password]@[ip]:[port]/[db-name]"
-```
-
-#### Reset migration
-
-```bash
-supabase db reset --db-url "postgres://[user].[tenant-id]:[password]@[ip]:[port]/[db-name] -f supabase/migrations/<file>.sql"
 ```

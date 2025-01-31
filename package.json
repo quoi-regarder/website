@@ -10,7 +10,7 @@
   },
   "engines": {
     "node": ">= 20.0.0",
-    "pnpm": ">=9.0.0 <10.0.0"
+    "npm": ">= 8.0.0"
   },
   "scripts": {
     "dev": "nuxt dev",
@@ -26,30 +26,29 @@
     "update": "pnpm update"
   },
   "dependencies": {
+    "@adonisjs/transmit-client": "^1.0.0",
     "@nuxt/image": "1.9.0",
     "@nuxt/scripts": "0.9.5",
-    "@nuxt/ui": "3.0.0-alpha.11",
-    "@nuxthub/core": "0.8.12",
-    "@nuxtjs/i18n": "9.1.1",
-    "@nuxtjs/seo": "^2.0.3",
-    "@nuxtjs/supabase": "1.4.5",
+    "@nuxt/ui": "3.0.0-alpha.12",
+    "@nuxthub/core": "^0.8.15",
+    "@nuxtjs/i18n": "^9.1.4",
+    "@nuxtjs/seo": "^2.1.1",
     "@pinia/nuxt": "^0.9.0",
-    "@vueuse/nuxt": "12.4.0",
-    "nuxt": "^3.15.2",
+    "@vueuse/nuxt": "^12.5.0",
+    "nuxt": "^3.15.4",
     "pinia-plugin-persistedstate": "^4.2.0",
     "yup": "^1.6.1"
   },
   "devDependencies": {
     "@iconify-json/heroicons": "^1.2.2",
     "@iconify-json/logos": "^1.2.4",
-    "@iconify-json/lucide": "^1.2.24",
-    "@iconify-json/material-symbols": "^1.2.12",
-    "@nuxt/eslint": "^0.7.5",
-    "eslint": "^9.18.0",
+    "@iconify-json/lucide": "^1.2.25",
+    "@iconify-json/material-symbols": "^1.2.14",
+    "@nuxt/eslint": "^1.0.0",
+    "eslint": "^9.19.0",
     "husky": "^9.1.7",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2",
-    "wrangler": "^3.103.2"
-  },
-  "lockfileVersion": 9
+    "wrangler": "^3.107.0"
+  }
 }

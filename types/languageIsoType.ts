@@ -1,4 +1,4 @@
-export enum languageIsoTypes {
+export enum languageIsoType {
   'fr-FR' = 'fr-FR',
   'en-US' = 'en-US'
 }

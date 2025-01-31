@@ -29,15 +29,6 @@
     "title": "Cast"
   },
   "common": {
-    "api": {
-      "error": {
-        "bad_request": "An error occurred while fetching data. Please try again.",
-        "forbidden": "You are not authorized to access this resource.",
-        "internal_server_error": "An error occurred while processing the request. Please try again.",
-        "not_found": "The requested resource could not be found.",
-        "username_already_exists": "This username is already in use."
-      }
-    },
     "buttons": {
       "backToTop": "Back to top"
     },
@@ -46,6 +37,16 @@
       "add_to_watch_list": "To Watch",
       "toasts": {
         "success": {
+          "episode": {
+            "addedToList": {
+              "to_watch": "Episode added to the watchlist.",
+              "watched": "Episode added to the watched list."
+            },
+            "removedFromList": {
+              "to_watch": "Episode removed from the watchlist.",
+              "watched": "Episode removed from the watched list."
+            }
+          },
           "movie": {
             "addedToList": {
               "to_watch": "Movie added to the watchlist.",
@@ -55,9 +56,30 @@
               "to_watch": "Movie removed from the watchlist.",
               "watched": "Movie removed from the watched list."
             }
+          },
+          "season": {
+            "addedToList": {
+              "to_watch": "Season added to the watchlist.",
+              "watched": "Season added to the watched list."
+            },
+            "removedFromList": {
+              "to_watch": "Season removed from the watchlist.",
+              "watched": "Season removed from the watched list."
+            }
+          },
+          "tv": {
+            "addedToList": {
+              "to_watch": "TV show added to the watchlist.",
+              "watched": "TV show added to the watched list."
+            },
+            "removedFromList": {
+              "to_watch": "TV show removed from the watchlist.",
+              "watched": "TV show removed from the watched list."
+            }
           }
         }
-      }
+      },
+      "watching": "Watching"
     },
     "dateNotSet": "Date not set",
     "form": {
@@ -77,6 +99,20 @@
       "optional": "Optional field"
     },
     "toasts": {
+      "errors": {
+        "database": {
+          "unique": {
+            "email": "This email is already in use.",
+            "username": "This username is already in use."
+          }
+        },
+        "email": {
+          "email": "Please enter a valid email address."
+        },
+        "invalid_password_reset_token": "The reset link has expired. Please request a new one.",
+        "invalid_user_credentials": "Invalid email or password.",
+        "invalid_verify_email_token": "The reset link has expired. Please request a new one."
+      },
       "title": {
         "error": "An error occurred",
         "info": "Information",
@@ -132,6 +168,16 @@
       }
     }
   },
+  "google": {
+    "toasts": {
+      "error": {
+        "email": "Your email address is already in use. Please log in with your credentials."
+      },
+      "success": {
+        "login": "You are now logged in with Google."
+      }
+    }
+  },
   "home": {
     "form": {
       "buttons": {
@@ -152,10 +198,12 @@
     "title": "What to Watch?",
     "toasts": {
       "error": {
-        "search": "No results found."
+        "search": "No results found.",
+        "token": "The reset link has expired. Please request a new one."
       },
       "success": {
-        "search": "Search completed successfully."
+        "search": "Search completed successfully.",
+        "token": "Your email has been successfully confirmed. You can now log in."
       }
     }
   },
@@ -180,10 +228,6 @@
     "or": "or",
     "title": "Login",
     "toasts": {
-      "error": {
-        "email_not_confirmed": "Your email address has not been confirmed. Please check your inbox.",
-        "invalid_credentials": "The credentials provided are incorrect. Please try again."
-      },
       "success": {
         "login": "You have successfully logged in."
       }
@@ -221,7 +265,7 @@
       "movie": "My movies",
       "profile": "Profile",
       "search": "Search",
-      "serie": "My TV Shows",
+      "series": "My TV Shows",
       "signup": "Sign up"
     },
     "dropdown": {
@@ -278,7 +322,14 @@
       "watched": "Watched"
     },
     "serie": {
-      "title": "My TV Shows"
+      "noToWatch": "No TV shows to watch.",
+      "noWatched": "No TV shows watched.",
+      "noWatching": "No TV shows currently being watched.",
+      "title": "My TV Shows",
+      "toWatch": "To Watch",
+      "watchTime": "Total watch time",
+      "watched": "Watched",
+      "watching": "Watching"
     },
     "tabs": {
       "movies": "Movies",

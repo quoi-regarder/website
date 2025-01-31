@@ -8,7 +8,12 @@ export class QueryParamsManager {
 
     try {
       // Construct the URL with baseUrl if provided, or use the global `window.location.origin` for the client.
-      this.url = new URL(path, baseUrl || window.location.origin)
+      const origin = baseUrl || (typeof window !== 'undefined' ? window.location.origin : '')
+      if (!origin) {
+        throw new Error('Unable to determine the base URL. Provide a valid baseUrl.')
+      }
+
+      this.url = new URL(path, origin)
     } catch (error) {
       throw new Error(
         `Invalid URL: ${path}. Ensure the URL is absolute or properly resolved in your application.`

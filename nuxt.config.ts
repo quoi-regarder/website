@@ -30,7 +30,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxt/ui',
     '@nuxtjs/i18n',
-    '@nuxtjs/supabase',
     '@nuxt/image',
     '@nuxtjs/seo',
     '@nuxt/eslint',
@@ -45,23 +44,23 @@ export default defineNuxtConfig({
 
   // Environment variables
   runtimeConfig: {
-    supabaseUrl: process.env.NUXT_SUPABASE_URL,
-    supabaseAnonKey: process.env.NUXT_SUPABASE_ANON_KEY,
-    supabaseServiceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
     tmdbApiKey: process.env.NUXT_TMDB_API_KEY,
-    tmdbBaseUrl: process.env.NUXT_TMDB_BASE_URL || 'https://api.themoviedb.org/'
+    tmdbBaseUrl: process.env.NUXT_TMDB_BASE_URL || 'https://api.themoviedb.org/',
+    public: {
+      apiBaseUrl: process.env.NUXT_API_BASE_URL || 'http://localhost:3333'
+    }
   },
 
   // Nitro configuration
   nitro: {
     imports: {
-      dirs: ['types/**', 'utils/**', 'store/**']
+      dirs: ['types/**', 'utils/**']
     }
   },
 
   // Auto import configuration
   imports: {
-    dirs: ['composables/**', 'types/**', 'utils/**']
+    dirs: ['composables/**', 'types/**', 'utils/**', 'models/**']
   },
 
   // Internationalization
@@ -107,13 +106,14 @@ export default defineNuxtConfig({
     storage: 'cookie'
   },
 
-  // Supabase configuration
-  supabase: {
-    url: process.env.NUXT_SUPABASE_URL,
-    key: process.env.NUXT_SUPABASE_ANON_KEY,
-    serviceKey: process.env.NUXT_SUPABASE_SERVICE_KEY,
-
-    redirect: false
+  // Images configuration
+  image: {
+    providers: {
+      avatarProvider: {
+        name: 'avatarProvider',
+        provider: '~/providers/avatar-provider.ts'
+      }
+    }
   },
 
   // NuxtHub configuration

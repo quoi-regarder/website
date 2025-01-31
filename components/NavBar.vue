@@ -57,13 +57,19 @@
         <ClientOnly>
           <!-- User Menu -->
           <Suspense>
-            <template v-if="isLogged">
+            <template v-if="isAuthenticated">
               <UDropdownMenu
-                v-if="profile?.avatar_url"
+                v-if="profile?.avatarUrl"
                 :items="dropdownItems"
                 class="cursor-pointer"
               >
-                <UAvatar :src="profile.avatar_url" size="xl" />
+                <NuxtImg
+                  :src="profile.avatarUrl"
+                  width="40"
+                  height="40"
+                  class="rounded-full bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+                  provider="avatarProvider"
+                />
 
                 <template #account="{ item }">
                   <div class="text-left text-sm">
@@ -100,7 +106,7 @@
           </Suspense>
 
           <!-- Login Button -->
-          <template v-if="!isLogged">
+          <template v-if="!isAuthenticated">
             <UTooltip :text="$t('navbar.buttons.login')">
               <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
                 <UButton
@@ -192,17 +198,17 @@
 </template>
 
 <script lang="ts" setup>
+const { isAuthenticated, getUserId } = useAuthStore()
 const switchLocalePath = useSwitchLocalePath()
-const { getToWatchCount, reset } = useMovieListStore()
+const profileService = useProfileService()
 const { profile } = useProfileChannel()
-const client = useSupabaseClient()
+const authService = useAuthService()
 const localePath = useLocalePath()
 const { t, locales } = useI18n()
 const colorMode = useColorMode()
-const user = useSupabaseUser()
 useMovieListChannel()
+useSerieListChannel()
 
-const isLogged = computed(() => Boolean(user?.value))
 const opened = ref(false)
 
 const links = computed(() => [
@@ -217,7 +223,12 @@ const links = computed(() => [
   {
     label: t('navbar.buttons.movie'),
     to: localePath('/profile?tab=movies'),
-    chip: getToWatchCount
+    chip: useMovieListStore().getToWatchCount
+  },
+  {
+    label: t('navbar.buttons.series'),
+    to: localePath('/profile?tab=series'),
+    chip: useSerieListStore().getToWatchCount
   }
 ])
 
@@ -260,7 +271,7 @@ const localItems = computed(() =>
       label: locale.name,
       icon: localIcon[locale.code],
       onSelect () {
-        updateLocale(locale.code as Enums<'language_type'>)
+        updateLocale(locale.code)
       }
     }
   ])
@@ -272,15 +283,13 @@ const colorModeIcon = {
   system: 'i-heroicons-computer-desktop'
 }
 
-const availableColorModes = ['light', 'dark', 'system']
-
 const colorModeItems = computed(() =>
-  availableColorModes.map((mode) => [
+  Object.keys(ColorModeType).map((mode) => [
     {
       label: t(`navbar.buttons.colorMode.${mode}`),
-      icon: colorModeIcon[mode],
+      icon: colorModeIcon[mode as ColorModeType],
       onSelect () {
-        updateColorMode(mode as Enums<'color_mode_type'>)
+        updateColorMode(mode as ColorModeType)
       }
     }
   ])
@@ -291,38 +300,27 @@ const toggleOpen = () => {
 }
 
 const logout = async () => {
-  await client.auth.signOut()
+  authService.logout()
+
+  useAuthStore().resetAuth()
   await navigateTo(localePath('/'))
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
-  reset()
+  useMovieListStore().reset()
+  useSerieListStore().reset()
 }
 
-const updateLocale = async (locale: Enums<'language_type'>) => {
+const updateLocale = async (locale: 'us' | 'fr') => {
   navigateTo(switchLocalePath(locale))
 
-  if (!user.value) return
-  const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/language`)
-  await $fetch(manager.toString(), {
-    method: 'PUT',
-    body: {
-      language: formatLanguageToISO(locale)
-    }
-  })
+  await profileService.updateLanguage(getUserId.value, formatLanguageToISO(locale))
 
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.locale'))
 }
 
-const updateColorMode = async (mode: Enums<'color_mode_type'>) => {
+const updateColorMode = async (mode: ColorModeType) => {
   colorMode.preference = mode
 
-  if (!user.value) return
-  const manager = new QueryParamsManager(`/api/profiles/${user.value?.id}/color-mode`)
-  await $fetch(manager.toString(), {
-    method: 'PUT',
-    body: {
-      color_mode: mode
-    }
-  })
+  await profileService.updateColorMode(getUserId.value, mode)
 
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.colorMode'))
 }

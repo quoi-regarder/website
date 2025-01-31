@@ -1,74 +1,58 @@
-import type { RealtimeChannel } from '@supabase/channel-js'
+import { Transmit } from '@adonisjs/transmit-client'
 
-export function useProfileChannel () {
-  const profile = ref<Tables<'profiles'> | null>(null)
-  let profileChannel: RealtimeChannel | null = null
+export const useProfileChannel = () => {
+  const { isAuthenticated, getUserId } = useAuthStore()
+  const transmit = shallowRef<Transmit | null>(null)
   const switchLocalePath = useSwitchLocalePath()
-  const client = useSupabaseClient()
+  const runtimeConfig = useRuntimeConfig()
+  const profileService = useProfileService()
+  const profile = ref<Profile | null>(null)
   const colorMode = useColorMode()
-  const user = useSupabaseUser()
 
   const fetchProfile = async () => {
-    if (!user.value) return
+    const fetchedProfile: Profile = await profileService.getProfile(getUserId.value)
+
+    if (!fetchedProfile) {
+      throw new Error('Failed to fetch user profile')
+    }
+
+    profile.value = fetchedProfile
+    switchLocalePath(formatLanguageToString(profile.value?.language as string))
+    colorMode.preference = (profile.value?.colorMode as string) || 'system'
+  }
+
+  const setupChannel = async () => {
+    if (!transmit.value || !getUserId.value) return
+
     try {
-      const manager = new QueryParamsManager(`/api/profiles/${user.value.id}`)
+      const subscription = transmit.value.subscription(`profiles:${getUserId.value}`)
+      await subscription.create()
 
-      profile.value = await $fetch(manager.toString(), {
-        method: 'GET'
+      subscription.onMessage((data: any) => {
+        profile.value = data?.profile as Profile
       })
-    } catch (error: any) {
-      console.error('Error fetching profile:', error)
+    } catch (error) {
+      console.error('Failed to setup channel:', error)
     }
   }
 
-  const setupChannel = () => {
-    if (!user.value) return
+  onMounted(async () => {
+    if (!isAuthenticated.value) return
 
-    profileChannel = client.channel('auth-profile').on(
-      'postgres_changes',
-      {
-        event: '*',
-        schema: 'public',
-        table: 'profiles',
-        filter: `id=eq.${user.value?.id}`
-      },
-      (payload: any) => {
-        profile.value = payload.new
-      }
-    )
-    profileChannel.subscribe()
-  }
+    transmit.value = new Transmit({
+      baseUrl: runtimeConfig.public.apiBaseUrl
+    })
 
-  const cleanupChannel = () => {
-    if (profileChannel) {
-      profileChannel.unsubscribe()
-      profileChannel = null
-    }
-  }
-
-  onMounted(() => {
-    if (!user.value) return
-
-    fetchProfile().then(
-      () => {
-        navigateTo(switchLocalePath(formatLanguageToString(profile.value?.language as string)))
-        colorMode.preference = (profile.value?.color_mode as string) || 'system'
-        setupChannel()
-      },
-      (error) => {
-        console.error('Error fetching profile:', error)
-      }
-    )
+    await fetchProfile()
+    await setupChannel()
   })
 
   onUnmounted(() => {
-    cleanupChannel()
+    transmit.value?.close()
+    transmit.value = null
   })
 
   return {
-    profile,
-    setupChannel,
-    cleanupChannel,
-    fetchProfile
+    profile
   }
 }

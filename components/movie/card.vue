@@ -2,25 +2,37 @@
   <div class="flex flex-col w-full gap-y-2 p-2 border-1 rounded-xl bg-[var(--ui-bg)]">
     <div class="flex gap-2 pr-2 justify-end">
       <UButton
-        :variant="isContentWatched(type, item.id) ? 'solid' : 'outline'"
+        :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
         class="self-center"
-        :trailing-icon="isContentWatched(type, item.id) ? 'i-lucide:check' : 'i-lucide:eye'"
+        :trailing-icon="computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'"
         @click="addContentToViewedList(type, item.id)"
       >
         {{ $t('common.content.add_to_viewed_list') }}
       </UButton>
 
       <UButton
-        :variant="isContentToWatch(type, item.id) ? 'solid' : 'outline'"
+        v-if="computedStatus === WatchStatus.WATCHING"
         class="self-center"
-        :trailing-icon="isContentToWatch(type, item.id) ? 'i-lucide:check' : 'i-lucide:plus'"
+        trailing-icon="i-lucide:popcorn"
+        disabled
+      >
+        {{ $t('common.content.watching') }}
+      </UButton>
+
+      <UButton
+        v-if="computedStatus !== WatchStatus.WATCHING"
+        :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+        class="self-center"
+        :trailing-icon="
+          computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
+        "
         @click="addContentToWatchlist(type, item.id)"
       >
         {{ $t('common.content.add_to_watch_list') }}
       </UButton>
     </div>
 
-    <div class="flex flex-col md:flex-row items-start gap-2">
+    <div class="flex flex-col md:flex-row items-center md:items-start gap-2">
       <!-- Movie Poster -->
       <NuxtImg
         v-if="item.poster_path"
@@ -110,8 +122,7 @@
 </template>
 
 <script lang="ts" setup>
-const { isContentWatched, isContentToWatch, addContentToViewedList, addContentToWatchlist } =
-  useContentState()
+const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
 const localPath = useLocalePath()
 const { t } = useI18n()
 
@@ -129,6 +140,8 @@ const props = defineProps({
     required: true
   }
 })
+
+const computedStatus = computed(() => getContentStatus(props.type, props.item.id))
 
 const itemDetails = computed(() => {
   const genreDetails = props.item.genre_ids?.map((id: number) =>
