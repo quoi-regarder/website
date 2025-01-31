@@ -13,6 +13,7 @@ jobs:
       id-token: write
     env:
       NUXT_TMDB_API_KEY: ${{ secrets.NUXT_TMDB_API_KEY }}
+      NUXT_API_BASE_URL: ${{ secrets.NUXT_API_BASE_URL }}
 
     steps:
       - uses: actions/checkout@v4
