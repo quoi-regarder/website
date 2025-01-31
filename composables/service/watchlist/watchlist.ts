@@ -15,7 +15,7 @@ export interface WatchlistService {
   getWatchlist(
     userId: string | null,
     primaryId?: string | number | null,
-    seasonNumber?: number
+    seasonNumber?: number | null
   ): Promise<any>
 
   /**

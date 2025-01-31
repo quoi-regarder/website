@@ -74,9 +74,7 @@ onMounted(async () => {
   await fetchMovie()
   await fetchGenres()
 
-  setTimeout(() => {
-    isLoaded.value = true
-  }, 200)
+  isLoaded.value = true
 })
 
 const fetchMovie = async () => {

@@ -7,6 +7,8 @@ export const useSerieListStore = defineStore('serie_list', {
   getters: {
     getToWatchCount: (state) =>
       computed(() => state.serieList?.filter((s) => s.status === WatchStatus.TO_WATCH).length),
+    getWatchingCount: (state) =>
+      computed(() => state.serieList?.filter((s) => s.status === WatchStatus.WATCHING).length),
     getWatchedCount: (state) =>
       computed(() => state.serieList?.filter((s) => s.status === WatchStatus.WATCHED).length),
     getSerieByTmdbId: (state) => (tmdbId: number) => {

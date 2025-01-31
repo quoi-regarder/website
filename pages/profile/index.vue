@@ -7,7 +7,9 @@
       <template #movies>
         <ProfileMovie />
       </template>
-      <template #series> </template>
+      <template #series>
+        <ProfileSeries />
+      </template>
     </UTabs>
   </UContainer>
 </template>

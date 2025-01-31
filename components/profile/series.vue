@@ -6,10 +6,339 @@
       {{ $t('profile.serie.title') }}
     </h1>
 
-    Work in progress...
+    <!-- watch time -->
+    <h2 class="text-xl font-bold mb-4">
+      {{ $t('profile.serie.watchTime') }}
+    </h2>
+
+    <DetailProfileRuntime :runtime="totalRuntime" />
+
+    <USeparator class="py-4" />
+
+    <!-- to_watch series -->
+    <UChip
+      v-if="getToWatchCount > 0"
+      :text="getToWatchCount"
+      class="mb-4"
+      size="3xl"
+      :ui="{ base: 'p-1' }"
+    >
+      <h2 class="text-xl font-bold leading-8">
+        {{ $t('profile.serie.toWatch') }}
+      </h2>
+    </UChip>
+
+    <h2 v-else class="text-xl font-bold leading-8">
+      {{ $t('profile.serie.toWatch') }}
+    </h2>
+
+    <div class="flex justify-center min-h-[300px] items-center">
+      <UCarousel
+        v-if="isLoaded && toWatchList.length > 0"
+        ref="toWatchCarousel"
+        :items="toWatchList"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+      >
+        <template #default="{ item }">
+          <div :key="item.tmdbId" class="relative flex items-center flex-col">
+            <DetailProfileCard :serie="item" type="tv" />
+
+            <UButton
+              trailing-icon="i-lucide-eye"
+              class="absolute top-15 right-1"
+              @click="addToWatchedLists(item.tmdbId)"
+            >
+              {{ $t('common.content.add_to_viewed_list') }}
+            </UButton>
+          </div>
+        </template>
+      </UCarousel>
+
+      <UCarousel
+        v-else-if="!isLoaded"
+        :items="skeletonItems"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+      >
+        <template #default>
+          <USkeleton
+            class="w-full h-[300px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            :ui="{ base: 'rounded-lg' }"
+          />
+        </template>
+      </UCarousel>
+
+      <p v-else>
+        {{ $t('profile.serie.noToWatch') }}
+      </p>
+    </div>
+
+    <USeparator class="py-4" />
+
+    <!-- watching series -->
+    <UChip
+      v-if="getWatchingCount > 0"
+      :text="getWatchingCount"
+      class="mb-4"
+      size="3xl"
+      :ui="{ base: 'p-1' }"
+    >
+      <h2 class="text-xl font-bold leading-8">
+        {{ $t('profile.serie.watching') }}
+      </h2>
+    </UChip>
+
+    <h2 v-else class="text-xl font-bold leading-8">
+      {{ $t('profile.serie.watching') }}
+    </h2>
+
+    <div class="flex justify-center min-h-[300px] items-center">
+      <UCarousel
+        v-if="isLoaded && watchingList.length > 0"
+        ref="watchingCarousel"
+        :items="watchingList"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+      >
+        <template #default="{ item }">
+          <div :key="item.tmdbId" class="relative flex items-center flex-col">
+            <DetailProfileCard :serie="item" type="tv" />
+
+            <UButton
+              trailing-icon="i-lucide-eye"
+              class="absolute top-15 right-1"
+              @click="addToWatchedLists(item.tmdbId)"
+            >
+              {{ $t('common.content.add_to_viewed_list') }}
+            </UButton>
+          </div>
+        </template>
+      </UCarousel>
+
+      <UCarousel
+        v-else-if="!isLoaded"
+        :items="skeletonItems"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+      >
+        <template #default>
+          <USkeleton
+            class="w-full h-[300px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            :ui="{ base: 'rounded-lg' }"
+          />
+        </template>
+      </UCarousel>
+
+      <p v-else>
+        {{ $t('profile.serie.noWatching') }}
+      </p>
+    </div>
+
+    <USeparator class="py-4" />
+
+    <!-- watched series -->
+    <UChip
+      v-if="getWatchedCount > 0"
+      :text="getWatchedCount"
+      class="mb-4"
+      size="3xl"
+      :ui="{ base: 'p-1' }"
+    >
+      <h2 class="text-xl font-bold leading-8">
+        {{ $t('profile.serie.watched') }}
+      </h2>
+    </UChip>
+
+    <h2 v-else class="text-xl font-bold leading-8">
+      {{ $t('profile.serie.watched') }}
+    </h2>
+
+    <div class="flex justify-center min-h-[300px] items-center">
+      <UCarousel
+        v-if="isLoaded && watchedList.length > 0"
+        ref="watchedCarousel"
+        :items="watchedList"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+      >
+        <template #default="{ item }">
+          <div :key="item.tmdbId" class="flex items-center flex-col">
+            <DetailProfileCard :serie="item" type="tv" />
+          </div>
+        </template>
+      </UCarousel>
+
+      <UCarousel
+        v-else-if="!isLoaded"
+        :items="skeletonItems"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+      >
+        <template #default>
+          <USkeleton
+            class="w-full h-[300px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            :ui="{ base: 'rounded-lg' }"
+          />
+        </template>
+      </UCarousel>
+
+      <p v-else>
+        {{ $t('profile.serie.noWatched') }}
+      </p>
+    </div>
   </UContainer>
 </template>
 
-<!-- Page avec le composant "Accordion". On veut 3 parties ("TO_WATCH, WATCHING, WATCHED") avec des Accordion à 3 niveau (série, saison, épisode) -->
+<script lang="ts" setup>
+const { getToWatchCount, getWatchedCount, getWatchingCount } = useSerieListStore()
+const seriesWatchlistService = useSerieWatchlistService()
+const { totalRuntime } = useSerieEpisodeRuntime()
+const { getUserId } = useAuthStore()
+const { t } = useI18n()
 
-<script lang="ts" setup></script>
+const toWatchCarousel = useTemplateRef('toWatchCarousel')
+const watchingCarousel = useTemplateRef('watchingCarousel')
+const watchedCarousel = useTemplateRef('watchedCarousel')
+const watchedList = ref<MovieWatchlist[]>([])
+const watchingList = ref<MovieWatchlist[]>([])
+const toWatchList = ref<MovieWatchlist[]>([])
+const watchedTotalPages = ref(1)
+const watchingTotalPages = ref(1)
+const toWatchTotalPages = ref(1)
+const watchedPage = ref(1)
+const watchingPage = ref(1)
+const toWatchPage = ref(1)
+
+const skeletonItems = Array.from({ length: 6 }, (_, i) => i)
+const isLoaded = ref(false)
+
+onMounted(async () => {
+  await fetchToWatchLists()
+  await fetchWatchingLists()
+  await fetchWatchedLists()
+
+  isLoaded.value = true
+})
+
+const fetchToWatchLists = async (reset = false) => {
+  const response = await seriesWatchlistService.getWatchlistWithDetails?.(
+    getUserId.value,
+    WatchStatus.TO_WATCH,
+    toWatchPage.value,
+    20
+  )
+
+  if (reset) {
+    toWatchList.value = response.data
+  } else {
+    toWatchList.value = toWatchList.value.concat(response.data)
+  }
+  toWatchTotalPages.value = response.meta.lastPage
+}
+
+const fetchWatchingLists = async (reset = false) => {
+  const response = await seriesWatchlistService.getWatchlistWithDetails?.(
+    getUserId.value,
+    WatchStatus.WATCHING,
+    watchingPage.value,
+    20
+  )
+
+  if (reset) {
+    watchingList.value = response.data
+  } else {
+    watchingList.value = watchingList.value.concat(response.data)
+  }
+  watchingTotalPages.value = response.meta.lastPage
+}
+
+const fetchWatchedLists = async (reset = false) => {
+  const response = await seriesWatchlistService.getWatchlistWithDetails?.(
+    getUserId.value,
+    WatchStatus.WATCHED,
+    watchedPage.value,
+    20
+  )
+
+  if (reset) {
+    watchedList.value = response.data
+  } else {
+    watchedList.value = watchedList.value.concat(response.data)
+  }
+  watchedTotalPages.value = response.meta.lastPage
+}
+
+const addToWatchedLists = async (tmdbId: number) => {
+  await seriesWatchlistService.updateWatchlist?.(getUserId.value, tmdbId, WatchStatus.WATCHED)
+  watchedPage.value = 1
+  toWatchPage.value = 1
+  watchingPage.value = 1
+
+  await fetchToWatchLists(true)
+  await fetchWatchedLists(true)
+  await fetchWatchingLists(true)
+
+  useNotifications().success(
+    t('common.toasts.title.success'),
+    t('common.content.toasts.success.tv.addedToList.watched')
+  )
+}
+
+watch(toWatchCarousel, () => {
+  if (toWatchCarousel.value?.emblaApi) {
+    toWatchCarousel.value.emblaApi.on('select', () => {
+      const index = toWatchCarousel.value?.emblaApi?.selectedScrollSnap()
+      if (index === toWatchList.value.length - 6) {
+        if (toWatchPage.value < toWatchTotalPages.value) {
+          toWatchPage.value++
+        } else {
+          return
+        }
+
+        fetchToWatchLists()
+      }
+    })
+  }
+})
+
+watch(watchingCarousel, () => {
+  if (watchingCarousel.value?.emblaApi) {
+    watchingCarousel.value.emblaApi.on('select', () => {
+      const index = watchingCarousel.value?.emblaApi?.selectedScrollSnap()
+      if (index === watchingList.value.length - 6) {
+        if (watchingPage.value < watchingTotalPages.value) {
+          watchingPage.value++
+        } else {
+          return
+        }
+
+        fetchWatchingLists()
+      }
+    })
+  }
+})
+
+watch(watchedCarousel, () => {
+  if (watchedCarousel.value?.emblaApi) {
+    watchedCarousel.value.emblaApi.on('select', () => {
+      const index = watchedCarousel.value?.emblaApi?.selectedScrollSnap()
+      if (index === watchedList.value.length - 6) {
+        if (watchedPage.value < watchedTotalPages.value) {
+          watchedPage.value++
+        } else {
+          return
+        }
+
+        fetchWatchedLists()
+      }
+    })
+  }
+})
+</script>

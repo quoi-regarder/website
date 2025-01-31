@@ -43,7 +43,7 @@
       >
         <template #default="{ item }">
           <div :key="item.tmdbId" class="relative flex items-center flex-col">
-            <DetailProfileCard :movie="item" />
+            <DetailProfileCard :movie="item" type="movie" />
 
             <UButton
               trailing-icon="i-lucide-eye"
@@ -105,7 +105,7 @@
       >
         <template #default="{ item }">
           <div :key="item.tmdbId" class="flex items-center flex-col">
-            <DetailProfileCard :movie="item" />
+            <DetailProfileCard :movie="item" type="movie" />
           </div>
         </template>
       </UCarousel>
@@ -173,7 +173,7 @@ const addToWatchedLists = async (tmdb_id: number) => {
 }
 
 const fetchToWatchLists = async (reset = false) => {
-  const response = await movieWatchlistService.getWatchlistWithDetails(
+  const response = await movieWatchlistService.getWatchlistWithDetails?.(
     getUserId.value,
     WatchStatus.TO_WATCH,
     toWatchPage.value,
@@ -189,7 +189,7 @@ const fetchToWatchLists = async (reset = false) => {
 }
 
 const fetchWatchedLists = async (reset = false) => {
-  const response = await movieWatchlistService.getWatchlistWithDetails(
+  const response = await movieWatchlistService.getWatchlistWithDetails?.(
     getUserId.value,
     WatchStatus.WATCHED,
     watchedPage.value,

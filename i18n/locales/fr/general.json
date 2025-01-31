@@ -35,9 +35,18 @@
     "content": {
       "add_to_viewed_list": "Déjà vu",
       "add_to_watch_list": "À voir",
-      "watching": "En cours",
       "toasts": {
         "success": {
+          "episode": {
+            "addedToList": {
+              "to_watch": "Épisode ajouté à la liste des épisodes à voir.",
+              "watched": "Épisode ajouté à la liste des épisodes déjà vus."
+            },
+            "removedFromList": {
+              "to_watch": "Épisode retiré de la liste des épisodes à voir.",
+              "watched": "Épisode retiré de la liste des épisodes déjà vus."
+            }
+          },
           "movie": {
             "addedToList": {
               "to_watch": "Film ajouté à la liste des films à voir.",
@@ -46,16 +55,6 @@
             "removedFromList": {
               "to_watch": "Film retiré de la liste des films à voir.",
               "watched": "Film retiré de la liste des films déjà vus."
-            }
-          },
-          "tv": {
-            "addedToList": {
-              "to_watch": "Série ajoutée à la liste des séries à voir.",
-              "watched": "Série ajoutée à la liste des séries déjà vues."
-            },
-            "removedFromList": {
-              "to_watch": "Série retirée de la liste des séries à voir.",
-              "watched": "Série retirée de la liste des séries déjà vues."
             }
           },
           "season": {
@@ -68,18 +67,19 @@
               "watched": "Saison retirée de la liste des saisons déjà vues."
             }
           },
-          "episode": {
+          "tv": {
             "addedToList": {
-              "to_watch": "Épisode ajouté à la liste des épisodes à voir.",
-              "watched": "Épisode ajouté à la liste des épisodes déjà vus."
+              "to_watch": "Série ajoutée à la liste des séries à voir.",
+              "watched": "Série ajoutée à la liste des séries déjà vues."
             },
             "removedFromList": {
-              "to_watch": "Épisode retiré de la liste des épisodes à voir.",
-              "watched": "Épisode retiré de la liste des épisodes déjà vus."
+              "to_watch": "Série retirée de la liste des séries à voir.",
+              "watched": "Série retirée de la liste des séries déjà vues."
             }
           }
         }
-      }
+      },
+      "watching": "En cours"
     },
     "dateNotSet": "Date non définie",
     "form": {
@@ -99,11 +99,6 @@
       "optional": "Champ facultatif"
     },
     "toasts": {
-      "title": {
-        "error": "Erreur",
-        "info": "Information",
-        "success": "Succès"
-      },
       "errors": {
         "database": {
           "unique": {
@@ -114,9 +109,14 @@
         "email": {
           "email": "Adresse e-mail invalide."
         },
+        "invalid_password_reset_token": "Le lien de réinitialisation est invalide. Veuillez réessayer.",
         "invalid_user_credentials": "Adresse e-mail ou mot de passe incorrect.",
-        "invalid_verify_email_token": "Le lien de vérification est invalide. Veuillez réessayer.",
-        "invalid_password_reset_token": "Le lien de réinitialisation est invalide. Veuillez réessayer."
+        "invalid_verify_email_token": "Le lien de vérification est invalide. Veuillez réessayer."
+      },
+      "title": {
+        "error": "Erreur",
+        "info": "Information",
+        "success": "Succès"
       }
     }
   },
@@ -322,7 +322,14 @@
       "watched": "Déjà vu"
     },
     "serie": {
-      "title": "Mes séries"
+      "noToWatch": "Aucune série à voir.",
+      "noWatched": "Aucune série déjà vue.",
+      "noWatching": "Aucune série en cours de visionnage.",
+      "title": "Mes séries",
+      "toWatch": "À voir",
+      "watchTime": "Temps de visionnage total",
+      "watched": "Déjà vu",
+      "watching": "En cours de visionnage"
     },
     "tabs": {
       "movies": "Films",

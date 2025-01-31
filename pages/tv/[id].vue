@@ -77,9 +77,7 @@ onMounted(async () => {
   await fetchTv()
   await fetchGenres()
 
-  setTimeout(() => {
-    isLoaded.value = true
-  }, 200)
+  isLoaded.value = true
 })
 
 const fetchTv = async () => {
