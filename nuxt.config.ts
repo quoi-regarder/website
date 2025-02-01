@@ -116,13 +116,6 @@ export default defineNuxtConfig({
     }
   },
 
-  // NuxtHub configuration
-  hub: {
-    analytics: true,
-    cache: true,
-    kv: true
-  },
-
   // Google analytics configuration
   $production: {
     scripts: {
