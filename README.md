@@ -15,7 +15,7 @@ uses [Tailwind CSS](https://tailwindcss.com/) and an Adonis.js backend [Adonis.j
 Make sure to install dependencies:
 
 ```bash
-pnpm install
+npm install
 ```
 
 ## Development Server
@@ -23,7 +23,7 @@ pnpm install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-pnpm dev
+npm run dev
 ```
 
 ## Deploy to NuxtHub
@@ -61,11 +61,11 @@ This project uses [Husky](https://typicode.github.io/husky) to run linting and f
 changes. Make sure to install dependencies before committing:
 
 ```bash
-pnpm install
+npm install
 ```
 
 Lint and format your code:
 
 ```bash
-pnpm lint
+npm run lint
 ```

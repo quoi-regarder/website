@@ -16,14 +16,11 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "lint": "pnpm run lint:prettier && pnpm run lint:eslint",
+    "lint": "npm run lint:prettier && npm run lint:eslint",
     "lint:eslint": "eslint . --fix",
     "lint:prettier": "prettier --write --list-different .",
     "postinstall": "nuxt prepare",
-    "prepare": "husky",
-    "audit": "pnpm audit",
-    "outdated": "pnpm outdated",
-    "update": "pnpm update"
+    "prepare": "husky"
   },
   "dependencies": {
     "@adonisjs/transmit-client": "^1.0.0",
