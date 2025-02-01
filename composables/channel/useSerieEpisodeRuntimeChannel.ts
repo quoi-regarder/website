@@ -1,28 +1,30 @@
 import { Transmit } from '@adonisjs/transmit-client'
 
 export const useSerieEpisodeRuntime = () => {
-  const { isAuthenticated, getUserId } = useAuthStore()
+  const authStore = useAuthStore()
   const transmit = shallowRef<Transmit | null>(null)
   const runtimeConfig = useRuntimeConfig()
   const totalRuntime = ref(0)
 
   const fetchTotalRuntime = async () => {
-    if (!isAuthenticated.value) {
+    if (!authStore.isAuthenticated) {
       throw new Error('User ID is required')
     }
 
     const response: ApiResponse = await apiFetch(
-      `/serie-watchlist/${getUserId.value}/serie/runtime`
+      `/serie-watchlist/${authStore.getUserId}/serie/runtime`
     )
 
     totalRuntime.value = response.data?.totalRuntime
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !getUserId.value) return
+    if (!transmit.value || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`serie_episode_runtime:${getUserId.value}`)
+      const subscription = transmit.value.subscription(
+        `serie_episode_runtime:${authStore.getUserId}`
+      )
 
       await subscription.create()
 
@@ -39,7 +41,7 @@ export const useSerieEpisodeRuntime = () => {
   }
 
   onMounted(async () => {
-    if (!isAuthenticated.value) return
+    if (!authStore.isAuthenticated) return
 
     transmit.value = new Transmit({
       baseUrl: runtimeConfig.public.apiBaseUrl

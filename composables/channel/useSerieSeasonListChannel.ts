@@ -1,9 +1,9 @@
 import { Transmit } from '@adonisjs/transmit-client'
 
 export const useSerieSeasonListChannel = () => {
-  const { setSeasons, reset } = useSeasonListStore()
+  const seasonListStore = useSeasonListStore()
   const seasonWatchlistService = useSeasonWatchlistService()
-  const { isAuthenticated, getUserId } = useAuthStore()
+  const authStore = useAuthStore()
   const transmit = shallowRef<Transmit | null>(null)
   const seasons = ref<SerieSeasonWatchlist[] | null>(null)
   const runtimeConfig = useRuntimeConfig()
@@ -11,7 +11,7 @@ export const useSerieSeasonListChannel = () => {
 
   const fetchSeasonWatchlist = async () => {
     const fetchedSeasonWatchlist: SerieSeasonWatchlist = await seasonWatchlistService.getWatchlist(
-      getUserId.value,
+      authStore.getUserId,
       route.params.id as string
     )
 
@@ -21,20 +21,22 @@ export const useSerieSeasonListChannel = () => {
 
     seasons.value = fetchedSeasonWatchlist as unknown as SerieSeasonWatchlist[]
 
-    setSeasons(seasons.value)
+    seasonListStore.setSeasons(seasons.value)
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !getUserId.value) return
+    if (!transmit.value || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`serie_season_watchlist:${getUserId.value}`)
+      const subscription = transmit.value.subscription(
+        `serie_season_watchlist:${authStore.getUserId}`
+      )
       await subscription.create()
 
       subscription.onMessage((data: any) => {
         switch (data?.type) {
           case 'list':
-            setSeasons(data.seasons)
+            seasonListStore.setSeasons(data.seasons)
             break
         }
       })
@@ -44,7 +46,7 @@ export const useSerieSeasonListChannel = () => {
   }
 
   onMounted(async () => {
-    if (!isAuthenticated.value) return
+    if (!authStore.isAuthenticated) return
 
     transmit.value = new Transmit({
       baseUrl: runtimeConfig.public.apiBaseUrl
@@ -58,6 +60,6 @@ export const useSerieSeasonListChannel = () => {
     if (transmit.value) {
       transmit.value.close()
     }
-    reset()
+    seasonListStore.reset()
   })
 }

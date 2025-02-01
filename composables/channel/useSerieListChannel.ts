@@ -1,16 +1,16 @@
 import { Transmit } from '@adonisjs/transmit-client'
 
 export const useSerieListChannel = () => {
-  const { addSerie, updateSerie, removeSerie, setSeries } = useSerieListStore()
+  const serieListStore = useSerieListStore()
   const serieWatchlistService = useSerieWatchlistService()
-  const { isAuthenticated, getUserId } = useAuthStore()
+  const authStore = useAuthStore()
   const transmit = shallowRef<Transmit | null>(null)
   const series = ref<SerieWatchlist[] | null>(null)
   const runtimeConfig = useRuntimeConfig()
 
   const fetchSerieWatchlist = async () => {
     const fetchedSerieWatchlist: SerieWatchlist = await serieWatchlistService.getWatchlist(
-      getUserId.value
+      authStore.getUserId
     )
 
     if (!fetchedSerieWatchlist) {
@@ -19,20 +19,20 @@ export const useSerieListChannel = () => {
 
     series.value = fetchedSerieWatchlist as unknown as SerieWatchlist[]
 
-    setSeries(series.value)
+    serieListStore.setSeries(series.value)
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !getUserId.value) return
+    if (!transmit.value || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`serie_watchlist:${getUserId.value}`)
+      const subscription = transmit.value.subscription(`serie_watchlist:${authStore.getUserId}`)
       await subscription.create()
 
       subscription.onMessage((data: any) => {
         switch (data?.type) {
           case 'list':
-            setSeries(data.series)
+            serieListStore.setSeries(data.series)
             break
         }
       })
@@ -42,7 +42,7 @@ export const useSerieListChannel = () => {
   }
 
   onMounted(async () => {
-    if (!isAuthenticated.value) return
+    if (authStore.isAuthenticated === false) return
 
     transmit.value = new Transmit({
       baseUrl: runtimeConfig.public.apiBaseUrl

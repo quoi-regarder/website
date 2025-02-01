@@ -17,8 +17,8 @@
 
     <!-- to_watch series -->
     <UChip
-      v-if="getToWatchCount > 0"
-      :text="getToWatchCount"
+      v-if="serieListStore.getToWatchCount > 0"
+      :text="serieListStore.getToWatchCount"
       class="mb-4"
       size="3xl"
       :ui="{ base: 'p-1' }"
@@ -82,8 +82,8 @@
 
     <!-- watching series -->
     <UChip
-      v-if="getWatchingCount > 0"
-      :text="getWatchingCount"
+      v-if="serieListStore.getWatchingCount > 0"
+      :text="serieListStore.getWatchingCount"
       class="mb-4"
       size="3xl"
       :ui="{ base: 'p-1' }"
@@ -147,8 +147,8 @@
 
     <!-- watched series -->
     <UChip
-      v-if="getWatchedCount > 0"
-      :text="getWatchedCount"
+      v-if="serieListStore.getWatchedCount > 0"
+      :text="serieListStore.getWatchedCount"
       class="mb-4"
       size="3xl"
       :ui="{ base: 'p-1' }"
@@ -203,10 +203,10 @@
 </template>
 
 <script lang="ts" setup>
-const { getToWatchCount, getWatchedCount, getWatchingCount } = useSerieListStore()
+const serieListStore = useSerieListStore()
 const seriesWatchlistService = useSerieWatchlistService()
 const { totalRuntime } = useSerieEpisodeRuntime()
-const { getUserId } = useAuthStore()
+const authStore = useAuthStore()
 const { t } = useI18n()
 
 const toWatchCarousel = useTemplateRef('toWatchCarousel')
@@ -235,7 +235,7 @@ onMounted(async () => {
 
 const fetchToWatchLists = async (reset = false) => {
   const response = await seriesWatchlistService.getWatchlistWithDetails?.(
-    getUserId.value,
+    authStore.getUserId,
     WatchStatus.TO_WATCH,
     toWatchPage.value,
     20
@@ -251,7 +251,7 @@ const fetchToWatchLists = async (reset = false) => {
 
 const fetchWatchingLists = async (reset = false) => {
   const response = await seriesWatchlistService.getWatchlistWithDetails?.(
-    getUserId.value,
+    authStore.getUserId,
     WatchStatus.WATCHING,
     watchingPage.value,
     20
@@ -267,7 +267,7 @@ const fetchWatchingLists = async (reset = false) => {
 
 const fetchWatchedLists = async (reset = false) => {
   const response = await seriesWatchlistService.getWatchlistWithDetails?.(
-    getUserId.value,
+    authStore.getUserId,
     WatchStatus.WATCHED,
     watchedPage.value,
     20
@@ -282,7 +282,7 @@ const fetchWatchedLists = async (reset = false) => {
 }
 
 const addToWatchedLists = async (tmdbId: number) => {
-  await seriesWatchlistService.updateWatchlist?.(getUserId.value, tmdbId, WatchStatus.WATCHED)
+  await seriesWatchlistService.updateWatchlist?.(authStore.getUserId, tmdbId, WatchStatus.WATCHED)
   watchedPage.value = 1
   toWatchPage.value = 1
   watchingPage.value = 1

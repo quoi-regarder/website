@@ -17,8 +17,8 @@
 
     <!-- to_watch movies -->
     <UChip
-      v-if="getToWatchCount > 0"
-      :text="getToWatchCount"
+      v-if="movieListStore.getToWatchCount > 0"
+      :text="movieListStore.getToWatchCount"
       class="mb-4"
       size="3xl"
       :ui="{ base: 'p-1' }"
@@ -81,8 +81,8 @@
     <USeparator class="py-4" />
 
     <UChip
-      v-if="getWatchedCount > 0"
-      :text="getWatchedCount"
+      v-if="movieListStore.getWatchedCount > 0"
+      :text="movieListStore.getWatchedCount"
       class="mb-4"
       size="3xl"
       :ui="{ base: 'p-1' }"
@@ -137,7 +137,7 @@
 </template>
 
 <script lang="ts" setup>
-const { getToWatchCount, getWatchedCount } = useMovieListStore()
+const movieListStore = useMovieListStore()
 const movieWatchlistService = useMovieWatchlistService()
 const { totalRuntime } = useMocieRuntimeChannel()
 
@@ -150,7 +150,7 @@ const toWatchTotalPages = ref(1)
 const watchedPage = ref(1)
 const toWatchPage = ref(1)
 
-const { getUserId } = useAuthStore()
+const authStore = useAuthStore()
 const { t } = useI18n()
 
 const skeletonItems = Array.from({ length: 6 }, (_, i) => i)
@@ -164,7 +164,7 @@ onMounted(async () => {
 })
 
 const addToWatchedLists = async (tmdb_id: number) => {
-  await movieWatchlistService.updateWatchlist(getUserId.value, tmdb_id, WatchStatus.WATCHED)
+  await movieWatchlistService.updateWatchlist(authStore.getUserId, tmdb_id, WatchStatus.WATCHED)
   watchedPage.value = 1
   toWatchPage.value = 1
 
@@ -179,7 +179,7 @@ const addToWatchedLists = async (tmdb_id: number) => {
 
 const fetchToWatchLists = async (reset = false) => {
   const response = await movieWatchlistService.getWatchlistWithDetails?.(
-    getUserId.value,
+    authStore.getUserId,
     WatchStatus.TO_WATCH,
     toWatchPage.value,
     20
@@ -195,7 +195,7 @@ const fetchToWatchLists = async (reset = false) => {
 
 const fetchWatchedLists = async (reset = false) => {
   const response = await movieWatchlistService.getWatchlistWithDetails?.(
-    getUserId.value,
+    authStore.getUserId,
     WatchStatus.WATCHED,
     watchedPage.value,
     20

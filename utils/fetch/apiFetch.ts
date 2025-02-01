@@ -22,7 +22,7 @@ export async function apiFetch<T> (
   })
 
   const headers: Record<string, string> = {
-    Authorization: useAuthStore().getToken ? `Bearer ${useAuthStore().getToken.value}` : ''
+    Authorization: useAuthStore().getToken ? `Bearer ${useAuthStore().getToken}` : ''
   }
 
   if (!(body instanceof FormData)) {

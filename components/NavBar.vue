@@ -17,15 +17,17 @@
           :active="link.to === $route.fullPath"
           class="transition-all duration-500 hidden lg:block"
         >
-          <UChip v-if="link.chip?.value" :text="link.chip.value" size="3xl" :ui="{ base: 'p-1' }">
-            <p class="leading-8">
+          <ClientOnly>
+            <UChip v-if="link.chip?.value" :text="link.chip.value" size="3xl" :ui="{ base: 'p-1' }">
+              <p class="leading-8">
+                {{ link.label }}
+              </p>
+            </UChip>
+
+            <p v-else>
               {{ link.label }}
             </p>
-          </UChip>
-
-          <p v-else>
-            {{ link.label }}
-          </p>
+          </ClientOnly>
         </ULink>
       </div>
 
@@ -57,7 +59,7 @@
 
         <ClientOnly>
           <Suspense>
-            <template v-if="isAuthenticated">
+            <template v-if="authStore.isAuthenticated">
               <UDropdownMenu
                 v-if="profile?.avatarUrl"
                 :items="dropdownItems"
@@ -161,15 +163,22 @@
           :active="link.to === $route.fullPath"
           class="transition-all duration-500 text-2xl"
         >
-          <UChip v-if="link.chip?.value" :text="link.chip?.value" size="3xl" :ui="{ base: 'p-1' }">
-            <p class="leading-8">
+          <ClientOnly>
+            <UChip
+              v-if="link.chip?.value"
+              :text="link.chip?.value"
+              size="3xl"
+              :ui="{ base: 'p-1' }"
+            >
+              <p class="leading-8">
+                {{ link.label }}
+              </p>
+            </UChip>
+
+            <p v-else>
               {{ link.label }}
             </p>
-          </UChip>
-
-          <p v-else>
-            {{ link.label }}
-          </p>
+          </ClientOnly>
         </ULink>
       </div>
     </transition>
@@ -177,9 +186,11 @@
 </template>
 
 <script lang="ts" setup>
-const { isAuthenticated, getUserId } = useAuthStore()
+const authStore = useAuthStore()
 const switchLocalePath = useSwitchLocalePath()
 const profileService = useProfileService()
+const movieListStore = useMovieListStore()
+const serieListStore = useSerieListStore()
 const { profile } = useProfileChannel()
 const authService = useAuthService()
 const localePath = useLocalePath()
@@ -202,12 +213,12 @@ const links = computed(() => [
   {
     label: t('navbar.buttons.movie'),
     to: localePath('/profile?tab=movies'),
-    chip: useMovieListStore().getToWatchCount
+    chip: computed(() => movieListStore.getToWatchCount)
   },
   {
     label: t('navbar.buttons.series'),
     to: localePath('/profile?tab=series'),
-    chip: useSerieListStore().getToWatchCount
+    chip: computed(() => serieListStore.getToWatchCount)
   }
 ])
 
@@ -282,12 +293,16 @@ const logout = async () => {
   authService.logout()
   useAuthStore().resetAuth()
   await navigateTo(localePath('/'))
+
+  useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
+  useMovieListStore().reset()
+  useSerieListStore().reset()
 }
 
 const updateLocale = async (locale: 'us' | 'fr') => {
   navigateTo(switchLocalePath(locale))
 
-  await profileService.updateLanguage(getUserId.value, formatLanguageToISO(locale))
+  await profileService.updateLanguage(authStore.getUserId, formatLanguageToISO(locale))
 
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.locale'))
 }
@@ -295,7 +310,7 @@ const updateLocale = async (locale: 'us' | 'fr') => {
 const updateColorMode = async (mode: ColorModeType) => {
   colorMode.preference = mode
 
-  await profileService.updateColorMode(getUserId.value, mode)
+  await profileService.updateColorMode(authStore.getUserId, mode)
 
   useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.colorMode'))
 }

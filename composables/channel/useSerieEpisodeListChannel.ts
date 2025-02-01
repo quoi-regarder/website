@@ -1,22 +1,24 @@
 import { Transmit } from '@adonisjs/transmit-client'
 
 export const useSerieEpisodeListChannel = () => {
-  const { setEpisodes, reset } = useEpisodeListStore()
-  const { isAuthenticated, getUserId } = useAuthStore()
+  const episodeListStore = useEpisodeListStore()
+  const authStore = useAuthStore()
   const transmit = shallowRef<Transmit | null>(null)
   const runtimeConfig = useRuntimeConfig()
 
   const setupChannel = async () => {
-    if (!transmit.value || !getUserId.value) return
+    if (!transmit.value || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`serie_episode_watchlist:${getUserId.value}`)
+      const subscription = transmit.value.subscription(
+        `serie_episode_watchlist:${authStore.getUserId}`
+      )
       await subscription.create()
 
       subscription.onMessage((data: any) => {
         switch (data?.type) {
           case 'list':
-            setEpisodes(data.episodes)
+            episodeListStore.setEpisodes(data.episodes)
             break
         }
       })
@@ -26,7 +28,7 @@ export const useSerieEpisodeListChannel = () => {
   }
 
   onMounted(async () => {
-    if (!isAuthenticated.value) return
+    if (!authStore.isAuthenticated) return
 
     transmit.value = new Transmit({
       baseUrl: runtimeConfig.public.apiBaseUrl
@@ -39,5 +41,5 @@ export const useSerieEpisodeListChannel = () => {
     transmit.value?.close()
     transmit.value = null
   })
-  reset()
+  episodeListStore.reset()
 }

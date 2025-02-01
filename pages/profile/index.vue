@@ -28,7 +28,7 @@ definePageMeta({
   middleware: ['auth']
 })
 
-const tabs = [
+const tabs = computed(() => [
   {
     label: t('profile.tabs.profile'),
     icon: 'i-lucide-user',
@@ -44,22 +44,23 @@ const tabs = [
     icon: 'i-lucide-tv-minimal-play',
     slot: 'series'
   }
-]
+])
 
-const tabIndex = tabs.findIndex((tab) => tab.slot === route.query.tab)
-const active = ref(String(tabIndex !== -1 ? tabIndex : 0))
+onMounted(() => {
+  const initialTabIndex = tabs.value.findIndex((tab) => tab.slot === route.query.tab)
+  active.value = String(initialTabIndex !== -1 ? initialTabIndex : 0)
+})
+
+const active = ref('0')
 
 const updateUrl = (newTabIndex: string | number) => {
   const index = Number(newTabIndex)
-  const tab = tabs[index]
+  const tab = tabs.value[index]
   router.push({ query: { tab: tab.slot } })
 }
 
-watch(
-  () => route.query.tab,
-  () => {
-    const index = tabs.findIndex((tab) => tab.slot === route.query.tab)
-    active.value = String(index !== -1 ? index : 0)
-  }
-)
+watchEffect(() => {
+  const index = tabs.value.findIndex((tab) => tab.slot === route.query.tab)
+  active.value = String(index !== -1 ? index : 0)
+})
 </script>

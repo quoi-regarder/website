@@ -1,16 +1,16 @@
 import { Transmit } from '@adonisjs/transmit-client'
 
 export const useMovieListChannel = () => {
-  const { addMovie, updateMovie, removeMovie, setMovies } = useMovieListStore()
+  const movieListStore = useMovieListStore()
   const movieWatchlistService = useMovieWatchlistService()
-  const { isAuthenticated, getUserId } = useAuthStore()
+  const authStore = useAuthStore()
   const transmit = shallowRef<Transmit | null>(null)
   const movies = ref<MovieWatchlist[] | null>(null)
   const runtimeConfig = useRuntimeConfig()
 
   const fetchMovieList = async () => {
     const fetchedMovieList: MovieWatchlist = await movieWatchlistService.getWatchlist(
-      getUserId.value
+      authStore.getUserId
     )
 
     if (!fetchedMovieList) {
@@ -19,26 +19,26 @@ export const useMovieListChannel = () => {
 
     movies.value = fetchedMovieList as unknown as MovieWatchlist[]
 
-    setMovies(movies.value)
+    movieListStore.setMovies(movies.value)
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !getUserId.value) return
+    if (!transmit.value || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`movie_watchlist:${getUserId.value}`)
+      const subscription = transmit.value.subscription(`movie_watchlist:${authStore.getUserId}`)
       await subscription.create()
 
       subscription.onMessage((data: any) => {
         switch (data?.type) {
           case 'add':
-            addMovie(data.movie)
+            movieListStore.addMovie(data.movie)
             break
           case 'update':
-            updateMovie(data.movie)
+            movieListStore.updateMovie(data.movie)
             break
           case 'remove':
-            removeMovie(data.movie)
+            movieListStore.removeMovie(data.movie)
             break
         }
       })
@@ -48,7 +48,7 @@ export const useMovieListChannel = () => {
   }
 
   onMounted(async () => {
-    if (!isAuthenticated.value) return
+    if (authStore.isAuthenticated === false) return
 
     transmit.value = new Transmit({
       baseUrl: runtimeConfig.public.apiBaseUrl

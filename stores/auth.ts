@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: null as AuthAccessToken | null,
@@ -7,11 +5,11 @@ export const useAuthStore = defineStore('auth', {
     user_email: null as string | null
   }),
   getters: {
-    getToken: (state) => computed(() => state.token?.token),
-    getExpiresAt: (state) => computed(() => state.token?.expiresAt),
-    getUserId: (state) => computed(() => state.user_id),
-    getUserEmail: (state) => computed(() => state.user_email),
-    isAuthenticated: (state) => computed(() => !!state.token)
+    getToken: (state) => state.token?.token,
+    getExpiresAt: (state) => state.token?.expiresAt,
+    getUserId: (state) => state.user_id,
+    getUserEmail: (state) => state.user_email,
+    isAuthenticated: (state) => !!state.token
   },
   actions: {
     setAuth (data: any) {
@@ -28,7 +26,6 @@ export const useAuthStore = defineStore('auth', {
   persist: {
     storage: piniaPluginPersistedstate.cookies({
       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-      sameSite: 'strict',
       secure: true
     })
   }

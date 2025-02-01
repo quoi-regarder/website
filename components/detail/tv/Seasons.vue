@@ -24,7 +24,7 @@
 
     <div v-if="episodes.length > 0">
       <h3 class="text-xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
-        {{ seasons[selectedNumber - 1]?.name }}
+        {{ seasons[selectedNumber! - 1]?.name }}
       </h3>
 
       <div class="flex justify-center">
@@ -50,8 +50,8 @@
 
 <script lang="ts" setup>
 const episodeWatchlistService = useEpisodeWatchlistService()
-const { isAuthenticated, getUserId } = useAuthStore()
-const { setEpisodes } = useEpisodeListStore()
+const authStore = useAuthStore()
+const episodeListStore = useEpisodeListStore()
 const { locale } = useI18n()
 const route = useRoute()
 const props = defineProps({
@@ -85,14 +85,14 @@ const fetchSeasons = async () => {
 
   carousel.value?.emblaApi?.scrollTo(0)
 
-  if (!isAuthenticated.value) return
+  if (!authStore.isAuthenticated) return
   fetchEpisodeWatchlist(selectedNumber.value)
 }
 
 const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
   if (!seasonNumber) return
   const fetchedEpisodeWatchlist: SerieEpisodeWatchlist = await episodeWatchlistService.getWatchlist(
-    getUserId.value,
+    authStore.getUserId,
     route.params.id as string,
     props.seasons.filter((season: any) => season.season_number === seasonNumber)[0].id
   )
@@ -103,6 +103,6 @@ const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
 
   const watchedEpisodes = fetchedEpisodeWatchlist as unknown as SerieEpisodeWatchlist[]
 
-  setEpisodes(watchedEpisodes)
+  episodeListStore.setEpisodes(watchedEpisodes)
 }
 </script>

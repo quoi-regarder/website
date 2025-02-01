@@ -6,7 +6,7 @@ export const useContentState = () => {
   const seasonWatchlistService: WatchlistService = useSeasonWatchlistService()
   const episodeWatchlistService: WatchlistService = useEpisodeWatchlistService()
 
-  const { isAuthenticated, getUserId } = useAuthStore()
+  const authStore = useAuthStore()
   const localPath = useLocalePath()
   const { t } = useI18n()
 
@@ -37,7 +37,7 @@ export const useContentState = () => {
    * - If we want to get a season, the typeId should be the season ID. etc.
    */
   const getContentFromList = (type: ContentType, typeId: number) => {
-    if (!isAuthenticated.value) return undefined
+    if (!authStore.isAuthenticated) return undefined
 
     switch (type) {
       case 'movie':
@@ -96,7 +96,7 @@ export const useContentState = () => {
     contentId?: number | null,
     seasonNumber?: number | null
   ) => {
-    if (!isAuthenticated.value) {
+    if (!authStore.isAuthenticated) {
       navigateTo(localPath('/auth/login'))
       return
     }
@@ -108,13 +108,13 @@ export const useContentState = () => {
 
     if (content) {
       if (content.status === status) {
-        service.removeWatchlist(getUserId.value, idOfContent, primaryId)
+        service.removeWatchlist(authStore.getUserId, idOfContent, primaryId)
         useNotifications().success(
           t('common.toasts.title.success'),
           t(`common.content.toasts.success.${type}.removedFromList.${status}`)
         )
       } else {
-        service.updateWatchlist(getUserId.value, idOfContent, status, primaryId)
+        service.updateWatchlist(authStore.getUserId, idOfContent, status, primaryId)
         useNotifications().success(
           t('common.toasts.title.success'),
           t(`common.content.toasts.success.${type}.addedToList.${status}`)
@@ -122,13 +122,13 @@ export const useContentState = () => {
       }
     } else {
       const watch = {
-        userId: getUserId.value,
+        userId: authStore.getUserId,
         tmdbId: idOfContent,
         status: status,
         seasonNumber: seasonNumber
       } as MovieWatchlist | SerieWatchlist | SerieSeasonWatchlist | SerieEpisodeWatchlist
 
-      service.createWatchlist(getUserId.value, watch, primaryId)
+      service.createWatchlist(authStore.getUserId, watch, primaryId)
       useNotifications().success(
         t('common.toasts.title.success'),
         t(`common.content.toasts.success.${type}.addedToList.${status}`)

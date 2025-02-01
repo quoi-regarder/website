@@ -1,7 +1,7 @@
 import { Transmit } from '@adonisjs/transmit-client'
 
 export const useProfileChannel = () => {
-  const { isAuthenticated, getUserId } = useAuthStore()
+  const authStore = useAuthStore()
   const transmit = shallowRef<Transmit | null>(null)
   const switchLocalePath = useSwitchLocalePath()
   const runtimeConfig = useRuntimeConfig()
@@ -10,7 +10,7 @@ export const useProfileChannel = () => {
   const colorMode = useColorMode()
 
   const fetchProfile = async () => {
-    const fetchedProfile: Profile = await profileService.getProfile(getUserId.value)
+    const fetchedProfile: Profile = await profileService.getProfile(authStore.getUserId)
 
     if (!fetchedProfile) {
       throw new Error('Failed to fetch user profile')
@@ -22,10 +22,10 @@ export const useProfileChannel = () => {
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !getUserId.value) return
+    if (!transmit.value || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`profiles:${getUserId.value}`)
+      const subscription = transmit.value.subscription(`profiles:${authStore.getUserId}`)
       await subscription.create()
 
       subscription.onMessage((data: any) => {
@@ -37,7 +37,7 @@ export const useProfileChannel = () => {
   }
 
   onMounted(async () => {
-    if (!isAuthenticated.value) return
+    if (authStore.isAuthenticated === false) return
 
     transmit.value = new Transmit({
       baseUrl: runtimeConfig.public.apiBaseUrl

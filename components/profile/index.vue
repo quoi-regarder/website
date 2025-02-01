@@ -92,20 +92,20 @@ const { state, setState, schema } = useProfileForm()
 const isDeleteAccountModalOpen = ref(false)
 const profileService = useProfileService()
 const userService = useUserService()
-const { getUserId } = useAuthStore()
+const authStore = useAuthStore()
 const localPath = useLocalePath()
-const email = ref('')
+const email = ref<string | undefined>(undefined)
 const { t } = useI18n()
 
 onMounted(async () => {
-  const profile: Profile = await profileService.getProfile(getUserId.value)
+  const profile: Profile = await profileService.getProfile(authStore.getUserId)
   email.value = profile.user.email
 
   setState(profile)
 })
 
 const onSubmit = async () => {
-  const profile: Profile = await profileService.updateProfile(getUserId.value, state)
+  const profile: Profile = await profileService.updateProfile(authStore.getUserId, state)
 
   if (profile) {
     setState(profile)
@@ -117,7 +117,7 @@ const onSubmit = async () => {
 }
 
 const handleAvatarChange = async (file: File) => {
-  const profile: Profile = await profileService.updateAvatar(getUserId.value, file)
+  const profile: Profile = await profileService.updateAvatar(authStore.getUserId, file)
 
   if (profile) {
     setState(profile)
@@ -129,7 +129,7 @@ const handleAvatarChange = async (file: File) => {
 }
 
 const handleDeleteAccount = async () => {
-  await userService.deleteUser(getUserId.value)
+  await userService.deleteUser(authStore.getUserId)
 
   useNotifications().success(
     t('common.toasts.title.success'),

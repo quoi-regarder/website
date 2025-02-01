@@ -7,9 +7,9 @@ export const useSeasonListStore = defineStore('season_list', {
   }),
   getters: {
     getToWatchCount: (state) =>
-      computed(() => state.seasonList?.filter((s) => s.status === WatchStatus.TO_WATCH).length),
+      state.seasonList.filter((s) => s.status === WatchStatus.TO_WATCH).length,
     getWatchedCount: (state) =>
-      computed(() => state.seasonList?.filter((s) => s.status === WatchStatus.WATCHED).length),
+      state.seasonList.filter((s) => s.status === WatchStatus.WATCHED).length,
     getSeasonByTmdbId: (state) => (tmdbId: number) => {
       return state.seasonList.find((s) => {
         return s.tmdbId.toString() === tmdbId.toString()
