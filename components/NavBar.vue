@@ -282,6 +282,10 @@ const logout = async () => {
   authService.logout()
   useAuthStore().resetAuth()
   await navigateTo(localePath('/'))
+
+  useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
+  useMovieListStore().reset()
+  useSerieListStore().reset()
 }
 
 const updateLocale = async (locale: 'us' | 'fr') => {

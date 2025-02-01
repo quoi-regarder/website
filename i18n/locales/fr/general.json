@@ -179,6 +179,16 @@
     }
   },
   "home": {
+    "footer": {
+      "description": {
+        "first": "Bienvenue sur Quoi Regarder, votre site de référence pour explorer et découvrir des films, des séries et des documentaires en streaming ou à visionner plus tard. Grâce à notre moteur de recherche avancé, trouvez rapidement des contenus adaptés à vos goûts grâce à des critères personnalisés tels que les genres, les notes des spectateurs et les dates de sortie.",
+        "fourth": "Nous intégrons des outils puissants, notamment un suivi de progression des séries et des suggestions optimisées, pour vous garantir une expérience utilisateur fluide et engageante. Découvrez des films et des séries adaptés à vos envies tout en restant informé des tendances du moment.",
+        "join": "Inscrivez-vous dès maintenant et profitez d'un accès complet à toutes les fonctionnalités de Quoi Regarder. Lancez votre exploration de notre vaste collection de films, séries et documentaires dès aujourd'hui !",
+        "second": "Quoi Regarder simplifie la gestion de vos listes de visionnage : ajoutez des films et des séries à votre liste à voir, marquez ceux que vous avez déjà visionnés, et suivez votre progression de manière intuitive, saison après saison ou épisode par épisode.",
+        "third": "Avec une interface simple et des filtres de recherche détaillés, vous pouvez explorer un large éventail de contenus, qu'il s'agisse des derniers blockbusters, des films indépendants, des classiques du cinéma ou des séries tendance. Nos recommandations personnalisées basées sur vos préférences vous aident à ne jamais manquer les nouveautés les plus populaires."
+      },
+      "title": "Bienvenue sur Quoi Regarder"
+    },
     "form": {
       "buttons": {
         "moreFilters": "Plus de filtres",
