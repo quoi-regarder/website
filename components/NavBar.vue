@@ -11,8 +11,8 @@
           @click="navigateTo(localePath('/'))"
         />
         <ULink
-          v-for="link in links"
-          :key="link.to"
+          v-for="(link, index) in links"
+          :key="`link-${index}`"
           :to="link.to"
           :active="link.to === $route.fullPath"
           class="transition-all duration-500 hidden lg:block"
@@ -33,10 +33,12 @@
         <ClientOnly>
           <Suspense>
             <UDropdownMenu :items="colorModeItems" class="cursor-pointer">
-              <UIcon :name="colorModeIcon[colorMode.preference]" class="size-6" />
+              <UIcon
+                :name="colorModeIcon[colorMode.preference as keyof typeof colorModeIcon]"
+                class="size-6"
+              />
             </UDropdownMenu>
           </Suspense>
-
           <template #fallback>
             <USkeleton class="size-6" />
           </template>
@@ -48,14 +50,12 @@
               <UIcon class="size-6" name="i-heroicons-globe-alt" />
             </UDropdownMenu>
           </Suspense>
-
           <template #fallback>
             <USkeleton class="size-6" />
           </template>
         </ClientOnly>
 
         <ClientOnly>
-          <!-- User Menu -->
           <Suspense>
             <template v-if="isAuthenticated">
               <UDropdownMenu
@@ -103,61 +103,40 @@
                 </template>
               </UDropdownMenu>
             </template>
+
+            <template v-else>
+              <UTooltip :text="$t('navbar.buttons.login')">
+                <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
+                  <UButton
+                    size="xl"
+                    variant="outline"
+                    trailing-icon="i-heroicons-arrow-right-end-on-rectangle"
+                    class="rounded-full"
+                  />
+                </div>
+              </UTooltip>
+            </template>
           </Suspense>
-
-          <!-- Login Button -->
-          <template v-if="!isAuthenticated">
-            <UTooltip :text="$t('navbar.buttons.login')">
-              <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
-                <UButton
-                  size="xl"
-                  variant="outline"
-                  trailing-icon="i-heroicons-arrow-right-end-on-rectangle"
-                  class="rounded-full"
-                >
-                </UButton>
-              </div>
-            </UTooltip>
-          </template>
-
           <template #fallback>
             <USkeleton class="size-8" />
           </template>
         </ClientOnly>
 
         <div class="relative w-8 h-8 lg:hidden">
-          <transition
-            enter-active-class="transition-transform transform duration-300 ease-out"
-            enter-from-class="scale-0 opacity-0"
-            enter-to-class="scale-100 opacity-100"
-            leave-active-class="transition-transform transform duration-300 ease-in"
-            leave-from-class="scale-100 opacity-100"
-            leave-to-class="scale-0 opacity-0"
-          >
-            <UIcon
-              v-if="!opened"
-              key="menu-icon"
-              name="i-lucide-menu"
-              class="absolute inset-0 size-8 cursor-pointer z-50 lg:hidden"
-              @click="toggleOpen"
-            />
-          </transition>
-          <transition
-            enter-active-class="transition-transform transform duration-300 ease-out"
-            enter-from-class="scale-0 opacity-0"
-            enter-to-class="scale-100 opacity-100"
-            leave-active-class="transition-transform transform duration-300 ease-in"
-            leave-from-class="scale-100 opacity-100"
-            leave-to-class="scale-0 opacity-0"
-          >
-            <UIcon
-              v-if="opened"
-              key="close-icon"
-              name="i-lucide-x"
-              class="absolute inset-0 size-8 cursor-pointer z-50 lg:hidden"
-              @click="toggleOpen"
-            />
-          </transition>
+          <UIcon
+            v-if="!opened"
+            key="menu-icon"
+            name="i-lucide-menu"
+            class="absolute inset-0 size-8 cursor-pointer z-50 lg:hidden"
+            @click="toggleOpen"
+          />
+          <UIcon
+            v-if="opened"
+            key="close-icon"
+            name="i-lucide-x"
+            class="absolute inset-0 size-8 cursor-pointer z-50 lg:hidden"
+            @click="toggleOpen"
+          />
         </div>
       </div>
     </div>
@@ -176,8 +155,8 @@
         @click="toggleOpen"
       >
         <ULink
-          v-for="link in links"
-          :key="link.to"
+          v-for="(link, index) in links"
+          :key="`mobile-link-${index}`"
           :to="link.to"
           :active="link.to === $route.fullPath"
           class="transition-all duration-500 text-2xl"
@@ -235,7 +214,7 @@ const links = computed(() => [
 const dropdownItems = computed(() => [
   [
     {
-      label: profile?.value?.username,
+      label: profile?.value?.username || '',
       slot: 'account',
       disabled: true
     }
@@ -260,23 +239,6 @@ const dropdownItems = computed(() => [
   ]
 ])
 
-const localIcon = {
-  fr: 'i-material-symbols-language-french',
-  us: 'i-material-symbols-language-us'
-}
-
-const localItems = computed(() =>
-  locales.value.map((locale) => [
-    {
-      label: locale.name,
-      icon: localIcon[locale.code],
-      onSelect () {
-        updateLocale(locale.code)
-      }
-    }
-  ])
-)
-
 const colorModeIcon = {
   light: 'i-heroicons-sun-solid',
   dark: 'i-heroicons-moon-solid',
@@ -295,18 +257,31 @@ const colorModeItems = computed(() =>
   ])
 )
 
+const localIcon = {
+  fr: 'i-material-symbols-language-french',
+  us: 'i-material-symbols-language-us'
+}
+
+const localItems = computed(() =>
+  locales.value.map((locale) => [
+    {
+      label: locale.name,
+      icon: localIcon[locale.code],
+      onSelect () {
+        updateLocale(locale.code)
+      }
+    }
+  ])
+)
+
 const toggleOpen = () => {
   opened.value = !opened.value
 }
 
 const logout = async () => {
   authService.logout()
-
   useAuthStore().resetAuth()
   await navigateTo(localePath('/'))
-  useNotifications().success(t('common.toasts.title.success'), t('navbar.toasts.success.logout'))
-  useMovieListStore().reset()
-  useSerieListStore().reset()
 }
 
 const updateLocale = async (locale: 'us' | 'fr') => {
