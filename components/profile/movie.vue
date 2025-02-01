@@ -40,6 +40,8 @@
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
+        class-names
+        wheel-gestures
       >
         <template #default="{ item }">
           <div :key="item.tmdbId" class="relative flex items-center flex-col">
@@ -102,6 +104,8 @@
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
+        class-names
+        wheel-gestures
       >
         <template #default="{ item }">
           <div :key="item.tmdbId" class="flex items-center flex-col">

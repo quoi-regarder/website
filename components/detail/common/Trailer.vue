@@ -12,6 +12,7 @@
         class-names
         class="max-w-[75vw] w-11/12"
         arrows
+        wheel-gestures
         :ui="{
           item:
             videos.length === 1
