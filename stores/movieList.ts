@@ -10,12 +10,6 @@ export const useMovieListStore = defineStore('movie_list', {
       computed(() => state.movieList?.filter((m) => m.status === WatchStatus.TO_WATCH).length),
     getWatchedCount: (state) =>
       computed(() => state.movieList?.filter((m) => m.status === WatchStatus.WATCHED).length),
-    getTotalRuntime: (state) =>
-      computed(() =>
-        state.movieList
-          ?.filter((m) => m.status === WatchStatus.WATCHED)
-          .reduce((acc, m) => acc + m?.movie?.runtime, 0)
-      ),
     getMovieByTmdbId: (state) => (tmdbId: number) => {
       return state.movieList.find((m) => {
         return m.tmdbId.toString() === tmdbId.toString()

@@ -11,7 +11,7 @@
       {{ $t('profile.movie.watchTime') }}
     </h2>
 
-    <DetailProfileRuntime :runtime="getTotalRuntime" />
+    <DetailProfileRuntime :runtime="totalRuntime" />
 
     <USeparator class="py-4" />
 
@@ -133,8 +133,9 @@
 </template>
 
 <script lang="ts" setup>
-const { getToWatchCount, getWatchedCount, getTotalRuntime } = useMovieListStore()
+const { getToWatchCount, getWatchedCount } = useMovieListStore()
 const movieWatchlistService = useMovieWatchlistService()
+const { totalRuntime } = useMocieRuntimeChannel()
 
 const toWatchCarousel = useTemplateRef('toWatchCarousel')
 const watchedCarousel = useTemplateRef('watchedCarousel')
