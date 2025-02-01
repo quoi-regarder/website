@@ -13,6 +13,7 @@
         auto-height
         class="max-w-[75vw] w-11/12"
         arrows
+        wheel-gestures
         :ui="{
           item: 'basis-full 2xl:basis-[65%] lg:transition-opacity lg:[&:not(.is-snapped)]:opacity-30'
         }"
