@@ -79,6 +79,7 @@ onMounted(async () => {
 
 const fetchMovie = async () => {
   const manager = new QueryParamsManager(`/api/themoviedb/movie/${route.params.id}`)
+  manager.add('language', locale.value)
 
   await $fetch(manager.toString()).then((data: any) => {
     movie.value = data
