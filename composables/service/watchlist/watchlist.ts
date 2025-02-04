@@ -16,7 +16,7 @@ export interface WatchlistService {
     userId: string | null,
     primaryId?: string | number | null,
     seasonNumber?: number | null
-  ): Promise<any>
+  ): Promise<ApiResponse>
 
   /**
    *
@@ -32,7 +32,7 @@ export interface WatchlistService {
     status: WatchStatus,
     page: number,
     limit: number
-  ): Promise<any>
+  ): Promise<ApiResponse>
 
   /**
    *
@@ -52,7 +52,7 @@ export interface WatchlistService {
     userId: string | null,
     data: MovieWatchlist,
     contentId?: number
-  ): Promise<MovieWatchlist>
+  ): Promise<ApiResponse>
 
   /**
    *
@@ -73,7 +73,7 @@ export interface WatchlistService {
     tmdbId: string | number | null,
     status: WatchStatus,
     contentId?: number
-  ): Promise<any>
+  ): Promise<ApiResponse>
 
   /**
    *
@@ -88,5 +88,9 @@ export interface WatchlistService {
    *
    * Filed `contentId` is optional and should be used only for seasons and episodes. In this case, the `contentId` should be the serie ID.
    */
-  removeWatchlist(userId: string | null, tmdbId: number | string, contentId?: number): Promise<any>
+  removeWatchlist(
+    userId: string | null,
+    tmdbId: number | string,
+    contentId?: number
+  ): Promise<ApiResponse>
 }

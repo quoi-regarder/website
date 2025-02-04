@@ -10,16 +10,16 @@ export const useSerieSeasonListChannel = () => {
   const route = useRoute()
 
   const fetchSeasonWatchlist = async () => {
-    const fetchedSeasonWatchlist: SerieSeasonWatchlist = await seasonWatchlistService.getWatchlist(
+    const response: ApiResponse = await seasonWatchlistService.getWatchlist(
       authStore.getUserId,
       route.params.id as string
     )
 
-    if (!fetchedSeasonWatchlist) {
-      throw new Error('Failed to fetch season watchlist')
+    if (response.status === 'error') {
+      return
     }
 
-    seasons.value = fetchedSeasonWatchlist as unknown as SerieSeasonWatchlist[]
+    seasons.value = response.data as SerieSeasonWatchlist[]
 
     seasonListStore.setSeasons(seasons.value)
   }

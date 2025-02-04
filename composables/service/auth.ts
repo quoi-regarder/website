@@ -19,7 +19,7 @@ export const useAuthService = () => {
           t(`common.toasts.errors.${error.rule}.${error.field}`)
         )
       } else {
-        console.error('Error during signup : ', error.field, error.rule)
+        console.error('Error during signup.')
       }
     })
 
@@ -46,7 +46,7 @@ export const useAuthService = () => {
           t(`common.toasts.errors.${error.rule}.${error.field}`)
         )
       } else {
-        console.error('Error during login : ', error.field, error.rule)
+        console.error('Error during login.')
       }
     })
 
@@ -54,7 +54,7 @@ export const useAuthService = () => {
   }
 
   const socialLogin = async (provider: 'google'): Promise<string> => {
-    const response: ApiResponse = await apiFetch('/social/google')
+    const response: ApiResponse = await apiFetch(`/social/${provider}`)
 
     return response.data.redirectUrl
   }
@@ -89,7 +89,7 @@ export const useAuthService = () => {
           t(`common.toasts.errors.${error.rule}.${error.field}`)
         )
       } else {
-        console.error('Error during forgot password : ', error.field, error.rule)
+        console.error('Error during forgot password.')
       }
     })
 
@@ -116,7 +116,7 @@ export const useAuthService = () => {
           t(`common.toasts.errors.${error.rule}.${error.field}`)
         )
       } else {
-        console.error('Error during reset password : ', error.field, error.rule)
+        console.error('Error during reset password.')
       }
     })
 

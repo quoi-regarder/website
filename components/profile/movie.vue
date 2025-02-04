@@ -157,14 +157,22 @@ const skeletonItems = Array.from({ length: 6 }, (_, i) => i)
 const isLoaded = ref(false)
 
 onMounted(async () => {
-  await fetchToWatchLists()
-  await fetchWatchedLists()
+  await Promise.all([fetchToWatchLists(), fetchWatchedLists()])
 
   isLoaded.value = true
 })
 
 const addToWatchedLists = async (tmdb_id: number) => {
-  await movieWatchlistService.updateWatchlist(authStore.getUserId, tmdb_id, WatchStatus.WATCHED)
+  const response: ApiResponse = await movieWatchlistService.updateWatchlist(
+    authStore.getUserId,
+    tmdb_id,
+    WatchStatus.WATCHED
+  )
+
+  if (response.status === 'error') {
+    return
+  }
+
   watchedPage.value = 1
   toWatchPage.value = 1
 
@@ -185,12 +193,16 @@ const fetchToWatchLists = async (reset = false) => {
     20
   )
 
-  if (reset) {
-    toWatchList.value = response.data
-  } else {
-    toWatchList.value = toWatchList.value.concat(response.data)
+  if (response?.data === undefined) {
+    return
   }
-  toWatchTotalPages.value = response.meta.lastPage
+
+  if (reset) {
+    toWatchList.value = response.data.data
+  } else {
+    toWatchList.value = toWatchList.value.concat(response.data.data)
+  }
+  toWatchTotalPages.value = response.data.meta.lastPage
 }
 
 const fetchWatchedLists = async (reset = false) => {
@@ -201,12 +213,16 @@ const fetchWatchedLists = async (reset = false) => {
     20
   )
 
-  if (reset) {
-    watchedList.value = response.data
-  } else {
-    watchedList.value = watchedList.value.concat(response.data)
+  if (response?.data === undefined) {
+    return
   }
-  watchedTotalPages.value = response.meta.lastPage
+
+  if (reset) {
+    watchedList.value = response.data.data
+  } else {
+    watchedList.value = watchedList.value.concat(response.data.data)
+  }
+  watchedTotalPages.value = response.data.meta.lastPage
 }
 
 watch(toWatchCarousel, () => {

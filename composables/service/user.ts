@@ -11,7 +11,7 @@ export const useUserService = () => {
     })
 
     if (response.errors || response.errorStatus) {
-      console.error('Failed to delete user:', response.errors, response.errorStatus)
+      console.error('Failed to delete user.')
       useNotifications().error(
         t('common.toasts.title.error'),
         t(`common.api.error.${response.errorStatus}`)

@@ -10,10 +10,10 @@ export const useProfileChannel = () => {
   const colorMode = useColorMode()
 
   const fetchProfile = async () => {
-    const fetchedProfile: Profile = await profileService.getProfile(authStore.getUserId)
+    const fetchedProfile: Profile | null = await profileService.getProfile(authStore.getUserId)
 
     if (!fetchedProfile) {
-      throw new Error('Failed to fetch user profile')
+      return
     }
 
     profile.value = fetchedProfile

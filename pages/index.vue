@@ -329,7 +329,7 @@ const searchQuery = async (reset = false, showToast = true) => {
     totalPages.value = data.total_pages
     results.value = [...results.value, ...data.results]
   } catch (error) {
-    console.error('Error fetching movies:', error)
+    console.error('Error fetching movies.')
   } finally {
     searching.value = false
 

@@ -91,18 +91,14 @@ const fetchSeasons = async () => {
 
 const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
   if (!seasonNumber) return
-  const fetchedEpisodeWatchlist: SerieEpisodeWatchlist = await episodeWatchlistService.getWatchlist(
+  const response: ApiResponse = await episodeWatchlistService.getWatchlist(
     authStore.getUserId,
     route.params.id as string,
     props.seasons.filter((season: any) => season.season_number === seasonNumber)[0].id
   )
 
-  if (!fetchedEpisodeWatchlist) {
-    throw new Error('Failed to fetch episode watchlist')
-  }
+  if (response.status === 'error') return
 
-  const watchedEpisodes = fetchedEpisodeWatchlist as unknown as SerieEpisodeWatchlist[]
-
-  episodeListStore.setEpisodes(watchedEpisodes)
+  episodeListStore.setEpisodes(response.data as SerieEpisodeWatchlist[])
 }
 </script>

@@ -1,7 +1,7 @@
 export const useProfileService = () => {
   const { t } = useI18n()
 
-  const getProfile = async (id: string | null): Promise<Profile> => {
+  const getProfile = async (id: string | null): Promise<Profile | null> => {
     if (!id) {
       throw new Error('Profile ID is required')
     }
@@ -9,9 +9,8 @@ export const useProfileService = () => {
     const response: ApiResponse = await apiFetch(`/profiles/${id}`)
 
     if (response.errors || response.errorStatus) {
-      console.error('Failed to fetch profile:', response.errors, response.errorStatus)
+      return null
     }
-
     return response.data?.profile
   }
 
@@ -32,7 +31,7 @@ export const useProfileService = () => {
           t(`common.toasts.errors.${error.rule}.${error.field}`)
         )
       } else {
-        console.error('Error during signup : ', error.field, error.rule)
+        console.error('Error during signup.')
       }
     })
 
@@ -56,7 +55,7 @@ export const useProfileService = () => {
     })
 
     if (response.errors || response.errorStatus) {
-      console.error('Failed to update profile avatar:', response.errors, response.errorStatus)
+      console.error('Failed to update profile avatar.')
     }
 
     return response.data?.profile

@@ -124,7 +124,7 @@ const searchQuery = async (reset = false, showToast = true) => {
     totalPages.value = data.total_pages
     results.value = [...results.value, ...data.results]
   } catch (error) {
-    console.error('Error searching:', error)
+    console.error('Error searching.')
   } finally {
     searching.value = false
 
