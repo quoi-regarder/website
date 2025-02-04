@@ -98,8 +98,8 @@ const email = ref<string | undefined>(undefined)
 const { t } = useI18n()
 
 onMounted(async () => {
-  const profile: Profile = await profileService.getProfile(authStore.getUserId)
-  email.value = profile.user.email
+  const profile: Profile | null = await profileService.getProfile(authStore.getUserId)
+  email.value = profile?.user.email
 
   setState(profile)
 })

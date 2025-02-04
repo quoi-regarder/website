@@ -10,7 +10,8 @@ export const useProfileForm = () => {
     username: ''
   })
 
-  const setState = (profile: Partial<typeof state>) => {
+  const setState = (profile: Partial<typeof state> | null) => {
+    if (!profile) return
     Object.assign(state, profile)
   }
 

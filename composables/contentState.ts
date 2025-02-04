@@ -108,13 +108,32 @@ export const useContentState = () => {
 
     if (content) {
       if (content.status === status) {
-        service.removeWatchlist(authStore.getUserId, idOfContent, primaryId)
+        const response: ApiResponse = await service.removeWatchlist(
+          authStore.getUserId,
+          idOfContent,
+          primaryId
+        )
+
+        if (response.status === 'error') {
+          return
+        }
+
         useNotifications().success(
           t('common.toasts.title.success'),
           t(`common.content.toasts.success.${type}.removedFromList.${status}`)
         )
       } else {
-        service.updateWatchlist(authStore.getUserId, idOfContent, status, primaryId)
+        const response: ApiResponse = await service.updateWatchlist(
+          authStore.getUserId,
+          idOfContent,
+          status,
+          primaryId
+        )
+
+        if (response.status === 'error') {
+          return
+        }
+
         useNotifications().success(
           t('common.toasts.title.success'),
           t(`common.content.toasts.success.${type}.addedToList.${status}`)

@@ -9,15 +9,13 @@ export const useMovieListChannel = () => {
   const runtimeConfig = useRuntimeConfig()
 
   const fetchMovieList = async () => {
-    const fetchedMovieList: MovieWatchlist = await movieWatchlistService.getWatchlist(
-      authStore.getUserId
-    )
+    const response: ApiResponse = await movieWatchlistService.getWatchlist(authStore.getUserId)
 
-    if (!fetchedMovieList) {
-      throw new Error('Failed to fetch movie list')
+    if (response.status === 'error') {
+      return
     }
 
-    movies.value = fetchedMovieList as unknown as MovieWatchlist[]
+    movies.value = response.data as MovieWatchlist[]
 
     movieListStore.setMovies(movies.value)
   }

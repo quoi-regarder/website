@@ -9,15 +9,13 @@ export const useSerieListChannel = () => {
   const runtimeConfig = useRuntimeConfig()
 
   const fetchSerieWatchlist = async () => {
-    const fetchedSerieWatchlist: SerieWatchlist = await serieWatchlistService.getWatchlist(
-      authStore.getUserId
-    )
+    const response: ApiResponse = await serieWatchlistService.getWatchlist(authStore.getUserId)
 
-    if (!fetchedSerieWatchlist) {
-      throw new Error('Failed to fetch serie watchlist')
+    if (response.status === 'error') {
+      return
     }
 
-    series.value = fetchedSerieWatchlist as unknown as SerieWatchlist[]
+    series.value = response.data as SerieWatchlist[]
 
     serieListStore.setSeries(series.value)
   }

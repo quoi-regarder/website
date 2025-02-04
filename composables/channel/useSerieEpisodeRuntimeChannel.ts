@@ -15,6 +15,11 @@ export const useSerieEpisodeRuntime = () => {
       `/serie-watchlist/${authStore.getUserId}/serie/runtime`
     )
 
+    if (response.errors || response.errorStatus) {
+      console.error('Failed to fetch total runtime.')
+      return
+    }
+
     totalRuntime.value = response.data?.totalRuntime
   }
 

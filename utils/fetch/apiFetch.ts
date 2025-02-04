@@ -1,4 +1,4 @@
-export async function apiFetch<T> (
+export async function apiFetch<ApiResponse> (
   path: string,
   {
     params = {},
@@ -11,10 +11,13 @@ export async function apiFetch<T> (
     body?: Record<string, any> | FormData
     contentType?: string
   } = {}
-): Promise<T> {
+): Promise<ApiResponse> {
   const runtimeConfig = useRuntimeConfig()
+  const { $i18n } = useNuxtApp()
+
   const apiPrefix = '/api'
   const apiPath = `${apiPrefix}${path}`
+
   const manager = new QueryParamsManager(apiPath, runtimeConfig.public.apiBaseUrl)
 
   Object.entries(params).forEach(([key, value]) => {
@@ -35,6 +38,13 @@ export async function apiFetch<T> (
     body: method !== 'GET' ? (body instanceof FormData ? body : JSON.stringify(body)) : undefined
   })
 
-  const data: T = await response.json()
+  if (response.status === 429) {
+    useNotifications().error(
+      $i18n.t('common.toasts.title.error'),
+      $i18n.t('common.toasts.errors.rateLimit')
+    )
+  }
+
+  const data: ApiResponse = await response.json()
   return data
 }

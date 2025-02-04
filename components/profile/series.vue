@@ -226,9 +226,7 @@ const skeletonItems = Array.from({ length: 6 }, (_, i) => i)
 const isLoaded = ref(false)
 
 onMounted(async () => {
-  await fetchToWatchLists()
-  await fetchWatchingLists()
-  await fetchWatchedLists()
+  await Promise.all([fetchToWatchLists(), fetchWatchingLists(), fetchWatchedLists()])
 
   isLoaded.value = true
 })
@@ -241,12 +239,16 @@ const fetchToWatchLists = async (reset = false) => {
     20
   )
 
-  if (reset) {
-    toWatchList.value = response.data
-  } else {
-    toWatchList.value = toWatchList.value.concat(response.data)
+  if (response?.data === undefined) {
+    return
   }
-  toWatchTotalPages.value = response.meta.lastPage
+
+  if (reset) {
+    toWatchList.value = response.data.data
+  } else {
+    toWatchList.value = toWatchList.value.concat(response.data.data)
+  }
+  toWatchTotalPages.value = response.data.meta.lastPage
 }
 
 const fetchWatchingLists = async (reset = false) => {
@@ -257,12 +259,16 @@ const fetchWatchingLists = async (reset = false) => {
     20
   )
 
-  if (reset) {
-    watchingList.value = response.data
-  } else {
-    watchingList.value = watchingList.value.concat(response.data)
+  if (response?.data === undefined) {
+    return
   }
-  watchingTotalPages.value = response.meta.lastPage
+
+  if (reset) {
+    watchingList.value = response.data.data
+  } else {
+    watchingList.value = watchingList.value.concat(response.data.data)
+  }
+  watchingTotalPages.value = response.data.meta.lastPage
 }
 
 const fetchWatchedLists = async (reset = false) => {
@@ -273,12 +279,16 @@ const fetchWatchedLists = async (reset = false) => {
     20
   )
 
-  if (reset) {
-    watchedList.value = response.data
-  } else {
-    watchedList.value = watchedList.value.concat(response.data)
+  if (response?.data === undefined) {
+    return
   }
-  watchedTotalPages.value = response.meta.lastPage
+
+  if (reset) {
+    watchedList.value = response.data.data
+  } else {
+    watchedList.value = watchedList.value.concat(response.data.data)
+  }
+  watchedTotalPages.value = response.data.meta.lastPage
 }
 
 const addToWatchedLists = async (tmdbId: number) => {
