@@ -21,6 +21,20 @@
         <MovieSticker v-if="results_tv[0]" :item="results_tv[0]" />
       </div>
     </div>
+
+    <div class="flex gap-30 justify-center mt-4 mb-4">
+      <div id="list" class="justify-center flex mb-4"></div>
+      <div v-if="results_movies.length > 1">
+        <MovieList
+          v-for="(movie, index) in results_movies.slice(1, 20)"
+          :key="index"
+          :item="movie"
+        />
+      </div>
+      <div v-if="results_tv.length > 1">
+        <MovieList v-for="(tv, index) in results_tv.slice(1, 20)" :key="index" :item="tv" />
+      </div>
+    </div>
   </div>
 </template>
 
