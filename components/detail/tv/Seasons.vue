@@ -13,8 +13,8 @@
         v-for="(season, index) in seasons"
         :key="index"
         :season="season"
-        :is-selected="selectedNumber === index + 1"
-        @select="handleSeasonSelection(index + 1)"
+        :is-selected="selectedNumber === index + (hasSpecials ? 0 : 1)"
+        @select="handleSeasonSelection(index + (hasSpecials ? 0 : 1))"
       />
 
       <USkeleton v-if="seasons.length === 0" class="w-full h-96" />
@@ -24,7 +24,7 @@
 
     <div v-if="episodes.length > 0">
       <h3 class="text-xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
-        {{ seasons[selectedNumber! - 1]?.name }}
+        {{ seasons[selectedNumber! - (hasSpecials ? 0 : 1)]?.name }}
       </h3>
 
       <div class="flex justify-center">
@@ -60,8 +60,9 @@ const props = defineProps({
     required: true
   }
 })
+const hasSpecials = props.seasons.some((season: any) => season.season_number === 0)
 
-const selectedNumber = ref<number | null>(1)
+const selectedNumber = ref<number | null>(hasSpecials ? 0 : 1)
 const episodes = ref<any[]>([])
 const carousel = useTemplateRef('carousel')
 
@@ -71,34 +72,48 @@ onMounted(async () => {
 
 const handleSeasonSelection = async (seasonNumber: number) => {
   selectedNumber.value = selectedNumber.value === seasonNumber ? null : seasonNumber
-  fetchSeasons()
+  await fetchSeasons()
 }
 
 const fetchSeasons = async () => {
+  if (selectedNumber.value === null) return
+
   const manager = new QueryParamsManager(
     `/api/themoviedb/tv/${route.params.id}/season/${selectedNumber.value}`
   )
   manager.add('language', locale.value)
-  const data: any = await $fetch(manager.toString())
 
-  episodes.value = data.episodes
+  try {
+    const data: any = await $fetch(manager.toString())
+    episodes.value = data.episodes
+    carousel.value?.emblaApi?.scrollTo(0)
 
-  carousel.value?.emblaApi?.scrollTo(0)
-
-  if (!authStore.isAuthenticated) return
-  fetchEpisodeWatchlist(selectedNumber.value)
+    if (authStore.isAuthenticated) {
+      await fetchEpisodeWatchlist(selectedNumber.value)
+    }
+  } catch (error) {
+    console.error('Failed to fetch episodes:', error)
+  }
 }
 
 const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
-  if (!seasonNumber) return
-  const response: ApiResponse = await episodeWatchlistService.getWatchlist(
-    authStore.getUserId,
-    route.params.id as string,
-    props.seasons.filter((season: any) => season.season_number === seasonNumber)[0].id
-  )
+  if (seasonNumber === null) return
 
-  if (response.status === 'error') return
+  const season = props.seasons.find((s) => s.season_number === seasonNumber)
+  if (!season) return
 
-  episodeListStore.setEpisodes(response.data as SerieEpisodeWatchlist[])
+  try {
+    const response: ApiResponse = await episodeWatchlistService.getWatchlist(
+      authStore.getUserId,
+      route.params.id as string,
+      season.id
+    )
+
+    if (response.status !== 'error') {
+      episodeListStore.setEpisodes(response.data as SerieEpisodeWatchlist[])
+    }
+  } catch (error) {
+    console.error('Failed to fetch watchlist:', error)
+  }
 }
 </script>
