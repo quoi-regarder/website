@@ -112,7 +112,8 @@
         "invalid_password_reset_token": "The reset link has expired. Please request a new one.",
         "invalid_user_credentials": "Invalid email or password.",
         "invalid_verify_email_token": "The reset link has expired. Please request a new one.",
-        "rateLimit": "Too many requests. Please try again later."
+        "rateLimit": "Too many requests. Please try again later.",
+        "email_not_verified": "Your email address has not been verified. Please check your inbox."
       },
       "title": {
         "error": "An error occurred",
