@@ -375,15 +375,6 @@
     "placeholder": "Movie or series title",
     "title": "Browse Our Collection of Movies and Series"
   },
-  "trending": {
-    "description": "Discover the most popular movies and series of the moment.",
-    "placeholder": "Movie or series title",
-    "title": "Trending Movies and Series",
-    "stickers": {
-      "movie": "Movie",
-      "tv": "TV Show"
-    }
-  },
   "signup": {
     "form": {
       "buttons": {
@@ -438,6 +429,15 @@
     "minutes": "Minutes",
     "months": "Months",
     "years": "Years"
+  },
+  "trending": {
+    "description": "Discover the most popular movies and series of the moment.",
+    "more": "See more",
+    "stickers": {
+      "movie": "Movie",
+      "tv": "TV Show"
+    },
+    "title": "Trending Movies and Series"
   },
   "tvHeader": {
     "finished": "Finished",

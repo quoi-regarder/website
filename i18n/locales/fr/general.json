@@ -375,15 +375,6 @@
     "placeholder": "Titre du film ou de la série",
     "title": "Explorez notre collection de films et séries"
   },
-  "trending": {
-    "description": "Découvrez les films et séries les plus populaires du moment.",
-    "placeholder": "Titre du film ou de la série",
-    "title": "Les tendances du moment",
-    "stickers": {
-      "movie": "Film",
-      "tv": "Série"
-    }
-  },
   "signup": {
     "form": {
       "buttons": {
@@ -438,6 +429,15 @@
     "minutes": "Minutes",
     "months": "Mois",
     "years": "Années"
+  },
+  "trending": {
+    "description": "Découvrez les films et séries les plus populaires du moment.",
+    "more": "Voir plus",
+    "stickers": {
+      "movie": "Film",
+      "tv": "Série"
+    },
+    "title": "Les tendances du moment"
   },
   "tvHeader": {
     "finished": "Terminée",
