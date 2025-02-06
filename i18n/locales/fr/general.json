@@ -278,7 +278,8 @@
       "profile": "Profil",
       "search": "Rechercher",
       "series": "Mes séries",
-      "signup": "Créer un compte"
+      "signup": "Créer un compte",
+      "trending": "Tendance"
     },
     "dropdown": {
       "account": "Connecté en tant que"
@@ -429,6 +430,15 @@
     "minutes": "Minutes",
     "months": "Mois",
     "years": "Années"
+  },
+  "trending": {
+    "description": "Découvrez les films et séries les plus populaires du moment.",
+    "more": "Voir plus",
+    "stickers": {
+      "movie": "Film",
+      "tv": "Série"
+    },
+    "title": "Les tendances du moment"
   },
   "tvHeader": {
     "finished": "Terminée",

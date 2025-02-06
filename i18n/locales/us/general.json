@@ -278,7 +278,8 @@
       "profile": "Profile",
       "search": "Search",
       "series": "My TV Shows",
-      "signup": "Sign up"
+      "signup": "Sign up",
+      "trending": "Trending"
     },
     "dropdown": {
       "account": "Logged in as"
@@ -429,6 +430,15 @@
     "minutes": "Minutes",
     "months": "Months",
     "years": "Years"
+  },
+  "trending": {
+    "description": "Discover the most popular movies and series of the moment.",
+    "more": "See more",
+    "stickers": {
+      "movie": "Movie",
+      "tv": "TV Show"
+    },
+    "title": "Trending Movies and Series"
   },
   "tvHeader": {
     "finished": "Finished",

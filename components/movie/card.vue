@@ -107,11 +107,6 @@
         </div>
 
         <div class="flex flex-col self-center gap-2">
-          <div class="flex gap-2 self-center">
-            <div class="size-2 rounded-full bg-[var(--ui-bg-inverted)]" />
-            <div class="size-2 rounded-full bg-[var(--ui-bg-inverted)]" />
-            <div class="size-2 rounded-full bg-[var(--ui-bg-inverted)]" />
-          </div>
           <UButton :to="localPath(`/${type}/${item.id}`)" variant="outline" class="self-center">
             {{ $t('card.more_details') }}
           </UButton>

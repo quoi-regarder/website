@@ -207,6 +207,10 @@ const links = computed(() => [
     to: localePath('/')
   },
   {
+    label: t('navbar.buttons.trending'),
+    to: localePath('/trending')
+  },
+  {
     label: t('navbar.buttons.search'),
     to: localePath('/search')
   },

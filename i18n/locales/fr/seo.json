@@ -20,7 +20,8 @@
         "privacy": "Découvrez comment nous collectons, utilisons et protégeons vos données personnelles. Votre vie privée est notre priorité.",
         "terms": "Consultez nos Conditions Générales d'utilisation pour connaître les règles d'accès et d'utilisation de notre site. En naviguant sur Quoi Regarder, vous acceptez nos CGU."
       },
-      "search": "Trouvez votre prochain coup de cœur cinématographique en quelques clics. Explorez notre catalogue de films et de séries pour des recommandations personnalisées."
+      "search": "Trouvez votre prochain coup de cœur cinématographique en quelques clics. Explorez notre catalogue de films et de séries pour des recommandations personnalisées.",
+      "trending": "Découvrez les films et séries les plus populaires du moment. Ne manquez pas les tendances cinématographiques du moment !"
     },
     "name": "Quoi Regarder ?",
     "pages": {
@@ -42,7 +43,8 @@
         "privacy": "Politique de Confidentialité",
         "terms": "Conditions Générales d'utilisation (CGU)"
       },
-      "search": "Recherche - Trouvez votre prochain coup de cœur"
+      "search": "Recherche - Trouvez votre prochain coup de cœur",
+      "trending": "Tendances - Films et séries populaires"
     },
     "title": "Recommandations de films personnalisées"
   }
