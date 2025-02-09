@@ -7,86 +7,131 @@
       format="webp"
       preload
     />
+    <div class="flex flex-col items-center justify-center gap-4 py-8">
+      <h1 class="text-4xl text-[var(--ui-color-primary-400)] text-center font-bold">
+        {{ t('trending.title') }}
+      </h1>
+      <h2 class="text-center">
+        {{ t('trending.description') }}
+      </h2>
+    </div>
 
-    <div class="relative z-10 flex flex-col items-center justify-evenly min-h-[92vh] gap-4">
-      <div class="flex flex-col items-center justify-center gap-4">
-        <h1 class="text-4xl text-[var(--ui-color-primary-400)] text-center font-bold">
-          {{ $t('trending.title') }}
-        </h1>
-        <h2 class="text-center">
-          {{ $t('trending.description') }}
-        </h2>
-      </div>
+    <UTabs :items="tabs" class="w-[90vw] pt-4 mx-auto z-10">
+      <template #movies>
+        <UContainer
+          class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16 md:pt-0"
+        >
+          <div v-if="isLoaded" class="flex flex-col items-center justify-center gap-4 relative">
+            <span
+              class="text-7xl font-bold text-[var(--ui-color-primary-400)] absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
+            >
+              #1
+            </span>
 
-      <div
-        v-if="isLoaded"
-        class="flex flex-col max-w-[90%] xl:flex-row items-center justify-evenly gap-16"
-      >
-        <TrendingSticker :item="results_movies[0]" :genres="movies_genres" :type="'movie'" />
-        <TrendingSticker :item="results_tv[0]" :genres="tv_genres" :type="'tv'" />
-      </div>
+            <MovieCard
+              :item="results_movies[0]"
+              :genres="movies_genres"
+              :type="'movie'"
+              class="z-10"
+            />
+          </div>
 
-      <div v-else class="flex flex-col xl:flex-row items-center justify-center gap-16 h-full">
-        <USkeleton
-          v-for="index in 2"
-          :key="index"
-          class="w-[600px] h-[500px] max-w-[90vw] rounded-lg shadow-xl"
-        />
-      </div>
+          <div v-else class="flex flex-col xl:flex-row items-center justify-center gap-16 h-full">
+            <USkeleton class="w-full h-[500px] max-w-[90vw] rounded-lg shadow-xl" />
+          </div>
 
-      <UButton class="my-4 self-center" size="xl" variant="link" @click="toggleMoreTrending">
-        <div class="flex flex-col items-center justify-center">
-          <span>{{ $t('trending.more') }}</span>
-          <UIcon
-            :class="{ 'rotate-180': moreTrending }"
-            class="text-[var(--ui-color-primary-400)] size-6 transition-all duration-300"
-            name="i-heroicons-chevron-down"
+          <UButton
+            class="my-4 self-center z-10"
+            size="xl"
+            variant="link"
+            @click="toggleMoreTrending"
+          >
+            <div class="flex flex-col items-center justify-center">
+              <span>{{ t('trending.more') }}</span>
+              <UIcon
+                :class="{ 'rotate-180': moreTrending }"
+                class="text-[var(--ui-color-primary-400)] size-6 transition-all duration-300"
+                name="i-heroicons-chevron-down"
+              />
+            </div>
+          </UButton>
+        </UContainer>
+
+        <UContainer
+          v-if="moreTrending || moreTrendingTransition"
+          id="trendingList"
+          :class="{
+            'opacity-100 visible': moreTrending,
+            'opacity-0 invisible': !moreTrending
+          }"
+          class="flex flex-col gap-4 py-8 px-0 transition-all duration-1000 ease-in-out"
+          @transitionend="handleTransitionEnd"
+        >
+          <TrendingList
+            v-for="(movie, index) in results_movies.slice(1)"
+            :item="movie"
+            :genres="movies_genres"
+            :type="'movie'"
+            :index="index"
           />
-        </div>
-      </UButton>
-    </div>
+        </UContainer>
+      </template>
 
-    <div
-      v-if="moreTrending || moreTrendingTransition"
-      id="trendingList"
-      :class="{
-        'opacity-100 visible': moreTrending,
-        'opacity-0 invisible': !moreTrending
-      }"
-      class="grid grid-cols-1 xl:grid-cols-[1fr_min-content_1fr] transition-all duration-1000 ease-in-out p-6 gap-12"
-      @transitionend="handleTransitionEnd"
-    >
-      <!-- Colonne de gauche -->
-      <div class="flex flex-col gap-4">
-        <h3 class="text-4xl font-semibold text-center">
-          {{ $t('trending.stickers.movie') }}
-        </h3>
-        <TrendingList
-          v-for="(movie, index) in results_movies.slice(1)"
-          :item="movie"
-          :genres="movies_genres"
-          :type="'movie'"
-          :index="index"
-        />
-      </div>
+      <template #tv>
+        <UContainer
+          class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16 md:pt-0"
+        >
+          <div v-if="isLoaded" class="flex flex-col items-center justify-center gap-4 relative">
+            <span
+              class="text-7xl font-bold text-[var(--ui-color-primary-400)] absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
+            >
+              #1
+            </span>
 
-      <!-- Séparateur central -->
-      <USeparator orientation="vertical" class="hidden xl:block" />
+            <MovieCard :item="results_tv[0]" :genres="tv_genres" :type="'tv'" class="z-10" />
+          </div>
 
-      <!-- Colonne de droite -->
-      <div class="flex flex-col gap-4">
-        <h3 class="text-4xl font-semibold text-center">
-          {{ $t('trending.stickers.tv') }}
-        </h3>
-        <TrendingList
-          v-for="(tv, index) in results_tv.slice(1)"
-          :item="tv"
-          :genres="tv_genres"
-          :type="'tv'"
-          :index="index"
-        />
-      </div>
-    </div>
+          <div v-else class="flex flex-col xl:flex-row items-center justify-center gap-16 h-full">
+            <USkeleton class="w-full h-[500px] max-w-[90vw] rounded-lg shadow-xl" />
+          </div>
+
+          <UButton
+            class="my-4 self-center z-10"
+            size="xl"
+            variant="link"
+            @click="toggleMoreTrending"
+          >
+            <div class="flex flex-col items-center justify-center">
+              <span>{{ t('trending.more') }}</span>
+              <UIcon
+                :class="{ 'rotate-180': moreTrending }"
+                class="text-[var(--ui-color-primary-400)] size-6 transition-all duration-300"
+                name="i-heroicons-chevron-down"
+              />
+            </div>
+          </UButton>
+        </UContainer>
+
+        <UContainer
+          v-if="moreTrending || moreTrendingTransition"
+          id="trendingList"
+          :class="{
+            'opacity-100 visible': moreTrending,
+            'opacity-0 invisible': !moreTrending
+          }"
+          class="flex flex-col gap-4 py-8 px-0 transition-all duration-1000 ease-in-out"
+          @transitionend="handleTransitionEnd"
+        >
+          <TrendingList
+            v-for="(tv, index) in results_tv.slice(1)"
+            :item="tv"
+            :genres="tv_genres"
+            :type="'tv'"
+            :index="index"
+          />
+        </UContainer>
+      </template>
+    </UTabs>
   </div>
 </template>
 
@@ -112,6 +157,19 @@ const tv_genres = ref<any[]>([])
 
 const moreTrending = ref(false)
 const moreTrendingTransition = ref(false)
+
+const tabs = [
+  {
+    label: t('trending.tabs.movies'),
+    icon: 'i-heroicons-film',
+    slot: 'movies'
+  },
+  {
+    label: t('trending.tabs.tv'),
+    icon: 'i-heroicons-tv',
+    slot: 'tv'
+  }
+]
 
 onMounted(async () => {
   await Promise.all([fetchTrendingMovies(), fetchTrendingTv(), fetchMovieGenres(), fetchTvGenres()])

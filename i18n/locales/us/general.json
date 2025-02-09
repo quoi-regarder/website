@@ -434,8 +434,8 @@
   "trending": {
     "description": "Discover the most popular movies and series of the moment.",
     "more": "See more",
-    "stickers": {
-      "movie": "Movie",
+    "tabs": {
+      "movies": "Movie",
       "tv": "TV Show"
     },
     "title": "Trending Movies and Series"
