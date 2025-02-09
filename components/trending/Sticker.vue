@@ -1,9 +1,5 @@
 <template>
-  <div class="flex flex-col items-center justify-center gap-4">
-    <h3 class="text-4xl font-semibold">
-      {{ $t(`trending.stickers.${type}`) }}
-    </h3>
-
+  <div class="flex flex-col items-center justify-center gap-4 bg-[var(--ui-bg)]">
     <MovieCard :item="item" :genres="genres" :type="type" />
   </div>
 </template>
