@@ -32,6 +32,16 @@
       </div>
 
       <div class="flex items-center gap-x-4">
+        <UTooltip :text="$t('navbar.buttons.feedback')">
+          <UButton
+            icon="i-lucide:message-circle-question"
+            variant="ghost"
+            size="xl"
+            target="_blank"
+            to="https://forms.gle/3e4G6qxtguZv29i8A"
+          />
+        </UTooltip>
+
         <ClientOnly>
           <Suspense>
             <UDropdownMenu :items="colorModeItems" class="cursor-pointer">
