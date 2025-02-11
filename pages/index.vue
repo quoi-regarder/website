@@ -32,7 +32,7 @@
         'lg:min-h-[35vh]': showCarousel,
         'lg:min-h-[55vh]': !showCarousel
       }"
-      class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out relative"
+      class="w-full flex flex-col items-center justify-center gap-4 transition-all duration-500 ease-out relative py-12"
     >
       <h1 class="text-4xl text-[var(--ui-color-primary-400)] font-bold text-center mb-2">
         {{ $t('home.title') }}
