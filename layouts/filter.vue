@@ -17,6 +17,7 @@
               :text="hint"
               arrow
               :ui="{ content: 'w-96 h-full', text: 'text-wrap text-justify' }"
+              class="ml-2"
             >
               <UIcon
                 name="i-heroicons-information-circle-solid"

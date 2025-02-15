@@ -12,14 +12,13 @@
     </template>
 
     <template #content>
-      <div
-        class="w-full h-full flex flex-wrap gap-2 justify-around items-center lg:grid lg:grid-cols-3 lg:gap-2"
-      >
+      <div class="h-full w-full flex flex-wrap gap-2 justify-center items-center">
         <UButton
           v-for="item in items"
           :key="item.id"
           :variant="isSelected(item) ? 'solid' : 'outline'"
-          class="flex items-center justify-between"
+          class="flex items-center"
+          :color="isSelected(item) ? 'primary' : 'neutral'"
           @click="toggle(item)"
         >
           {{ item.label }}
