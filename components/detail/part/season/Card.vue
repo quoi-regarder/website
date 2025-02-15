@@ -151,6 +151,7 @@ function toggleSelection () {
 }
 
 const isRealeased = (date: string) => {
+  if (!date) return false
   return new Date(date) < new Date()
 }
 </script>

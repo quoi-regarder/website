@@ -9,7 +9,7 @@
           {{ $t('footer.tagline') }}
         </p>
 
-        <div class="gap-2 mt-4">
+        <div class="gap-2 mt-4 flex flex-col items-center lg:items-start">
           <NuxtImg src="/tmdb_logo.svg" alt="TMDB Logo" width="100" />
 
           <p class="text-sm">

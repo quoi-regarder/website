@@ -1,13 +1,10 @@
-import { Transmit } from '@adonisjs/transmit-client'
-
 export const useProfileChannel = () => {
   const authStore = useAuthStore()
-  const transmit = shallowRef<Transmit | null>(null)
   const switchLocalePath = useSwitchLocalePath()
-  const runtimeConfig = useRuntimeConfig()
   const profileService = useProfileService()
   const profile = ref<Profile | null>(null)
   const colorMode = useColorMode()
+  const { $transmit } = useNuxtApp()
 
   const fetchProfile = async () => {
     const fetchedProfile: Profile | null = await profileService.getProfile(authStore.getUserId)
@@ -22,10 +19,10 @@ export const useProfileChannel = () => {
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !authStore.getUserId) return
+    if (!$transmit || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`profiles:${authStore.getUserId}`)
+      const subscription = $transmit.subscription(`profiles/${authStore.getUserId}`)
       await subscription.create()
 
       subscription.onMessage((data: any) => {
@@ -39,17 +36,8 @@ export const useProfileChannel = () => {
   onMounted(async () => {
     if (authStore.isAuthenticated === false) return
 
-    transmit.value = new Transmit({
-      baseUrl: runtimeConfig.public.apiBaseUrl
-    })
-
     await fetchProfile()
     await setupChannel()
-  })
-
-  onUnmounted(() => {
-    transmit.value?.close()
-    transmit.value = null
   })
 
   return {

@@ -110,7 +110,9 @@ const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
     )
 
     if (response.status !== 'error') {
-      episodeListStore.setEpisodes(response.data as SerieEpisodeWatchlist[])
+      episodeListStore.setWatchedIds(response.data.watched)
+      episodeListStore.setWatchingIds(response.data.watching)
+      episodeListStore.setToWatchIds(response.data.to_watch)
     }
   } catch (error) {
     console.error('Failed to fetch watchlist:', error)
