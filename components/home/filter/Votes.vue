@@ -1,12 +1,16 @@
 <template>
   <NuxtLayout name="filter" :title="$t('votes.title')" has-buttons>
     <template #buttons>
-      <UButton :label="$t('votes.buttons.reset')" class="order-1 lg:order-2" @click="reset" />
+      <UButton
+        :label="$t('votes.buttons.reset')"
+        class="order-1 lg:order-2"
+        @click="filters.selectedVotes = 500"
+      />
     </template>
 
     <template #content>
       <USlider
-        v-model="votes"
+        v-model="filters.selectedVotes as number"
         :max="maxVotes"
         :min="minVotes"
         :step="1"
@@ -17,11 +21,10 @@
             track: 'bg-[var(--ui-bg-accented)]'
           }
         }"
-        @update:model-value="emit('update:selected-votes', $event)"
       />
       <div class="flex justify-end self-center min-w-32">
         <p class="text-lg font-semibold">
-          {{ $t('votes.unit', { count: votes }) }}
+          {{ $t('votes.unit', { count: filters.selectedVotes }) }}
         </p>
       </div>
     </template>
@@ -29,20 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-const votes = ref<number | number[] | undefined>(500)
+const { filters } = useFilters()
 const minVotes = 0
 const maxVotes = 1000
-
-const emit = defineEmits(['update:selected-votes'])
-
-emit('update:selected-votes', votes.value)
-
-const reset = () => {
-  votes.value = 500
-  emit('update:selected-votes', votes.value)
-}
-
-defineExpose({
-  reset
-})
 </script>

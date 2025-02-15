@@ -10,7 +10,7 @@
         size="lg"
         :variant="model === 'movie' ? 'solid' : 'outline'"
         class="cursor-pointer"
-        @click="emit('update:modelValue', 'movie')"
+        @click="model = 'movie'"
       >
         {{ $t('filter.options.movie') }}
       </UButton>
@@ -19,7 +19,7 @@
         size="lg"
         :variant="model === 'tv' ? 'solid' : 'outline'"
         class="cursor-pointer"
-        @click="emit('update:modelValue', 'tv')"
+        @click="model = 'tv'"
       >
         {{ $t('filter.options.tv') }}
       </UButton>
@@ -28,11 +28,5 @@
 </template>
 
 <script lang="ts" setup>
-const model = defineModel({
-  required: true,
-  default: 'movie',
-  type: String as PropType<'movie' | 'tv'>
-})
-
-const emit = defineEmits(['update:modelValue'])
+const model = defineModel<'movie' | 'tv'>({ required: true, default: 'movie' })
 </script>

@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout name="filter" :title="title" has-buttons>
     <template #buttons>
-      <UButton :label="$t('dateRange.buttons.reset')" @click="handleReset" />
+      <UButton :label="$t('dateRange.buttons.reset')" @click="reset" />
     </template>
 
     <template #content>
@@ -21,12 +21,7 @@
           </UButton>
 
           <template #content>
-            <UCalendar
-              v-model="fromDate"
-              is-required
-              fixed-weeks
-              @update:model-value="emit('update:from-date', fromDate)"
-            />
+            <UCalendar v-model="fromDate as CalendarDate" is-required fixed-weeks />
           </template>
         </UPopover>
 
@@ -46,12 +41,7 @@
           </UButton>
 
           <template #content>
-            <UCalendar
-              v-model="toDate"
-              is-required
-              fixed-weeks
-              @update:model-value="emit('update:to-date', toDate)"
-            />
+            <UCalendar v-model="toDate as CalendarDate" is-required fixed-weeks />
           </template>
         </UPopover>
       </div>
@@ -62,9 +52,6 @@
 <script lang="ts" setup>
 import type { CalendarDate } from '@internationalized/date'
 
-const fromDate = ref<CalendarDate | null>()
-const toDate = ref<CalendarDate | null>()
-
 defineProps({
   title: {
     type: String,
@@ -72,14 +59,19 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['update:from-date', 'update:to-date'])
+const fromDate = defineModel<CalendarDate | null>('fromDate', {
+  required: true,
+  default: null
+})
 
-const handleReset = () => {
+const toDate = defineModel<CalendarDate | null>('toDate', {
+  required: true,
+  default: null
+})
+
+const reset = () => {
   fromDate.value = null
   toDate.value = null
-
-  emit('update:from-date', null)
-  emit('update:to-date', null)
 }
 
 const handleReverseDates = () => {
@@ -90,18 +82,7 @@ const handleReverseDates = () => {
     fromDate.value = toDate.value
     toDate.value = temp
   }
-
-  emit('update:from-date', fromDate.value)
-  emit('update:to-date', toDate.value)
 }
 
 watch([fromDate, toDate], handleReverseDates, { immediate: true })
-
-const reset = () => {
-  handleReset()
-}
-
-defineExpose({
-  reset
-})
 </script>
