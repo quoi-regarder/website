@@ -17,7 +17,7 @@
       }"
     >
       <template #default="{ item }">
-        <MovieCard :genres="genres" :item="item" class="h-full" :type="filters.selectedType" />
+        <MovieCard :genres="genres" :item="item" class="h-full" :type="selectedType" />
       </template>
     </UCarousel>
   </div>
@@ -29,8 +29,8 @@ const genres = defineModel<Option[]>('genres', {
   default: () => []
 })
 
-const { filters } = useFilters()
-const { search, nextPage, results, hasResults } = useSearch()
+const { selectedType } = useFilters()
+const { nextPage, results, hasResults } = useSearch()
 
 const carousel = useTemplateRef('carousel')
 

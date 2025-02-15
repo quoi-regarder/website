@@ -28,5 +28,5 @@
 </template>
 
 <script lang="ts" setup>
-const model = defineModel<'movie' | 'tv'>({ required: true, default: 'movie' })
+const model = defineModel<'movie' | 'tv'>({ required: true })
 </script>

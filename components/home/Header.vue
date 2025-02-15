@@ -31,14 +31,14 @@
       </UButton>
     </div>
     <div class="flex flex-col mt-4">
-      <HomeFilterType v-model="filters.selectedType" />
+      <HomeFilterType v-model="selectedType" />
     </div>
   </UContainer>
 </template>
 
 <script lang="ts" setup>
 const { search, isSearching, resetSearch, hasResults } = useSearch()
-const { resetFilters, filters } = useFilters()
+const { resetFilters, selectedType } = useFilters()
 
 const resetSeachAndFilters = () => {
   resetSearch()

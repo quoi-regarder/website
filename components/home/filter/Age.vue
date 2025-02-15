@@ -1,7 +1,7 @@
 <template>
   <BadgeList
     v-model="ages"
-    v-model:selected-model="filters.selectedAges"
+    v-model:selected-model="filters.selectedAges as Option[]"
     :title="$t('age.title')"
   />
 </template>

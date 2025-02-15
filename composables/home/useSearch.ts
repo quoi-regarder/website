@@ -8,11 +8,11 @@ const results = ref<[]>([])
 const isSearching = ref(false)
 
 export const useSearch = () => {
-  const { isDefaultState, filters } = useFilters()
+  const { isDefaultState, filters, selectedType } = useFilters()
   const { t, locale } = useI18n()
 
   const initializePagePool = () => {
-    if (filters.value.selectedType === 'movie') {
+    if (selectedType.value === 'movie') {
       pagePool.value = Array.from({ length: 150 }, (_, i) => i + 1).sort(() => Math.random() - 0.5)
     } else {
       pagePool.value = Array.from({ length: 30 }, (_, i) => i + 1).sort(() => Math.random() - 0.5)
@@ -36,9 +36,7 @@ export const useSearch = () => {
     }
 
     try {
-      const manager = new QueryParamsManager(
-        `/api/themoviedb/discover/${filters.value.selectedType}`
-      )
+      const manager = new QueryParamsManager(`/api/themoviedb/discover/${selectedType.value}`)
       handleQuery(manager)
 
       const data: any = await $fetch(manager.toString())
@@ -53,7 +51,9 @@ export const useSearch = () => {
     } finally {
       isSearching.value = false
 
-      if (showToast) {
+      if (results.value.length === 0) {
+        useNotifications().info(t('common.toasts.title.info'), t('home.toasts.error.search'))
+      } else if (showToast) {
         useNotifications().success(
           t('common.toasts.title.success'),
           t('home.toasts.success.search')
