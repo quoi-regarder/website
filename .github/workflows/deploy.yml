@@ -1,0 +1,41 @@
+name: Deploy Docker Image
+
+on:
+  workflow_run:
+    workflows: ['Build and Push Docker Image']
+    types:
+      - completed
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Connect to server and deploy
+        uses: appleboy/ssh-action@v0.1.7
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            set -e  # Exit the script if any command fails
+
+            echo "🔄 Connecting to the server..."
+            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+
+            echo "📥 Pulling the latest Docker image..."
+            docker pull ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
+
+            echo "🛑 Stopping and removing the existing container..."
+            docker stop quoi-regarder_website || true
+            docker rm quoi-regarder_website || true
+
+            echo "🚀 Starting the new container..."
+            docker run -d \
+              --name quoi-regarder_website \
+              --restart unless-stopped \
+              -p 3000:3000 \
+              -e NUXT_TMDB_API_KEY="${{ secrets.NUXT_TMDB_API_KEY }}" \
+              -e NUXT_API_BASE_URL="${{ secrets.NUXT_API_BASE_URL }}" \
+              ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
+
+            echo "✅ Deployment completed successfully!"
