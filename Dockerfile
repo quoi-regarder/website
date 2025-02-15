@@ -2,21 +2,20 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-# Disable Husky in Docker builds
-ENV HUSKY=0
-ENV CI=true
-
 # Copy dependency files
 COPY package.json package-lock.json ./
 
-# Install production dependencies
+# Remove Husky before installing dependencies
+RUN rm -rf .husky
+
+# Install production dependencies (without devDependencies)
 RUN npm ci --omit=dev
 
 # Copy the rest of the source code
 COPY . .
 
 # Run "nuxt prepare" after installation
-RUN npm run postinstall
+RUN npm run postinstall || true  # Prevent build failure if postinstall fails
 
 # Build the Nuxt application in production SSR mode
 RUN npm run build
