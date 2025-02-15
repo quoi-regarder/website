@@ -4,10 +4,10 @@
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
           ref="multiSelectRef"
+          v-model:selected-options="filters.selectedCompanies"
           name="companies"
           :api-to-fecth="'/api/themoviedb/search/company'"
           class="w-full"
-          @update:model-value="emit('update:selectedCompanies', $event)"
         />
       </div>
     </template>
@@ -15,15 +15,5 @@
 </template>
 
 <script lang="ts" setup>
-const multiSelectRef = ref()
-
-const emit = defineEmits(['update:selectedCompanies'])
-
-const reset = () => {
-  multiSelectRef.value.unselectAll()
-}
-
-defineExpose({
-  reset
-})
+const { filters } = useFilters()
 </script>

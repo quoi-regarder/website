@@ -202,7 +202,7 @@ const fetchTrendingTv = async () => {
 const fetchMovieGenres = async () => {
   const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
   manager.add('language', locale.value)
-  const data = await $fetch(manager.toString())
+  const data: any = await $fetch(manager.toString())
 
   movies_genres.value = data.genres.map((genre: any) => ({
     id: genre.id,
@@ -213,7 +213,7 @@ const fetchMovieGenres = async () => {
 const fetchTvGenres = async () => {
   const manager = new QueryParamsManager('/api/themoviedb/genre/tv/list')
   manager.add('language', locale.value)
-  const data = await $fetch(manager.toString())
+  const data: any = await $fetch(manager.toString())
 
   tv_genres.value = data.genres.map((genre: any) => ({
     id: genre.id,
@@ -221,13 +221,21 @@ const fetchTvGenres = async () => {
   }))
 }
 
-const toggleMoreTrending = () => {
+const toggleMoreTrending = async () => {
   moreTrending.value = !moreTrending.value
   moreTrendingTransition.value = true
-  setTimeout(() => {
-    const scrollTarget = moreTrending.value ? document.getElementById('trendingList')?.offsetTop : 0
-    window.scrollTo({ top: scrollTarget, behavior: 'smooth' })
-  }, 10)
+
+  await nextTick()
+
+  const carousel = document.getElementById('carousel')
+  if (carousel) {
+    const isMobile = window.innerWidth <= 768
+
+    window.scrollTo({
+      top: isMobile ? carousel.offsetTop - 70 : carousel.offsetTop - 250,
+      behavior: 'smooth'
+    })
+  }
 }
 
 const handleTransitionEnd = () => {

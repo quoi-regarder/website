@@ -33,7 +33,6 @@ export default defineNuxtConfig({
     '@nuxt/image',
     '@nuxtjs/seo',
     '@nuxt/eslint',
-    '@nuxthub/core',
     '@nuxt/scripts',
     '@vueuse/nuxt',
     '@pinia/nuxt',

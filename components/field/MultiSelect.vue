@@ -8,14 +8,13 @@
       size="xl"
     >
       <USelectMenu
-        v-model="selected"
+        v-model="selectedModel"
         v-model:search-term="searchTerm"
         :create-item="canCreate"
         :loading="loading"
-        :items="apiToFecth ? fetchedOptions : options"
+        :items="apiToFecth ? fetchedOptions : model"
         multiple
         class="w-full"
-        @update:model-value="emit('update:selectedOptions', $event)"
       >
         <template #default="{ modelValue }">
           <span v-if="modelValue?.length" class="text-wrap">
@@ -39,7 +38,7 @@
 
     <div class="flex items-center gap-2 mt-2 flex-wrap">
       <UBadge
-        v-for="item in selected"
+        v-for="item in selectedModel"
         :key="item.id"
         :label="item.label"
         class="cursor-pointer max-w-full"
@@ -53,11 +52,6 @@
 </template>
 
 <script lang="ts" setup>
-const options = defineModel({
-  default: [],
-  type: Array as PropType<Option[]>
-})
-
 const props = defineProps({
   name: {
     type: String,
@@ -84,28 +78,29 @@ const props = defineProps({
   }
 })
 
-const emit = defineEmits(['update:modelValue', 'update:selectedOptions'])
+const model = defineModel({
+  default: [],
+  type: Array as PropType<Option[]>
+})
 
-const selected = ref<Option[]>([])
+const selectedModel = defineModel('selectedOptions', {
+  default: [],
+  type: Array as PropType<Option[]>
+})
+
 const loading = ref(false)
 const searchTerm = ref('')
 const searchTermDebounced = refDebounced(searchTerm, 200)
 const fetchedOptions = ref<Option[]>([])
 
-const unselectAll = () => {
-  selected.value = []
-  emit('update:selectedOptions', [])
-}
-
 const unselect = (item: Option) => {
-  selected.value = selected.value.filter((i) => i.label !== item.label)
-  emit('update:selectedOptions', selected.value)
+  selectedModel.value = selectedModel.value.filter((i) => i.label !== item.label)
 }
 
 const search = async (query: string) => {
   loading.value = true
 
-  const data = await $fetch(`${props.apiToFecth}?query=${query}`)
+  const data: any = await $fetch(`${props.apiToFecth}?query=${query}`)
   fetchedOptions.value = data.results.map((val: any) => {
     return {
       id: val.id,
@@ -120,9 +115,5 @@ watch(searchTermDebounced, async (newVal, oldVal) => {
   if (newVal !== oldVal && props.apiToFecth !== '' && newVal !== '') {
     await search(newVal)
   }
-})
-
-defineExpose({
-  unselectAll
 })
 </script>

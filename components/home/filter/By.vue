@@ -18,16 +18,16 @@
         <UButton
           v-for="item in items"
           :key="item.id"
-          :variant="item.selected ? 'solid' : 'outline'"
+          :variant="isSelected(item) ? 'solid' : 'outline'"
           class="flex items-center justify-between"
           @click="toggle(item)"
         >
           {{ item.label }}
           <template #trailing>
             <UIcon
-              v-if="item.selected"
+              v-if="isSelected(item)"
               :name="
-                toggledDirection === 'asc'
+                filters.selectedFilterByDirection === 'asc'
                   ? 'i-heroicons-chevron-up-solid'
                   : 'i-heroicons-chevron-down-solid'
               "
@@ -42,26 +42,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useI18n } from 'vue-i18n'
-
 const { t } = useI18n()
 
-const props = defineProps({
-  type: {
-    type: String as PropType<'movie' | 'tv'>,
-    required: true
-  }
-})
-
-const emit = defineEmits(['update:selected-by', 'update:direction'])
-
-const toggledDirection = ref<'asc' | 'desc' | null>(null)
-
-type Option = {
-  id: string
-  label: string
-  selected: boolean
-}
+const { filters } = useFilters()
 
 const createItems = (type: 'movie' | 'tv'): Option[] => {
   let labels: string[]
@@ -81,43 +64,33 @@ const createItems = (type: 'movie' | 'tv'): Option[] => {
 
   return labels.map((id) => ({
     id,
-    label: t(`by.labels.${id}`),
-    selected: false
+    label: t(`by.labels.${id}`)
   }))
 }
 
 const movieItems = ref(createItems('movie'))
 const tvItems = ref(createItems('tv'))
 
-const items = computed(() => (props.type === 'movie' ? movieItems.value : tvItems.value))
+const items = computed(() =>
+  filters.value.selectedType === 'movie' ? movieItems.value : tvItems.value
+)
 
 const toggle = (item: Option) => {
-  if (item.selected) {
-    toggledDirection.value = toggledDirection.value === 'asc' ? 'desc' : 'asc'
+  if (filters.value.selectedFilterBy === item.id) {
+    filters.value.selectedFilterByDirection =
+      filters.value.selectedFilterByDirection === 'asc' ? 'desc' : 'asc'
   } else {
-    unselectAll()
-    item.selected = true
-    toggledDirection.value = 'asc'
+    filters.value.selectedFilterBy = item.id as string
+    filters.value.selectedFilterByDirection = 'asc'
   }
-
-  emit('update:selected-by', item.id)
-  emit('update:direction', toggledDirection.value)
 }
 
 const reset = () => {
-  unselectAll()
-  emit('update:selected-by', null)
-  emit('update:direction', null)
+  filters.value.selectedFilterBy = null
+  filters.value.selectedFilterByDirection = null
 }
 
-const unselectAll = () => {
-  ;[...movieItems.value, ...tvItems.value].forEach((item) => {
-    item.selected = false
-  })
-  toggledDirection.value = null
+const isSelected = (badge: Option) => {
+  return filters.value.selectedFilterBy === badge.id
 }
-
-defineExpose({
-  reset
-})
 </script>

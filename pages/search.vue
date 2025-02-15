@@ -94,7 +94,7 @@ const search = ref<string>('')
 const carousel = useTemplateRef('carousel')
 const genres = ref([])
 
-const results = ref([])
+const results = ref<any[]>([])
 const page = ref(1)
 const totalPages = ref(0)
 
@@ -118,7 +118,7 @@ const searchQuery = async (reset = false, showToast = true) => {
     manager.add('page', page.value)
     manager.add('language', locale.value)
 
-    const data = await $fetch(manager.toString())
+    const data: any = await $fetch(manager.toString())
 
     page.value = data.page
     totalPages.value = data.total_pages
@@ -136,7 +136,16 @@ const searchQuery = async (reset = false, showToast = true) => {
           t('common.toasts.title.success'),
           t('home.toasts.success.search')
         )
-        window.scrollTo({ top: document.getElementById('carousel')?.offsetTop, behavior: 'smooth' })
+
+        const carousel = document.getElementById('carousel')
+        if (carousel) {
+          const isMobile = window.innerWidth <= 768
+
+          window.scrollTo({
+            top: isMobile ? carousel.offsetTop - 70 : carousel.offsetTop - 250,
+            behavior: 'smooth'
+          })
+        }
       }
     } else {
       showCarousel.value = false
