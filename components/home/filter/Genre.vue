@@ -2,7 +2,7 @@
   <div>
     <LazyBadgeList
       v-model="genres"
-      v-model:selected-model="filters.selectedGenres"
+      v-model:selected-model="filters.selectedGenres as Option[]"
       :title="$t('genre.title')"
       :description="$t('genre.description')"
     />
@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 const { locale } = useI18n()
 
-const { filters } = useFilters()
+const { selectedType, filters } = useFilters()
 
 const genres = defineModel<Option[]>('genres', {
   required: true,
@@ -24,7 +24,7 @@ onMounted(async () => {
 })
 
 const fetchGenres = async () => {
-  const manager = new QueryParamsManager(`/api/themoviedb/genre/${filters.value.selectedType}/list`)
+  const manager = new QueryParamsManager(`/api/themoviedb/genre/${selectedType.value}/list`)
   manager.add('language', locale.value)
   const data: any = await $fetch(manager.toString())
 
@@ -35,7 +35,7 @@ const fetchGenres = async () => {
 }
 
 watch(
-  () => filters.value.selectedType,
+  () => selectedType.value,
   (newType, oldType) => {
     if (newType !== oldType) {
       fetchGenres()

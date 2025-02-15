@@ -16,7 +16,7 @@
 <script lang="ts" setup>
 const { locale } = useI18n()
 
-const { filters } = useFilters()
+const { selectedType, filters } = useFilters()
 
 const platforms = ref<Option[]>([])
 
@@ -25,9 +25,7 @@ onMounted(async () => {
 })
 
 const fetchPlatforms = async () => {
-  const manager = new QueryParamsManager(
-    `/api/themoviedb/watch/providers/${filters.value.selectedType}`
-  )
+  const manager = new QueryParamsManager(`/api/themoviedb/watch/providers/${selectedType.value}`)
   manager.add('language', locale.value)
 
   const data: any = await $fetch(manager.toString())
@@ -39,7 +37,7 @@ const fetchPlatforms = async () => {
 }
 
 watch(
-  () => filters.value.selectedType,
+  () => selectedType.value,
   (newType, oldType) => {
     if (newType !== oldType) {
       fetchPlatforms()

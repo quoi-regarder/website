@@ -41,7 +41,7 @@
           <UButton
             class="my-4 self-center z-10"
             size="xl"
-            variant="link"
+            variant="soft"
             @click="toggleMoreTrending"
           >
             <div class="flex flex-col items-center justify-center">
@@ -94,7 +94,7 @@
           <UButton
             class="my-4 self-center z-10"
             size="xl"
-            variant="link"
+            variant="soft"
             @click="toggleMoreTrending"
           >
             <div class="flex flex-col items-center justify-center">

@@ -29,13 +29,13 @@
             {{ $t('duration.between') }}
           </p>
           <p>
-            {{ $t('duration.unit', { count: filters.selectedDuration[0] }) }}
+            {{ $t('duration.unit', { count: filters.selectedDuration?.[0] }) }}
           </p>
           <p>
             {{ $t('duration.and') }}
           </p>
           <p>
-            {{ $t('duration.unit', { count: filters.selectedDuration[1] }) }}
+            {{ $t('duration.unit', { count: filters.selectedDuration?.[1] }) }}
           </p>
         </div>
       </div>
