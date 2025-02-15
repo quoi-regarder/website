@@ -41,6 +41,7 @@ jobs:
             ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
 
   deploy:
+    needs: build-and-push
     runs-on: ubuntu-latest
     steps:
       - name: Connect to server and deploy
