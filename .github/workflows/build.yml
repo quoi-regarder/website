@@ -37,6 +37,7 @@ jobs:
         with:
           context: .
           push: true
+          build-args: NODE_OPTIONS="--max-old-space-size=4096"
           tags: |
             ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:${{ env.TAG_NAME }}
             ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest

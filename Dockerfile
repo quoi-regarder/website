@@ -11,6 +11,9 @@ RUN npm ci --omit=dev
 # Copy the rest of the source code
 COPY . .
 
+# Increase memory limit to prevent heap out-of-memory crashes
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 # Run "nuxt prepare" after installation
 RUN npm run postinstall || true  # Prevent build failure if postinstall fails
 
