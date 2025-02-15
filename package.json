@@ -20,7 +20,10 @@
     "lint:eslint": "eslint . --fix",
     "lint:prettier": "prettier --write --list-different .",
     "postinstall": "nuxt prepare",
-    "prepare": "husky"
+    "prepare": "husky",
+    "tag:patch": "pnpm version patch && git push --follow-tags",
+    "tag:minor": "pnpm version minor && git push --follow-tags",
+    "tag:major": "pnpm version major && git push --follow-tags"
   },
   "dependencies": {
     "@adonisjs/transmit-client": "^1.0.0",
