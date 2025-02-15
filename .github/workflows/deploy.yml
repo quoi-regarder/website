@@ -58,7 +58,7 @@ jobs:
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
 
             echo "📥 Pulling the latest Docker image..."
-            docker pull ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
+            docker pull ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:${{ env.TAG_NAME }}
 
             echo "🛑 Stopping and removing the existing container..."
             docker stop quoi-regarder_website || true
@@ -71,6 +71,6 @@ jobs:
               -p 3000:3000 \
               -e NUXT_TMDB_API_KEY="${{ secrets.NUXT_TMDB_API_KEY }}" \
               -e NUXT_API_BASE_URL="${{ secrets.NUXT_API_BASE_URL }}" \
-              ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
+              ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:${{ env.TAG_NAME }}
 
             echo "✅ Deployment completed successfully!"
