@@ -30,5 +30,5 @@ COPY --from=build /app/.output ./
 # Expose the port used by Nuxt
 EXPOSE 3000
 
-# Start the Nuxt application with explicit environment variables
-CMD ["sh", "-c", "NUXT_TMDB_API_KEY=$NUXT_TMDB_API_KEY NUXT_API_BASE_URL=$NUXT_API_BASE_URL node server/index.mjs"]
+# Start the Nuxt application in SSR mode
+CMD ["node", "server/index.mjs"]
