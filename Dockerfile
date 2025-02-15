@@ -27,6 +27,10 @@ WORKDIR /app
 # Copy only the necessary files from the previous build stage
 COPY --from=build /app/.output ./
 
+# Set environment variables (ensures they are available in the container)
+ENV NUXT_TMDB_API_KEY=${NUXT_TMDB_API_KEY}
+ENV NUXT_API_BASE_URL=${NUXT_API_BASE_URL}
+
 # Expose the port used by Nuxt
 EXPOSE 3000
 
