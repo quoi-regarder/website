@@ -1,39 +1,33 @@
 import { defineStore } from 'pinia'
-import { WatchStatus } from '../types/watchStatus'
 
 export const useMovieListStore = defineStore('movie_list', {
-  state: (): { movieList: MovieWatchlist[] } => ({
-    movieList: []
+  state: (): { watchedIds: number[]; toWatchIds: number[] } => ({
+    watchedIds: [],
+    toWatchIds: []
   }),
   getters: {
-    getToWatchCount: (state) =>
-      state.movieList.filter((m) => m.status === WatchStatus.TO_WATCH).length,
-    getWatchedCount: (state) =>
-      state.movieList.filter((m) => m.status === WatchStatus.WATCHED).length,
-    getMovieByTmdbId: (state) => (tmdbId: number) => {
-      return state.movieList.find((m) => {
-        return m.tmdbId.toString() === tmdbId.toString()
-      })
+    getWatchedCount: (state) => state.watchedIds?.length,
+    getToWatchCount: (state) => state.toWatchIds?.length,
+    getIdStatus: (state) => (id: number) => {
+      if (state.watchedIds.map(Number).includes(id)) {
+        return WatchStatus.WATCHED
+      }
+      if (state.toWatchIds.map(Number).includes(id)) {
+        return WatchStatus.TO_WATCH
+      }
+      return null
     }
   },
   actions: {
-    addMovie (movie: MovieWatchlist) {
-      this.movieList = this.movieList.filter((m) => m.tmdbId !== movie.tmdbId)
-      this.movieList.push(movie)
+    setWatchedIds (ids: number[]) {
+      this.watchedIds = ids
     },
-    updateMovie (movie: MovieWatchlist) {
-      this.movieList = this.movieList.map((m) =>
-        m.tmdbId === movie.tmdbId ? { ...m, ...movie } : m
-      )
-    },
-    removeMovie (movie: MovieWatchlist) {
-      this.movieList = this.movieList.filter((m) => m.tmdbId !== movie.tmdbId)
-    },
-    setMovies (movieList: MovieWatchlist[]) {
-      this.movieList = movieList
+    setToWatchIds (ids: number[]) {
+      this.toWatchIds = ids
     },
     reset () {
-      this.movieList = []
+      this.watchedIds = []
+      this.toWatchIds = []
     }
   },
   persist: {

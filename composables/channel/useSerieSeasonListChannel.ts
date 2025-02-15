@@ -1,12 +1,8 @@
-import { Transmit } from '@adonisjs/transmit-client'
-
 export const useSerieSeasonListChannel = () => {
   const seasonListStore = useSeasonListStore()
   const seasonWatchlistService = useSeasonWatchlistService()
   const authStore = useAuthStore()
-  const transmit = shallowRef<Transmit | null>(null)
-  const seasons = ref<SerieSeasonWatchlist[] | null>(null)
-  const runtimeConfig = useRuntimeConfig()
+  const { $transmit } = useNuxtApp()
   const route = useRoute()
 
   const fetchSeasonWatchlist = async () => {
@@ -19,26 +15,22 @@ export const useSerieSeasonListChannel = () => {
       return
     }
 
-    seasons.value = response.data as SerieSeasonWatchlist[]
-
-    seasonListStore.setSeasons(seasons.value)
+    seasonListStore.setWatchedIds(response.data.watched)
+    seasonListStore.setWatchingIds(response.data.watching)
+    seasonListStore.setToWatchIds(response.data.to_watch)
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !authStore.getUserId) return
+    if (!$transmit || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(
-        `serie_season_watchlist:${authStore.getUserId}`
-      )
+      const subscription = $transmit.subscription(`serie_season_watchlist/${authStore.getUserId}`)
       await subscription.create()
 
       subscription.onMessage((data: any) => {
-        switch (data?.type) {
-          case 'list':
-            seasonListStore.setSeasons(data.seasons)
-            break
-        }
+        seasonListStore.setWatchedIds(data.data.watched)
+        seasonListStore.setWatchingIds(data.data.watching)
+        seasonListStore.setToWatchIds(data.data.to_watch)
       })
     } catch (error) {
       console.error('Failed to setup channel:', error)
@@ -48,18 +40,11 @@ export const useSerieSeasonListChannel = () => {
   onMounted(async () => {
     if (!authStore.isAuthenticated) return
 
-    transmit.value = new Transmit({
-      baseUrl: runtimeConfig.public.apiBaseUrl
-    })
-
     await fetchSeasonWatchlist()
     await setupChannel()
   })
 
   onUnmounted(() => {
-    if (transmit.value) {
-      transmit.value.close()
-    }
     seasonListStore.reset()
   })
 }

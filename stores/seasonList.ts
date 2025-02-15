@@ -1,39 +1,39 @@
 import { defineStore } from 'pinia'
-import type { SerieSeasonWatchlist } from '../models/serieSeasonWatchlist'
 
 export const useSeasonListStore = defineStore('season_list', {
-  state: (): { seasonList: SerieSeasonWatchlist[] } => ({
-    seasonList: []
+  state: (): { watchedIds: number[]; watchingIds: number[]; toWatchIds: number[] } => ({
+    watchedIds: [],
+    watchingIds: [],
+    toWatchIds: []
   }),
   getters: {
-    getToWatchCount: (state) =>
-      state.seasonList.filter((s) => s.status === WatchStatus.TO_WATCH).length,
-    getWatchedCount: (state) =>
-      state.seasonList.filter((s) => s.status === WatchStatus.WATCHED).length,
-    getSeasonByTmdbId: (state) => (tmdbId: number) => {
-      return state.seasonList.find((s) => {
-        return s.tmdbId.toString() === tmdbId.toString()
-      })
+    getIdStatus: (state) => (id: number) => {
+      if (state.watchedIds.map(Number).includes(id)) {
+        return WatchStatus.WATCHED
+      }
+      if (state.watchingIds.map(Number).includes(id)) {
+        return WatchStatus.WATCHING
+      }
+      if (state.toWatchIds.map(Number).includes(id)) {
+        return WatchStatus.TO_WATCH
+      }
+      return null
     }
   },
   actions: {
-    addSeason (season: SerieSeasonWatchlist) {
-      this.seasonList = this.seasonList.filter((s) => s.tmdbId !== season.tmdbId)
-      this.seasonList.push(season)
+    setWatchedIds (ids: number[]) {
+      this.watchedIds = ids
     },
-    updateSeason (season: SerieSeasonWatchlist) {
-      this.seasonList = this.seasonList.map((s) =>
-        s.tmdbId === season.tmdbId ? { ...s, ...season } : s
-      )
+    setWatchingIds (ids: number[]) {
+      this.watchingIds = ids
     },
-    removeSeason (season: SerieSeasonWatchlist) {
-      this.seasonList = this.seasonList.filter((s) => s.tmdbId !== season.tmdbId)
-    },
-    setSeasons (seasonList: SerieSeasonWatchlist[]) {
-      this.seasonList = seasonList
+    setToWatchIds (ids: number[]) {
+      this.toWatchIds = ids
     },
     reset () {
-      this.seasonList = []
+      this.watchedIds = []
+      this.watchingIds = []
+      this.toWatchIds = []
     }
   },
   persist: {

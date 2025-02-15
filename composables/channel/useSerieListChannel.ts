@@ -1,12 +1,8 @@
-import { Transmit } from '@adonisjs/transmit-client'
-
 export const useSerieListChannel = () => {
   const serieListStore = useSerieListStore()
   const serieWatchlistService = useSerieWatchlistService()
   const authStore = useAuthStore()
-  const transmit = shallowRef<Transmit | null>(null)
-  const series = ref<SerieWatchlist[] | null>(null)
-  const runtimeConfig = useRuntimeConfig()
+  const { $transmit } = useNuxtApp()
 
   const fetchSerieWatchlist = async () => {
     const response: ApiResponse = await serieWatchlistService.getWatchlist(authStore.getUserId)
@@ -15,24 +11,22 @@ export const useSerieListChannel = () => {
       return
     }
 
-    series.value = response.data as SerieWatchlist[]
-
-    serieListStore.setSeries(series.value)
+    serieListStore.setWatchedIds(response.data.watched)
+    serieListStore.setWatchingIds(response.data.watching)
+    serieListStore.setToWatchIds(response.data.to_watch)
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !authStore.getUserId) return
+    if (!$transmit || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`serie_watchlist:${authStore.getUserId}`)
+      const subscription = $transmit.subscription(`serie_watchlist/${authStore.getUserId}`)
       await subscription.create()
 
       subscription.onMessage((data: any) => {
-        switch (data?.type) {
-          case 'list':
-            serieListStore.setSeries(data.series)
-            break
-        }
+        serieListStore.setToWatchIds(data.data.to_watch)
+        serieListStore.setWatchedIds(data.data.watched)
+        serieListStore.setWatchingIds(data.data.watching)
       })
     } catch (error) {
       console.error('Failed to setup channel:', error)
@@ -42,16 +36,7 @@ export const useSerieListChannel = () => {
   onMounted(async () => {
     if (authStore.isAuthenticated === false) return
 
-    transmit.value = new Transmit({
-      baseUrl: runtimeConfig.public.apiBaseUrl
-    })
-
     await fetchSerieWatchlist()
     await setupChannel()
-  })
-
-  onUnmounted(() => {
-    transmit.value?.close()
-    transmit.value = null
   })
 }

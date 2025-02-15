@@ -1,10 +1,7 @@
-import { Transmit } from '@adonisjs/transmit-client'
-
 export const useMocieRuntimeChannel = () => {
   const authStore = useAuthStore()
-  const transmit = shallowRef<Transmit | null>(null)
-  const runtimeConfig = useRuntimeConfig()
   const totalRuntime = ref(0)
+  const { $transmit } = useNuxtApp()
 
   const fetchTotalRuntime = async () => {
     if (!authStore.isAuthenticated) {
@@ -24,19 +21,15 @@ export const useMocieRuntimeChannel = () => {
   }
 
   const setupChannel = async () => {
-    if (!transmit.value || !authStore.getUserId) return
+    if (!$transmit || !authStore.getUserId) return
 
     try {
-      const subscription = transmit.value.subscription(`movie_runtime:${authStore.getUserId}`)
+      const subscription = $transmit.subscription(`movie_runtime/${authStore.getUserId}`)
 
       await subscription.create()
 
       subscription.onMessage((data: any) => {
-        switch (data?.type) {
-          case 'update':
-            totalRuntime.value = data.totalRuntime
-            break
-        }
+        totalRuntime.value = data.data
       })
     } catch (error) {
       console.error('Failed to setup channel:', error)
@@ -46,17 +39,8 @@ export const useMocieRuntimeChannel = () => {
   onMounted(async () => {
     if (!authStore.isAuthenticated) return
 
-    transmit.value = new Transmit({
-      baseUrl: runtimeConfig.public.apiBaseUrl
-    })
-
     await fetchTotalRuntime()
     await setupChannel()
-  })
-
-  onUnmounted(() => {
-    transmit.value?.close()
-    transmit.value = null
   })
 
   return { totalRuntime }

@@ -1,40 +1,42 @@
 import { defineStore } from 'pinia'
 
 export const useSerieListStore = defineStore('serie_list', {
-  state: (): { serieList: SerieWatchlist[] } => ({
-    serieList: []
+  state: (): { watchedIds: number[]; watchingIds: number[]; toWatchIds: number[] } => ({
+    watchedIds: [],
+    watchingIds: [],
+    toWatchIds: []
   }),
   getters: {
-    getToWatchCount: (state) =>
-      state.serieList.filter((s) => s.status === WatchStatus.TO_WATCH).length,
-    getWatchingCount: (state) =>
-      state.serieList.filter((s) => s.status === WatchStatus.WATCHING).length,
-    getWatchedCount: (state) =>
-      state.serieList.filter((s) => s.status === WatchStatus.WATCHED).length,
-    getSerieByTmdbId: (state) => (tmdbId: number) => {
-      return state.serieList.find((s) => {
-        return s.tmdbId.toString() === tmdbId.toString()
-      })
+    getWatchedCount: (state) => state.watchedIds?.length,
+    getWatchingCount: (state) => state.watchingIds?.length,
+    getToWatchCount: (state) => state.toWatchIds?.length,
+    getIdStatus: (state) => (id: number) => {
+      if (state.watchedIds.map(Number).includes(id)) {
+        return WatchStatus.WATCHED
+      }
+      if (state.watchingIds.map(Number).includes(id)) {
+        return WatchStatus.WATCHING
+      }
+      if (state.toWatchIds.map(Number).includes(id)) {
+        return WatchStatus.TO_WATCH
+      }
+      return null
     }
   },
   actions: {
-    addSerie (serie: SerieWatchlist) {
-      this.serieList = this.serieList.filter((s) => s.tmdbId !== serie.tmdbId)
-      this.serieList.push(serie)
+    setWatchedIds (ids: number[]) {
+      this.watchedIds = ids
     },
-    updateSerie (serie: SerieWatchlist) {
-      this.serieList = this.serieList.map((s) =>
-        s.tmdbId === serie.tmdbId ? { ...s, ...serie } : s
-      )
+    setWatchingIds (ids: number[]) {
+      this.watchingIds = ids
     },
-    removeSerie (serie: SerieWatchlist) {
-      this.serieList = this.serieList.filter((s) => s.tmdbId !== serie.tmdbId)
-    },
-    setSeries (serieList: SerieWatchlist[]) {
-      this.serieList = serieList
+    setToWatchIds (ids: number[]) {
+      this.toWatchIds = ids
     },
     reset () {
-      this.serieList = []
+      this.watchedIds = []
+      this.watchingIds = []
+      this.toWatchIds = []
     }
   },
   persist: {

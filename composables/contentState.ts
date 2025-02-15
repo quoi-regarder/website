@@ -29,34 +29,6 @@ export const useContentState = () => {
    *
    * @param type Content type (movie, tv, season, episode)
    * @param typeId Content ID
-   * @returns Content object from storage
-   *
-   * @description Get content object from storage.
-   *
-   * Precisions:
-   * - If we want to get a season, the typeId should be the season ID. etc.
-   */
-  const getContentFromList = (type: ContentType, typeId: number) => {
-    if (!authStore.isAuthenticated) return undefined
-
-    switch (type) {
-      case 'movie':
-        return useMovieListStore().getMovieByTmdbId(typeId)
-      case 'tv':
-        return useSerieListStore().getSerieByTmdbId(typeId)
-      case 'season':
-        return useSeasonListStore().getSeasonByTmdbId(typeId)
-      case 'episode':
-        return useEpisodeListStore().getEpisodeByTmdbId(typeId)
-      default:
-        throw new Error(`Unsupported content type: ${type}`)
-    }
-  }
-
-  /**
-   *
-   * @param type Content type (movie, tv, season, episode)
-   * @param typeId Content ID
    * @returns Watch status (to_watch, watching, watched)
    *
    * @description Get the watch status of a content.
@@ -64,9 +36,21 @@ export const useContentState = () => {
    * Precisions:
    * - If we want to get the status of a season, the typeId should be the season ID. etc.
    */
-  const getContentStatus = (type: ContentType, typeId: number) => {
-    const content = getContentFromList(type, typeId)
-    return content ? content.status : null
+  const getContentStatus = (type: ContentType, typeId: number): WatchStatus | null => {
+    if (!authStore.isAuthenticated) return null
+
+    switch (type) {
+      case 'movie':
+        return useMovieListStore().getIdStatus(typeId)
+      case 'tv':
+        return useSerieListStore().getIdStatus(typeId)
+      case 'season':
+        return useSeasonListStore().getIdStatus(typeId)
+      case 'episode':
+        return useEpisodeListStore().getIdStatus(typeId)
+      default:
+        throw new Error(`Unsupported content type: ${type}`)
+    }
   }
 
   /**
@@ -104,10 +88,10 @@ export const useContentState = () => {
     const idOfContent = contentId || primaryId
 
     const { service } = getServiceAndStore(type)
-    const content = getContentFromList(type, idOfContent)
+    const contentStatus = getContentStatus(type, idOfContent)
 
-    if (content) {
-      if (content.status === status) {
+    if (contentStatus !== null) {
+      if (contentStatus === status) {
         const response: ApiResponse = await service.removeWatchlist(
           authStore.getUserId,
           idOfContent,

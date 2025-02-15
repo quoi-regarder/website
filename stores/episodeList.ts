@@ -1,26 +1,39 @@
 import { defineStore } from 'pinia'
 
 export const useEpisodeListStore = defineStore('episode_list', {
-  state: (): { episodeList: SerieEpisodeWatchlist[] } => ({
-    episodeList: []
+  state: (): { watchedIds: number[]; watchingIds: number[]; toWatchIds: number[] } => ({
+    watchedIds: [],
+    watchingIds: [],
+    toWatchIds: []
   }),
   getters: {
-    getEpisodeByTmdbId: (state) => (tmdbId: number) => {
-      return state.episodeList.find((s) => {
-        return s.tmdbId.toString() === tmdbId.toString()
-      })
+    getIdStatus: (state) => (id: number) => {
+      if (state.watchedIds.map(Number).includes(id)) {
+        return WatchStatus.WATCHED
+      }
+      if (state.watchingIds.map(Number).includes(id)) {
+        return WatchStatus.WATCHING
+      }
+      if (state.toWatchIds.map(Number).includes(id)) {
+        return WatchStatus.TO_WATCH
+      }
+      return null
     }
   },
   actions: {
-    addEpisode (episode: SerieEpisodeWatchlist) {
-      this.episodeList = this.episodeList.filter((s) => s.tmdbId !== episode.tmdbId)
-      this.episodeList.push(episode)
+    setWatchedIds (ids: number[]) {
+      this.watchedIds = ids
     },
-    setEpisodes (episodeList: SerieEpisodeWatchlist[]) {
-      this.episodeList = episodeList
+    setWatchingIds (ids: number[]) {
+      this.watchingIds = ids
+    },
+    setToWatchIds (ids: number[]) {
+      this.toWatchIds = ids
     },
     reset () {
-      this.episodeList = []
+      this.watchedIds = []
+      this.watchingIds = []
+      this.toWatchIds = []
     }
   },
   persist: {

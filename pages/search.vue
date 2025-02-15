@@ -22,7 +22,7 @@
           {{ $t('search.description') }}
         </h2>
 
-        <FilterType v-model="selectedType" />
+        <HomeFilterType v-model="selectedType" />
 
         <div class="flex flex-col items-start justify-center mt-4 sm:flex-row sm:gap-4">
           <FieldInput

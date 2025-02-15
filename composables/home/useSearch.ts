@@ -12,7 +12,11 @@ export const useSearch = () => {
   const { t, locale } = useI18n()
 
   const initializePagePool = () => {
-    pagePool.value = Array.from({ length: 150 }, (_, i) => i + 1).sort(() => Math.random() - 0.5)
+    if (filters.value.selectedType === 'movie') {
+      pagePool.value = Array.from({ length: 150 }, (_, i) => i + 1).sort(() => Math.random() - 0.5)
+    } else {
+      pagePool.value = Array.from({ length: 30 }, (_, i) => i + 1).sort(() => Math.random() - 0.5)
+    }
   }
 
   const resetPagePool = () => {
