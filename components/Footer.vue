@@ -8,6 +8,14 @@
         <p class="text-sm">
           {{ $t('footer.tagline') }}
         </p>
+
+        <div class="gap-2 mt-4">
+          <NuxtImg src="/tmdb_logo.svg" alt="TMDB Logo" width="100" />
+
+          <p class="text-sm">
+            {{ $t('footer.tmdb') }}
+          </p>
+        </div>
       </div>
 
       <nav class="lg:w-3/5 flex flex-wrap justify-evenly gap-4">

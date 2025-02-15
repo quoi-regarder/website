@@ -146,6 +146,7 @@
       "terms": "Conditions Générales d'utilisation"
     },
     "tagline": "Trouvez une série ou un film adapté à vos goûts chaque jour.",
+    "tmdb": "Ce site utilise TMDB et les API de TMDB mais n'est ni approuvé, ni certifié par TMDB.",
     "title": "Quoi Regarder"
   },
   "forgotPassword": {

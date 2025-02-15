@@ -146,6 +146,7 @@
       "terms": "Terms Of Use"
     },
     "tagline": "A series or movie to watch each day based on your preferences.",
+    "tmdb": "This website uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.",
     "title": "What to Watch?"
   },
   "forgotPassword": {
