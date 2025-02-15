@@ -5,9 +5,6 @@ WORKDIR /app
 # Copy dependency files
 COPY package.json package-lock.json ./
 
-# Remove Husky before installing dependencies
-RUN rm -rf .husky
-
 # Install production dependencies (without devDependencies)
 RUN npm ci --omit=dev
 
