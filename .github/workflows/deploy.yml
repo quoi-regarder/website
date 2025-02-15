@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: read
-  packages: write
+  packages: read
 
 jobs:
   build-and-push:
@@ -42,8 +42,6 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build-and-push
-
     steps:
       - name: Connect to server and deploy
         uses: appleboy/ssh-action@v1.2.0
@@ -52,13 +50,13 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            set -e  # Stop the script if any command fails
+            set -e  # Exit the script if any command fails
 
             echo "🔄 Connecting to the server..."
-            docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+            echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
             echo "📥 Pulling the latest Docker image..."
-            docker pull ghcr.io/${{ github.repository }}/quoi-regarder_website:latest
+            docker pull ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
 
             echo "🛑 Stopping and removing the existing container..."
             docker stop quoi-regarder_website || true
@@ -71,6 +69,6 @@ jobs:
               -p 3000:3000 \
               -e NUXT_TMDB_API_KEY="${{ secrets.NUXT_TMDB_API_KEY }}" \
               -e NUXT_API_BASE_URL="${{ secrets.NUXT_API_BASE_URL }}" \
-              ghcr.io/${{ github.repository }}/quoi-regarder_website:latest
+              ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
 
             echo "✅ Deployment completed successfully!"
