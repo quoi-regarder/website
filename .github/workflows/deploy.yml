@@ -68,8 +68,7 @@ jobs:
               --name quoi-regarder_website \
               --restart unless-stopped \
               -p 3000:3000 \
-              -e NUXT_TMDB_API_KEY="${{ secrets.NUXT_TMDB_API_KEY }}" \
-              -e NUXT_API_BASE_URL="${{ secrets.NUXT_API_BASE_URL }}" \
+              --env-file ~/quoi-regarder-website/.env \
               ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
 
             docker network connect nginx_proxy_manager_default quoi-regarder_website
