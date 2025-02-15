@@ -2,16 +2,20 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
+# Disable Husky in Docker builds
+ENV HUSKY=0
+ENV CI=true
+
 # Copy dependency files
 COPY package.json package-lock.json ./
 
-# Install production dependencies (faster and reproducible)
+# Install production dependencies
 RUN npm ci --omit=dev
 
 # Copy the rest of the source code
 COPY . .
 
-# Run "nuxt prepare" after installation (as in postinstall)
+# Run "nuxt prepare" after installation
 RUN npm run postinstall
 
 # Build the Nuxt application in production SSR mode
@@ -23,10 +27,6 @@ WORKDIR /app
 
 # Copy only the necessary files from the previous build stage
 COPY --from=build /app/.output ./
-
-# Define environment variables at runtime
-ENV NUXT_TMDB_API_KEY=$NUXT_TMDB_API_KEY
-ENV NUXT_API_BASE_URL=$NUXT_API_BASE_URL
 
 # Expose the port used by Nuxt
 EXPOSE 3000
