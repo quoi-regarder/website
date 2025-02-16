@@ -72,6 +72,6 @@ jobs:
               ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
 
             echo "🔗 Connecting the container to the network..."
-            docker network connect nginx_proxy_manager_default quoi-regarder_website
+            docker network connect quoi-regarder_webnet quoi-regarder_website
 
             echo "✅ Deployment completed successfully!"
