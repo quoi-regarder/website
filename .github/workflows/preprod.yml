@@ -1,9 +1,9 @@
-name: Build, Push and Deploy Docker Image
+name: Build, Push and Deploy Docker Image (Preprod)
 
 on:
   push:
-    tags:
-      - 'v*.*.*'
+    branches:
+      - develop
 
 permissions:
   contents: read
@@ -27,17 +27,13 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Extract tag name
-        run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v6.13.0
         with:
           context: .
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:${{ env.TAG_NAME }}
-            ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
+            ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:develop
 
   deploy:
     needs: build-and-push
@@ -46,31 +42,31 @@ jobs:
       - name: Connect to server and deploy
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
+          host: ${{ secrets.PREPROD_HOST }}
+          username: ${{ secrets.PREPROD_USER }}
+          key: ${{ secrets.PREPROD_SSH_KEY }}
           script: |
             set -e  # Exit the script if any command fails
 
             echo "🔄 Connecting to the server..."
             echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-            echo "📥 Pulling the latest Docker image..."
-            docker pull ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
+            echo "📥 Pulling the preprod Docker image..."
+            docker pull ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:develop
 
-            echo "🛑 Stopping and removing the existing container..."
+            echo "🛑 Stopping and removing the existing preprod container..."
             docker stop quoi-regarder_website || true
             docker rm quoi-regarder_website || true
 
-            echo "🚀 Starting the new container..."
+            echo "🚀 Starting the new preprod container..."
             docker run -d \
               --name quoi-regarder_website \
               --restart unless-stopped \
               -p 3000:3000 \
               --env-file ~/quoi-regarder-website/.env \
-              ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:latest
+              ghcr.io/${{ github.repository_owner }}/quoi-regarder_website:develop
 
-            echo "🔗 Connecting the container to the network..."
+            echo "🔗 Connecting the preprod container to the network..."
             docker network connect quoi-regarder_webnet quoi-regarder_website
 
-            echo "✅ Deployment completed successfully!"
+            echo "✅ Preproduction deployment completed successfully!"

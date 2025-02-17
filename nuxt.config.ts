@@ -46,7 +46,7 @@ export default defineNuxtConfig({
     tmdbApiKey: process.env.NUXT_TMDB_API_KEY,
     tmdbBaseUrl: process.env.NUXT_TMDB_BASE_URL,
     public: {
-      apiBaseUrl: process.env.NUXT_API_BASE_URL
+      apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL
     }
   },
 

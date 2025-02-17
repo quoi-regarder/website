@@ -2,21 +2,21 @@ export class QueryParamsManager {
   private url: URL
 
   constructor (path: string, baseUrl?: string) {
-    if (!baseUrl && typeof window === 'undefined') {
-      throw new Error('Base URL is required when running in a server environment.')
+    if (!baseUrl) {
+      if (typeof window !== 'undefined') {
+        baseUrl = window.location.origin
+      } else if (process.env.NUXT_API_BASE_URL) {
+        baseUrl = process.env.NUXT_API_BASE_URL
+      } else {
+        throw new Error('Base URL is required when running in a server environment.')
+      }
     }
 
     try {
-      // Construct the URL with baseUrl if provided, or use the global `window.location.origin` for the client.
-      const origin = baseUrl || (typeof window !== 'undefined' ? window.location.origin : '')
-      if (!origin) {
-        throw new Error('Unable to determine the base URL. Provide a valid baseUrl.')
-      }
-
-      this.url = new URL(path, origin)
+      this.url = new URL(path, baseUrl)
     } catch (error) {
       throw new Error(
-        `Invalid URL: ${path}. Ensure the URL is absolute or properly resolved in your application.`
+        `Invalid URL: ${path}. Base URL used: ${baseUrl}. Ensure the URL is absolute or properly resolved in your application.`
       )
     }
   }
