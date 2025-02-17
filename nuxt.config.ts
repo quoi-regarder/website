@@ -44,9 +44,9 @@ export default defineNuxtConfig({
   // Environment variables
   runtimeConfig: {
     tmdbApiKey: process.env.NUXT_TMDB_API_KEY,
-    tmdbBaseUrl: process.env.NUXT_TMDB_BASE_URL || 'https://api.themoviedb.org/3',
+    tmdbBaseUrl: process.env.NUXT_TMDB_BASE_URL,
     public: {
-      apiBaseUrl: process.env.NUXT_API_BASE_URL || 'https://api.quoi-regarder.fr'
+      apiBaseUrl: process.env.NUXT_API_BASE_URL
     }
   },
 
