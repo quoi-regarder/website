@@ -26,14 +26,40 @@ Start the development server on `http://localhost:3000`:
 npm run dev
 ```
 
-### Command to push to main branch
+## New Version
+
+- First, you need to checkout to the main branch
 
 ```bash
 git checkout main
-git pull --rebase origin develop
-git push origin main
+```
 
+- Then, you need to pull the latest changes from the develop branch
+
+```bash
+git pull --rebase origin develop
+```
+
+- After that, you need to merge the develop branch into the main branch
+
+```bash
+git push origin +main
+```
+
+- Finally, you can run the npm command to release a new version
+
+```bash
+npm run tag:patch # For a patch version
+npm run tag:minor # For a minor version
+npm run tag:major # For a major version
+```
+
+- Now, you can rebase the develop branch
+
+```bash
 git checkout develop
+git pull --rebase origin main
+git push origin +develop
 ```
 
 ## Environment Variables
