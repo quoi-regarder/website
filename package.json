@@ -31,6 +31,7 @@
     "@iconify-json/logos": "^1.2.4",
     "@iconify-json/lucide": "^1.2.25",
     "@iconify-json/material-symbols": "^1.2.14",
+    "@nuxt/content": "^3.1.1",
     "@nuxt/eslint": "^1.0.0",
     "@nuxt/image": "1.9.0",
     "@nuxt/scripts": "0.9.5",
@@ -45,6 +46,7 @@
     "pinia-plugin-persistedstate": "^4.2.0",
     "prettier": "^3.4.2",
     "typescript": "^5.7.2",
+    "sass-embedded": "^1.85.0",
     "yup": "^1.6.1"
   }
 }

@@ -14,12 +14,6 @@
         "tv": "Discover detailed information about a TV show: cast, trailer, synopsis, press and audience reviews. Find your next favorite show!"
       },
       "profile": "Refine your preferences, manage your history and favorites. Rate and comment for even more personalized movie recommendations.",
-      "regulation": {
-        "cookies": "Manage your cookie preferences and learn how we use these files to enhance your browsing experience.",
-        "legal": "Legal information about the What to Watch site.",
-        "privacy": "Discover how we collect, use, and protect your personal data. Your privacy is our top priority.",
-        "terms": "Check out our Terms Of Use to learn about the rules for accessing and using our site. By browsing What to Watch, you agree to our ToS."
-      },
       "search": "Find your next favorite movie in just a few clicks. Explore our catalog of movies and TV shows for personalized recommendations.",
       "trending": "Discover the most popular movies and TV shows of the moment. Don't miss out on the latest cinematic trends!"
     },
@@ -37,12 +31,6 @@
         "tv": "TV Show Details - Cast, Trailer, Synopsis"
       },
       "profile": "Profile - Customize Your Movie Preferences",
-      "regulation": {
-        "cookies": "Cookie Management",
-        "legal": "Legal Notice",
-        "privacy": "Privacy Policy",
-        "terms": "Terms Of Use (ToS)"
-      },
       "search": "Search - Find Your Next Favorite Movie",
       "trending": "Trends - Popular Movies And TV Shows"
     },
