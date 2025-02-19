@@ -36,7 +36,8 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@vueuse/nuxt',
     '@pinia/nuxt',
-    'pinia-plugin-persistedstate/nuxt'
+    'pinia-plugin-persistedstate/nuxt',
+    '@nuxt/content'
   ],
 
   css: ['/assets/css/main.css'],
@@ -71,14 +72,14 @@ export default defineNuxtConfig({
         iso: 'en-US',
         language: 'en-US',
         name: 'English (US)',
-        files: ['us/general.json', 'us/seo.json', 'us/filters.json', 'us/regulation.json']
+        files: ['us/general.json', 'us/seo.json', 'us/filters.json']
       },
       {
         code: 'fr',
         iso: 'fr-FR',
         language: 'fr-FR',
         name: 'Français',
-        files: ['fr/general.json', 'fr/seo.json', 'fr/filters.json', 'fr/regulation.json']
+        files: ['fr/general.json', 'fr/seo.json', 'fr/filters.json']
       }
     ],
     defaultLocale: 'fr',

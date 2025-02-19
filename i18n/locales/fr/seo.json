@@ -14,12 +14,6 @@
         "tv": "Découvrez les informations détaillées d'une série : casting, bande-annonce, synopsis, avis de la presse et des spectateurs. Trouvez votre prochain coup de cœur !"
       },
       "profile": "Affinez vos préférences, gérez votre historique et vos favoris. Notez et commentez pour des recommandations de films toujours plus pertinentes.",
-      "regulation": {
-        "cookies": "Gérez vos préférences de cookies et découvrez comment nous utilisons ces fichiers pour améliorer votre expérience de navigation.",
-        "legal": "Informations légales concernant le site Quoi Regarder.",
-        "privacy": "Découvrez comment nous collectons, utilisons et protégeons vos données personnelles. Votre vie privée est notre priorité.",
-        "terms": "Consultez nos Conditions Générales d'utilisation pour connaître les règles d'accès et d'utilisation de notre site. En naviguant sur Quoi Regarder, vous acceptez nos CGU."
-      },
       "search": "Trouvez votre prochain coup de cœur cinématographique en quelques clics. Explorez notre catalogue de films et de séries pour des recommandations personnalisées.",
       "trending": "Découvrez les films et séries les plus populaires du moment. Ne manquez pas les tendances cinématographiques du moment !"
     },
@@ -37,12 +31,6 @@
         "tv": "Détails de la série - Casting, bande-annonce, synopsis"
       },
       "profile": "Profil - Personnalisez vos préférences cinéma",
-      "regulation": {
-        "cookies": "Gestion des Cookies",
-        "legal": "Mentions Légales",
-        "privacy": "Politique de Confidentialité",
-        "terms": "Conditions Générales d'utilisation (CGU)"
-      },
       "search": "Recherche - Trouvez votre prochain coup de cœur",
       "trending": "Tendances - Films et séries populaires"
     },
