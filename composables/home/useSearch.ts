@@ -205,6 +205,10 @@ export const useSearch = () => {
     }
   }
 
+  watch(selectedType, () => {
+    resetSearch()
+  })
+
   return {
     search,
     isSearching,
