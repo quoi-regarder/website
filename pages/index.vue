@@ -14,7 +14,7 @@
 
     <HomeFooter />
 
-    <PopinArchipelago />
+    <!-- <PopinArchipelago /> -->
   </div>
 </template>
 

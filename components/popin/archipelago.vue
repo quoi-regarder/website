@@ -1,13 +1,17 @@
 <template>
   <UModal v-model:open="isArchipelagoModalOpen" :title="$t('modals.archipelago.title')">
     <template #body>
-      <div class="flex flex-col text-justify gap-y-4">
-        <p class="text-sm">{{ $t('modals.archipelago.body') }}</p>
-        <div class="flex items-center gap-2">
+      <div
+        class="flex flex-col text-justify gap-y-4 h-full items-center justify-center sm:items-start sm:justify-start"
+      >
+        <p class="text-semibold">
+          {{ $t('modals.archipelago.body') }}
+        </p>
+        <div class="flex gap-2">
           <UIcon name="i-logos:twitch" class="size-6" />
           <p class="text-sm">{{ $t('modals.archipelago.twitch') }}</p>
         </div>
-        <div class="flex items-center gap-2">
+        <div class="flex gap-2">
           <UIcon name="i-twemoji:calendar" class="size-4" />
           <p class="text-sm">{{ $t('modals.archipelago.precision') }}</p>
         </div>
