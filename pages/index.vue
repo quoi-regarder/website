@@ -13,6 +13,8 @@
     <HomeMoreFilters v-model:more-filters="moreFilters" />
 
     <HomeFooter />
+
+    <PopinArchipelago />
   </div>
 </template>
 
