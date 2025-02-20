@@ -102,11 +102,15 @@ onMounted(() => {
   fetchGenres()
 })
 
+const resetSearch = () => {
+  page.value = 1
+  results.value = []
+  totalPages.value = 0
+}
+
 const searchQuery = async (reset = false, showToast = true) => {
   if (reset) {
-    page.value = 1
-    results.value = []
-    totalPages.value = 0
+    resetSearch()
   }
 
   if (page.value > totalPages.value && totalPages.value !== 0) return
@@ -175,6 +179,11 @@ watch(carousel, () => {
       }
     })
   }
+})
+
+watch(selectedType, () => {
+  fetchGenres()
+  resetSearch()
 })
 </script>
 
