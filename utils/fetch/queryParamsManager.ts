@@ -5,8 +5,8 @@ export class QueryParamsManager {
     if (!baseUrl) {
       if (typeof window !== 'undefined') {
         baseUrl = window.location.origin
-      } else if (process.env.NUXT_API_BASE_URL) {
-        baseUrl = process.env.NUXT_API_BASE_URL
+      } else if (process.env.NUXT_PUBLIC_API_BASE_URL) {
+        baseUrl = process.env.NUXT_PUBLIC_API_BASE_URL
       } else {
         throw new Error('Base URL is required when running in a server environment.')
       }

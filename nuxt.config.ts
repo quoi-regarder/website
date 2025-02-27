@@ -71,7 +71,7 @@ export default defineNuxtConfig({
         code: 'us',
         iso: 'en-US',
         language: 'en-US',
-        name: 'English (US)',
+        name: 'English',
         files: ['us/general.json', 'us/seo.json', 'us/filters.json']
       },
       {

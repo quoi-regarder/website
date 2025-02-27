@@ -298,6 +298,11 @@
     "dropdown": {
       "account": "Connecté en tant que"
     },
+    "search": {
+      "movies": "Films",
+      "placeholder": "Rechercher un film ou une série",
+      "tv": "Séries"
+    },
     "toasts": {
       "success": {
         "colorMode": "Thème mis à jour avec succès.",
@@ -345,8 +350,8 @@
       "noWatched": "Aucun film déjà vu.",
       "title": "Mes films",
       "toWatch": "À voir",
-      "watchTime": "Temps de visionnage total",
-      "watched": "Déjà vu"
+      "watched": "Déjà vu",
+      "watchTime": "Temps de visionnage total"
     },
     "serie": {
       "noToWatch": "Aucune série à voir.",
@@ -354,9 +359,9 @@
       "noWatching": "Aucune série en cours de visionnage.",
       "title": "Mes séries",
       "toWatch": "À voir",
-      "watchTime": "Temps de visionnage total",
       "watched": "Déjà vu",
-      "watching": "En cours de visionnage"
+      "watching": "En cours de visionnage",
+      "watchTime": "Temps de visionnage total"
     },
     "tabs": {
       "movies": "Films",

@@ -14,10 +14,6 @@ COPY . .
 # Increase memory limit to prevent heap out-of-memory crashes
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-# Inject API base URL from build arguments
-ARG NUXT_API_BASE_URL
-ENV NUXT_API_BASE_URL=$NUXT_API_BASE_URL
-
 # Run "nuxt prepare" after installation
 RUN npm run postinstall || true  # Prevent build failure if postinstall fails
 

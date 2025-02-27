@@ -2,7 +2,7 @@
   <Html :lang="htmlAttrs.lang" :dir="htmlAttrs.dir">
     <Body>
       <template v-if="!isAuth">
-        <NavBar
+        <Navbar
           class="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-50 bg-[var(--ui-bg)]/60"
         />
       </template>
