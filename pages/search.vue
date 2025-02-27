@@ -72,6 +72,7 @@
 
 <script lang="ts" setup>
 const { t, locale } = useI18n()
+const route = useRouter()
 
 useHead({
   title: t('seo.pages.search'),
@@ -100,6 +101,12 @@ const totalPages = ref(0)
 
 onMounted(() => {
   fetchGenres()
+
+  if (route.currentRoute.value.query.query) {
+    search.value = route.currentRoute.value.query.query as string
+    selectedType.value = route.currentRoute.value.query.type as 'movie' | 'tv'
+    searchQuery(true)
+  }
 })
 
 const resetSearch = () => {
@@ -178,6 +185,14 @@ watch(carousel, () => {
         searchQuery(false, false)
       }
     })
+  }
+})
+
+watch(route.currentRoute, () => {
+  if (route.currentRoute.value.query.query) {
+    search.value = route.currentRoute.value.query.query as string
+    selectedType.value = route.currentRoute.value.query.type as 'movie' | 'tv'
+    searchQuery(true)
   }
 })
 

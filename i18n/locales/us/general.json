@@ -298,6 +298,11 @@
     "dropdown": {
       "account": "Logged in as"
     },
+    "search": {
+      "movies": "Movies",
+      "placeholder": "Search for a movie or series",
+      "tv": "TV Shows"
+    },
     "toasts": {
       "success": {
         "colorMode": "Theme has been updated.",
@@ -345,8 +350,8 @@
       "noWatched": "No movies watched.",
       "title": "My Movies",
       "toWatch": "To Watch",
-      "watchTime": "Total watch time",
-      "watched": "Watched"
+      "watched": "Watched",
+      "watchTime": "Total watch time"
     },
     "serie": {
       "noToWatch": "No TV shows to watch.",
@@ -354,9 +359,9 @@
       "noWatching": "No TV shows currently being watched.",
       "title": "My TV Shows",
       "toWatch": "To Watch",
-      "watchTime": "Total watch time",
       "watched": "Watched",
-      "watching": "Watching"
+      "watching": "Watching",
+      "watchTime": "Total watch time"
     },
     "tabs": {
       "movies": "Movies",
