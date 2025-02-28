@@ -1,0 +1,49 @@
+---
+description: Guidelines and best practices for NuxtUI
+globs: 
+alwaysApply: false
+---
+## nuxtUI-and-styling
+
+- Use **NuxtUI components** for consistent, high-quality UI elements across the project.
+- Stick to **NuxtUI's predefined component variants** to maintain visual consistency and avoid custom implementations unless absolutely necessary.
+- Avoid custom styles and prefer **Tailwind CSS** classes for UI styling to ensure scalability and consistency.
+- When customizing NuxtUI components, respect its **design system** and apply changes only if required to meet project requirements.
+
+### NuxtUI Component Usage
+
+- Use **NuxtUI's built-in components** (like `Button`, `Card`, `Input`, etc.) wherever possible to speed up development and maintain consistency.
+- Avoid excessive overrides of the default **theme** unless absolutely necessary.
+- For components such as buttons, inputs, and modals, ensure that proper **ARIA attributes** are used for accessibility (e.g., `aria-label`, `aria-hidden`).
+- Ensure **focus management** and **keyboard accessibility** when using interactive elements like buttons or modals.
+
+### UI Responsiveness
+
+- Implement a **mobile-first approach** for designing components, ensuring they are responsive by default.
+- Use **Tailwind's responsive utilities** alongside NuxtUI components to ensure components adapt to different screen sizes effectively.
+- Avoid unnecessary fixed sizes; use relative units and flexible layouts wherever possible.
+
+### Color Palette
+
+- Follow the defined project color palette:
+  - **Primary:** NuxtUI red
+  - **Secondary:** NuxtUI indigo
+  - **Neutral:** Black and white
+- Ensure sufficient contrast between text and background colors to improve accessibility.
+
+### Performance Considerations
+
+- Use **NuxtUI's built-in loading states** for asynchronous UI components like buttons and modals to prevent layout shifts.
+- Minimize **unnecessary re-renders** of NuxtUI components by leveraging Vue’s reactivity system properly.
+- For **large-scale lists** (like movie lists), consider **virtual scrolling** with Tailwind's `overflow-y-auto` and limit the number of items in view at once.
+
+### Best Practices
+
+- Keep UI components **modular** and **reusable**, breaking down larger components into smaller subcomponents where necessary.
+- Ensure that all NuxtUI components are **keyboard navigable** and have accessible focus states.
+- Use **NuxtUI's theme provider** to customize the overall theme only when needed, following the project's visual direction.
+
+### Avoid
+
+- Avoid using **inline styles** on NuxtUI components. Always use Tailwind CSS classes for styling.
+- Do not override or heavily customize default NuxtUI components without considering the impact on consistency and maintainability.

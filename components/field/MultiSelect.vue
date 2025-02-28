@@ -42,7 +42,7 @@
         :key="item.id"
         :label="item.label"
         class="cursor-pointer max-w-full"
-        icon="i-heroicons-x-mark-20-solid"
+        icon="i-lucide:x"
         variant="outline"
         size="lg"
         @click="unselect(item)"

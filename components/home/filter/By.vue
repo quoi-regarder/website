@@ -27,12 +27,12 @@
               v-if="isSelected(item)"
               :name="
                 filters.selectedFilterByDirection === 'asc'
-                  ? 'i-heroicons-chevron-up-solid'
-                  : 'i-heroicons-chevron-down-solid'
+                  ? 'i-lucide:chevron-up'
+                  : 'i-lucide:chevron-down'
               "
               class="size-6"
             />
-            <UIcon v-else name="i-heroicons-minus-solid" class="size-6" />
+            <UIcon v-else name="i-lucide:minus" class="size-6" />
           </template>
         </UButton>
       </div>

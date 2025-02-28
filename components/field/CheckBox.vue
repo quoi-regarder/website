@@ -6,7 +6,7 @@
       :name="name"
       :required="required"
       :help="help"
-      :trailing-icon="error ? 'i-heroicons-exclamation-triangle-20-solid' : undefined"
+      :trailing-icon="error ? 'i-lucide:exclamation-triangle' : undefined"
       :ui="{ base: 'ring-[var(--ui-color-primary-400)]' }"
     />
   </UFormField>

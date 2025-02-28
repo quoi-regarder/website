@@ -13,7 +13,7 @@
   >
     <template #header>
       <div class="flex flex-col items-center">
-        <h2 class="text-2xl font-bold text-[var(--ui-color-primary-400)] text-center">
+        <h2 class="text-2xl font-bold text-primary-400 text-center">
           {{ season.name }}
         </h2>
         <UBadge v-if="isRealeased(season.air_date)" color="success" class="mt-2 text-sm">

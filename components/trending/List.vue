@@ -3,7 +3,7 @@
     class="flex flex-col w-full h-[290px] gap-y-2 p-2 border-1 justify-center rounded-xl bg-[var(--ui-bg)]"
   >
     <div class="flex flex-row justify-between">
-      <h4 class="text-2xl font-semibold text-[var(--ui-color-primary-400)]">#{{ index + 2 }}</h4>
+      <h4 class="text-2xl font-semibold text-primary-400">#{{ index + 2 }}</h4>
 
       <div class="flex gap-2">
         <UButton

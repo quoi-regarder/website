@@ -61,7 +61,7 @@
           <div v-for="(field, index) in itemDetails" :key="index" class="contents">
             <!-- Label -->
             <div class="sm:col-span-1 sm:text-right">
-              <p class="font-semibold text-[var(--ui-color-primary-400)]">
+              <p class="font-semibold text-primary-400">
                 {{ field.label }}
               </p>
             </div>

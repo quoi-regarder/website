@@ -28,7 +28,7 @@
             <UButton
               size="xl"
               variant="outline"
-              trailing-icon="i-heroicons-user"
+              trailing-icon="i-lucide:user"
               class="rounded-full"
             />
 
@@ -51,7 +51,7 @@
               <UButton
                 size="xl"
                 variant="outline"
-                trailing-icon="i-heroicons-arrow-right-end-on-rectangle"
+                trailing-icon="i-lucide:arrow-right-to-line"
                 class="rounded-full"
               />
             </div>
@@ -83,7 +83,7 @@ const dropdownItems = computed(() => [
   [
     {
       label: t('navbar.buttons.profile'),
-      icon: 'i-heroicons-user',
+      icon: 'i-lucide:user',
       onSelect () {
         navigateTo(localePath('/profile'))
       }
@@ -92,7 +92,7 @@ const dropdownItems = computed(() => [
   [
     {
       label: t('navbar.buttons.logout'),
-      icon: 'i-heroicons-arrow-right-start-on-rectangle',
+      icon: 'i-lucide:arrow-right-to-line',
       onSelect () {
         logout()
       }

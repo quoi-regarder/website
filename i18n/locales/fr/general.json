@@ -194,8 +194,11 @@
     },
     "form": {
       "buttons": {
+        "lessFilters": "Moins de filtres",
         "moreFilters": "Plus de filtres",
-        "search": "Rechercher"
+        "reset": "Réinitialiser",
+        "searchMovie": "Trouver mon film",
+        "searchSeries": "Trouver ma série"
       },
       "descriptions": {
         "search": "Saisissez des mots-clés pour rechercher des films, séries ou documentaires."
@@ -350,8 +353,8 @@
       "noWatched": "Aucun film déjà vu.",
       "title": "Mes films",
       "toWatch": "À voir",
-      "watched": "Déjà vu",
-      "watchTime": "Temps de visionnage total"
+      "watchTime": "Temps de visionnage total",
+      "watched": "Déjà vu"
     },
     "serie": {
       "noToWatch": "Aucune série à voir.",
@@ -359,9 +362,9 @@
       "noWatching": "Aucune série en cours de visionnage.",
       "title": "Mes séries",
       "toWatch": "À voir",
+      "watchTime": "Temps de visionnage total",
       "watched": "Déjà vu",
-      "watching": "En cours de visionnage",
-      "watchTime": "Temps de visionnage total"
+      "watching": "En cours de visionnage"
     },
     "tabs": {
       "movies": "Films",
@@ -389,6 +392,7 @@
   },
   "search": {
     "buttons": {
+      "reset": "Réinitialiser",
       "search": "Lancer la recherche"
     },
     "description": "Recherchez un film ou une série par son titre pour découvrir des informations et des suggestions.",
@@ -452,6 +456,7 @@
   },
   "trending": {
     "description": "Découvrez les films et séries les plus populaires du moment.",
+    "less": "Voir moins",
     "more": "Voir plus",
     "tabs": {
       "movies": "Film",

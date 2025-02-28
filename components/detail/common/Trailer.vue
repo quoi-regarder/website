@@ -2,7 +2,7 @@
   <UContainer
     class="w-full sm:p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
   >
-    <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
+    <h2 class="text-2xl font-bold mb-4 text-primary-400">
       {{ $t('movieTrailer.title') }}
     </h2>
 

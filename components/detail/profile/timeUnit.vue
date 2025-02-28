@@ -1,10 +1,7 @@
 <template>
   <UCard v-if="showCard" class="w-24">
     <div class="flex flex-col items-center">
-      <span
-        v-if="value > 0"
-        class="text-4xl font-mono font-bold text-[var(--ui-color-primary-400)]"
-      >
+      <span v-if="value > 0" class="text-4xl font-mono font-bold text-secondary-400">
         {{ displayValue }}
       </span>
       <span v-else class="text-4xl font-mono font-bold">

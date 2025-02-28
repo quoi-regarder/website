@@ -28,7 +28,7 @@
     <ClientOnly>
       <Suspense>
         <UDropdownMenu :items="localItems" class="cursor-pointer">
-          <UIcon class="size-6" name="i-heroicons-globe-alt" />
+          <UIcon class="size-6" name="i-lucide:globe" />
         </UDropdownMenu>
       </Suspense>
       <template #fallback>
@@ -47,9 +47,9 @@ const { t, locales } = useI18n()
 
 // Color mode
 const colorModeIcon = {
-  light: 'i-heroicons-sun-solid',
-  dark: 'i-heroicons-moon-solid',
-  system: 'i-heroicons-computer-desktop'
+  light: 'i-lucide:sun',
+  dark: 'i-lucide:moon',
+  system: 'i-lucide:laptop-minimal'
 }
 
 const colorModeItems = computed(() =>

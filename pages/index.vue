@@ -1,16 +1,41 @@
 <template>
   <div class="relative flex flex-col gap-y-8">
-    <HomeBackToTopButton :show-button="showButton" />
+    <div
+      class="bg-white/85 dark:bg-black/82 min-h-[92vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
+    />
 
-    <HomeBackground />
+    <div class="relative z-10 min-h-[92vh] flex flex-col py-12">
+      <div class="flex-none">
+        <HomeHeader />
+      </div>
 
-    <HomeHeader />
+      <div class="flex-none mt-8">
+        <HomeFilters v-model:genres="genres" v-model:more-filters="moreFilters" />
+      </div>
+
+      <div class="overflow-hidden flex-none">
+        <transition
+          enter-active-class="transition-opacity duration-500 ease-in-out"
+          enter-from-class="opacity-0"
+          enter-to-class="opacity-100"
+          leave-active-class="transition-opacity duration-500 ease-in-out"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
+        >
+          <HomeMoreFilters
+            v-if="moreFilters"
+            v-model:more-filters="moreFilters"
+            class="w-full transform-gpu"
+          />
+        </transition>
+      </div>
+
+      <div class="flex-1 flex items-center">
+        <HomeSearch class="w-full" />
+      </div>
+    </div>
 
     <HomeCarousel v-model:genres="genres" />
-
-    <HomeFilters v-model:genres="genres" @update:more-filters="moreFilters = $event" />
-
-    <HomeMoreFilters v-model:more-filters="moreFilters" />
 
     <HomeFooter />
 
@@ -32,21 +57,10 @@ useHead({
 const genres = ref<Option[]>([])
 
 const moreFilters = ref(false)
-const showButton = ref(false)
 
 onMounted(() => {
   handleRegisterToken()
-
-  window.addEventListener('scroll', checkSearchButtonVisibility)
 })
-
-const checkSearchButtonVisibility = () => {
-  const searchButton = document.getElementById('searchButton')
-  if (searchButton) {
-    const rect = searchButton.getBoundingClientRect()
-    showButton.value = rect.top < 0 || rect.bottom > window.innerHeight
-  }
-}
 
 const handleRegisterToken = async () => {
   const token = route.query.token

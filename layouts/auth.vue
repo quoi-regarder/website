@@ -20,7 +20,7 @@
       </div>
 
       <div v-if="showDivider">
-        <USeparator icon="i-heroicons-link" class="mt-8 mb-4" />
+        <USeparator icon="i-lucide:link" class="mt-8 mb-4" />
       </div>
 
       <div class="flex flex-col items-center mt-4 gap-2">

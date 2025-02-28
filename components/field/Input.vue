@@ -35,7 +35,7 @@
 
           <UIcon
             v-else-if="error"
-            name="i-heroicons-exclamation-triangle-20-solid"
+            name="i-lucide:exclamation-triangle"
             class="text-[var(--ui-error)] size-6"
           />
         </template>
@@ -76,7 +76,7 @@ const props = defineProps({
     default: true
   },
   type: {
-    type: String as PropType<'email' | 'password' | 'input' | 'tel' | 'number'>,
+    type: String as PropType<'email' | 'password' | 'input' | 'number'>,
     default: 'input'
   },
   minHeight: {
@@ -97,13 +97,11 @@ const comptuedType = computed(() => {
 
 const icon = computed(() => {
   if (props.type === 'email') {
-    return 'i-heroicons-at-symbol-solid'
+    return 'i-lucide:at-sign'
   } else if (props.type === 'password') {
-    return 'i-heroicons-lock-closed'
+    return 'i-lucide:lock'
   } else if (props.type === 'input' || props.type === 'number') {
-    return 'i-heroicons-pencil'
-  } else if (props.type === 'tel') {
-    return 'i-heroicons-phone'
+    return 'i-lucide:pencil'
   } else {
     return ''
   }

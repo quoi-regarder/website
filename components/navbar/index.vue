@@ -19,7 +19,7 @@
       </div>
 
       <!-- Desktop search bar -->
-      <div class="items-center flex-2 hidden 2xl:flex">
+      <div class="items-center flex-2 hidden 2xl:flex max-w-[750px]">
         <NavbarSearchBar />
       </div>
 

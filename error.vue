@@ -8,7 +8,7 @@
       class="cursor-pointer"
       @click="navigateTo(localePath('/'))"
     />
-    <h1 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
+    <h1 class="text-4xl font-bold text-primary-400">
       {{ $t('error.title') }}
     </h1>
     <p class="text-lg">

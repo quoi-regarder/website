@@ -21,10 +21,7 @@
         <div class="h-full flex flex-col gap-2">
           <div class="flex flex-col items-center">
             <div class="flex flex-col sm:flex-row items-center justify-center gap-2 mb-2">
-              <h1
-                v-if="props.name !== null"
-                class="text-2xl font-bold text-[var(--ui-color-primary-400)]"
-              >
+              <h1 v-if="props.name !== null" class="text-2xl font-bold text-primary-400">
                 {{ props.name }}
               </h1>
               <UBadge v-if="props.inProduction" color="success" class="text-xs">
@@ -42,8 +39,8 @@
                 class="flex flex-col items-start sm:flex-row sm:items-center gap-x-1.5"
               >
                 <div class="flex items-center gap-x-0.5">
-                  <UIcon name="i-heroicons-calendar" class="w-6 h-6" />
-                  <p class="text-[var(--ui-color-primary-400)] md:text-lg">
+                  <UIcon name="i-lucide:calendar" class="w-6 h-6" />
+                  <p class="text-primary-400 md:text-lg">
                     {{ $t('tvHeader.first_air_date') }}
                   </p>
                 </div>
@@ -57,8 +54,8 @@
                 class="flex flex-col items-start sm:flex-row sm:items-center gap-x-1.5"
               >
                 <div class="flex items-center gap-x-0.5">
-                  <UIcon name="i-heroicons-calendar" class="w-6 h-6" />
-                  <p class="text-[var(--ui-color-primary-400)] md:text-lg">
+                  <UIcon name="i-lucide:calendar" class="w-6 h-6" />
+                  <p class="text-primary-400 md:text-lg">
                     {{ $t('tvHeader.last_air_date') }}
                   </p>
                 </div>

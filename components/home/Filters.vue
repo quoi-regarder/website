@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out relative z-10"
-  >
+  <div class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out relative">
     <div class="grid grid-cols-1 xl:grid-cols-5 gap-4 p-4">
       <HomeFilterGenre
         v-model:genres="genres"
@@ -16,34 +14,35 @@
       <HomeFilterVotes v-model="filters.selectedVotes" class="xl:col-span-2 xl:row-span-1 h-full" />
     </div>
 
-    <UButton class="my-4 self-center" size="xl" variant="soft" @click="toggleMoreFilters">
-      <div class="flex flex-col items-center justify-center">
-        <span>{{ $t('home.form.buttons.moreFilters') }}</span>
-        <UIcon
-          :class="{ 'rotate-180': moreFilters }"
-          class="text-[var(--ui-color-primary-400)] size-6 transition-all duration-300"
-          name="i-heroicons-chevron-down"
-        />
-      </div>
+    <UButton
+      size="lg"
+      class="self-center"
+      color="secondary"
+      :label="
+        moreFilters ? $t('home.form.buttons.lessFilters') : $t('home.form.buttons.moreFilters')
+      "
+      :trailing-icon="moreFilters ? 'i-lucide:chevron-up' : 'i-lucide:chevron-down'"
+      @click="toggleMoreFilters"
+    >
     </UButton>
   </div>
 </template>
 
 <script lang="ts" setup>
-const emit = defineEmits(['update:genres', 'update:moreFilters'])
-
 const { filters } = useFilters()
-
-const moreFilters = ref(false)
 
 const genres = defineModel<Option[]>('genres', {
   required: true,
   default: () => []
 })
 
+const moreFilters = defineModel<boolean>('moreFilters', {
+  required: true,
+  default: false
+})
+
 const toggleMoreFilters = async () => {
   moreFilters.value = !moreFilters.value
-  emit('update:moreFilters', moreFilters.value)
 
   await nextTick()
 
@@ -52,9 +51,10 @@ const toggleMoreFilters = async () => {
 
   if (scrollTarget) {
     const isMobile = window.innerWidth <= 768
+    const offset = isMobile ? 70 : 250
 
     window.scrollTo({
-      top: isMobile ? scrollTarget - 70 : scrollTarget - 250,
+      top: scrollTarget - offset,
       behavior: 'smooth'
     })
   }

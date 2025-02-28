@@ -18,7 +18,7 @@
         <UBadge
           v-for="badge in model"
           :key="badge.id"
-          :icon="isSelected(badge) ? 'i-heroicons-check-20-solid' : 'i-heroicons-x-mark-20-solid'"
+          :icon="isSelected(badge) ? 'i-lucide:check' : 'i-lucide:x'"
           :color="isSelected(badge) ? 'primary' : 'neutral'"
           :label="badge.label"
           class="cursor-pointer gap-1 lg:gap-2 transition-colors duration-300 ease-in-out"
