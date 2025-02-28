@@ -2,7 +2,7 @@
   <UContainer
     class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] gap-y-4"
   >
-    <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
+    <h2 class="text-2xl font-bold mb-4 text-primary-400">
       {{ $t('tvSeasons.title') }}
     </h2>
 
@@ -23,7 +23,7 @@
     <USeparator class="pt-4" />
 
     <div v-if="episodes.length > 0">
-      <h3 class="text-xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
+      <h3 class="text-xl font-bold mb-4 text-primary-400">
         {{ seasons[selectedNumber! - (hasSpecials ? 0 : 1)]?.name }}
       </h3>
 

@@ -2,7 +2,7 @@
   <UCard :item="episode" class="mx-auto w-11/12">
     <template #header>
       <div class="flex flex-col items-center">
-        <h2 class="text-l font-bold text-[var(--ui-color-primary-400)] text-center">
+        <h2 class="text-l font-bold text-primary-400 text-center">
           {{ $t('tvSeasons.episode', { number: episode.episode_number }) }} - {{ episode.name }}
         </h2>
       </div>

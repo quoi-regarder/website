@@ -8,7 +8,7 @@
       }"
     >
       <div class="w-full flex flex-col items-center gap-y-4">
-        <h2 class="text-4xl font-bold text-[var(--ui-color-primary-400)]">
+        <h2 class="text-4xl font-bold text-primary-400">
           {{ collection.name }}
         </h2>
         <p class="text-lg text-center">

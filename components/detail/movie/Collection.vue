@@ -5,7 +5,7 @@
       backgroundImage: `${linearGradient}, url(${getImageUrl(collection.backdrop_path, 'original')})`
     }"
   >
-    <h2 class="text-2xl font-bold mb-4 text-[var(--ui-color-primary-400)]">
+    <h2 class="text-2xl font-bold mb-4 text-primary-400">
       {{ $t('movieCollection.title') }}
     </h2>
 

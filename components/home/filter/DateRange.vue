@@ -11,7 +11,7 @@
         </p>
         <UPopover class="col-span-2">
           <UButton
-            icon="i-heroicons-calendar-days-20-solid"
+            icon="i-lucide:calendar"
             class="w-fit"
             :label="fromDate ? formatLocalDate(fromDate as CalendarDate) : ''"
           >
@@ -31,7 +31,7 @@
 
         <UPopover class="col-span-2">
           <UButton
-            icon="i-heroicons-calendar-days-20-solid"
+            icon="i-lucide:calendar"
             class="w-fit"
             :label="toDate ? formatLocalDate(toDate as CalendarDate) : ''"
           >

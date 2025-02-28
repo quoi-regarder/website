@@ -19,10 +19,7 @@
               :ui="{ content: 'w-96 h-full', text: 'text-wrap text-justify' }"
               class="ml-2"
             >
-              <UIcon
-                name="i-heroicons-information-circle-solid"
-                class="size-6 text-[var(--ui-info)]"
-              />
+              <UIcon name="i-lucide:info" class="size-6 text-[var(--ui-info)]" />
             </UTooltip>
           </template>
         </div>

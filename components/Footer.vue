@@ -2,7 +2,7 @@
   <footer class="py-6 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]">
     <div class="mx-8 flex flex-col items-center justify-between gap-y-8 lg:gap-y-0 lg:flex-row">
       <div class="text-center lg:text-left lg:w-1/5">
-        <h3 class="text-lg font-semibold text-[var(--ui-color-primary-400)]">
+        <h3 class="text-lg font-semibold text-primary-400">
           {{ $t('footer.title') }}
         </h3>
         <p class="text-sm">
@@ -20,7 +20,7 @@
 
       <nav class="lg:w-3/5 flex flex-wrap justify-evenly gap-4">
         <div class="flex flex-col items-center lg:items-start gap-2">
-          <h4 class="font-semibold text-[var(--ui-color-primary-400)]">
+          <h4 class="font-semibold text-primary-400">
             {{ $t('footer.category.general') }}
           </h4>
           <ULink
@@ -34,7 +34,7 @@
         </div>
 
         <div class="flex flex-col items-center lg:items-start gap-2">
-          <h4 class="font-semibold text-[var(--ui-color-primary-400)]">
+          <h4 class="font-semibold text-primary-400">
             {{ $t('footer.category.regulations') }}
           </h4>
           <ULink

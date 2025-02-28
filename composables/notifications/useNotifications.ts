@@ -11,7 +11,7 @@ export const useNotifications = () => {
     toast.add({
       title,
       description: message,
-      icon: 'i-heroicons-check-circle',
+      icon: 'i-lucide:check-circle',
       color: 'success'
     })
   }
@@ -26,7 +26,7 @@ export const useNotifications = () => {
     toast.add({
       title,
       description: message,
-      icon: 'i-heroicons-exclamation-triangle',
+      icon: 'i-lucide:exclamation-triangle',
       color: 'error'
     })
   }
@@ -41,7 +41,7 @@ export const useNotifications = () => {
     toast.add({
       title,
       description: message,
-      icon: 'i-heroicons-information-circle',
+      icon: 'i-lucide:info',
       color: 'info'
     })
   }

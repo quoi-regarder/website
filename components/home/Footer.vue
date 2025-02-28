@@ -5,7 +5,7 @@
     <UContainer
       class="w-full p-8 mb-8 rounded-2xl shadow-2xl bg-gradient-to-br from-[var(--ui-bg-elevated)] via-[var(--ui-bg-muted)] to-[var(--ui-bg-elevated)] text-center"
     >
-      <h2 class="text-2xl font-bold mb-6 text-[var(--ui-color-primary-400)]">
+      <h2 class="text-2xl font-bold mb-6 text-primary-400">
         {{ $t('home.footer.title') }}
       </h2>
 

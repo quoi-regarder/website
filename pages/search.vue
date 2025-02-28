@@ -1,26 +1,21 @@
 <template>
   <div class="relative min-h-[92vh]">
-    <NuxtImg
-      alt="Background image"
-      class="absolute object-cover w-full h-[92vh] opacity-30 bg-gradient-radial z-0"
-      src="/img/background.webp"
-      format="webp"
-      preload
+    <div
+      class="bg-white/85 dark:bg-black/82 min-h-[92vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
     />
 
     <div class="relative z-10 flex flex-col items-center justify-center min-h-[92vh] gap-4">
       <UContainer
-        :class="{
-          'h-fit': showCarousel
-        }"
         class="w-full flex flex-col items-center gap-4 transition-all duration-500 ease-out relative z-10"
       >
-        <h1 class="text-4xl text-[var(--ui-color-primary-400)] text-center font-bold mb-2">
+        <h1 class="text-4xl text-primary-400 text-center font-bold">
           {{ $t('search.title') }}
         </h1>
-        <h2 class="text-center">
+        <h2 class="text-2xl font-semibold text-center mb-8">
           {{ $t('search.description') }}
         </h2>
+
+        <USeparator color="primary" icon="i-lucide:projector" />
 
         <HomeFilterType v-model="selectedType" />
 
@@ -35,13 +30,21 @@
 
           <UButton
             :loading="searching"
-            icon="i-heroicons-magnifying-glass"
+            icon="i-lucide:search-check"
             size="xl"
             class="mx-auto"
+            :label="$t('search.buttons.search')"
             @click="searchQuery(true)"
-          >
-            {{ $t('search.buttons.search') }}
-          </UButton>
+          />
+
+          <UButton
+            icon="i-lucide:undo-2"
+            color="secondary"
+            size="xl"
+            variant="subtle"
+            :label="$t('search.buttons.reset')"
+            @click="resetSearchAndFilters"
+          />
         </div>
       </UContainer>
 
@@ -99,6 +102,17 @@ const results = ref<any[]>([])
 const page = ref(1)
 const totalPages = ref(0)
 
+defineShortcuts({
+  escape: {
+    handler: () => resetSearchAndFilters(),
+    usingInput: true
+  },
+  enter: {
+    handler: () => searchQuery(true),
+    usingInput: true
+  }
+})
+
 onMounted(() => {
   fetchGenres()
 
@@ -113,6 +127,11 @@ const resetSearch = () => {
   page.value = 1
   results.value = []
   totalPages.value = 0
+}
+
+const resetSearchAndFilters = () => {
+  resetSearch()
+  search.value = ''
 }
 
 const searchQuery = async (reset = false, showToast = true) => {
@@ -193,6 +212,8 @@ watch(route.currentRoute, () => {
     search.value = route.currentRoute.value.query.query as string
     selectedType.value = route.currentRoute.value.query.type as 'movie' | 'tv'
     searchQuery(true)
+  } else {
+    resetSearchAndFilters()
   }
 })
 
@@ -201,11 +222,3 @@ watch(selectedType, () => {
   resetSearch()
 })
 </script>
-
-<style scoped>
-.bg-gradient-radial {
-  background: radial-gradient(circle, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.7) 100%);
-  mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 1) 100%);
-  -webkit-mask-image: radial-gradient(circle, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 1) 100%);
-}
-</style>

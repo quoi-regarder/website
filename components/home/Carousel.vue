@@ -44,4 +44,20 @@ watch(carousel, () => {
     })
   }
 })
+
+watch(hasResults, (newValue) => {
+  if (newValue) {
+    nextTick(() => {
+      const carouselElement = document.getElementById('carousel')
+      if (carouselElement) {
+        const isMobile = window.innerWidth <= 768
+        const offset = isMobile ? 70 : 250
+        window.scrollTo({
+          top: carouselElement.offsetTop - offset,
+          behavior: 'smooth'
+        })
+      }
+    })
+  }
+})
 </script>
