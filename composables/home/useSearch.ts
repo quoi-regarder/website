@@ -1,10 +1,13 @@
+interface SearchResult {
+  results: any[]
+  total_pages: number
+  page: number
+}
+
 const totalPage = ref(0)
 const page = ref(1)
-
 const pagePool = ref<number[]>([])
-
-const results = ref<[]>([])
-
+const results = ref<any[]>([])
 const isSearching = ref(false)
 
 export const useSearch = () => {
@@ -39,7 +42,7 @@ export const useSearch = () => {
       const manager = new QueryParamsManager(`/api/themoviedb/discover/${selectedType.value}`)
       handleQuery(manager)
 
-      const data: any = await $fetch(manager.toString())
+      const data = await $fetch<SearchResult>(manager.toString())
 
       if (data) {
         results.value = [...results.value, ...data.results]
@@ -85,7 +88,7 @@ export const useSearch = () => {
   const handleQuery = (manager: QueryParamsManager) => {
     handleCommonFilters(manager)
 
-    if (filters.value.selectedType === 'movie') {
+    if (filters.value?.selectedType === 'movie') {
       handleExclusiveMovieFilters(manager)
     } else {
       handleExclusiveTvFilters(manager)
@@ -96,68 +99,70 @@ export const useSearch = () => {
     manager.add('page', page.value)
     manager.add('language', locale.value)
 
-    if (filters.value.selectedGenres.length > 0) {
+    const currentFilters = filters.value
+
+    if (currentFilters?.selectedGenres && currentFilters.selectedGenres.length > 0) {
       manager.addWithLogic(
         'with_genres',
-        filters.value.selectedGenres.map((genre) => genre.id),
+        currentFilters.selectedGenres.map((genre) => genre.id),
         LogicalOperator.AND
       )
     }
 
-    if (filters.value.selectedPlatforms.length > 0) {
+    if (currentFilters?.selectedPlatforms && currentFilters.selectedPlatforms.length > 0) {
       manager.addWithLogic(
         'with_watch_providers',
-        filters.value.selectedPlatforms.map((platform) => platform.id),
+        currentFilters.selectedPlatforms.map((platform) => platform.id),
         LogicalOperator.OR
       )
     }
 
-    if (filters.value.selectedVotes !== 0) {
-      manager.add('vote_count_gte', filters.value.selectedVotes)
+    if (currentFilters?.selectedVotes !== undefined && currentFilters.selectedVotes !== 0) {
+      manager.add('vote_count_gte', currentFilters.selectedVotes)
     }
 
     if (
-      filters.value.selectedFilterBy !== null &&
-      filters.value.selectedFilterByDirection !== null
+      currentFilters?.selectedFilterBy !== null &&
+      currentFilters?.selectedFilterByDirection !== null
     ) {
       manager.add(
         'sort_by',
-        `${filters.value.selectedFilterBy}.${filters.value.selectedFilterByDirection}`
+        `${currentFilters.selectedFilterBy}.${currentFilters.selectedFilterByDirection}`
       )
     }
 
-    if (filters.value.selectedCompanies.length > 0) {
+    if (currentFilters?.selectedCompanies && currentFilters.selectedCompanies.length > 0) {
       manager.addWithLogic(
         'with_companies',
-        filters.value.selectedCompanies.map((company) => company.id),
+        currentFilters.selectedCompanies.map((company) => company.id),
         LogicalOperator.OR
       )
     }
 
-    if (filters.value.selectedMark !== 0) {
-      manager.add('vote_average_gte', filters.value.selectedMark)
+    if (currentFilters?.selectedMark !== undefined && currentFilters.selectedMark !== 0) {
+      manager.add('vote_average_gte', currentFilters.selectedMark)
     }
 
-    if (filters.value.selectedAges.length > 0) {
+    if (currentFilters?.selectedAges && currentFilters.selectedAges.length > 0) {
       manager.addWithLogic(
         'certification',
-        filters.value.selectedAges.map((age) => age.id),
+        currentFilters.selectedAges.map((age) => age.id),
         LogicalOperator.OR
       )
     }
 
-    if (filters.value.selectedDuration[0] !== 0) {
-      manager.add('with_runtime_gte', filters.value.selectedDuration[0])
+    if (currentFilters?.selectedDuration && currentFilters.selectedDuration[0] !== 0) {
+      manager.add('with_runtime_gte', currentFilters.selectedDuration[0])
     }
 
-    if (filters.value.selectedDuration[1] !== 400) {
-      manager.add('with_runtime_lte', filters.value.selectedDuration[1])
+    if (currentFilters?.selectedDuration && currentFilters.selectedDuration[1] !== 400) {
+      manager.add('with_runtime_lte', currentFilters.selectedDuration[1])
     }
 
-    if (filters.value.selectedMonetization.length > 0) {
+    if (currentFilters?.selectedMonetization && currentFilters.selectedMonetization.length > 0) {
       manager.addWithLogic(
         'with_watch_monetization_types',
-        filters.value.selectedMonetization.map((monetization) => monetization.id),
+        currentFilters.selectedMonetization.map((monetization) => monetization.id),
         LogicalOperator.OR
       )
     } else {
@@ -170,38 +175,42 @@ export const useSearch = () => {
   }
 
   const handleExclusiveMovieFilters = (manager: QueryParamsManager) => {
-    if (filters.value.selectedPersons.length > 0) {
+    const currentFilters = filters.value
+
+    if (currentFilters?.selectedPersons && currentFilters.selectedPersons.length > 0) {
       manager.addWithLogic(
         'with_people',
-        filters.value.selectedPersons.map((person) => person.id),
+        currentFilters.selectedPersons.map((person) => person.id),
         LogicalOperator.OR
       )
     }
 
-    if (filters.value.fromDate !== null) {
-      manager.add('release_date_gte', filters.value.fromDate.toString())
+    if (currentFilters?.fromDate !== null && currentFilters?.fromDate !== undefined) {
+      manager.add('release_date_gte', currentFilters.fromDate.toString())
     }
 
-    if (filters.value.toDate !== null) {
-      manager.add('release_date_lte', filters.value.toDate.toString())
+    if (currentFilters?.toDate !== null && currentFilters?.toDate !== undefined) {
+      manager.add('release_date_lte', currentFilters.toDate.toString())
     }
   }
 
   const handleExclusiveTvFilters = (manager: QueryParamsManager) => {
-    if (filters.value.fromDate !== null) {
-      manager.add('first_air_date_gte', filters.value.fromDate.toString())
+    const currentFilters = filters.value
+
+    if (currentFilters?.fromDate !== null && currentFilters?.fromDate !== undefined) {
+      manager.add('first_air_date_gte', currentFilters.fromDate.toString())
     }
 
-    if (filters.value.toDate !== null) {
-      manager.add('first_air_date_lte', filters.value.toDate.toString())
+    if (currentFilters?.toDate !== null && currentFilters?.toDate !== undefined) {
+      manager.add('first_air_date_lte', currentFilters.toDate.toString())
     }
 
-    if (filters.value.airFromDate !== null) {
-      manager.add('air_date_gte', filters.value.airFromDate.toString())
+    if (currentFilters?.airFromDate !== null && currentFilters?.airFromDate !== undefined) {
+      manager.add('air_date_gte', currentFilters.airFromDate.toString())
     }
 
-    if (filters.value.airToDate !== null) {
-      manager.add('air_date_lte', filters.value.airToDate.toString())
+    if (currentFilters?.airToDate !== null && currentFilters?.airToDate !== undefined) {
+      manager.add('air_date_lte', currentFilters.airToDate.toString())
     }
   }
 
