@@ -30,6 +30,8 @@
       <div class="flex justify-center">
         <UCarousel
           ref="carousel"
+          :prev="{ color: 'secondary', variant: 'solid' }"
+          :next="{ color: 'secondary', variant: 'solid' }"
           :items="episodes"
           class-names
           class="max-w-[75vw] w-11/12"
