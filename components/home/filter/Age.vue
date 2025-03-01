@@ -1,9 +1,16 @@
 <template>
-  <BadgeList
-    v-model="ages"
-    v-model:selected-model="filters.selectedAges as Option[]"
-    :title="$t('age.title')"
-  />
+  <NuxtLayout name="filter" :title="$t('age.title')">
+    <template #content>
+      <div class="w-full flex justify-center">
+        <LazyFieldMultiSelect
+          v-model="ages"
+          v-model:selected-options="filters.selectedAges"
+          name="ages"
+          class="w-full"
+        />
+      </div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>

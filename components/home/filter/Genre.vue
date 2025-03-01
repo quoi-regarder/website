@@ -1,12 +1,16 @@
 <template>
-  <div>
-    <LazyBadgeList
-      v-model="genres"
-      v-model:selected-model="filters.selectedGenres as Option[]"
-      :title="$t('genre.title')"
-      :description="$t('genre.description')"
-    />
-  </div>
+  <NuxtLayout name="filter" :title="$t('genre.title')">
+    <template #content>
+      <div class="w-full flex justify-center">
+        <LazyFieldMultiSelect
+          v-model="genres"
+          v-model:selected-options="filters.selectedGenres"
+          name="genres"
+          class="w-full"
+        />
+      </div>
+    </template>
+  </NuxtLayout>
 </template>
 
 <script lang="ts" setup>

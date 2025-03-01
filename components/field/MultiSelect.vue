@@ -17,10 +17,10 @@
         class="w-full"
       >
         <template #default="{ modelValue }">
-          <span v-if="modelValue?.length" class="text-wrap">
+          <span v-if="modelValue?.length" class="text-wrap truncate">
             {{ $t('multiSelect.selected', { count: modelValue.length }) }}
           </span>
-          <span v-else>
+          <span v-else class="text-wrap truncate">
             {{ $t('multiSelect.selected', { count: 0 }) }}
           </span>
         </template>
@@ -41,7 +41,7 @@
         v-for="item in selectedModel"
         :key="item.id"
         :label="item.label"
-        class="cursor-pointer max-w-full"
+        class="cursor-pointer max-w-full truncate"
         icon="i-lucide:x"
         variant="outline"
         size="lg"

@@ -3,7 +3,6 @@
     <template #content>
       <div class="w-full flex justify-center">
         <LazyFieldMultiSelect
-          ref="multiSelectRef"
           v-model:selected-options="filters.selectedCompanies"
           name="companies"
           :api-to-fecth="'/api/themoviedb/search/company'"

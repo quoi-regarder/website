@@ -1,42 +1,54 @@
 <template>
-  <div
-    v-if="moreFilters"
-    id="filters"
-    class="grid grid-cols-1 items-center xl:grid-cols-6 gap-4 p-4"
-  >
-    <HomeFilterBy class="xl:col-span-4 xl:row-span-1 order-1 xl:order-none h-full" />
+  <div v-if="moreFilters" id="filters" class="grid grid-cols-1 gap-3 p-2 md:p-4">
+    <!-- Main filters - Sort by -->
+    <div class="md:grid md:grid-cols-2 gap-3">
+      <HomeFilterMonetization />
 
-    <HomeFilterPerson
-      v-if="isMovieTypeActive"
-      class="xl:col-span-2 xl:row-span-1 order-2 xl:order-none h-full"
-    />
+      <HomeFilterCompany class="mb-3 md:mb-0" />
+    </div>
 
-    <HomeFilterMonetization class="xl:col-span-2 xl:row-span-1 order-4 xl:order-none h-full" />
+    <!-- Date and duration filters -->
+    <div class="md:grid md:grid-cols-12 gap-3">
+      <div class="md:col-span-12 lg:col-span-6 xl:col-span-7">
+        <HomeFilterBy />
+      </div>
 
-    <HomeFilterDateRange
-      v-if="isTvTypeActive"
-      v-model:to-date="filters.airToDate as CalendarDate"
-      v-model:from-date="filters.airFromDate as CalendarDate"
-      class="xl:col-span-2 xl:row-span-1 order-5 xl:order-none h-full"
-      :title="$t('dateRange.air_date')"
-    />
+      <div class="md:col-span-12 lg:col-span-6 xl:col-span-5">
+        <HomeFilterDateRange
+          v-model:to-date="filters.toDate as CalendarDate"
+          v-model:from-date="filters.fromDate as CalendarDate"
+          :title="
+            filters.selectedType === 'movie'
+              ? $t('dateRange.title')
+              : $t('dateRange.first_air_date')
+          "
+        />
+      </div>
+    </div>
 
-    <HomeFilterDateRange
-      v-model:to-date="filters.toDate as CalendarDate"
-      v-model:from-date="filters.fromDate as CalendarDate"
-      class="xl:col-span-2 xl:row-span-1 order-5 xl:order-none h-full"
-      :title="
-        filters.selectedType === 'movie' ? $t('dateRange.title') : $t('dateRange.first_air_date')
-      "
-    />
+    <!-- Secondary filters -->
+    <div class="md:grid md:grid-cols-2 gap-3">
+      <HomeFilterVotes v-model="filters.selectedVotes" />
 
-    <HomeFilterCompany class="xl:col-span-2 xl:row-span-1 order-3 xl:order-none h-full" />
+      <HomeFilterDuration />
+    </div>
 
-    <HomeFilterAge class="xl:col-span-2 xl:row-span-1 order-6 xl:order-none h-full" />
+    <!-- Secondary filters - Age and air date -->
+    <div class="md:grid md:grid-cols-2 gap-3">
+      <HomeFilterAge />
 
-    <HomeFilterMark class="xl:col-span-2 xl:row-span-1 order-7 xl:order-none h-full" />
+      <div v-if="isTvTypeActive">
+        <HomeFilterDateRange
+          v-model:to-date="filters.airToDate as CalendarDate"
+          v-model:from-date="filters.airFromDate as CalendarDate"
+          :title="$t('dateRange.air_date')"
+        />
+      </div>
 
-    <HomeFilterDuration class="xl:col-span-2 xl:row-span-1 order-8 xl:order-none h-full" />
+      <div v-if="isMovieTypeActive">
+        <HomeFilterPerson />
+      </div>
+    </div>
   </div>
 </template>
 
