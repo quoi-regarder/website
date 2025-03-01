@@ -1,22 +1,20 @@
 <template>
   <div class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out relative">
-    <div class="grid grid-cols-1 xl:grid-cols-5 gap-4 p-4">
-      <HomeFilterGenre
-        v-model:genres="genres"
-        v-model="filters.selectedGenres"
-        class="xl:col-span-3 xl:row-span-2 h-full"
-      />
-      <HomeFilterPlatform
-        v-model="filters.selectedPlatforms"
-        class="xl:col-span-2 xl:row-span-1 h-full"
-      />
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-2 md:gap-4 p-2 md:p-4">
+      <div class="flex flex-col gap-2 md:gap-4 md:col-span-3 order-1">
+        <HomeFilterGenre v-model:genres="genres" v-model="filters.selectedGenres" class="h-full" />
 
-      <HomeFilterVotes v-model="filters.selectedVotes" class="xl:col-span-2 xl:row-span-1 h-full" />
+        <HomeFilterPlatform v-model="filters.selectedPlatforms" class="h-full" />
+      </div>
+
+      <div class="md:col-span-2 flex items-center justify-center order-2 mt-2 md:mt-0">
+        <HomeFilterMark class="h-fit w-full" />
+      </div>
     </div>
 
     <UButton
-      size="lg"
-      class="self-center"
+      size="md"
+      class="self-center my-2 md:my-4"
       color="secondary"
       :label="
         moreFilters ? $t('home.form.buttons.lessFilters') : $t('home.form.buttons.moreFilters')

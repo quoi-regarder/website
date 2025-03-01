@@ -1,10 +1,10 @@
 <template>
   <div
-    class="w-full p-2 gap-4 flex flex-col xl:flex-row rounded-2xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
+    class="w-full p-2 gap-4 flex flex-col md:flex-row rounded-2xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
   >
-    <aside class="w-full flex justify-between flex-row gap-4 xl:flex-col xl:w-[35%] 2xl:w-1/4">
+    <aside class="w-full flex justify-between flex-row gap-4 md:flex-col md:w-[35%] 2xl:w-1/4">
       <div
-        class="flex flex-col xl:items-justify xl:w-full"
+        class="flex flex-col md:items-justify md:w-full"
         :class="hasButtons ? 'w-1/2' : 'w-full'"
       >
         <div class="flex flex-row">
@@ -16,7 +16,10 @@
             <UTooltip
               :text="hint"
               arrow
-              :ui="{ content: 'w-96 h-full', text: 'text-wrap text-justify' }"
+              :ui="{
+                content: 'w-96 h-full',
+                text: 'text-wrap text-justify'
+              }"
               class="ml-2"
             >
               <UIcon name="i-lucide:info" class="size-6 text-[var(--ui-info)]" />
@@ -32,15 +35,15 @@
       </div>
 
       <template v-if="hasButtons">
-        <div class="w-1/2 xl:w-full flex flex-col items-end gap-y-2">
+        <div class="w-1/2 md:w-full flex flex-col items-end gap-y-2">
           <slot name="buttons" />
         </div>
       </template>
     </aside>
 
-    <USeparator orientation="vertical" class="hidden xl:block" />
+    <USeparator orientation="vertical" class="hidden md:block md:h-auto md:self-stretch" />
 
-    <div class="w-full xl:w-[65%] 2xl:w-3/4 flex flex-row items-start">
+    <div class="w-full md:w-[65%] 2xl:w-3/4 flex flex-row items-start">
       <slot name="content" />
     </div>
   </div>

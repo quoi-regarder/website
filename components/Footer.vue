@@ -20,7 +20,7 @@
 
       <nav class="lg:w-3/5 flex flex-wrap justify-evenly gap-4">
         <div class="flex flex-col items-center lg:items-start gap-2">
-          <h4 class="font-semibold text-primary-400">
+          <h4 class="font-semibold text-secondary-400">
             {{ $t('footer.category.general') }}
           </h4>
           <ULink
@@ -34,7 +34,7 @@
         </div>
 
         <div class="flex flex-col items-center lg:items-start gap-2">
-          <h4 class="font-semibold text-primary-400">
+          <h4 class="font-semibold text-secondary-400">
             {{ $t('footer.category.regulations') }}
           </h4>
           <ULink
@@ -68,14 +68,14 @@
 <script lang="ts" setup>
 const localePath = useLocalePath()
 
-const generalLinks: { label: string; to?: string }[] = [
+const generalLinks: { label: string; to: string }[] = [
   { label: 'footer.links.home', to: '/' },
   { label: 'footer.links.login', to: '/auth/login' },
   { label: 'footer.links.signup', to: '/auth/signup' },
   { label: 'footer.links.profile', to: '/profile' }
 ]
 
-const regulationLinks: { label: string; to?: string }[] = [
+const regulationLinks: { label: string; to: string }[] = [
   { label: 'footer.links.cookie', to: '/regulation/cookie' },
   { label: 'footer.links.legal', to: '/regulation/legal' },
   { label: 'footer.links.privacy', to: '/regulation/privacy' },

@@ -3,6 +3,8 @@
     <template #buttons>
       <UButton
         :label="$t('votes.buttons.reset')"
+        color="secondary"
+        variant="subtle"
         class="order-1 lg:order-2"
         @click="filters.selectedVotes = 500"
       />

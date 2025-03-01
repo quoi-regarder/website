@@ -1,7 +1,12 @@
 <template>
   <NuxtLayout name="filter" :title="title" has-buttons>
     <template #buttons>
-      <UButton :label="$t('dateRange.buttons.reset')" @click="reset" />
+      <UButton
+        :label="$t('dateRange.buttons.reset')"
+        variant="subtle"
+        color="secondary"
+        @click="reset"
+      />
     </template>
 
     <template #content>
@@ -25,7 +30,7 @@
           </template>
         </UPopover>
 
-        <p class="text-sm col-span-1 text-right">
+        <p class="text-sm sm:text-right">
           {{ $t('dateRange.to') }}
         </p>
 

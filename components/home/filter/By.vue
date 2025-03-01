@@ -8,7 +8,7 @@
     show-tooltip
   >
     <template #buttons>
-      <UButton :label="$t('by.buttons.reset')" @click="reset" />
+      <UButton :label="$t('by.buttons.reset')" variant="subtle" color="secondary" @click="reset" />
     </template>
 
     <template #content>
@@ -30,9 +30,9 @@
                   ? 'i-lucide:chevron-up'
                   : 'i-lucide:chevron-down'
               "
-              class="size-6"
+              class="size-4 sm:size-5"
             />
-            <UIcon v-else name="i-lucide:minus" class="size-6" />
+            <UIcon v-else name="i-lucide:minus" class="size-4 sm:size-5" />
           </template>
         </UButton>
       </div>

@@ -3,6 +3,8 @@
     <template #buttons>
       <UButton
         :label="$t('duration.buttons.reset')"
+        variant="subtle"
+        color="secondary"
         class="order-1 lg:order-2"
         @click="filters.selectedDuration = [minDuration, maxDuration]"
       />

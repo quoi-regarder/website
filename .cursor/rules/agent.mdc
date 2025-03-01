@@ -1,32 +1,57 @@
 ---
-description: Styles used in our application
+description: Styles and conventions used in our Vue/Nuxt application
 globs: 
 alwaysApply: false
 ---
-## Senior Frontend Developer Profile
+## **TypeScript and Code Structure**
 
-### Expertise
-You are a Senior Frontend Developer with advanced expertise in:
-- Vue 3
-- Nuxt 3
-- JavaScript & TypeScript
-- TailwindCSS, HTML, and CSS
+- Write concise TypeScript code, favoring functional and declarative programming.
+- Avoid classes unless necessary (e.g., complex model management).
+- Use descriptive variable names with auxiliary verbs (`isLoading`, `hasError`).
+- Structure files as follows:
+  - **Main Component**: The exported Vue file.
+  - **Subcomponents**: Internal components when needed.
+  - **Composables (`composables/`)**: Reusable logic.
+  - **Utilities (`utils/`)**: Helpers and data processing.
+  - **Types (`types/`)**: TypeScript definitions for strict typing.
 
-### Approach
-- You provide thoughtful, nuanced, and reasoned answers, ensuring accuracy and clarity in all details.
-- You prioritize readability and ease of maintenance over performance, following best practices and principles like DRY (Don’t Repeat Yourself).
-- You break down tasks methodically with pseudocode before writing actual code. 
-- You ensure that all functionality is fully implemented, with no placeholders, todos, or missing pieces in the final code.
-- You follow established **Code Implementation Guidelines** to maintain high-quality, bug-free, and consistent code.
+## **Syntax and Formatting**
 
-### Code Quality Guidelines
-- **Early Returns**: Use early returns whenever possible to improve readability and avoid unnecessary nesting.
-- **TailwindCSS**: Style HTML elements with Tailwind classes only; avoid custom CSS unless absolutely necessary.
-- **Composition API**: Always use Vue's Composition API for defining components and reactive states.
-- **Descriptive Names**: Use clear and descriptive variable and function names. For event handlers, use the “handle” prefix (e.g., `handleClick`, `handleKeyDown`).
-- **Accessibility**: Implement accessibility features on elements, such as `tabindex`, `aria-label`, and appropriate event handlers like `on:click`, `on:keydown`.
-- **Const and Type Safety**: Use `const` for defining functions and variables, and define types when possible for better maintainability and error prevention.
+- Use concise syntax for conditionals (`v-if="isVisible"` instead of ternary expressions in templates).
+- Prefer **composables** (`useFeature()`) over mixins.
+- Avoid deeply nested directives; prioritize readability and modularity.
 
-### Coding Environment
-- **Languages**: Vue 3, Nuxt 3, JavaScript, TypeScript, TailwindCSS, HTML, CSS
-- You focus on clean, well-structured, and functional code, with particular attention to accessibility and usability.
+## **TypeScript Usage**
+
+- Use TypeScript for all `.ts` and `.vue` files.
+- Prefer `type` over `interface`, except for complex objects.
+- Avoid `enum`; use **mapping objects (`Record<string, string>`)** instead.
+- Always explicitly type `props`, `emits`, and function returns.
+
+## **UI and Styling**
+
+- Use **NuxtUI**, **Radix**, and **Tailwind CSS** for UI and styling.
+- Follow a **mobile-first approach** using Tailwind's responsive classes (`sm:`, `md:`, `lg:`).
+- Use Tailwind classes directly in templates instead of external CSS.
+- Maintain **optimal accessibility** (`aria-*`, `tabindex`, `@vue-a11y`).
+
+## **Performance Optimization**
+
+- Minimize the use of **client-only components** (`client:only`).
+- Use `defineNuxtComponent()` and `defineProps()` for optimized component handling.
+- **Lazy-load** non-critical components with `defineAsyncComponent()`.
+- Dynamically load images and prefer **WebP format**.
+- Prioritize **Nuxt Server API (`server/api/`)** for backend requests.
+
+## **Database Querying and Data Modeling**
+
+- Use **AdonisJS with QueryBuilder** for PostgreSQL interactions.
+- Group API logic into **service composables** (`composables/service/useMoviesService.ts`).
+- Store model types in `models/` and `types/`.
+
+## **Key Conventions**
+
+- Use **VueUse** for advanced state management (`useIntersectionObserver`, `useFetch`, etc.).
+- Prefer **Pinia** for global state management with persistent storage via cookies.
+- Follow **Nuxt SSR best practices** (`useAsyncData`, `useLazyFetch`) to minimize unnecessary hydration.
+- Minimize the use of **refs**, favoring `reactive()` and `computed()` instead.
