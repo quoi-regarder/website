@@ -14,7 +14,7 @@
 
         <!-- Desktop nav items -->
         <div class="hidden lg:flex">
-          <NavbarNavItems :nav-items="navItems" :did-handle-mobile="false" />
+          <NavbarNavItems :nav-items="navItems" :is-mobile="false" />
         </div>
       </div>
 
@@ -60,10 +60,14 @@
       >
         <div
           v-if="mobileMenuOpenend"
-          class="fixed inset-0 z-40 w-screen h-screen flex flex-col items-center justify-center gap-4 bg-[var(--ui-bg)]/95"
-          @click="toggleOpen"
+          class="fixed inset-0 z-40 w-screen h-screen flex flex-row items-center justify-center gap-4 bg-[var(--ui-bg)]/95"
+          @click.self="toggleOpen"
         >
-          <NavbarNavItems :nav-items="navItems" :did-handle-mobile="true" />
+          <NavbarNavItems
+            :nav-items="navItems"
+            :is-mobile="true"
+            @item-click="handleNavItemClick"
+          />
         </div>
       </transition>
     </div>
@@ -113,4 +117,32 @@ const navItems = computed(() => [
 const toggleOpen = () => {
   mobileMenuOpenend.value = !mobileMenuOpenend.value
 }
+
+const handleNavItemClick = () => {
+  mobileMenuOpenend.value = false
+}
+
+const disableScroll = () => {
+  document.body.style.overflow = 'hidden'
+  document.body.style.height = '100vh'
+  document.body.style.touchAction = 'none'
+}
+
+const enableScroll = () => {
+  document.body.style.overflow = ''
+  document.body.style.height = ''
+  document.body.style.touchAction = ''
+}
+
+watch(mobileMenuOpenend, (isOpen) => {
+  if (isOpen) {
+    disableScroll()
+  } else {
+    enableScroll()
+  }
+})
+
+onUnmounted(() => {
+  enableScroll()
+})
 </script>

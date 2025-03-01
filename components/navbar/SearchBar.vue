@@ -5,7 +5,11 @@
       v-model="searchQuery"
       size="xl"
       color="primary"
-      :placeholder="$t('navbar.search.placeholder')"
+      :placeholder="
+        activeSearch === 'movie'
+          ? $t('navbar.search.placeholderMovie')
+          : $t('navbar.search.placeholderSeries')
+      "
       class="w-full"
       variant="subtle"
       @keydown.enter="handleSearch"

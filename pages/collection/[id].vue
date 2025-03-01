@@ -33,12 +33,14 @@
             class="w-[150px] h-[225px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
           />
 
-          <ULink
+          <UButton
+            variant="link"
+            color="secondary"
             :to="localPath(`/movie/${part.id}`)"
             class="text-xl text-wrap text-center font-bold"
-          >
-            {{ part.title }}
-          </ULink>
+            :label="part.title"
+          />
+
           <p>{{ formatLocalDate(part.release_date) }}</p>
         </div>
       </section>

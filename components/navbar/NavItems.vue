@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="flex gap-x-2">
+    <div class="flex gap-x-2" :class="{ 'flex-col gap-y-2': isMobile }">
       <template v-for="(nav, index) in navItems" :key="`nav-${index}`">
         <UButton
           v-if="!nav.chip?.value"
@@ -12,6 +12,7 @@
           :color="isActiveRoute(nav.to) ? 'primary' : 'secondary'"
           size="md"
           class="transition-all duration-300 rounded-full"
+          @click="handleItemClick"
         />
 
         <UChip
@@ -30,6 +31,7 @@
             :color="isActiveRoute(nav.to) ? 'primary' : 'secondary'"
             size="md"
             class="transition-all duration-300 rounded-full"
+            @click="handleItemClick"
           />
         </UChip>
       </template>
@@ -39,10 +41,15 @@
 
 <script lang="ts" setup>
 const route = useRoute()
+const emit = defineEmits(['item-click'])
 
 defineProps({
   navItems: {
     type: Array as PropType<Array<{ to: string; label: string; icon: string; chip?: any }>>,
+    required: true
+  },
+  isMobile: {
+    type: Boolean,
     required: true
   }
 })
@@ -51,5 +58,9 @@ const EXCEPTION_ROUTES = ['/search']
 
 const isActiveRoute = (to: string) => {
   return EXCEPTION_ROUTES.includes(to) ? route.path === to : route.fullPath === to
+}
+
+const handleItemClick = () => {
+  emit('item-click')
 }
 </script>

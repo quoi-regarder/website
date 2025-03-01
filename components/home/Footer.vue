@@ -25,7 +25,7 @@
         {{ $t('home.footer.description.fourth') }}
       </p>
 
-      <p class="text-lg font-semibold">
+      <p class="text-lg text-secondary-400 font-semibold">
         {{ $t('home.footer.description.join') }}
       </p>
     </UContainer>
