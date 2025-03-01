@@ -16,7 +16,8 @@ export const useMovieListStore = defineStore('movie_list', {
         return WatchStatus.TO_WATCH
       }
       return null
-    }
+    },
+    getWatchedIds: (state) => state.watchedIds.map(Number)
   },
   actions: {
     setWatchedIds (ids: number[]) {

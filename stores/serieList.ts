@@ -21,7 +21,9 @@ export const useSerieListStore = defineStore('serie_list', {
         return WatchStatus.TO_WATCH
       }
       return null
-    }
+    },
+    getWatchedIds: (state) => state.watchedIds.map(Number),
+    getWatchingIds: (state) => state.watchingIds.map(Number)
   },
   actions: {
     setWatchedIds (ids: number[]) {
