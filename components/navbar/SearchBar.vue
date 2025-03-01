@@ -10,7 +10,7 @@
           ? $t('navbar.search.placeholderMovie')
           : $t('navbar.search.placeholderSeries')
       "
-      class="w-full"
+      class="w-full focus-within:scale-[1.01] transition-all duration-300"
       variant="subtle"
       @keydown.enter="handleSearch"
       @keydown.escape="handleEscape"
@@ -19,7 +19,7 @@
         <UIcon
           v-if="searchQuery.length === 0"
           name="i-lucide:search"
-          class="cursor-pointer"
+          class="cursor-pointer transition-transform duration-300 hover:rotate-12"
           color="neutral"
           variant="link"
           @click="searchQuery = ''"
@@ -28,7 +28,7 @@
           v-else
           variant="link"
           color="neutral"
-          class="p-0 cursor-pointer"
+          class="p-0 cursor-pointer transition-transform duration-300 hover:rotate-90"
           @click="clearSearch"
         >
           <UIcon name="i-lucide:x" color="neutral" size="xl" class="size-5" />
@@ -36,7 +36,10 @@
       </template>
 
       <template #trailing>
-        <UIcon name="i-lucide:corner-down-left" />
+        <UIcon
+          name="i-lucide:corner-down-left"
+          class="transition-transform duration-300 hover:translate-x-1"
+        />
       </template>
     </UInput>
     <UButton
@@ -45,7 +48,7 @@
       color="secondary"
       :variant="activeSearch === 'movie' ? 'solid' : 'outline'"
       size="xl"
-      class="transition-all duration-300 ease-out"
+      class="transition-all duration-300 ease-out hover:scale-105"
       @click="handleChangeActiveSearch('movie')"
     >
       <template #trailing>
@@ -58,7 +61,7 @@
       color="secondary"
       :variant="activeSearch === 'tv' ? 'solid' : 'outline'"
       size="xl"
-      class="transition-all duration-300 ease-out"
+      class="transition-all duration-300 ease-out hover:scale-105"
       @click="handleChangeActiveSearch('tv')"
     >
       <template #trailing>
@@ -83,7 +86,6 @@ const activeSearch = ref<'movie' | 'tv'>('movie')
 const debouncedSearch = useDebounceFn(() => {
   if (!searchQuery.value.trim()) return
   navigateSafely(`/search?query=${searchQuery.value}&type=${activeSearch.value}`)
-  input.value?.inputRef?.blur()
 }, 750)
 
 defineShortcuts({
@@ -98,9 +100,7 @@ defineShortcuts({
   escape: {
     handler: () => {
       handleEscape()
-      input.value?.inputRef?.blur()
-    },
-    usingInput: true
+    }
   },
   enter: {
     handler: () => {

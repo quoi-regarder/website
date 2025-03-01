@@ -30,7 +30,7 @@
           </template>
         </UPopover>
 
-        <p class="text-sm sm:text-right">
+        <p class="text-sm col-span-1 text-right">
           {{ $t('dateRange.to') }}
         </p>
 

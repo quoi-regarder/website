@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full p-2 gap-4 flex flex-col md:flex-row rounded-2xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
+    class="w-full p-2 gap-4 flex flex-col md:flex-row rounded-2xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] shadow-2xs shadow-slate-400 dark:shadow-slate-500"
   >
     <aside class="w-full flex justify-between flex-row gap-4 md:flex-col md:w-[35%] 2xl:w-1/4">
       <div

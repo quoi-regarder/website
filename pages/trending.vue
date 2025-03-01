@@ -1,12 +1,12 @@
 <template>
   <div class="relative min-h-[92vh]">
     <div
-      class="bg-white/85 dark:bg-black/82 min-h-[92vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
+      class="bg-white/85 dark:bg-black/82 min-h-[95vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
     />
 
-    <div class="relative z-10 flex flex-col items-center justify-center min-h-[92vh] gap-4">
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-[95vh] gap-4">
       <div class="flex flex-col items-center justify-center gap-4 py-8">
-        <h1 class="text-4xl text-primary-400 text-center font-bold">
+        <h1 class="text-5xl text-primary-500 dark:text-primary-400 text-center font-bold">
           {{ t('trending.title') }}
         </h1>
         <h2 class="text-center text-2xl font-semibold">
@@ -58,13 +58,17 @@
             class="flex flex-col gap-4 py-8 px-0 transition-all duration-1000 ease-in-out"
             @transitionend="handleTransitionEnd"
           >
-            <TrendingList
-              v-for="(movie, index) in results_movies.slice(1)"
-              :item="movie"
-              :genres="movies_genres"
-              :type="'movie'"
-              :index="index"
-            />
+            <div class="flex flex-wrap justify-center gap-6">
+              <TrendingCard
+                v-for="(movie, index) in results_movies.slice(1)"
+                :key="`movie-${movie.id}`"
+                :item="movie"
+                :genres="movies_genres"
+                :type="'movie'"
+                :rank="index + 2"
+                class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)]"
+              />
+            </div>
           </UContainer>
         </template>
 
@@ -105,13 +109,17 @@
             class="flex flex-col gap-4 py-8 px-0 transition-all duration-1000 ease-in-out"
             @transitionend="handleTransitionEnd"
           >
-            <TrendingList
-              v-for="(tv, index) in results_tv.slice(1)"
-              :item="tv"
-              :genres="tv_genres"
-              :type="'tv'"
-              :index="index"
-            />
+            <div class="flex flex-wrap justify-center gap-6">
+              <TrendingCard
+                v-for="(tv, index) in results_tv.slice(1)"
+                :key="`tv-${tv.id}`"
+                :item="tv"
+                :genres="tv_genres"
+                :type="'tv'"
+                :rank="index + 2"
+                class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)]"
+              />
+            </div>
           </UContainer>
         </template>
       </UTabs>
@@ -161,12 +169,17 @@ onMounted(async () => {
   isLoaded.value = true
 })
 
+interface TmdbResponse {
+  results: any[]
+  [key: string]: any
+}
+
 const fetchTrendingMovies = async () => {
   try {
     const manager = new QueryParamsManager('/api/themoviedb/trending/movie')
     manager.add('language', locale.value)
 
-    const data = await $fetch(manager.toString())
+    const data = await $fetch<TmdbResponse>(manager.toString())
 
     results_movies.value = data.results
   } catch (error) {
@@ -179,7 +192,7 @@ const fetchTrendingTv = async () => {
     const manager = new QueryParamsManager('/api/themoviedb/trending/tv')
     manager.add('language', locale.value)
 
-    const data = await $fetch(manager.toString())
+    const data = await $fetch<TmdbResponse>(manager.toString())
 
     results_tv.value = data.results
   } catch (error) {
@@ -187,12 +200,19 @@ const fetchTrendingTv = async () => {
   }
 }
 
+interface GenreResponse {
+  genres: Array<{
+    id: number
+    name: string
+  }>
+}
+
 const fetchMovieGenres = async () => {
   const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
   manager.add('language', locale.value)
-  const data: any = await $fetch(manager.toString())
+  const data = await $fetch<GenreResponse>(manager.toString())
 
-  movies_genres.value = data.genres.map((genre: any) => ({
+  movies_genres.value = data.genres.map((genre) => ({
     id: genre.id,
     label: genre.name
   }))
@@ -201,9 +221,9 @@ const fetchMovieGenres = async () => {
 const fetchTvGenres = async () => {
   const manager = new QueryParamsManager('/api/themoviedb/genre/tv/list')
   manager.add('language', locale.value)
-  const data: any = await $fetch(manager.toString())
+  const data = await $fetch<GenreResponse>(manager.toString())
 
-  tv_genres.value = data.genres.map((genre: any) => ({
+  tv_genres.value = data.genres.map((genre) => ({
     id: genre.id,
     label: genre.name
   }))

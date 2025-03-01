@@ -2,27 +2,19 @@
   <NuxtLayout name="filter" :title="$t('mark.title')" :description="$t('mark.description')">
     <template #content>
       <USlider
-        v-model="filters.selectedMark as number"
+        v-model="sliderValue"
         :max="maxMark"
-        :min="minVotes"
-        :step="0.1"
+        :min="minMark"
+        :step="1"
         class="w-full self-center"
         indicator
-        :ui="{
-          slider: {
-            track: 'bg-[var(--ui-bg-accented)]'
-          }
-        }"
       />
 
-      <div class="flex justify-end self-center w-24">
+      <div class="flex justify-end self-center w-20">
         <p class="text-lg font-semibold">
-          {{ filters.selectedMark }}
+          {{ sliderValue }}
         </p>
-        <p class="text-lg font-semibold">/</p>
-        <p class="text-lg font-semibold">
-          {{ maxMark }}
-        </p>
+        <p class="text-lg font-semibold">%</p>
       </div>
     </template>
   </NuxtLayout>
@@ -30,6 +22,17 @@
 
 <script lang="ts" setup>
 const { filters } = useFilters()
-const minVotes = 0
-const maxMark = 10
+
+const maxMark = 100
+const minMark = 0
+
+const sliderValue = computed({
+  get: () => Math.round((filters.value.selectedMark || 0) * 10),
+  set: (value: number) => {
+    filters.value = {
+      ...filters.value,
+      selectedMark: value / 10
+    }
+  }
+})
 </script>

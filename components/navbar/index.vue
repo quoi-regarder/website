@@ -60,9 +60,13 @@
       >
         <div
           v-if="mobileMenuOpenend"
-          class="fixed inset-0 z-40 w-screen h-screen flex flex-row items-center justify-center gap-4 bg-[var(--ui-bg)]/95"
+          class="fixed inset-0 z-40 w-screen h-screen flex flex-col items-center justify-center gap-4 bg-[var(--ui-bg)]/95"
           @click.self="toggleOpen"
         >
+          <h1 class="text-4xl text-primary-400 font-bold text-center mb-8">
+            {{ $t('home.title') }}
+          </h1>
+
           <NavbarNavItems
             :nav-items="navItems"
             :is-mobile="true"

@@ -41,6 +41,7 @@
           v-if="computedStatus === WatchStatus.WATCHING"
           class="self-center"
           trailing-icon="i-lucide:popcorn"
+          color="secondary"
           disabled
         >
           {{ $t('common.content.watching') }}
@@ -51,6 +52,7 @@
           :disabled="!isRealeased(season.air_date)"
           :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
           class="self-center"
+          color="secondary"
           :trailing-icon="
             computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
           "

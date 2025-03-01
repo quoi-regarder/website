@@ -8,16 +8,26 @@
       </ULink>
     </template>
 
-    <ULink :to="localPath(`/${type}/${itemDetails.id}`)" class="block">
-      <NuxtImg
-        v-if="itemDetails.posterPath"
-        :src="getImageUrl(itemDetails.posterPath, 'w300')"
-        width="300"
-        height="450"
-        class="w-full"
-      />
-      <USkeleton v-else class="w-full h-48" />
-    </ULink>
+    <div class="p-0">
+      <ULink :to="localPath(`/${type}/${itemDetails.id}`)" class="block">
+        <div class="relative w-full aspect-[2/3] overflow-hidden">
+          <USkeleton
+            class="absolute inset-0 w-full h-44 animate-pulse-subtle bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+          />
+          <NuxtImg
+            v-if="itemDetails.posterPath"
+            :src="getImageUrl(itemDetails.posterPath, 'w300')"
+            width="300"
+            height="450"
+            class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+            loading="lazy"
+            fetchpriority="low"
+            :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
+            @load="handleImageLoaded"
+          />
+        </div>
+      </ULink>
+    </div>
 
     <template #footer>
       <p class="text-sm text-[var(--ui-text-secondary)]">
@@ -29,6 +39,7 @@
 
 <script lang="ts" setup>
 const localPath = useLocalePath()
+const imageLoaded = ref(false)
 
 const props = defineProps({
   movie: {
@@ -64,4 +75,8 @@ const itemDetails = computed(() => {
     }
   }
 })
+
+const handleImageLoaded = () => {
+  imageLoaded.value = true
+}
 </script>

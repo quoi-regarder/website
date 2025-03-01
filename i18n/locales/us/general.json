@@ -11,11 +11,13 @@
     "more_details": "More details",
     "no_overview": "No description available.",
     "no_poster": "No poster available.",
+    "original_title": "Original title: {title}",
     "overview": "Overview",
     "release_date": "Theater release date",
     "title": "Title",
     "vote_average": "Rating",
-    "vote_count": "Number of votes: {count}"
+    "vote_count": "Number of votes: {count}",
+    "votes": "{count} votes"
   },
   "casting": {
     "as": "As {character}.",
@@ -187,8 +189,8 @@
         "first": "Welcome to What to Watch, your go-to platform for exploring and discovering movies, TV shows, and documentaries available for streaming or adding to your watchlist. With our advanced search engine, you can easily find content tailored to your preferences using personalized filters such as genres, user ratings, and release dates.",
         "fourth": "We integrate powerful tools, including series progress tracking and optimized suggestions, to deliver a smooth and engaging user experience. Discover movies and TV shows that match your tastes while keeping up with the latest entertainment trends.",
         "join": "Sign up now to unlock all the features of What to Watch and start exploring our extensive collection of movies, TV shows, and documentaries today!",
-        "second": "What to Watch simplifies watchlist management: add movies and TV shows to your watchlist, mark what you’ve already watched, and track your viewing progress effortlessly, season by season or episode by episode.",
-        "third": "With a user-friendly interface and detailed search options, you can explore a wide range of content, from the latest blockbusters and independent films to timeless classics and trending TV series. Our personalized recommendations, based on your preferences, help you discover popular new releases you’ll love."
+        "second": "What to Watch simplifies watchlist management: add movies and TV shows to your watchlist, mark what you've already watched, and track your viewing progress effortlessly, season by season or episode by episode.",
+        "third": "With a user-friendly interface and detailed search options, you can explore a wide range of content, from the latest blockbusters and independent films to timeless classics and trending TV series. Our personalized recommendations, based on your preferences, help you discover popular new releases you'll love."
       },
       "title": "Welcome to What to Watch"
     },
@@ -205,12 +207,9 @@
       },
       "fields": {
         "search": "Keywords"
-      },
-      "tooltip": {
-        "reset": "Reset filters and search"
       }
     },
-    "subtitle": "A random series or movie to watch each day based on your preferences.",
+    "subtitle": "A random series or movie to watch each day based on your preferences !",
     "title": "What to Watch?",
     "toasts": {
       "error": {
@@ -271,7 +270,8 @@
     "no_overview": "No synopsis available in this language.",
     "overview": "Synopsis",
     "vote_average": "Average Rating",
-    "vote_count": "Number of Votes: {count}"
+    "vote_count": "Number of Votes: {count}",
+    "votes": "{count} votes"
   },
   "movieRecommandations": {
     "no_recommendations": "No recommendations available.",
@@ -286,7 +286,7 @@
       "colorMode": {
         "dark": "Dark mode",
         "light": "Light mode",
-        "system": "System theme"
+        "system": "Adapted to the system"
       },
       "feedback": "Feedback",
       "home": "Home",
@@ -383,6 +383,22 @@
       }
     }
   },
+  "promos": {
+    "features": {
+      "benefits": {
+        "recommendations": "Get personalized recommendations",
+        "tracking": "Track your series progress",
+        "watchlist": "Create your watchlist"
+      },
+      "buttons": {
+        "dismiss": "Close",
+        "login": "Log in",
+        "register": "Sign up"
+      },
+      "description": "Track your favorite movies and TV shows, mark episodes as watched, and much more.",
+      "title": "Create an account to unlock all features!"
+    }
+  },
   "provider": {
     "ads": "Free to watch with ads",
     "buy": "For Purchase",
@@ -440,13 +456,6 @@
       "success": {
         "registered": "Registration successful. Please check your inbox to activate your account."
       }
-    }
-  },
-  "similar": {
-    "no_similar": "No similar movies available.",
-    "title": {
-      "movies": "Similar Movies",
-      "tv": "Similar TV Shows"
     }
   },
   "time": {

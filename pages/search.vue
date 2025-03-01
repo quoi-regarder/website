@@ -1,14 +1,14 @@
 <template>
   <div class="relative min-h-[92vh]">
     <div
-      class="bg-white/85 dark:bg-black/82 min-h-[92vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
+      class="bg-white/85 dark:bg-black/82 min-h-[94vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
     />
 
-    <div class="relative z-10 flex flex-col items-center justify-center min-h-[92vh] gap-4">
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-[94vh] gap-4">
       <UContainer
         class="w-full flex flex-col items-center gap-4 transition-all duration-500 ease-out relative z-10"
       >
-        <h1 class="text-4xl text-primary-400 text-center font-bold">
+        <h1 class="text-5xl text-primary-500 dark:text-primary-400 text-center font-bold">
           {{ $t('search.title') }}
         </h1>
         <h2 class="text-2xl font-semibold text-center mb-8">
@@ -19,7 +19,7 @@
 
         <HomeFilterType v-model="selectedType" />
 
-        <div class="flex flex-col items-start justify-center mt-4 sm:flex-row sm:gap-4">
+        <div class="flex flex-col items-center justify-center mt-4 lg:flex-row gap-4">
           <FieldInput
             v-model="search"
             :placeholder="$t('search.placeholder')"

@@ -40,7 +40,14 @@
     <!-- Genres Section -->
     <DetailPartInfoSection :title="$t('movieHeader.genres')">
       <div class="flex flex-wrap gap-2">
-        <UBadge v-for="genre in genres" :key="genre.id" :label="genre.name" />
+        <UBadge
+          v-for="genre in genres"
+          :key="genre.id"
+          :label="genre.name"
+          variant="subtle"
+          color="secondary"
+          icon="i-lucide:tag"
+        />
       </div>
     </DetailPartInfoSection>
   </UContainer>

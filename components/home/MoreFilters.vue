@@ -1,14 +1,13 @@
 <template>
-  <div v-if="moreFilters" id="filters" class="grid grid-cols-1 gap-3 p-2 md:p-4">
+  <div v-if="moreFilters" id="filters" class="grid grid-cols-1 gap-4 p-4">
     <!-- Main filters - Sort by -->
-    <div class="md:grid md:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <HomeFilterMonetization />
-
-      <HomeFilterCompany class="mb-3 md:mb-0" />
+      <HomeFilterCompany />
     </div>
 
     <!-- Date and duration filters -->
-    <div class="md:grid md:grid-cols-12 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
       <div class="md:col-span-12 lg:col-span-6 xl:col-span-7">
         <HomeFilterBy />
       </div>
@@ -27,14 +26,13 @@
     </div>
 
     <!-- Secondary filters -->
-    <div class="md:grid md:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <HomeFilterVotes v-model="filters.selectedVotes" />
-
       <HomeFilterDuration />
     </div>
 
     <!-- Secondary filters - Age and air date -->
-    <div class="md:grid md:grid-cols-2 gap-3">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <HomeFilterAge />
 
       <div v-if="isTvTypeActive">

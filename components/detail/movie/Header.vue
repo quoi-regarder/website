@@ -42,6 +42,7 @@
 
               <UButton
                 :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+                color="secondary"
                 class="self-center"
                 :trailing-icon="
                   computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'

@@ -11,11 +11,13 @@
     "more_details": "Voir plus de détails",
     "no_overview": "Aucune description disponible.",
     "no_poster": "Aucune image disponible.",
+    "original_title": "Titre original : {title}",
     "overview": "Synopsis",
     "release_date": "Date de sortie",
     "title": "Titre",
     "vote_average": "Note moyenne",
-    "vote_count": "Nombre de votes : {count}"
+    "vote_count": "Nombre de votes : {count}",
+    "votes": "{count} votes"
   },
   "casting": {
     "as": "En tant que {character}.",
@@ -205,12 +207,9 @@
       },
       "fields": {
         "search": "Mots-clés"
-      },
-      "tooltip": {
-        "reset": "Réinitialiser les critères"
       }
     },
-    "subtitle": "Trouvez un film ou une série qui correspond à vos envies.",
+    "subtitle": "Trouvez un film ou une série qui correspond à vos envies !",
     "title": "Quoi Regarder",
     "toasts": {
       "error": {
@@ -259,7 +258,7 @@
       },
       "precision": "Du vendredi 21 février à 18h au dimanche 23 février à 18h.",
       "title": "🚀 Événement ArchilanOfficiel",
-      "twitch": "En direct sur Twitch tout le week-end pour découvrir Archipelago. Ne manquez pas l’événement !"
+      "twitch": "En direct sur Twitch tout le week-end pour découvrir Archipelago. Ne manquez pas l'événement !"
     }
   },
   "movieCollection": {
@@ -286,7 +285,7 @@
       "colorMode": {
         "dark": "Mode sombre",
         "light": "Mode clair",
-        "system": "Thème par défaut"
+        "system": "Adapté au système"
       },
       "feedback": "Laisser un avis",
       "home": "Accueil",
@@ -383,6 +382,22 @@
       }
     }
   },
+  "promos": {
+    "features": {
+      "benefits": {
+        "recommendations": "Obtenez des recommandations personnalisées",
+        "tracking": "Suivez votre progression dans les séries",
+        "watchlist": "Créez votre liste de films et séries à voir"
+      },
+      "buttons": {
+        "dismiss": "Fermer",
+        "login": "Se connecter",
+        "register": "S'inscrire"
+      },
+      "description": "Suivez vos films et séries préférés, marquez les épisodes comme vus et bien plus encore.",
+      "title": "Créez un compte pour débloquer toutes les fonctionnalités !"
+    }
+  },
   "provider": {
     "ads": "En visionnage gratuit avec publicités",
     "buy": "À l'achat",
@@ -442,13 +457,6 @@
       }
     }
   },
-  "similar": {
-    "no_similar": "Aucun film similaire disponible.",
-    "title": {
-      "movies": "Films similaires",
-      "tv": "Séries similaires"
-    }
-  },
   "time": {
     "days": "Jours",
     "hours": "Heures",
@@ -464,7 +472,7 @@
       "movies": "Film",
       "tv": "Série"
     },
-    "title": "Les tendances du moment"
+    "title": "Tendances du moment"
   },
   "tvHeader": {
     "finished": "Terminée",

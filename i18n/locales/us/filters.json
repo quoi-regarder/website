@@ -60,7 +60,7 @@
       "movie": "Movies",
       "tv": "Series"
     },
-    "type": "Would you like to search among movies or series?"
+    "type": "Movies or series ? The choice is yours !"
   },
   "genre": {
     "description": "By default, no content genre is selected.",

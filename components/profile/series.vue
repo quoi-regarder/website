@@ -46,8 +46,10 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col">
-            <DetailProfileCard :serie="item" type="tv" />
+          <div :key="item.tmdbId" class="relative flex items-center flex-col h-[335px]">
+            <div class="w-full h-full">
+              <DetailProfileCard :serie="item" type="tv" class="h-full" />
+            </div>
 
             <UButton
               trailing-icon="i-lucide-eye"
@@ -72,7 +74,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[300px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>
@@ -116,8 +118,10 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col">
-            <DetailProfileCard :serie="item" type="tv" />
+          <div :key="item.tmdbId" class="relative flex items-center flex-col h-[335px]">
+            <div class="w-full h-full">
+              <DetailProfileCard :serie="item" type="tv" class="h-full" />
+            </div>
 
             <UButton
               trailing-icon="i-lucide-eye"
@@ -142,7 +146,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[300px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>
@@ -186,8 +190,10 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="flex items-center flex-col">
-            <DetailProfileCard :serie="item" type="tv" />
+          <div :key="item.tmdbId" class="flex items-center flex-col h-[335px]">
+            <div class="w-full h-full">
+              <DetailProfileCard :serie="item" type="tv" class="h-full" />
+            </div>
           </div>
         </template>
       </UCarousel>
@@ -203,7 +209,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[300px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>

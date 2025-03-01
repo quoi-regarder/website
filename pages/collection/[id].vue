@@ -8,7 +8,7 @@
       }"
     >
       <div class="w-full flex flex-col items-center gap-y-4">
-        <h2 class="text-4xl font-bold text-primary-400">
+        <h2 class="text-4xl text-center font-bold text-primary-400">
           {{ collection.name }}
         </h2>
         <p class="text-lg text-center">
@@ -16,11 +16,11 @@
         </p>
       </div>
 
-      <section class="w-full flex flex-wrap items-center justify-evenly mt-4 gap-4">
+      <section class="w-full flex flex-wrap items-center justify-evenly mt-4 gap-x-4 gap-y-8">
         <div
           v-for="part in collection.parts"
           :key="part.id"
-          class="flex flex-col items-center w-[300px] max-w-full gap-y-2"
+          class="flex flex-col items-center w-[300px] max-w-full gap-y-1"
         >
           <NuxtImg
             v-if="part.poster_path !== null"
@@ -37,11 +37,16 @@
             variant="link"
             color="secondary"
             :to="localPath(`/movie/${part.id}`)"
-            class="text-xl text-wrap text-center font-bold"
             :label="part.title"
-          />
+          >
+            <p class="text-lg text-wrap text-center font-bold">
+              {{ part.title }}
+            </p>
+          </UButton>
 
-          <p>{{ formatLocalDate(part.release_date) }}</p>
+          <p class="text-sm text-center">
+            {{ formatLocalDate(part.release_date) }}
+          </p>
         </div>
       </section>
     </div>

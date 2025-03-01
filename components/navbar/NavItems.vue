@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="flex gap-x-2" :class="{ 'flex-col gap-y-2': isMobile }">
+    <div class="flex gap-x-2" :class="{ 'flex-col gap-y-2 items-center': isMobile }">
       <template v-for="(nav, index) in navItems" :key="`nav-${index}`">
         <UButton
           v-if="!nav.chip?.value"
@@ -11,7 +11,7 @@
           :variant="isActiveRoute(nav.to) ? 'subtle' : 'link'"
           :color="isActiveRoute(nav.to) ? 'primary' : 'secondary'"
           size="md"
-          class="transition-all duration-300 rounded-full"
+          class="transition-all duration-300 rounded-full w-fit"
           @click="handleItemClick"
         />
 
@@ -19,8 +19,10 @@
           v-else-if="nav.chip?.value"
           :text="nav.chip?.value"
           size="3xl"
-          :ui="{ base: 'p-1' }"
-          class="transition-all duration-300 rounded-full"
+          :ui="{
+            base: 'p-1'
+          }"
+          class="transition-all duration-300 rounded-full w-dit"
         >
           <UButton
             :to="nav.to"
@@ -30,7 +32,7 @@
             :variant="isActiveRoute(nav.to) ? 'subtle' : 'link'"
             :color="isActiveRoute(nav.to) ? 'primary' : 'secondary'"
             size="md"
-            class="transition-all duration-300 rounded-full"
+            class="transition-all duration-300 rounded-full w-fit"
             @click="handleItemClick"
           />
         </UChip>
@@ -54,7 +56,7 @@ defineProps({
   }
 })
 
-const EXCEPTION_ROUTES = ['/search']
+const EXCEPTION_ROUTES = ['/search', '/us/search']
 
 const isActiveRoute = (to: string) => {
   return EXCEPTION_ROUTES.includes(to) ? route.path === to : route.fullPath === to

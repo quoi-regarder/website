@@ -1,115 +1,152 @@
 <template>
-  <div class="flex flex-col w-full gap-y-2 p-2 border-1 rounded-xl bg-[var(--ui-bg)]">
-    <div class="flex gap-2 pr-2 justify-end">
-      <UButton
-        :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
-        class="self-center"
-        :trailing-icon="computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'"
-        @click="addContentToViewedList(type, item.id)"
-      >
-        {{ $t('common.content.add_to_viewed_list') }}
-      </UButton>
-
-      <UButton
-        v-if="computedStatus === WatchStatus.WATCHING"
-        class="self-center"
-        trailing-icon="i-lucide:popcorn"
-        disabled
-      >
-        {{ $t('common.content.watching') }}
-      </UButton>
-
-      <UButton
-        v-if="computedStatus !== WatchStatus.WATCHING"
-        :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
-        class="self-center"
-        :trailing-icon="
-          computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
-        "
-        @click="addContentToWatchlist(type, item.id)"
-      >
-        {{ $t('common.content.add_to_watch_list') }}
-      </UButton>
-    </div>
-
-    <div class="flex flex-col md:flex-row items-center md:items-start gap-2">
-      <!-- Movie Poster -->
-      <NuxtImg
-        v-if="item.poster_path"
-        :src="getImageUrl(item.poster_path, 'w500')"
-        :alt="`${item.title || item.name} Poster`"
-        class="rounded-lg shadow-xl"
-        width="250"
-      />
-
-      <div v-else class="relative rounded-lg shadow-xl w-[250px] h-[375px]">
-        <USkeleton
-          class="w-[250px] h-full rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
-        />
-        <div class="absolute inset-0 flex items-center justify-center text-wrap">
-          <p class="text-lg font-semibold">
-            {{ $t('card.no_poster') }}
-          </p>
+  <div
+    class="flex flex-col w-full border-1 rounded-xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
+  >
+    <div class="flex flex-col items-center lg:flex-row gap-6 p-3">
+      <div class="relative flex-shrink-0 group">
+        <div class="relative rounded-lg shadow-xl max-w-[250px] w-full h-[375px] overflow-hidden">
+          <NuxtImg
+            v-if="item.poster_path"
+            :src="getImageUrl(item.poster_path, 'w500')"
+            :alt="`${title} Poster`"
+            class="rounded-lg shadow-xl transition-all duration-500 group-hover:scale-[1.03]"
+            loading="lazy"
+            fetchpriority="high"
+          />
+          <div
+            v-if="!item.poster_path"
+            class="absolute inset-0 flex items-center justify-center text-wrap"
+          >
+            <p class="text-lg font-semibold text-center px-4">
+              {{ t('card.no_poster') }}
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="grow flex flex-col w-full gap-2 md:px-2">
-        <!-- Watchlist Button -->
-        <div
-          class="grid grid-cols-1 sm:grid-cols-3 p-2 h-[375px] gap-x-2 overflow-y-auto border-1 border-dashed rounded-lg"
-        >
-          <div v-for="(field, index) in itemDetails" :key="index" class="contents">
-            <!-- Label -->
-            <div class="sm:col-span-1 sm:text-right">
-              <p class="font-semibold text-primary-400">
-                {{ field.label }}
-              </p>
-            </div>
+      <div
+        class="flex flex-col gap-2.5 border-1 border-dashed rounded-lg p-2 md:p-4 w-full overflow-hidden"
+      >
+        <!-- Action Buttons -->
+        <div class="flex flex-wrap gap-2 justify-end">
+          <UButton
+            :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
+            size="md"
+            color="primary"
+            :trailing-icon="
+              computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
+            "
+            class="transition-all duration-300 hover:scale-105"
+            @click="handleAddToViewed"
+          >
+            {{ t('common.content.add_to_viewed_list') }}
+          </UButton>
 
-            <!-- Value -->
-            <div class="sm:col-span-2">
-              <!-- Render different types -->
-              <template v-if="field.type === 'title'">
-                <h2>
-                  {{ field.value }}
-                </h2>
-              </template>
+          <UButton
+            v-if="computedStatus === WatchStatus.WATCHING"
+            color="secondary"
+            size="md"
+            trailing-icon="i-lucide:popcorn"
+            class="transition-all duration-300 hover:scale-105"
+            disabled
+          >
+            {{ t('common.content.watching') }}
+          </UButton>
 
-              <template v-else-if="field.type === 'date'">
-                <p>{{ formatLocalDate(field.value) }}</p>
-              </template>
-
-              <template v-else-if="field.type === 'badge'">
-                <div class="flex flex-wrap gap-2">
-                  <UBadge v-for="genre in field.value" :key="genre.id" :label="genre.label" />
-                </div>
-              </template>
-
-              <template v-else-if="field.type === 'notation'">
-                <UProgress :model-value="field.value" :max="10" :min="0" status> </UProgress>
-                <p class="text-sm text-left">
-                  {{ $t('card.vote_count', { count: item.vote_count }) }}
-                </p>
-              </template>
-
-              <template v-else-if="field.type === 'text'">
-                <p v-if="field.value" class="text-justify">
-                  {{ field.value }}
-                </p>
-                <p v-else>
-                  {{ $t('card.no_overview') }}
-                </p>
-              </template>
-            </div>
-
-            <USeparator v-if="index < itemDetails.length - 1" class="sm:col-span-3 my-2" />
-          </div>
+          <UButton
+            v-if="computedStatus !== WatchStatus.WATCHING"
+            :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+            color="secondary"
+            size="md"
+            :trailing-icon="
+              computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
+            "
+            class="transition-all duration-300 hover:scale-105"
+            @click="handleAddToWatchlist"
+          >
+            {{ t('common.content.add_to_watch_list') }}
+          </UButton>
         </div>
 
-        <div class="flex flex-col self-center gap-2">
-          <UButton :to="localPath(`/${type}/${item.id}`)" variant="outline" class="self-center">
-            {{ $t('card.more_details') }}
-          </UButton>
+        <USeparator />
+
+        <!-- Title Section -->
+        <div class="overflow-hidden">
+          <!-- Main Title -->
+          <h2
+            class="text-left text-xl sm:text-2xl lg:text-3xl font-semibold text-primary-400 break-words hyphens-auto mb-1 line-clamp-2 overflow-hidden text-ellipsis"
+          >
+            {{ title }}
+          </h2>
+
+          <!-- Original Title -->
+          <div
+            class="text-left text-xs sm:text-sm text-[var(--ui-text-muted)] overflow-hidden text-ellipsis"
+          >
+            <span>{{ t('card.original_title', { title: originalTitle }) }}</span>
+          </div>
+        </div>
+        <!-- Rating Section (for non-mobile) -->
+        <div class="hidden sm:flex items-center gap-4">
+          <div class="flex items-center gap-2">
+            <UIcon name="i-lucide:star" class="text-amber-500 size-6" />
+            <p class="text-left text-base font-semibold">
+              {{ formattedRating }}
+            </p>
+          </div>
+
+          <span
+            class="h-0.5 w-4 rounded-full bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-inverted)]"
+          ></span>
+
+          <p class="text-sm">
+            {{ t('card.votes', { count: item.vote_count }) }}
+          </p>
+        </div>
+        <!-- Genres Section -->
+        <div class="flex flex-wrap gap-1 justify-center overflow-hidden h-[3.5rem]">
+          <UBadge
+            v-for="genre in genreDetails?.slice(0, 3)"
+            :key="genre.id"
+            :label="genre.label"
+            color="secondary"
+            variant="subtle"
+            size="sm"
+            icon="i-lucide:tag"
+            class="text-xs h-fit"
+          />
+          <UBadge
+            v-if="genreDetails && genreDetails.length > 3"
+            color="secondary"
+            variant="subtle"
+            size="sm"
+            icon="i-lucide:tag"
+            class="text-xs h-fit"
+            :label="`+${genreDetails.length - 3}`"
+          />
+        </div>
+
+        <!-- Overview Section -->
+        <div class="h-[5rem] overflow-hidden">
+          <p
+            class="text-xs sm:text-sm line-clamp-3 sm:line-clamp-4 text-[var(--ui-text)] overflow-hidden text-ellipsis text-justify"
+          >
+            {{ item.overview || t('card.no_overview') }}
+          </p>
+        </div>
+
+        <USeparator />
+
+        <!-- Details Button -->
+        <div class="flex justify-end">
+          <UButton
+            :to="localPath(`/${type}/${item.id}`)"
+            variant="ghost"
+            size="xs"
+            class="text-xs sm:text-sm transition-all duration-300 hover:translate-x-1"
+            :label="t('card.more_details')"
+            trailing-icon="i-lucide:arrow-right"
+          />
         </div>
       </div>
     </div>
@@ -127,7 +164,7 @@ const props = defineProps({
     required: true
   },
   genres: {
-    type: Array as PropType<Option[]>,
+    type: Array as PropType<{ id: number; label: string }[]>,
     required: true
   },
   type: {
@@ -136,69 +173,17 @@ const props = defineProps({
   }
 })
 
+const title = computed(() => props.item.title || props.item.name || '')
+const originalTitle = computed(() => props.item.original_title || props.item.original_name || '')
+const formattedRating = computed(() => `${(props.item.vote_average * 10).toFixed(0)}%`)
 const computedStatus = computed(() => getContentStatus(props.type, props.item.id))
 
-const itemDetails = computed(() => {
-  const genreDetails = props.item.genre_ids?.map((id: number) =>
-    props.genres.find((genre) => genre.id === id)
-  )
-
-  if (props.type === 'movie') {
-    return [
-      {
-        label: t('card.title'),
-        value: props.item.title,
-        type: 'title'
-      },
-      {
-        label: t('card.release_date'),
-        value: props.item.release_date,
-        type: 'date'
-      },
-      {
-        label: t('card.vote_average'),
-        value: props.item.vote_average,
-        type: 'notation'
-      },
-      {
-        label: t('card.overview'),
-        value: props.item.overview,
-        type: 'text'
-      },
-      {
-        label: t('card.genres'),
-        value: genreDetails?.filter(Boolean),
-        type: 'badge'
-      }
-    ]
-  } else {
-    return [
-      {
-        label: t('card.title'),
-        value: props.item.name,
-        type: 'title'
-      },
-      {
-        label: t('card.first_air_date'),
-        value: props.item.first_air_date,
-        type: 'date'
-      },
-      {
-        label: t('card.vote_average'),
-        value: props.item.vote_average,
-        type: 'notation'
-      },
-      {
-        label: t('card.overview'),
-        value: props.item.overview,
-        type: 'text'
-      },
-      {
-        label: t('card.genres'),
-        value: genreDetails?.filter(Boolean),
-        type: 'badge'
-      }
-    ]
-  }
+const genreDetails = computed(() => {
+  return props.item.genre_ids
+    ?.map((genreId: number) => props.genres.find((g) => g.id === genreId))
+    .filter(Boolean)
 })
+
+const handleAddToViewed = () => addContentToViewedList(props.type, props.item.id)
+const handleAddToWatchlist = () => addContentToWatchlist(props.type, props.item.id)
 </script>

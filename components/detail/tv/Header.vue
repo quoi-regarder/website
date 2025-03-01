@@ -39,7 +39,7 @@
                 class="flex flex-col items-start sm:flex-row sm:items-center gap-x-1.5"
               >
                 <div class="flex items-center gap-x-0.5">
-                  <UIcon name="i-lucide:calendar" class="w-6 h-6" />
+                  <UIcon name="i-lucidtag:calendar" class="w-6 h-6" />
                   <p class="text-primary-400 md:text-lg">
                     {{ $t('tvHeader.first_air_date') }}
                   </p>
@@ -79,6 +79,7 @@
 
               <UButton
                 v-if="computedStatus === WatchStatus.WATCHING"
+                color="secondary"
                 class="self-center"
                 trailing-icon="i-lucide:popcorn"
                 disabled
@@ -88,6 +89,7 @@
 
               <UButton
                 v-if="computedStatus !== WatchStatus.WATCHING"
+                color="secondary"
                 :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
                 class="self-center"
                 :trailing-icon="

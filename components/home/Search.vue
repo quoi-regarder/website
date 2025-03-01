@@ -1,15 +1,13 @@
 <template>
   <div class="flex items-center justify-center gap-4 pt-8">
-    <UTooltip :text="$t('home.form.tooltip.reset')">
-      <UButton
-        icon="i-lucide:undo-2"
-        color="secondary"
-        size="xl"
-        variant="subtle"
-        :label="$t('home.form.buttons.reset')"
-        @click="resetSeachAndFilters"
-      />
-    </UTooltip>
+    <UButton
+      icon="i-lucide:undo-2"
+      color="secondary"
+      size="xl"
+      variant="subtle"
+      :label="$t('home.form.buttons.reset')"
+      @click="resetSeachAndFilters"
+    />
     <ClientOnly>
       <UButton
         id="searchButton"
