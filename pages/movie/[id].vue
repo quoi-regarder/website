@@ -40,15 +40,6 @@
       :production="movie?.production_companies"
     />
     <USkeleton v-else class="w-full h-96" />
-
-    <!-- Similar -->
-    <LazyDetailCommonSimilar
-      v-if="isLoaded"
-      :similar="movie?.similar.results"
-      :genres="genres"
-      :title="$t('similar.title.movies')"
-    />
-    <USkeleton v-else class="w-full h-96" />
   </div>
 </template>
 

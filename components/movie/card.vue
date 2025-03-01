@@ -1,47 +1,15 @@
 <template>
-  <div class="flex flex-col w-full gap-y-2 p-2 border-1 rounded-xl bg-[var(--ui-bg)]">
-    <div class="flex gap-2 pr-2 justify-end">
-      <UButton
-        :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
-        class="self-center"
-        :trailing-icon="computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'"
-        @click="addContentToViewedList(type, item.id)"
-      >
-        {{ $t('common.content.add_to_viewed_list') }}
-      </UButton>
-
-      <UButton
-        v-if="computedStatus === WatchStatus.WATCHING"
-        class="self-center"
-        trailing-icon="i-lucide:popcorn"
-        disabled
-      >
-        {{ $t('common.content.watching') }}
-      </UButton>
-
-      <UButton
-        v-if="computedStatus !== WatchStatus.WATCHING"
-        :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
-        class="self-center"
-        :trailing-icon="
-          computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
-        "
-        @click="addContentToWatchlist(type, item.id)"
-      >
-        {{ $t('common.content.add_to_watch_list') }}
-      </UButton>
-    </div>
-
-    <div class="flex flex-col md:flex-row items-center md:items-start gap-2">
-      <!-- Movie Poster -->
+  <div
+    class="flex flex-col w-full border-1 rounded-xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)]"
+  >
+    <div class="flex flex-col items-center lg:flex-row gap-6 xl:gap-12 p-3">
       <NuxtImg
         v-if="item.poster_path"
         :src="getImageUrl(item.poster_path, 'w500')"
-        :alt="`${item.title || item.name} Poster`"
-        class="rounded-lg shadow-xl"
-        width="250"
+        :alt="`${title} Poster`"
+        class="rounded-lg shadow-xl self-center max-w-[250px] w-full h-auto object-cover"
+        loading="lazy"
       />
-
       <div v-else class="relative rounded-lg shadow-xl w-[250px] h-[375px]">
         <USkeleton
           class="w-[250px] h-full rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
@@ -53,63 +21,117 @@
         </div>
       </div>
 
-      <div class="grow flex flex-col w-full gap-2 md:px-2">
-        <!-- Watchlist Button -->
-        <div
-          class="grid grid-cols-1 sm:grid-cols-3 p-2 h-[375px] gap-x-2 overflow-y-auto border-1 border-dashed rounded-lg"
-        >
-          <div v-for="(field, index) in itemDetails" :key="index" class="contents">
-            <!-- Label -->
-            <div class="sm:col-span-1 sm:text-right">
-              <p class="font-semibold text-primary-400">
-                {{ field.label }}
+      <div class="flex flex-col gap-4 border-1 border-dashed rounded-lg p-2 w-full">
+        <!-- Rating and Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 justify-between">
+          <!-- Rating Section -->
+          <div class="flex items-center gap-4 order-2 sm:order-1">
+            <div class="flex items-center gap-2">
+              <UIcon name="i-lucide:star" class="text-amber-500 size-6 sm:size-7" />
+              <p class="text-left text-base sm:text-lg font-semibold">
+                {{ formattedRating }}
               </p>
             </div>
 
-            <!-- Value -->
-            <div class="sm:col-span-2">
-              <!-- Render different types -->
-              <template v-if="field.type === 'title'">
-                <h2>
-                  {{ field.value }}
-                </h2>
-              </template>
+            <span
+              class="h-0.5 w-4 rounded-full bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-inverted)]"
+            ></span>
 
-              <template v-else-if="field.type === 'date'">
-                <p>{{ formatLocalDate(field.value) }}</p>
-              </template>
+            <p class="text-sm sm:text-base">
+              {{ $t('card.votes', { count: item.vote_count }) }}
+            </p>
+          </div>
 
-              <template v-else-if="field.type === 'badge'">
-                <div class="flex flex-wrap gap-2">
-                  <UBadge v-for="genre in field.value" :key="genre.id" :label="genre.label" />
-                </div>
-              </template>
+          <!-- Action Buttons -->
+          <div class="flex flex-wrap gap-2 justify-end order-1 sm:order-2">
+            <UButton
+              :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
+              size="sm"
+              :trailing-icon="
+                computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
+              "
+              @click="handleAddToViewed"
+            >
+              {{ $t('common.content.add_to_viewed_list') }}
+            </UButton>
 
-              <template v-else-if="field.type === 'notation'">
-                <UProgress :model-value="field.value" :max="10" :min="0" status> </UProgress>
-                <p class="text-sm text-left">
-                  {{ $t('card.vote_count', { count: item.vote_count }) }}
-                </p>
-              </template>
+            <UButton
+              v-if="computedStatus === WatchStatus.WATCHING"
+              size="sm"
+              trailing-icon="i-lucide:popcorn"
+              disabled
+            >
+              {{ $t('common.content.watching') }}
+            </UButton>
 
-              <template v-else-if="field.type === 'text'">
-                <p v-if="field.value" class="text-justify">
-                  {{ field.value }}
-                </p>
-                <p v-else>
-                  {{ $t('card.no_overview') }}
-                </p>
-              </template>
-            </div>
-
-            <USeparator v-if="index < itemDetails.length - 1" class="sm:col-span-3 my-2" />
+            <UButton
+              v-if="computedStatus !== WatchStatus.WATCHING"
+              :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+              size="sm"
+              :trailing-icon="
+                computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
+              "
+              @click="handleAddToWatchlist"
+            >
+              {{ $t('common.content.add_to_watch_list') }}
+            </UButton>
           </div>
         </div>
 
-        <div class="flex flex-col self-center gap-2">
-          <UButton :to="localPath(`/${type}/${item.id}`)" variant="outline" class="self-center">
-            {{ $t('card.more_details') }}
-          </UButton>
+        <!-- Title Section -->
+        <div class="h-60 overflow-y-auto flex flex-col justify-between">
+          <div>
+            <div class="w-full">
+              <!-- Main Title -->
+              <h2
+                class="text-left text-2xl sm:text-3xl font-semibold text-primary-400 break-words hyphens-auto mb-1"
+              >
+                {{ title }}
+              </h2>
+
+              <!-- Original Title (if different) -->
+              <div
+                v-if="originalTitle !== title"
+                class="text-left text-sm sm:text-base text-[var(--ui-text-muted)]"
+              >
+                <span>{{ $t('card.original_title', { title: originalTitle }) }}</span>
+              </div>
+            </div>
+
+            <!-- Overview Section -->
+            <div class="flex-grow mt-4">
+              <p class="text-sm sm:text-base text-justify line-clamp-4 text-[var(--ui-text)]">
+                {{ item.overview || $t('card.no_overview') }}
+              </p>
+            </div>
+          </div>
+
+          <!-- Genres Section -->
+          <div class="flex flex-wrap gap-2 mt-auto">
+            <UBadge
+              v-for="genre in genreDetails"
+              :key="genre.id"
+              :label="genre.label"
+              color="secondary"
+              variant="subtle"
+              size="md"
+              icon="i-lucide:tag"
+            />
+          </div>
+        </div>
+
+        <USeparator />
+
+        <!-- Details Button -->
+        <div class="flex justify-center">
+          <UButton
+            :to="localPath(`/${type}/${item.id}`)"
+            variant="subtle"
+            size="sm"
+            class="sm:text-base"
+            :label="$t('card.more_details')"
+            trailing-icon="i-lucide:ticket-check"
+          />
         </div>
       </div>
     </div>
@@ -127,7 +149,7 @@ const props = defineProps({
     required: true
   },
   genres: {
-    type: Array as PropType<Option[]>,
+    type: Array as PropType<{ id: number; label: string }[]>,
     required: true
   },
   type: {
@@ -136,69 +158,17 @@ const props = defineProps({
   }
 })
 
+const title = computed(() => props.item.title || props.item.name || '')
+const originalTitle = computed(() => props.item.original_title || props.item.original_name || '')
+const formattedRating = computed(() => `${(props.item.vote_average * 10).toFixed(0)} %`)
 const computedStatus = computed(() => getContentStatus(props.type, props.item.id))
 
-const itemDetails = computed(() => {
-  const genreDetails = props.item.genre_ids?.map((id: number) =>
-    props.genres.find((genre) => genre.id === id)
-  )
-
-  if (props.type === 'movie') {
-    return [
-      {
-        label: t('card.title'),
-        value: props.item.title,
-        type: 'title'
-      },
-      {
-        label: t('card.release_date'),
-        value: props.item.release_date,
-        type: 'date'
-      },
-      {
-        label: t('card.vote_average'),
-        value: props.item.vote_average,
-        type: 'notation'
-      },
-      {
-        label: t('card.overview'),
-        value: props.item.overview,
-        type: 'text'
-      },
-      {
-        label: t('card.genres'),
-        value: genreDetails?.filter(Boolean),
-        type: 'badge'
-      }
-    ]
-  } else {
-    return [
-      {
-        label: t('card.title'),
-        value: props.item.name,
-        type: 'title'
-      },
-      {
-        label: t('card.first_air_date'),
-        value: props.item.first_air_date,
-        type: 'date'
-      },
-      {
-        label: t('card.vote_average'),
-        value: props.item.vote_average,
-        type: 'notation'
-      },
-      {
-        label: t('card.overview'),
-        value: props.item.overview,
-        type: 'text'
-      },
-      {
-        label: t('card.genres'),
-        value: genreDetails?.filter(Boolean),
-        type: 'badge'
-      }
-    ]
-  }
+const genreDetails = computed(() => {
+  return props.item.genre_ids
+    ?.map((genreId: number) => props.genres.find((g) => g.id === genreId))
+    .filter(Boolean)
 })
+
+const handleAddToViewed = () => addContentToViewedList(props.type, props.item.id)
+const handleAddToWatchlist = () => addContentToWatchlist(props.type, props.item.id)
 </script>

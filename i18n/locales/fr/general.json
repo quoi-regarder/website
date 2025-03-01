@@ -11,11 +11,13 @@
     "more_details": "Voir plus de détails",
     "no_overview": "Aucune description disponible.",
     "no_poster": "Aucune image disponible.",
+    "original_title": "Titre original : {title}",
     "overview": "Synopsis",
     "release_date": "Date de sortie",
     "title": "Titre",
     "vote_average": "Note moyenne",
-    "vote_count": "Nombre de votes : {count}"
+    "vote_count": "Nombre de votes : {count}",
+    "votes": "{count} votes"
   },
   "casting": {
     "as": "En tant que {character}.",
@@ -440,13 +442,6 @@
       "success": {
         "registered": "Inscription réussie ! Consultez vos e-mails pour activer votre compte."
       }
-    }
-  },
-  "similar": {
-    "no_similar": "Aucun film similaire disponible.",
-    "title": {
-      "movies": "Films similaires",
-      "tv": "Séries similaires"
     }
   },
   "time": {

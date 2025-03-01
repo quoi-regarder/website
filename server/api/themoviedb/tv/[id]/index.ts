@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
   if (language) manager.add('language', formatLanguageToISO(language as string))
   manager.addWithLogic(
     'append_to_response',
-    ['videos', 'images', 'credits', 'recommendations', 'similar', 'watch/providers'],
+    ['videos', 'images', 'credits', 'watch/providers'],
     LogicalOperator.AND
   )
 

@@ -11,11 +11,13 @@
     "more_details": "More details",
     "no_overview": "No description available.",
     "no_poster": "No poster available.",
+    "original_title": "Original title: {title}",
     "overview": "Overview",
     "release_date": "Theater release date",
     "title": "Title",
     "vote_average": "Rating",
-    "vote_count": "Number of votes: {count}"
+    "vote_count": "Number of votes: {count}",
+    "votes": "{count} votes"
   },
   "casting": {
     "as": "As {character}.",
@@ -271,7 +273,8 @@
     "no_overview": "No synopsis available in this language.",
     "overview": "Synopsis",
     "vote_average": "Average Rating",
-    "vote_count": "Number of Votes: {count}"
+    "vote_count": "Number of Votes: {count}",
+    "votes": "{count} votes"
   },
   "movieRecommandations": {
     "no_recommendations": "No recommendations available.",
@@ -440,13 +443,6 @@
       "success": {
         "registered": "Registration successful. Please check your inbox to activate your account."
       }
-    }
-  },
-  "similar": {
-    "no_similar": "No similar movies available.",
-    "title": {
-      "movies": "Similar Movies",
-      "tv": "Similar TV Shows"
     }
   },
   "time": {

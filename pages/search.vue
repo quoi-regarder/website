@@ -19,7 +19,7 @@
 
         <HomeFilterType v-model="selectedType" />
 
-        <div class="flex flex-col items-start justify-center mt-4 sm:flex-row sm:gap-4">
+        <div class="flex flex-col items-center justify-center mt-4 lg:flex-row gap-4">
           <FieldInput
             v-model="search"
             :placeholder="$t('search.placeholder')"
