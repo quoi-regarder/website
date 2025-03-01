@@ -36,8 +36,8 @@
       <UCarousel
         v-if="isLoaded && toWatchList.length > 0"
         ref="toWatchCarousel"
-        :prev="{ color: 'secondary', variant: 'subtle' }"
-        :next="{ color: 'secondary', variant: 'subtle' }"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
         :items="toWatchList"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
@@ -64,8 +64,8 @@
       <UCarousel
         v-else-if="!isLoaded"
         :items="skeletonItems"
-        :prev="{ color: 'secondary', variant: 'subtle' }"
-        :next="{ color: 'secondary', variant: 'subtle' }"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
@@ -106,8 +106,8 @@
       <UCarousel
         v-if="isLoaded && watchingList.length > 0"
         ref="watchingCarousel"
-        :prev="{ color: 'secondary', variant: 'subtle' }"
-        :next="{ color: 'secondary', variant: 'subtle' }"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
         :items="watchingList"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
@@ -134,8 +134,8 @@
       <UCarousel
         v-else-if="!isLoaded"
         :items="skeletonItems"
-        :prev="{ color: 'secondary', variant: 'subtle' }"
-        :next="{ color: 'secondary', variant: 'subtle' }"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
@@ -176,8 +176,8 @@
       <UCarousel
         v-if="isLoaded && watchedList.length > 0"
         ref="watchedCarousel"
-        :prev="{ color: 'secondary', variant: 'subtle' }"
-        :next="{ color: 'secondary', variant: 'subtle' }"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
         :items="watchedList"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
@@ -195,8 +195,8 @@
       <UCarousel
         v-else-if="!isLoaded"
         :items="skeletonItems"
-        :prev="{ color: 'secondary', variant: 'subtle' }"
-        :next="{ color: 'secondary', variant: 'subtle' }"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
         class="max-w-[75vw] w-11/12"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows

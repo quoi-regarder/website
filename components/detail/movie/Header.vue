@@ -20,7 +20,7 @@
 
         <div class="h-full flex flex-col gap-2">
           <div class="flex flex-col items-center mb-8">
-            <h1 v-if="props.title !== null" class="text-2xl font-bold text-center text-primary-400">
+            <h1 v-if="props.title !== null" class="text-3xl font-bold text-center text-primary-400">
               {{ props.title }}
             </h1>
 

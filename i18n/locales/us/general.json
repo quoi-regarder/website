@@ -304,7 +304,8 @@
     },
     "search": {
       "movies": "Movies",
-      "placeholder": "Search for a movie or series",
+      "placeholderMovie": "Search for a movie",
+      "placeholderSeries": "Search for a series",
       "tv": "TV Shows"
     },
     "toasts": {

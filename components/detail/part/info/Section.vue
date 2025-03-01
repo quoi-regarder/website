@@ -1,6 +1,6 @@
 <template>
   <section>
-    <h3 class="text-l font-semibold text-primary-400">
+    <h3 class="text-l font-semibold text-secondary-400">
       {{ title }}
     </h3>
     <slot></slot>

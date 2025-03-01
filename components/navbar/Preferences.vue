@@ -2,7 +2,7 @@
   <div class="flex items-center gap-x-4">
     <UTooltip :text="$t('navbar.buttons.feedback')">
       <UButton
-        icon="i-lucide:notebook-pen"
+        icon="i-lucide:mail"
         variant="ghost"
         color="secondary"
         size="xl"

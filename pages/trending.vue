@@ -17,7 +17,7 @@
       <UTabs :items="tabs" class="w-[90vw] pt-4 mx-auto z-10">
         <template #movies>
           <UContainer
-            class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-6"
+            class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16 sm:pt-6"
           >
             <div v-if="isLoaded" class="flex flex-col items-center justify-center gap-4 relative">
               <span
@@ -70,11 +70,11 @@
 
         <template #tv>
           <UContainer
-            class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16"
+            class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16 sm:pt-6"
           >
             <div v-if="isLoaded" class="flex flex-col items-center justify-center gap-4 relative">
               <span
-                class="text-7xl font-bold text-primary-400 absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
+                class="text-7xl font-bold text-secondary-400 absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
               >
                 #1
               </span>
