@@ -9,8 +9,11 @@ const page = ref(1)
 const pagePool = ref<number[]>([])
 const results = ref<any[]>([])
 const isSearching = ref(false)
+const hasNoResults = ref(false)
 
 export const useSearch = () => {
+  const movieListStore = useMovieListStore()
+  const serieListStore = useSerieListStore()
   const { isDefaultState, filters, selectedType } = useFilters()
   const { t, locale } = useI18n()
 
@@ -45,22 +48,61 @@ export const useSearch = () => {
       const data = await $fetch<SearchResult>(manager.toString())
 
       if (data) {
-        results.value = [...results.value, ...data.results]
         totalPage.value = data.total_pages
         page.value = data.page
+
+        const seenIds = new Set<number>()
+        let uniqueResults = data.results.filter((result) => {
+          if (seenIds.has(result.id)) return false
+          seenIds.add(result.id)
+          return true
+        })
+
+        const watchedIds = movieListStore.getWatchedIds
+        const serieWatchedIds = serieListStore.getWatchedIds
+        const serieWatchingIds = serieListStore.getWatchingIds
+
+        uniqueResults = uniqueResults.filter((result) => {
+          if (selectedType.value === 'movie') {
+            return !watchedIds.includes(result.id)
+          }
+          if (selectedType.value === 'tv') {
+            return !serieWatchedIds.includes(result.id) && !serieWatchingIds.includes(result.id)
+          }
+          return true
+        })
+
+        results.value = results.value.concat(uniqueResults)
+
+        if (uniqueResults.length === 0) {
+          const isLastPage = !isDefaultState.value && page.value >= totalPage.value
+          const noMorePagesInPool = isDefaultState.value && pagePool.value.length === 0
+
+          if (isLastPage || noMorePagesInPool) {
+            if (results.value.length === 0) {
+              hasNoResults.value = true
+            }
+          } else {
+            nextPage()
+          }
+        }
+      } else {
+        hasNoResults.value = true
       }
     } catch (e) {
       console.error('Error while searching', e)
     } finally {
       isSearching.value = false
 
-      if (results.value.length === 0) {
-        useNotifications().info(t('common.toasts.title.info'), t('home.toasts.error.search'))
-      } else if (showToast) {
-        useNotifications().success(
-          t('common.toasts.title.success'),
-          t('home.toasts.success.search')
-        )
+      if (showToast) {
+        if (hasNoResults.value && results.value.length === 0) {
+          useNotifications().info(t('common.toasts.title.info'), t('home.toasts.error.search'))
+        } else if (results.value.length > 0) {
+          useNotifications().success(
+            t('common.toasts.title.success'),
+            t('home.toasts.success.search')
+          )
+        }
       }
     }
   }
@@ -68,12 +110,14 @@ export const useSearch = () => {
   const nextPage = () => {
     if (isDefaultState.value) {
       if (pagePool.value.length === 0) {
-        initializePagePool()
+        return
       }
       page.value = pagePool.value.shift() || 1
     } else {
       if (page.value < totalPage.value) {
         page.value += 1
+      } else {
+        return
       }
     }
     search(false)
