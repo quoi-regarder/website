@@ -13,6 +13,8 @@
         class="max-w-[75vw] w-11/12"
         arrows
         wheel-gestures
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
         :ui="{
           item:
             videos.length === 1

@@ -7,6 +7,8 @@
     <UCarousel
       v-if="hasResults"
       ref="carousel"
+      :prev="{ color: 'secondary', variant: 'solid' }"
+      :next="{ color: 'secondary', variant: 'solid' }"
       :items="results"
       class-names
       class="max-w-[75vw]"

@@ -60,6 +60,8 @@
           class="max-w-[75vw]"
           arrows
           wheel-gestures
+          :prev="{ color: 'secondary', variant: 'solid' }"
+          :next="{ color: 'secondary', variant: 'solid' }"
           :ui="{
             item: 'basis-full 2xl:basis-[65%] lg:transition-opacity lg:[&:not(.is-snapped)]:opacity-30'
           }"
