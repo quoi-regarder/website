@@ -7,7 +7,7 @@
       :required="required"
       :help="help"
       :trailing-icon="error ? 'i-lucide:exclamation-triangle' : undefined"
-      :ui="{ base: 'ring-[var(--ui-color-primary-400)]' }"
+      :ui="{ base: 'ring-primary-400' }"
     />
   </UFormField>
 </template>
