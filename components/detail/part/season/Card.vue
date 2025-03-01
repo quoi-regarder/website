@@ -4,9 +4,9 @@
       'transition-all duration-200 ease-in-out',
       isRealeased(season.air_date) ? 'cursor-pointer' : 'cursor-not-allowed opacity-50',
       isSelected
-        ? 'ring-4 ring-[var(--ui-color-primary-400)]'
+        ? 'ring-4 ring-primary-400'
         : isRealeased(season.air_date)
-          ? 'hover:ring-1 hover:ring-[var(--ui-color-primary-400)]/70'
+          ? 'hover:ring-1 hover:ring-primary-400/70'
           : ''
     ]"
     @click="toggleSelection"

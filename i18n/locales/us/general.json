@@ -224,6 +224,7 @@
     }
   },
   "login": {
+    "back": "Back to the previous page",
     "form": {
       "buttons": {
         "forgotPassword": "Forgot password?",

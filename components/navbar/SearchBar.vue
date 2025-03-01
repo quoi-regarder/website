@@ -115,7 +115,6 @@ const handleSearch = async () => {
 const clearSearch = () => {
   searchQuery.value = ''
   input.value?.inputRef?.focus()
-  navigateSafely('/search')
 }
 
 const handleChangeActiveSearch = (type: 'movie' | 'tv') => {
