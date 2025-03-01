@@ -32,7 +32,7 @@ const genres = defineModel<Option[]>('genres', {
 })
 
 const { selectedType } = useFilters()
-const { nextPage, results, hasResults } = useSearch()
+const { nextPage, results, hasResults, resetSearch } = useSearch()
 
 const carousel = useTemplateRef('carousel')
 
@@ -61,5 +61,9 @@ watch(hasResults, (newValue) => {
       }
     })
   }
+})
+
+onUnmounted(() => {
+  resetSearch()
 })
 </script>
