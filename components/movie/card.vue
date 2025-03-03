@@ -104,7 +104,9 @@
           </p>
         </div>
         <!-- Genres Section -->
-        <div class="flex flex-wrap gap-1 justify-center overflow-hidden h-[3.5rem]">
+        <div
+          class="flex flex-wrap gap-1 justify-center lg:justify-start overflow-hidden h-[3.5rem] md:h-fit"
+        >
           <UBadge
             v-for="genre in genreDetails?.slice(0, 3)"
             :key="genre.id"

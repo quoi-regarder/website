@@ -7,7 +7,7 @@ const getDefaultState = (): Partial<FilterState> => ({
   selectedAges: [],
   selectedDuration: [0, 400],
   selectedMonetization: [],
-  selectedVotes: 500,
+  selectedVotes: 50,
   selectedPersons: [],
   selectedCompanies: [],
   fromDate: null,

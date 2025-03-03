@@ -1,16 +1,17 @@
 <template>
   <div class="flex flex-col items-center gap-y-2">
-    <div class="relative w-16 h-24 rounded-md overflow-hidden">
-      <USkeleton
-        class="absolute inset-0 w-full h-full rounded-md shadow-lg animate-pulse-subtle bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
-      />
+    <div class="relative w-16 h-24 rounded-md overflow-hidden flex items-center justify-center">
       <NuxtImg
         v-if="imagePath !== null"
         :src="getImageUrl(imagePath, 'w92')"
         :alt="name"
-        class="absolute inset-0 w-full h-full object-cover rounded-md shadow-lg transition-opacity duration-300"
         loading="lazy"
         fetchpriority="low"
+        class="w-full h-fit object-cover bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)] rounded-md"
+      />
+      <USkeleton
+        v-else
+        class="w-20 h-28 rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
       />
     </div>
     <span class="text-sm text-center text-wrap font-medium">{{ name }}</span>

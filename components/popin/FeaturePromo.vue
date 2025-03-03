@@ -29,14 +29,14 @@
             </div>
           </div>
 
-          <div class="col-span-5 flex flex-wrap justify-start gap-2">
+          <div class="col-span-5 flex flex-col items-start gap-2">
             <UBadge
               v-for="(benefit, index) in benefits"
               :key="index"
-              color="secondary"
+              color="neutral"
               variant="subtle"
               size="lg"
-              class="rounded-full"
+              class="rounded-full w-fit"
               :label="$t(`promos.features.benefits.${benefit}`)"
             >
               <template #leading>
@@ -50,7 +50,7 @@
               :label="$t('promos.features.buttons.login')"
               to="/auth/login"
               variant="subtle"
-              color="primary"
+              color="secondary"
               @click="handleLoginClick"
             />
             <UButton
@@ -89,12 +89,12 @@
           <p class="text-sm text-[var(--ui-text-muted)] text-justify">
             {{ $t('promos.features.description') }}
           </p>
-          <div class="flex flex-col items-start gap-2 mt-1">
+          <div class="flex flex-col items-center gap-2 mt-1">
             <UBadge
               v-for="(benefit, index) in benefits"
               :key="index"
               :label="$t(`promos.features.benefits.${benefit}`)"
-              color="secondary"
+              color="neutral"
               variant="subtle"
               class="rounded-full w-fit"
             >
@@ -108,7 +108,7 @@
               :label="$t('promos.features.buttons.login')"
               to="/auth/login"
               variant="subtle"
-              color="primary"
+              color="secondary"
               size="sm"
               block
               @click="handleLoginClick"

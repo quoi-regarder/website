@@ -6,7 +6,7 @@
         color="secondary"
         variant="subtle"
         class="order-1 lg:order-2"
-        @click="filters.selectedVotes = 500"
+        @click="filters.selectedVotes = 50"
       />
     </template>
 
@@ -36,5 +36,5 @@
 <script lang="ts" setup>
 const { filters } = useFilters()
 const minVotes = 0
-const maxVotes = 1000
+const maxVotes = 5000
 </script>
