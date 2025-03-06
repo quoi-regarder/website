@@ -1,17 +1,8 @@
 <template>
-  <div class="w-full flex flex-col overflow-hidden transition-all duration-500 ease-out relative">
-    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 p-4">
-      <!-- Genres and platforms -->
-      <div class="flex flex-col gap-4 md:col-span-7 lg:col-span-8 order-1">
-        <HomeFilterGenre v-model:genres="genres" v-model="filters.selectedGenres" />
-        <HomeFilterPlatform v-model="filters.selectedPlatforms" />
-      </div>
-
-      <!-- Mark -->
-      <div class="flex md:col-span-5 lg:col-span-4 items-center justify-center order-2">
-        <HomeFilterMark />
-      </div>
-    </div>
+  <UContainer class="w-full flex flex-col gap-4 transition-all duration-500 ease-out relative">
+    <HomeFilterGenre v-model:genres="genres" v-model="filters.selectedGenres" />
+    <HomeFilterPlatform v-model="filters.selectedPlatforms" />
+    <HomeFilterMark />
 
     <UButton
       size="md"
@@ -24,7 +15,7 @@
       @click="toggleMoreFilters"
     >
     </UButton>
-  </div>
+  </UContainer>
 </template>
 
 <script lang="ts" setup>
