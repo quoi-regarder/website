@@ -11,7 +11,7 @@
       v-if="showPromo"
       class="fixed bottom-0 left-0 right-0 z-50 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] border-t-1 border-[var(--ui-inverted)] shadow-lg"
     >
-      <div class="container mx-auto px-4 py-4">
+      <div class="mx-auto max-w-screen-3xl px-4 py-4">
         <!-- Desktop -->
         <div class="hidden lg:grid grid-cols-12 gap-8 items-center">
           <div class="col-span-4 flex items-center gap-3">
@@ -29,7 +29,7 @@
             </div>
           </div>
 
-          <div class="col-span-5 flex flex-col items-start gap-2">
+          <div class="col-span-5 flex flex-row flex-wrap justify-center items-center gap-2">
             <UBadge
               v-for="(benefit, index) in benefits"
               :key="index"
@@ -55,7 +55,7 @@
             />
             <UButton
               :label="$t('promos.features.buttons.register')"
-              to="/auth/register"
+              to="/auth/signup"
               variant="solid"
               color="primary"
               @click="handleRegisterClick"
@@ -133,7 +133,8 @@
 const featurePromoStore = useFeaturePromoStore()
 const authStore = useAuthStore()
 
-const benefits = ['watchlist', 'tracking', 'recommendations']
+// const benefits = ['watchlist', 'tracking', 'recommendations']
+const benefits = ['watchlist', 'tracking']
 
 const showPromo = computed(() => {
   if (authStore?.isAuthenticated) {

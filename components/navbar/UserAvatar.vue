@@ -51,7 +51,7 @@
               <UButton
                 size="xl"
                 variant="outline"
-                trailing-icon="i-lucide:arrow-right-to-line"
+                trailing-icon="i-lucide:log-in"
                 class="rounded-full"
               />
             </div>
@@ -92,7 +92,7 @@ const dropdownItems = computed(() => [
   [
     {
       label: t('navbar.buttons.logout'),
-      icon: 'i-lucide:arrow-right-to-line',
+      icon: 'i-lucide:log-out',
       onSelect () {
         logout()
       }
