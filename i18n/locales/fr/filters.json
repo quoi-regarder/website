@@ -60,7 +60,7 @@
       "movie": "Films",
       "tv": "Séries"
     },
-    "type": "Films ou série ? À vous de choisir !"
+    "type": "Films ou séries ? À vous de choisir !"
   },
   "genre": {
     "description": "Par défaut, aucun genre de contenu n'est sélectionné.",

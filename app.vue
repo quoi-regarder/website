@@ -2,6 +2,7 @@
   <UApp :locale="locales[locale]" :tooltip="{ delayDuration: 200 }">
     <NuxtLayout>
       <NuxtPage />
+      <CookieControl :locale="formatLocale(locale)" />
     </NuxtLayout>
   </UApp>
 </template>
@@ -10,4 +11,13 @@
 import * as locales from '@nuxt/ui/locale'
 
 const { locale } = useI18n()
+
+const formatLocale = (locale: string) => {
+  switch (locale) {
+  case 'fr':
+    return 'fr'
+  case 'us':
+    return 'en'
+  }
+}
 </script>
