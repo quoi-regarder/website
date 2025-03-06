@@ -5,20 +5,20 @@
         <Navbar
           class="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-40 bg-[var(--ui-bg)]/60"
         />
-        <ClientOnly>
-          <PopinFeaturePromo
-            v-show="showPromo"
-            class="transition-all duration-1000 transform translate-y-full"
-            :class="{ 'translate-y-0': showPromo }"
-          />
-        </ClientOnly>
       </template>
-      <div :class="[isAuth ? 'mt-0' : 'mt-20', showFeaturePromo ? 'pb-32' : '']">
+      <div :class="[isAuth ? 'mt-0' : 'mt-20']">
         <slot />
       </div>
       <template v-if="!isAuth">
         <Footer />
       </template>
+      <ClientOnly>
+        <PopinFeaturePromo
+          v-show="showFeaturePromo"
+          class="transition-all duration-1000 transform translate-y-full"
+          :class="{ 'translate-y-0': showFeaturePromo }"
+        />
+      </ClientOnly>
     </Body>
   </Html>
 </template>
@@ -45,7 +45,7 @@ const showPromo = ref(false)
 onMounted(() => {
   setTimeout(() => {
     showPromo.value = true
-  }, 30_000)
+  }, 20_000)
 })
 
 const showFeaturePromo = computed(() => {
