@@ -37,7 +37,8 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
-    '@nuxt/content'
+    '@nuxt/content',
+    '@dargmuesli/nuxt-cookie-control'
   ],
 
   css: ['/assets/css/main.css'],
@@ -116,17 +117,57 @@ export default defineNuxtConfig({
     }
   },
 
-  // Google analytics configuration
-  $production: {
-    scripts: {
-      registry: {
-        googleAnalytics: {
-          id: 'G-B4CCY2N977'
-        },
-        googleTagManager: {
-          id: 'GTM-W765273F'
+  // Cookie control configuration
+  cookieControl: {
+    colors: {
+      barBackground: '#000',
+      barButtonColor: '#fff',
+      barButtonBackground: '#444',
+      barButtonHoverBackground: '#666',
+      checkboxActiveBackground: '#00A34A',
+      modalButtonColor: '#fff',
+      modalTextColor: '#314158',
+      modalButtonBackground: '#000',
+      controlButtonIconColor: '#000',
+      controlButtonBackground: '#fff'
+    },
+    locales: ['fr', 'en'],
+    isCookieIdVisible: false,
+    isControlButtonEnabled: false,
+    cookies: {
+      necessary: [
+        {
+          id: 'necessary',
+          name: {
+            fr: 'Cookies essentiels',
+            en: 'Essential cookies'
+          },
+          description: {
+            fr: 'Ces cookies sont nécessaires au fonctionnement du site et ne peuvent pas être désactivés.',
+            en: 'These cookies are necessary for the website to function and cannot be switched off.'
+          },
+          links: {
+            'https://quoi-regarder.fr/regulation/cookies': 'Politique de cookies'
+          }
         }
-      }
+      ],
+      optional: [
+        {
+          id: 'google-analytics',
+          name: {
+            fr: 'Analytique',
+            en: 'Analytics'
+          },
+          description: {
+            fr: 'Ces cookies nous permettent d\'analyser l\'utilisation du site pour mesurer et améliorer les performances.',
+            en: 'These cookies allow us to analyze site usage to measure and improve performance.'
+          },
+          links: {
+            'https://policies.google.com/privacy': 'Politique de confidentialité Google',
+            'https://quoi-regarder.fr/regulation/privacy': 'Politique de confidentialité'
+          }
+        }
+      ]
     }
   },
 
