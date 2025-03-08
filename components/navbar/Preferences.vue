@@ -77,8 +77,8 @@ const colorModeItems = computed(() =>
 
 // Locale
 const localIcon = {
-  fr: 'i-material-symbols:language-french',
-  us: 'i-material-symbols:language-us'
+  fr: 'i-openmoji:flag-france',
+  us: 'i-openmoji:flag-united-states'
 } as const
 
 const currentLocaleIcon = computed(
