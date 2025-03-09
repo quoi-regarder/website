@@ -49,13 +49,7 @@
     "typescript": "^5.8.2",
     "yup": "^1.6.1"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "better-sqlite3",
-      "esbuild",
-      "sharp",
-      "vue-demi"
-    ]
+  "devDependencies": {
+    "@stefanobartoletti/nuxt-social-share": "^1.2.1"
   }
 }

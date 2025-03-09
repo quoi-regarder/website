@@ -38,7 +38,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
     '@nuxt/content',
-    '@dargmuesli/nuxt-cookie-control'
+    '@dargmuesli/nuxt-cookie-control',
+    '@stefanobartoletti/nuxt-social-share'
   ],
 
   css: ['/assets/css/main.css'],
@@ -131,6 +132,11 @@ export default defineNuxtConfig({
         id: 'GTM-W765273F'
       }
     }
+  },
+
+  // Social share configuration
+  socialShare: {
+    baseUrl: 'https://quoi-regarder.fr'
   },
 
   // Cookie control configuration
