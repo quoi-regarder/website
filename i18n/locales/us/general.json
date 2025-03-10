@@ -303,6 +303,15 @@
       "precision": "From Friday, February 21 at 6 PM to Sunday, February 23 at 6 PM.",
       "title": "🚀 ArchilanOfficiel Event",
       "twitch": "Live on Twitch all weekend to discover Archipelago. Don't miss the event!"
+    },
+    "share": {
+      "title": "Share",
+      "body": "Share this movie or series with your friends.",
+      "networkTitle": "QuoiRegarder",
+      "networkTitle2": "Discover this movie or series on QuoiRegarder:",
+      "buttons": {
+        "close": "Close"
+      }
     }
   },
   "movieCollection": {

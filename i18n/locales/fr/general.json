@@ -303,6 +303,15 @@
       "precision": "Du vendredi 21 février à 18h au dimanche 23 février à 18h.",
       "title": "🚀 Événement ArchilanOfficiel",
       "twitch": "En direct sur Twitch tout le week-end pour découvrir Archipelago. Ne manquez pas l'événement !"
+    },
+    "share": {
+      "title": "Partager",
+      "body": "Partagez ce film ou cette série avec vos amis.",
+      "networkTitle": "QuoiRegarder",
+      "networkTitle2": "Découvrez ce film ou cette série sur QuoiRegarder :",
+      "buttons": {
+        "close": "Fermer"
+      }
     }
   },
   "movieCollection": {

@@ -29,6 +29,7 @@
       >
         <!-- Action Buttons -->
         <div class="flex flex-wrap gap-2 justify-end">
+          <PopinShare :title="props.title" />
           <UButton
             :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
             size="md"

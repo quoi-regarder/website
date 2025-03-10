@@ -9,6 +9,7 @@
         class="absolute top-2 left-2 z-10 bg-secondary-500/90 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg"
       >
         #{{ rank }}
+        <PopinShare :title="props.title" />
       </div>
 
       <!-- Poster Image -->
