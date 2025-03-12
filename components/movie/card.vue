@@ -28,47 +28,48 @@
         class="flex flex-col gap-2.5 border-1 border-dashed rounded-lg p-2 md:p-4 w-full overflow-hidden"
       >
         <!-- Action Buttons -->
-        <div class="flex flex-wrap gap-2 justify-end">
-          <PopinShare :title="props.title" />
-          <UButton
-            :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
-            size="md"
-            color="primary"
-            :trailing-icon="
-              computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
-            "
-            class="transition-all duration-300 hover:scale-105"
-            @click="handleAddToViewed"
-          >
-            {{ t('common.content.add_to_viewed_list') }}
-          </UButton>
+        <div class="flex flex-wrap gap-2 justify-between w-full">
+          <PopinShare :title="props.item.title" :url="baseURL" />
+          <div class="flex flex-wrap gap-2 justify-end">
+            <UButton
+              :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
+              size="md"
+              color="primary"
+              :trailing-icon="
+                computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
+              "
+              class="transition-all duration-300 hover:scale-105"
+              @click="handleAddToViewed"
+            >
+              {{ t('common.content.add_to_viewed_list') }}
+            </UButton>
 
-          <UButton
-            v-if="computedStatus === WatchStatus.WATCHING"
-            color="secondary"
-            size="md"
-            trailing-icon="i-lucide:popcorn"
-            class="transition-all duration-300 hover:scale-105"
-            disabled
-          >
-            {{ t('common.content.watching') }}
-          </UButton>
+            <UButton
+              v-if="computedStatus === WatchStatus.WATCHING"
+              color="secondary"
+              size="md"
+              trailing-icon="i-lucide:popcorn"
+              class="transition-all duration-300 hover:scale-105"
+              disabled
+            >
+              {{ t('common.content.watching') }}
+            </UButton>
 
-          <UButton
-            v-if="computedStatus !== WatchStatus.WATCHING"
-            :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
-            color="secondary"
-            size="md"
-            :trailing-icon="
-              computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
-            "
-            class="transition-all duration-300 hover:scale-105"
-            @click="handleAddToWatchlist"
-          >
-            {{ t('common.content.add_to_watch_list') }}
-          </UButton>
+            <UButton
+              v-if="computedStatus !== WatchStatus.WATCHING"
+              :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+              color="secondary"
+              size="md"
+              :trailing-icon="
+                computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
+              "
+              class="transition-all duration-300 hover:scale-105"
+              @click="handleAddToWatchlist"
+            >
+              {{ t('common.content.add_to_watch_list') }}
+            </UButton>
+          </div>
         </div>
-
         <USeparator />
 
         <!-- Title Section -->
@@ -189,4 +190,7 @@ const genreDetails = computed(() => {
 
 const handleAddToViewed = () => addContentToViewedList(props.type, props.item.id)
 const handleAddToWatchlist = () => addContentToWatchlist(props.type, props.item.id)
+
+const baseURL = window.location.origin + '/' + props.type + '/' + props.item.id
+console.log(baseURL)
 </script>

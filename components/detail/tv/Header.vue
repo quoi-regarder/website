@@ -110,6 +110,9 @@
               :genres="props.genres"
             />
           </div>
+          <div class="flex justify-center pt-4">
+            <PopinShare :title="props.name" />
+          </div>
         </div>
       </div>
     </div>

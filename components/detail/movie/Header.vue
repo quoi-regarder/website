@@ -147,4 +147,6 @@ const linearGradient = computed(() => {
     return 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8))'
   }
 })
+
+console.log(props.title)
 </script>

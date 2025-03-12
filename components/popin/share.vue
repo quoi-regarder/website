@@ -23,7 +23,7 @@
             :label="true"
             :title="
               encodeURIComponent(
-                $t('modals.share.networkTitle', { title: props.title }).split('\n').join('%0D%0A')
+                $t('modals.share.networkTitle') + props.title.split('\n').join('%0D%0A')
               ) +
                 '%0D%0A' +
                 encodeURIComponent($t('modals.share.networkTitle2'))
@@ -33,10 +33,6 @@
           </SocialShare>
         </div>
       </div>
-    </template>
-
-    <template #footer>
-      <p class="text-sm">{{ $t('modals.share.body') }}</p>
     </template>
   </UModal>
 </template>
