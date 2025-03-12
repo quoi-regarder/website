@@ -305,12 +305,11 @@
       "twitch": "En direct sur Twitch tout le week-end pour découvrir Archipelago. Ne manquez pas l'événement !"
     },
     "share": {
-      "title": "Partager sur quel réseau social ?",
-      "body": "Regarde le film que j'ai trouvé ",
-      "networkTitle": "Je te recommande vivement de regarder ce film : ",
-      "networkTitle2": "Une histoire passionnante à ne pas manquer. #FilmRecommandation #Movies #QuoiRegarder #Series",
-      "buttons": {
-        "close": "Fermer"
+      "title": "📢 Partager sur quel réseau social ?",
+      "label": "Partager",
+      "network": {
+        "title": "Je te recommande vivement de regarder : ",
+        "body": "Une histoire passionnante à ne pas manquer. #Films #Séries #Recommandations #QuoiRegarder"
       }
     }
   },

@@ -1,6 +1,6 @@
 <template>
   <UModal v-model:open="isShareModalOpen" :title="$t('modals.share.title')">
-    <UButton trailing-icon="i-lucide:share-2" label="Partager" variant="solid" />
+    <UButton trailing-icon="i-lucide:share-2" :label="$t('modals.share.label')" variant="solid" />
     <template #body>
       <div class="flex flex-col text-justify gap-y-4">
         <!-- <p class="text-sm">{{ $t('modals.share.body') }}</p> -->
@@ -23,10 +23,10 @@
             :label="true"
             :title="
               encodeURIComponent(
-                $t('modals.share.networkTitle') + props.title.split('\n').join('%0D%0A')
+                $t('modals.share.network.title') + props.title.split('\n').join('%0D%0A')
               ) +
                 '%0D%0A' +
-                encodeURIComponent($t('modals.share.networkTitle2'))
+                encodeURIComponent($t('modals.share.network.body'))
             "
           >
             <template #label>{{ network.charAt(0).toUpperCase() + network.slice(1) }}</template>

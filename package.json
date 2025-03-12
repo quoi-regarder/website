@@ -39,6 +39,7 @@
     "@nuxtjs/i18n": "^9.4.0",
     "@nuxtjs/seo": "^3.0.1",
     "@pinia/nuxt": "^0.10.1",
+    "@stefanobartoletti/nuxt-social-share": "^1.2.1",
     "@vueuse/nuxt": "^13.0.0",
     "eslint": "^9.23.0",
     "husky": "^9.1.7",
@@ -48,8 +49,5 @@
     "sass-embedded": "^1.86.0",
     "typescript": "^5.8.2",
     "yup": "^1.6.1"
-  },
-  "devDependencies": {
-    "@stefanobartoletti/nuxt-social-share": "^1.2.1"
   }
 }

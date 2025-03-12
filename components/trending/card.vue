@@ -9,7 +9,6 @@
         class="absolute top-2 left-2 z-10 bg-secondary-500/90 text-white font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg"
       >
         #{{ rank }}
-        <PopinShare :title="props.title" />
       </div>
 
       <!-- Poster Image -->
@@ -47,6 +46,8 @@
     <div class="flex flex-col p-3 flex-grow overflow-hidden">
       <!-- Action Buttons -->
       <div class="flex flex-wrap gap-2 my-2 p-1 justify-end overflow-hidden">
+        <PopinShare :title="props.item.title" :url="baseURL" />
+
         <UButton
           :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
           size="sm"
@@ -180,4 +181,6 @@ const genreDetails = computed(() => {
 
 const handleAddToViewed = () => addContentToViewedList(props.type, props.item.id)
 const handleAddToWatchlist = () => addContentToWatchlist(props.type, props.item.id)
+
+const baseURL = localPath(`/${props.type}/${props.item.id}`)
 </script>

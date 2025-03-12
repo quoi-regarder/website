@@ -305,12 +305,11 @@
       "twitch": "Live on Twitch all weekend to discover Archipelago. Don't miss the event!"
     },
     "share": {
-      "title": "Share",
-      "body": "Share this movie or series with your friends.",
-      "networkTitle": "QuoiRegarder",
-      "networkTitle2": "Discover this movie or series on QuoiRegarder:",
-      "buttons": {
-        "close": "Close"
+      "title": "📢 Which social network would you like to share on?",
+      "label": "Share",
+      "network": {
+        "title": "I highly recommend watching: ",
+        "body": "An exciting story you shouldn’t miss. #Movies #Series #Recommendations #WhatToWatch"
       }
     }
   },
