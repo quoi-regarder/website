@@ -7,21 +7,19 @@ export const useAuthService = () => {
       body: credentials
     })
 
-    response.errors?.forEach((error: ApiError) => {
-      if (error.rule === 'email') {
-        useNotifications().error(
-          t('common.toasts.title.error'),
-          t(`common.toasts.errors.${error.rule}.${error.field}`)
-        )
-      } else if (error.rule.includes('unique')) {
-        useNotifications().error(
-          t('common.toasts.title.error'),
-          t(`common.toasts.errors.${error.rule}.${error.field}`)
-        )
-      } else {
-        console.error('Error during signup.')
+    if (response.exception) {
+      switch (response.exception) {
+        case Exception.USER_ALREADY_EXISTS:
+          useNotifications().error(
+            t('common.toasts.title.error'),
+            t(`common.toasts.errors.${response.error}.${response.errors.field}`)
+          )
+          break
+        default:
+          console.error('Error during signup.')
+          break
       }
-    })
+    }
 
     return response
   }
@@ -32,23 +30,32 @@ export const useAuthService = () => {
       body: credentials
     })
 
-    if (response.errorStatus && response.errorStatus !== ErrorStatus.VALIDATION_FAILED) {
-      useNotifications().error(
-        t('common.toasts.title.error'),
-        t(`common.toasts.errors.${response.errorStatus}`)
-      )
-    }
-
-    response.errors?.forEach((error: ApiError) => {
-      if (error.rule === 'email') {
-        useNotifications().error(
-          t('common.toasts.title.error'),
-          t(`common.toasts.errors.${error.rule}.${error.field}`)
-        )
-      } else {
-        console.error('Error during login.')
+    if (response.exception) {
+      switch (response?.exception) {
+        case Exception.EMAIL_NOT_VERIFIED:
+          useNotifications().error(
+            t('common.toasts.title.error'),
+            t(`common.toasts.errors.${response.error}`)
+          )
+          break
+        case Exception.BAD_CREDENTIALS:
+          if (response.errors.attemptsLeft === 0) {
+            useNotifications().error(
+              t('common.toasts.title.error'),
+              t('common.toasts.errors.timeout', { count: response.errors.timeout })
+            )
+          } else {
+            useNotifications().error(
+              t('common.toasts.title.error'),
+              t(`common.toasts.errors.${response.error}`, { count: response.errors.attemptsLeft })
+            )
+          }
+          break
+        default:
+          console.error('Error during login.')
+          break
       }
-    })
+    }
 
     return response
   }
@@ -56,7 +63,7 @@ export const useAuthService = () => {
   const socialLogin = async (provider: 'google'): Promise<string> => {
     const response: ApiResponse = await apiFetch(`/social/${provider}`)
 
-    return response.data.redirectUrl
+    return response.redirectUrl
   }
 
   const socialCallback = async (provider: 'google', code: string | null): Promise<ApiResponse> => {
@@ -67,7 +74,27 @@ export const useAuthService = () => {
       )
     }
 
-    const response: ApiResponse = await apiFetch(`/social/callback/${provider}?code=${code}`)
+    const response: ApiResponse = await apiFetch(`/social/${provider}/callback?code=${code}`)
+
+    if (response.exception) {
+      switch (response?.exception) {
+        case Exception.OAUTH_AUTHENTICATION_FAILED:
+          useNotifications().error(
+            t('common.toasts.title.error'),
+            t(`common.toasts.errors.${response.error}`)
+          )
+          break
+        case Exception.OAUTH_SERVICE_UNAVAILABLE:
+          useNotifications().error(
+            t('common.toasts.title.error'),
+            t(`google.toasts.error.${response.error}`)
+          )
+          break
+        default:
+          console.error('Error during social login.')
+          break
+      }
+    }
 
     return response
   }
@@ -82,16 +109,16 @@ export const useAuthService = () => {
       body: { email }
     })
 
-    response.errors?.forEach((error: ApiError) => {
-      if (error.rule === 'email') {
-        useNotifications().error(
-          t('common.toasts.title.error'),
-          t(`common.toasts.errors.${error.rule}.${error.field}`)
-        )
-      } else {
-        console.error('Error during forgot password.')
+    if (response.exception) {
+      switch (response?.exception) {
+        case Exception.ENTITY_NOT_EXISTS:
+          // We don't want to expose the fact that the email doesn't exist
+          break
+        default:
+          console.error('Error during forgot password.')
+          break
       }
-    })
+    }
 
     return response
   }
@@ -102,23 +129,19 @@ export const useAuthService = () => {
       body: { password, token }
     })
 
-    if (response.errorStatus && response.errorStatus !== ErrorStatus.VALIDATION_FAILED) {
-      useNotifications().error(
-        t('common.toasts.title.error'),
-        t(`common.toasts.errors.${response.errorStatus}`)
-      )
-    }
-
-    response.errors?.forEach((error: ApiError) => {
-      if (error.rule === 'password') {
-        useNotifications().error(
-          t('common.toasts.title.error'),
-          t(`common.toasts.errors.${error.rule}.${error.field}`)
-        )
-      } else {
-        console.error('Error during reset password.')
+    if (response.exception) {
+      switch (response?.exception) {
+        case Exception.INVALID_TOKEN:
+          useNotifications().error(
+            t('common.toasts.title.error'),
+            t(`common.toasts.errors.${response.error}.reset`)
+          )
+          break
+        default:
+          console.error('Error during reset password.')
+          break
       }
-    })
+    }
 
     return response
   }
@@ -126,11 +149,18 @@ export const useAuthService = () => {
   const verifyEmail = async (token: string): Promise<ApiResponse> => {
     const response: ApiResponse = await apiFetch(`/verify-email/${token}`)
 
-    if (response.errorStatus) {
-      useNotifications().error(
-        t('common.toasts.title.error'),
-        t(`common.toasts.errors.${response.errorStatus}`)
-      )
+    if (response.exception) {
+      switch (response?.exception) {
+        case Exception.INVALID_TOKEN:
+          useNotifications().error(
+            t('common.toasts.title.error'),
+            t(`common.toasts.errors.${response.error}.verify`)
+          )
+          break
+        default:
+          console.error('Error during email verification.')
+          break
+      }
     }
 
     return response

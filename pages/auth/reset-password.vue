@@ -59,12 +59,11 @@ const onSubmit = async () => {
   if (!token) return
   const response = await authService.resetPassword(state.password as string, token as string)
 
-  if (response.status === 'error') {
-    navigateTo(localPath('/'))
+  if (response.error) {
     return
   }
 
-  useAuthStore().setAuth(response.data)
+  useAuthStore().setAuth(response)
   await navigateTo(localPath('/'))
   useNotifications().success(
     t('common.toasts.title.success'),

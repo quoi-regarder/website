@@ -33,11 +33,7 @@
             @click="show = !show"
           />
 
-          <UIcon
-            v-else-if="error"
-            name="i-lucide:exclamation-triangle"
-            class="text-[var(--ui-error)] size-6"
-          />
+          <UIcon v-else-if="error" name="i-lucide:circle-x" class="text-[var(--ui-error)] size-6" />
         </template>
       </UInput>
     </template>

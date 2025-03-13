@@ -1,15 +1,15 @@
 <template>
   <Html :lang="htmlAttrs.lang" :dir="htmlAttrs.dir">
     <Body>
-      <template v-if="!isAuth">
+      <template v-if="!isAuth && !isMaintenance">
         <Navbar
           class="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-40 bg-[var(--ui-bg)]/60"
         />
       </template>
-      <div :class="[isAuth ? 'mt-0' : 'mt-20']">
+      <div :class="[isAuth || isMaintenance ? 'mt-0' : 'mt-20']">
         <slot />
       </div>
-      <template v-if="!isAuth">
+      <template v-if="!isAuth && !isMaintenance">
         <Footer />
       </template>
       <ClientOnly>
@@ -38,6 +38,8 @@ const route = useRoute()
 
 const isAuth = computed(() => route.path.includes('/auth'))
 
+const isMaintenance = computed(() => route.path.includes('/maintenance'))
+
 const featurePromoStore = useFeaturePromoStore()
 const authStore = useAuthStore()
 const showPromo = ref(false)
@@ -49,7 +51,7 @@ onMounted(() => {
 })
 
 const showFeaturePromo = computed(() => {
-  if (isAuth.value || authStore?.isAuthenticated || !showPromo.value) {
+  if (isAuth.value || authStore?.isAuthenticated || !showPromo.value || isMaintenance.value) {
     return false
   }
   return !featurePromoStore.getHasSeenPromo

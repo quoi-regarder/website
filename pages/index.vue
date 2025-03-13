@@ -64,10 +64,11 @@ onMounted(() => {
 
 const handleRegisterToken = async () => {
   const token = route.query.token
+
   if (!token) return
   const response: ApiResponse = await authService.verifyEmail(token as string)
 
-  if (response.status === 'error') {
+  if (response.error) {
     navigateTo(localPath('/'))
     return
   }

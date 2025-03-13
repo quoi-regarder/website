@@ -14,12 +14,12 @@ onMounted(async () => {
     route.query.code as string
   )
 
-  if (response.status === 'error') {
+  if (response.error) {
     await navigateTo(localPath('/auth/login'))
     return
   }
 
-  useAuthStore().setAuth(response.data)
+  useAuthStore().setAuth(response)
   await navigateTo(localPath('/'))
   useNotifications().success(t('common.toasts.title.success'), t('google.toasts.success.login'))
 })

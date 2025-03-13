@@ -83,8 +83,8 @@ const movieListStore = useMovieListStore()
 const serieListStore = useSerieListStore()
 const localePath = useLocalePath()
 const { t } = useI18n()
-useMovieListChannel()
-useSerieListChannel()
+// useMovieListChannel()
+// useSerieListChannel()
 
 const mobileMenuOpenend = ref(false)
 

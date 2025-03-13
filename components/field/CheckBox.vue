@@ -6,7 +6,7 @@
       :name="name"
       :required="required"
       :help="help"
-      :trailing-icon="error ? 'i-lucide:exclamation-triangle' : undefined"
+      :trailing-icon="error ? 'i-lucide:circle-x' : undefined"
       :ui="{ base: 'ring-primary-400' }"
     />
   </UFormField>

@@ -62,6 +62,7 @@
 const { state, schema } = useLoginForm()
 const authService = useAuthService()
 const localePath = useLocalePath()
+const toast = useToast()
 const { t } = useI18n()
 
 useHead({
@@ -84,11 +85,30 @@ const login = async (provider: 'google') => {
 const onSubmit = async () => {
   const response: ApiResponse = await authService.login(state)
 
-  if (response.status === 'error') {
+  if (response.error) {
+    toast.add({
+      title: t('login.toasts.errors.title'),
+      icon: 'i-lucide:circle-x',
+      description: t('login.toasts.errors.message'),
+      color: 'error',
+      duration: 10000,
+      actions: [
+        {
+          trailingIcon: 'i-lucide:arrow-up-right',
+          label: t('login.toasts.errors.action'),
+          color: 'secondary',
+          variant: 'outline',
+          onClick: (e) => {
+            e?.stopPropagation()
+            navigateTo(localePath('/auth/forgot-password'))
+          }
+        }
+      ]
+    })
     return
   }
 
-  useAuthStore().setAuth(response.data)
+  useAuthStore().setAuth(response)
   await navigateTo(localePath('/'))
   useNotifications().success(t('common.toasts.title.success'), t('login.toasts.success.login'))
 }

@@ -35,16 +35,40 @@ export async function apiFetch<ApiResponse> (
   const response = await fetch(manager.toString(), {
     method,
     headers,
+    credentials: 'include',
     body: method !== 'GET' ? (body instanceof FormData ? body : JSON.stringify(body)) : undefined
   })
 
+  let data: ApiResponse
+  try {
+    const text = await response.text()
+    data = text ? JSON.parse(text) : ({} as ApiResponse)
+  } catch (error) {
+    console.error('Failed to parse response:', error)
+    data = {} as ApiResponse
+  }
+
+  // Handle expired token
+  if (
+    useAuthStore().getToken &&
+    data.status === 401 &&
+    data.exception === Exception.JWT_HAS_EXPIRED
+  ) {
+    useAuthStore().resetAuth()
+    useNotifications().error(
+      $i18n.t('common.toasts.title.error'),
+      $i18n.t('common.toasts.errors.session.expired')
+    )
+    navigateTo('/auth/login')
+  }
+
+  // Handle rate limit
   if (response.status === 429) {
     useNotifications().error(
       $i18n.t('common.toasts.title.error'),
-      $i18n.t('common.toasts.errors.rateLimit')
+      $i18n.t('common.toasts.errors.rate.limit')
     )
   }
 
-  const data: ApiResponse = await response.json()
   return data
 }
