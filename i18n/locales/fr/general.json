@@ -410,8 +410,10 @@
     "toasts": {
       "success": {
         "accountDeleted": "Compte supprimé avec succès.",
-        "avatarRemoved": "Photo de profil supprimée.",
-        "avatarUpdated": "Photo de profil mise à jour.",
+        "avatar": {
+          "updated": "Photo de profil mise à jour.",
+          "removed": "Photo de profil supprimée."
+        },
         "updated": "Profil mis à jour avec succès."
       }
     }

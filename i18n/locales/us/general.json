@@ -410,8 +410,10 @@
     "toasts": {
       "success": {
         "accountDeleted": "Your account has been deleted.",
-        "avatarRemoved": "Your profile picture has been removed.",
-        "avatarUpdated": "Your profile picture has been updated.",
+        "avatar": {
+          "removed": "Your profile picture has been removed.",
+          "updated": "Your profile picture has been updated."
+        },
         "updated": "Your profile has been updated."
       }
     }

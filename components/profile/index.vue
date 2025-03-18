@@ -122,13 +122,22 @@ const onSubmit = async () => {
 }
 
 const handleAvatarChange = async (file: File) => {
-  const profile: Profile = await profileService.updateAvatar(authStore.getUserId, file)
+  let action: 'updated' | 'removed'
+  let profile: Profile | null = null
+
+  if (file) {
+    profile = await profileService.updateAvatar(authStore.getUserId, file)
+    action = 'updated'
+  } else {
+    profile = await profileService.deleteAvatar(authStore.getUserId)
+    action = 'removed'
+  }
 
   if (profile) {
     setState(profile)
     useNotifications().success(
       t('common.toasts.title.success'),
-      t('profile.toasts.success.avatarUpdated')
+      t(`profile.toasts.success.avatar.${action}`)
     )
   }
 }

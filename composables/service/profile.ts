@@ -47,7 +47,7 @@ export const useProfileService = () => {
     return response.data
   }
 
-  const updateAvatar = async (id: string | null, avatar: File): Promise<Profile> => {
+  const updateAvatar = async (id: string | null, avatar: File): Promise<Profile | null> => {
     if (!id) {
       throw new Error('Profile ID is required')
     }
@@ -55,19 +55,35 @@ export const useProfileService = () => {
     const formData = new FormData()
     formData.append('avatar', avatar)
 
-    const response: ApiResponse = await apiFetch(`/profiles/${id}/avatar`, {
+    const response: ApiResponse<Profile> = await apiFetch(`/profiles/${id}/avatar`, {
       method: 'PUT',
-      ...(avatar instanceof File && {
-        contentType: 'multipart/form-data',
-        body: formData
-      })
+      contentType: 'multipart/form-data',
+      body: formData
     })
 
-    if (response.errors || response.errorStatus) {
-      console.error('Failed to update profile avatar.')
+    if (!response.success) {
+      console.error('Error during avatar update.')
+      return null
     }
 
-    return response.data?.profile
+    return response.data
+  }
+
+  const deleteAvatar = async (id: string | null): Promise<Profile | null> => {
+    if (!id) {
+      throw new Error('Profile ID is required')
+    }
+
+    const response: ApiResponse<Profile> = await apiFetch(`/profiles/${id}/avatar`, {
+      method: 'DELETE'
+    })
+
+    if (!response.success) {
+      console.error('Error during avatar delete.')
+      return null
+    }
+
+    return response.data
   }
 
   const updateLanguage = async (
@@ -127,6 +143,7 @@ export const useProfileService = () => {
   return {
     getProfile,
     updateProfile,
+    deleteAvatar,
     updateAvatar,
     updateLanguage,
     updateColorMode
