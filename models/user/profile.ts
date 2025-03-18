@@ -1,5 +1,6 @@
 export interface Profile {
   userId: string
+  email: string
   username: string
   firstName: string | null
   lastName: string | null
@@ -8,5 +9,4 @@ export interface Profile {
   colorMode: ColorModeType
   createdAt: Date | null
   updatedAt: Date | null
-  user: Partial<User>
 }

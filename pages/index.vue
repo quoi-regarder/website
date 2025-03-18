@@ -66,9 +66,9 @@ const handleRegisterToken = async () => {
   const token = route.query.token
 
   if (!token) return
-  const response: ApiResponse = await authService.verifyEmail(token as string)
+  const response: ApiResponse<void> = await authService.verifyEmail(token as string)
 
-  if (response.error) {
+  if (!response.success) {
     navigateTo(localPath('/'))
     return
   }

@@ -99,13 +99,18 @@ const { t } = useI18n()
 
 onMounted(async () => {
   const profile: Profile | null = await profileService.getProfile(authStore.getUserId)
-  email.value = profile?.user.email
+
+  if (!profile) {
+    return
+  }
+
+  email.value = profile.email
 
   setState(profile)
 })
 
 const onSubmit = async () => {
-  const profile: Profile = await profileService.updateProfile(authStore.getUserId, state)
+  const profile: Profile | null = await profileService.updateProfile(authStore.getUserId, state)
 
   if (profile) {
     setState(profile)

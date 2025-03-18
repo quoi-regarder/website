@@ -144,7 +144,7 @@ definePageMeta({
 })
 
 const signup = async (provider: 'google') => {
-  const redirectUrl = await authService.socialLogin(provider)
+  const redirectUrl: string = await authService.socialLogin(provider)
 
   if (redirectUrl) {
     window.location.href = redirectUrl
@@ -153,7 +153,7 @@ const signup = async (provider: 'google') => {
 
 const onSubmit = async () => {
   isLoading.value = true
-  const response: ApiResponse = await authService.register({
+  const response: ApiResponse<Partial<User>> = await authService.register({
     email: state.email,
     password: state.password,
     username: state.username,
@@ -164,7 +164,7 @@ const onSubmit = async () => {
   })
   isLoading.value = false
 
-  if (response.error) {
+  if (!response.success) {
     return
   }
 

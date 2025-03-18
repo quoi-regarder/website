@@ -51,8 +51,8 @@ export async function apiFetch<ApiResponse> (
   // Handle expired token
   if (
     useAuthStore().getToken &&
-    data.status === 401 &&
-    data.exception === Exception.JWT_HAS_EXPIRED
+    !data.success &&
+    data.error?.status === ErrorStatus.JWT_TOKEN_EXPIRED
   ) {
     useAuthStore().resetAuth()
     useNotifications().error(

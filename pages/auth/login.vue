@@ -75,7 +75,7 @@ definePageMeta({
 })
 
 const login = async (provider: 'google') => {
-  const redirectUrl = await authService.socialLogin(provider)
+  const redirectUrl: string = await authService.socialLogin(provider)
 
   if (redirectUrl) {
     window.location.href = redirectUrl
@@ -83,9 +83,9 @@ const login = async (provider: 'google') => {
 }
 
 const onSubmit = async () => {
-  const response: ApiResponse = await authService.login(state)
+  const response: ApiResponse<LoginResponse> = await authService.login(state)
 
-  if (response.error) {
+  if (!response.success) {
     toast.add({
       title: t('login.toasts.errors.title'),
       icon: 'i-lucide:circle-x',
@@ -108,7 +108,7 @@ const onSubmit = async () => {
     return
   }
 
-  useAuthStore().setAuth(response)
+  useAuthStore().setAuth(response.data)
   await navigateTo(localePath('/'))
   useNotifications().success(t('common.toasts.title.success'), t('login.toasts.success.login'))
 }

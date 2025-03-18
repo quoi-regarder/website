@@ -111,6 +111,7 @@
           }
         },
         "invalid": {
+          "language": "The language is not supported.",
           "token": {
             "reset": "The reset link is invalid. Please try again.",
             "verify": "The verification link is invalid. Please try again."

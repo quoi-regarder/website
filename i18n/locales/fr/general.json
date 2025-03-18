@@ -111,6 +111,7 @@
           }
         },
         "invalid": {
+          "langue": "La langue sélectionnée est invalide. Veuillez réessayer.",
           "token": {
             "reset": "Le lien de réinitialisation est invalide. Veuillez réessayer.",
             "verify": "Le lien de vérification est invalide. Veuillez réessayer."

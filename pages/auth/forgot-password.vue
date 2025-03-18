@@ -60,7 +60,7 @@ definePageMeta({
 
 const onSubmit = async () => {
   isLoading.value = true
-  const response: ApiResponse = await authService.forgotPassword(state.email)
+  await authService.forgotPassword(state.email)
   isLoading.value = false
 
   await navigateTo(localPath('/'))

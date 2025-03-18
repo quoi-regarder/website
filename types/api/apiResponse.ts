@@ -1,8 +1,8 @@
-export interface ApiResponse {
-  error: string
-  errors: any
-  exception?: Exception
-  status: number
-  timestamp: string
+export interface ApiResponse<T> {
+  success: boolean
   message: string
+  data: T | null
+  error?: ErrorMeta
+  timestamp: string
+  status: number
 }
