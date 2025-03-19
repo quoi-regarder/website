@@ -8,7 +8,7 @@ the [TMDb API](https://www.themoviedb.org/documentation/api) to fetch data.
 ## Introduction
 
 This project is built with [Nuxt.js](https://nuxtjs.org/), a Vue.js framework. It
-uses [Tailwind CSS](https://tailwindcss.com/) and an Adonis.js backend [Adonis.js](https://adonisjs.com/).
+uses [Tailwind CSS](https://tailwindcss.com/) and an Spring Boot API.
 
 ## Setup
 
