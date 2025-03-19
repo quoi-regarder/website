@@ -4,6 +4,4 @@ export interface SerieSeasonWatchlist {
   status: WatchStatus
   createdAt: string
   updatedAt: string
-  user?: Partial<Profile>
-  season?: Partial<SerieSeason>
 }

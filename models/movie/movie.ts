@@ -3,8 +3,8 @@ export interface Movie {
   runtime: number
   releaseDate: string
   posterPath: string
+  title: string
+  overview: string
   createdAt: string
   updatedAt: string
-  translations: MovieTranslation[]
-  movieWatchlist: MovieWatchlist[]
 }

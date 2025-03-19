@@ -2,10 +2,9 @@ export interface SerieSeason {
   seasonId: number
   serieId: number
   seasonNumber: number
-  airDate: string
   episodeCount: number
+  airDate: string
+  episodeIds: number[]
   createdAt: string
   updatedAt: string
-  serie: Partial<Serie>
-  episodes: Partial<SerieEpisode>[]
 }

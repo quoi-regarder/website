@@ -10,13 +10,13 @@
   },
   "engines": {
     "node": ">= 20.0.0",
-    "npm": ">= 8.0.0"
+    "pnpm": ">= 8.0.0"
   },
   "scripts": {
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
-    "lint": "npm run lint:prettier && npm run lint:eslint",
+    "lint": "pnpm run lint:prettier && pnpm run lint:eslint",
     "lint:eslint": "eslint . --fix",
     "lint:prettier": "prettier --write --list-different .",
     "postinstall": "nuxt prepare",

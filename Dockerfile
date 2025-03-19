@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 
 # Install production dependencies (without devDependencies)
-RUN npm ci --omit=dev
+RUN pnpm ci --omit=dev
 
 # Copy the rest of the source code
 COPY . .
@@ -15,10 +15,10 @@ COPY . .
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
 # Run "nuxt prepare" after installation
-RUN npm run postinstall || true  # Prevent build failure if postinstall fails
+RUN pnpm run postinstall || true  # Prevent build failure if postinstall fails
 
 # Build the Nuxt application in production SSR mode
-RUN npm run build
+RUN pnpm run build
 
 # Step 2: Run the application
 FROM node:20-alpine

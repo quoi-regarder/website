@@ -1,8 +1,10 @@
 export interface SerieEpisode {
   episodeId: number
   seasonId: number
+  serieId: number
   episodeNumber: number
-  name: string
+  runtime: number
+  airDate: string
   createdAt: string
   updatedAt: string
 }
