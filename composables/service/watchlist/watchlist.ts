@@ -16,7 +16,7 @@ export interface WatchlistService {
     userId: string | null,
     primaryId?: string | number | null,
     seasonNumber?: number | null
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 
   /**
    *
@@ -32,7 +32,7 @@ export interface WatchlistService {
     status: WatchStatus,
     page: number,
     limit: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 
   /**
    *
@@ -52,7 +52,7 @@ export interface WatchlistService {
     userId: string | null,
     data: MovieWatchlist,
     contentId?: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 
   /**
    *
@@ -73,7 +73,7 @@ export interface WatchlistService {
     tmdbId: string | number | null,
     status: WatchStatus,
     contentId?: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 
   /**
    *
@@ -92,5 +92,5 @@ export interface WatchlistService {
     userId: string | null,
     tmdbId: number | string,
     contentId?: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 }

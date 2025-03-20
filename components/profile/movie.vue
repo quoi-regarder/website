@@ -46,7 +46,7 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col h-[335px]">
+          <div :key="item.tmdbId" class="relative flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :movie="item" type="movie" class="h-full" />
             </div>
@@ -74,7 +74,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full min-h-[350px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>
@@ -117,7 +117,7 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="flex items-center flex-col h-[335px]">
+          <div :key="item.tmdbId" class="flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :movie="item" type="movie" class="h-full" />
             </div>
@@ -136,7 +136,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full min-h-[350px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>
@@ -152,16 +152,16 @@
 <script lang="ts" setup>
 const movieListStore = useMovieListStore()
 const movieWatchlistService = useMovieWatchlistService()
-const { totalRuntime } = useMocieRuntimeChannel()
+const { totalRuntime } = useMovieRuntimeChannel()
 
 const toWatchCarousel = useTemplateRef('toWatchCarousel')
 const watchedCarousel = useTemplateRef('watchedCarousel')
-const watchedList = ref<MovieWatchlist[]>([])
-const toWatchList = ref<MovieWatchlist[]>([])
+const watchedList = ref<Movie[]>([])
+const toWatchList = ref<Movie[]>([])
 const watchedTotalPages = ref(1)
 const toWatchTotalPages = ref(1)
-const watchedPage = ref(1)
-const toWatchPage = ref(1)
+const watchedPage = ref(0)
+const toWatchPage = ref(0)
 
 const authStore = useAuthStore()
 const { t } = useI18n()
@@ -176,18 +176,18 @@ onMounted(async () => {
 })
 
 const addToWatchedLists = async (tmdb_id: number) => {
-  const response: ApiResponse = await movieWatchlistService.updateWatchlist(
+  const response: ApiResponse<MovieWatchlist> = await movieWatchlistService.updateWatchlist(
     authStore.getUserId,
     tmdb_id,
     WatchStatus.WATCHED
   )
 
-  if (response.status === 'error') {
+  if (!response.success) {
     return
   }
 
-  watchedPage.value = 1
-  toWatchPage.value = 1
+  watchedPage.value = 0
+  toWatchPage.value = 0
 
   await fetchToWatchLists(true)
   await fetchWatchedLists(true)
@@ -199,43 +199,47 @@ const addToWatchedLists = async (tmdb_id: number) => {
 }
 
 const fetchToWatchLists = async (reset = false) => {
-  const response = await movieWatchlistService.getWatchlistWithDetails?.(
-    authStore.getUserId,
-    WatchStatus.TO_WATCH,
-    toWatchPage.value,
-    20
-  )
+  const response: ApiResponse<Pagination<Movie>> | undefined =
+    await movieWatchlistService.getWatchlistWithDetails?.(
+      authStore.getUserId,
+      WatchStatus.TO_WATCH,
+      toWatchPage.value,
+      20
+    )
 
-  if (response?.data === undefined) {
+  if (response === undefined || !response.success) {
     return
   }
 
   if (reset) {
-    toWatchList.value = response.data.data
+    toWatchList.value = response.data?.content ?? []
   } else {
-    toWatchList.value = toWatchList.value.concat(response.data.data)
+    toWatchList.value = toWatchList.value.concat(response.data?.content ?? [])
   }
-  toWatchTotalPages.value = response.data.meta.lastPage
+
+  toWatchTotalPages.value = response.data?.totalPages ?? 1
 }
 
 const fetchWatchedLists = async (reset = false) => {
-  const response = await movieWatchlistService.getWatchlistWithDetails?.(
-    authStore.getUserId,
-    WatchStatus.WATCHED,
-    watchedPage.value,
-    20
-  )
+  const response: ApiResponse<Pagination<Movie>> | undefined =
+    await movieWatchlistService.getWatchlistWithDetails?.(
+      authStore.getUserId,
+      WatchStatus.WATCHED,
+      watchedPage.value,
+      20
+    )
 
-  if (response?.data === undefined) {
+  if (response === undefined || !response.success) {
     return
   }
 
   if (reset) {
-    watchedList.value = response.data.data
+    watchedList.value = response.data?.content ?? []
   } else {
-    watchedList.value = watchedList.value.concat(response.data.data)
+    watchedList.value = watchedList.value.concat(response.data?.content ?? [])
   }
-  watchedTotalPages.value = response.data.meta.lastPage
+
+  watchedTotalPages.value = response.data?.totalPages ?? 1
 }
 
 watch(toWatchCarousel, () => {

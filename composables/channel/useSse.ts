@@ -17,6 +17,9 @@ interface SseConnection {
   eventSource: Ref<EventSource | null>
 }
 
+// Store global event handlers
+const globalEventHandlers = new Map<string, Map<string, Set<(event: MessageEvent) => void>>>()
+
 export const useSse = (url: Ref<string | undefined>, key: string, options: SseOptions = {}) => {
   const { $sse } = useNuxtApp()
   const authStore = useAuthStore()
@@ -27,8 +30,8 @@ export const useSse = (url: Ref<string | undefined>, key: string, options: SseOp
   // Computed property to check auth status
   const isAuthenticated = computed(() => authStore.isAuthenticated && !!authStore.getToken)
 
-  // Setup event mapping
-  const eventHandlers = ref<Map<string, (event: MessageEvent) => void>>(new Map())
+  // Setup event mapping for this instance
+  const localEventHandlers = ref<Map<string, (event: MessageEvent) => void>>(new Map())
 
   // Connect to SSE
   const connect = () => {
@@ -43,7 +46,16 @@ export const useSse = (url: Ref<string | undefined>, key: string, options: SseOp
     }
 
     try {
-      // Create or get connection
+      // Check if connection already exists - if so, just set up listeners and return
+      const existingConnection = $sse.getExistingConnection(key)
+      if (existingConnection) {
+        connection = existingConnection
+        setupEventListeners()
+        isConnected.value = connection.status.value === 'OPEN'
+        return true
+      }
+
+      // Create new connection
       connection = $sse.createSseConnection(key, url.value) as SseConnection
 
       // Handle null connection (happens if auth check failed in plugin)
@@ -92,35 +104,59 @@ export const useSse = (url: Ref<string | undefined>, key: string, options: SseOp
 
   // Add event listener
   const addEventListener = (eventName: string, callback: (event: MessageEvent) => void) => {
-    eventHandlers.value.set(eventName, callback)
+    // Store in local handlers
+    localEventHandlers.value.set(eventName, callback)
+
+    // Initialize global handlers for this connection if needed
+    if (!globalEventHandlers.has(key)) {
+      globalEventHandlers.set(key, new Map())
+    }
+    const connectionHandlers = globalEventHandlers.get(key)!
+
+    // Initialize handlers for this event if needed
+    if (!connectionHandlers.has(eventName)) {
+      connectionHandlers.set(eventName, new Set())
+    }
+    const eventHandlers = connectionHandlers.get(eventName)!
+
+    // Add the callback to the set of handlers
+    eventHandlers.add(callback)
+
+    // Setup listeners if we have an active connection
     setupEventListeners()
   }
 
   // Remove event listener
   const removeEventListener = (eventName: string) => {
-    eventHandlers.value.delete(eventName)
-    setupEventListeners()
+    const callback = localEventHandlers.value.get(eventName)
+    if (callback && globalEventHandlers.has(key)) {
+      const connectionHandlers = globalEventHandlers.get(key)!
+      const eventHandlers = connectionHandlers.get(eventName)
+      if (eventHandlers) {
+        eventHandlers.delete(callback)
+      }
+    }
+    localEventHandlers.value.delete(eventName)
   }
 
   // Setup event listeners
   const setupEventListeners = () => {
     if (!connection || !connection.eventSource.value) return
 
-    // Get all current event names from the event source
     const currentEventSource = connection.eventSource.value
+    const connectionHandlers = globalEventHandlers.get(key)
 
-    // First remove all previous handlers
-    eventHandlers.value.forEach((_, eventName) => {
-      currentEventSource.removeEventListener(eventName, (e: MessageEvent) => {
-        const handler = eventHandlers.value.get(eventName)
-        if (handler) handler(e)
+    if (connectionHandlers) {
+      connectionHandlers.forEach((handlers, eventName) => {
+        const wrapper = (event: MessageEvent) => {
+          handlers.forEach((handler) => handler(event))
+        }
+        // Remove existing listener if any
+        currentEventSource.removeEventListener(eventName, wrapper)
+        // Add new listener
+        currentEventSource.addEventListener(eventName, wrapper)
       })
-    })
-
-    // Then add current handlers
-    eventHandlers.value.forEach((handler, eventName) => {
-      currentEventSource.addEventListener(eventName, handler)
-    })
+    }
 
     // Add message handler if provided
     if (options.onMessage) {
@@ -162,9 +198,19 @@ export const useSse = (url: Ref<string | undefined>, key: string, options: SseOp
     }
   })
 
-  // Cleanup on unmount
+  // Cleanup only event listeners on unmount
   onUnmounted(() => {
-    $sse.removeSseConnection(key)
+    // Remove only this instance's handlers
+    localEventHandlers.value.forEach((callback, eventName) => {
+      if (globalEventHandlers.has(key)) {
+        const connectionHandlers = globalEventHandlers.get(key)!
+        const eventHandlers = connectionHandlers.get(eventName)
+        if (eventHandlers) {
+          eventHandlers.delete(callback)
+        }
+      }
+    })
+    localEventHandlers.value.clear()
   })
 
   return {

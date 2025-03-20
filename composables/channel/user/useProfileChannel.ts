@@ -6,43 +6,35 @@ export const useProfileChannel = () => {
   const colorMode = useColorMode()
   const { $sse } = useNuxtApp()
 
-  // Check authentication status
   const isAuthenticated = computed(
     () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
   )
 
-  // Create the SSE URL with authentication token
   const sseUrl = computed<string | undefined>(() => {
     if (!isAuthenticated.value) return undefined
     return $sse.createAuthSseUrl('/api/notifications', authStore.getToken)
   })
 
-  // Connection key
-  const connectionKey = computed(() =>
-    isAuthenticated.value ? `profile-${authStore.getUserId}` : ''
-  )
+  const connectionKey = 'notifications-channel'
 
-  // Use our SSE composable
   const {
     isConnected,
     error: connectionError,
     reconnect,
     addEventListener,
     disconnect
-  } = useSse(sseUrl, connectionKey.value, {
+  } = useSse(sseUrl, connectionKey, {
     immediate: false,
     onError: (error) => {
       console.error('Profile channel SSE error:', error)
     }
   })
 
-  // Handler for profile update events
   const onProfileUpdate = (event: MessageEvent) => {
     try {
       const data = JSON.parse(event.data)
       profile.value = data
 
-      // Update user preferences based on profile
       if (profile.value?.language) {
         switchLocalePath(formatLanguageToString(profile.value.language))
       }
@@ -55,7 +47,6 @@ export const useProfileChannel = () => {
     }
   }
 
-  // Initial profile fetch
   const fetchProfile = async () => {
     const fetchedProfile: Profile | null = await profileService.getProfile(authStore.getUserId)
 
@@ -66,30 +57,21 @@ export const useProfileChannel = () => {
     colorMode.preference = (profile.value?.colorMode as string) || 'system'
   }
 
-  // Initialize on component mount
   onMounted(async () => {
     if (!isAuthenticated.value) return
 
-    // Fetch initial profile data
     await fetchProfile()
-
-    // Set up event listeners
-    addEventListener('PROFILE_UPDATE', onProfileUpdate)
-
-    // Connect
+    addEventListener(SseEventType.PROFILE_UPDATE, onProfileUpdate)
     reconnect()
   })
 
-  // Watch for auth status changes
   watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
     if (newAuthStatus && !oldAuthStatus) {
-      // User just logged in
       fetchProfile().then(() => {
-        addEventListener('PROFILE_UPDATE', onProfileUpdate)
+        addEventListener(SseEventType.PROFILE_UPDATE, onProfileUpdate)
         reconnect()
       })
     } else if (!newAuthStatus && oldAuthStatus) {
-      // User just logged out
       disconnect()
       profile.value = null
     }
@@ -97,8 +79,6 @@ export const useProfileChannel = () => {
 
   return {
     profile,
-    isConnected,
-    connectionError,
-    reconnect
+    isConnected
   }
 }

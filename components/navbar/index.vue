@@ -13,7 +13,7 @@
         />
 
         <!-- Desktop nav items -->
-        <div class="hidden lg:flex">
+        <div v-if="navItems" class="hidden lg:flex">
           <NavbarNavItems :nav-items="navItems" :is-mobile="false" />
         </div>
       </div>
@@ -83,7 +83,7 @@ const movieListStore = useMovieListStore()
 const serieListStore = useSerieListStore()
 const localePath = useLocalePath()
 const { t } = useI18n()
-// useMovieListChannel()
+useMovieListChannel()
 // useSerieListChannel()
 
 const mobileMenuOpenend = ref(false)

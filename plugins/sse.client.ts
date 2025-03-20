@@ -1,11 +1,10 @@
 export default defineNuxtPlugin(() => {
   // Store SSE connections
   const sseConnections = ref(new Map())
+  const authStore = useAuthStore()
 
   // Check authentication
   const checkAuth = () => {
-    // Use the auth store to check if the user is authenticated
-    const authStore = useAuthStore()
     if (!authStore.isAuthenticated || !authStore.getToken) {
       console.warn('SSE: Authentication required')
       return false
@@ -13,17 +12,19 @@ export default defineNuxtPlugin(() => {
     return true
   }
 
+  // Get existing SSE connection
+  const getExistingConnection = (key: string) => {
+    return sseConnections.value.has(key) ? sseConnections.value.get(key) : null
+  }
+
   // Create a new SSE connection
   const createSseConnection = (key: string, url: string) => {
-    // Check authentication first
     if (!checkAuth()) return null
 
-    // If connection already exists, return it
     if (sseConnections.value.has(key)) {
       return sseConnections.value.get(key)
     }
 
-    // Create new connection
     const connection = useEventSource(url, [], {
       immediate: false,
       autoReconnect: {
@@ -32,15 +33,12 @@ export default defineNuxtPlugin(() => {
       }
     })
 
-    // Store connection by key
     sseConnections.value.set(key, connection)
-
     return connection
   }
 
   // Connect to SSE
   const connectSse = (key: string) => {
-    // Check authentication first
     if (!checkAuth()) return false
 
     const connection = sseConnections.value.get(key)
@@ -54,7 +52,7 @@ export default defineNuxtPlugin(() => {
   // Disconnect from SSE
   const disconnectSse = (key: string) => {
     const connection = sseConnections.value.get(key)
-    if (connection && connection.eventSource.value) {
+    if (connection?.eventSource.value) {
       connection.eventSource.value.close()
       return true
     }
@@ -69,7 +67,6 @@ export default defineNuxtPlugin(() => {
 
   // Create authentication URL helper
   const createAuthSseUrl = (baseEndpoint: string, token: string) => {
-    // Check authentication first
     if (!checkAuth()) return ''
 
     const runtimeConfig = useRuntimeConfig()
@@ -79,20 +76,14 @@ export default defineNuxtPlugin(() => {
 
   // Disconnect all connections
   const disconnectAll = () => {
-    sseConnections.value.forEach((_, key) => {
-      disconnectSse(key)
-    })
+    sseConnections.value.forEach((_, key) => disconnectSse(key))
   }
 
   // Watch for authentication state changes
-  const authStore = useAuthStore()
   watch(
     () => authStore.isAuthenticated,
     (isAuthenticated) => {
-      if (!isAuthenticated) {
-        // Disconnect all SSE connections when user logs out
-        disconnectAll()
-      }
+      if (!isAuthenticated) disconnectAll()
     }
   )
 
@@ -100,6 +91,7 @@ export default defineNuxtPlugin(() => {
     provide: {
       sse: {
         createSseConnection,
+        getExistingConnection,
         connectSse,
         disconnectSse,
         removeSseConnection,

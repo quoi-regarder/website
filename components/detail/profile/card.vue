@@ -43,12 +43,12 @@ const imageLoaded = ref(false)
 
 const props = defineProps({
   movie: {
-    type: Object as PropType<MovieWatchlist>,
+    type: Object as PropType<Movie>,
     required: false,
     default: null
   },
   serie: {
-    type: Object as PropType<SerieWatchlist>,
+    type: Object as PropType<Serie>,
     required: false,
     default: null
   },
@@ -62,16 +62,16 @@ const itemDetails = computed(() => {
   if (props.type === 'movie') {
     return {
       id: props.movie?.tmdbId ?? '',
-      title: props.movie?.movie?.translations?.[0]?.title ?? 'Unknown Title',
-      posterPath: props.movie?.movie?.posterPath ?? '',
-      releaseDate: props.movie?.movie?.releaseDate ?? ''
+      title: props.movie?.title ?? '',
+      posterPath: props.movie?.posterPath ?? '',
+      releaseDate: props.movie?.releaseDate ?? ''
     }
   } else {
     return {
       id: props.serie?.tmdbId ?? '',
-      title: props.serie?.serie?.translations?.[0]?.name ?? 'Unknown Series',
-      posterPath: props.serie?.serie?.posterPath ?? '',
-      releaseDate: props.serie?.serie?.firstAirDate ?? ''
+      title: props.serie?.name ?? '',
+      posterPath: props.serie?.posterPath ?? '',
+      releaseDate: props.serie?.firstAirDate ?? ''
     }
   }
 })

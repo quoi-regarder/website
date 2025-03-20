@@ -2,39 +2,78 @@ export const useMovieListChannel = () => {
   const movieListStore = useMovieListStore()
   const movieWatchlistService = useMovieWatchlistService()
   const authStore = useAuthStore()
-  const { $transmit } = useNuxtApp()
+  const { $sse } = useNuxtApp()
+
+  const isAuthenticated = computed(
+    () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
+  )
+
+  const sseUrl = computed<string | undefined>(() => {
+    if (!isAuthenticated.value) return undefined
+    return $sse.createAuthSseUrl('/api/notifications', authStore.getToken)
+  })
+
+  const connectionKey = 'notifications-channel'
+
+  const {
+    isConnected,
+    error: connectionError,
+    reconnect,
+    addEventListener,
+    disconnect
+  } = useSse(sseUrl, connectionKey, {
+    immediate: false,
+    onError: (error) => {
+      console.error('Movie list channel SSE error:', error)
+    }
+  })
+
+  const onMovieListUpdate = (event: MessageEvent) => {
+    try {
+      const data = JSON.parse(event.data)
+      movieListStore.setToWatchIds(data.to_watch)
+      movieListStore.setWatchedIds(data.watched)
+    } catch (error) {
+      console.error('Error parsing movie list update:', error)
+    }
+  }
 
   const fetchMovieList = async () => {
-    const response: ApiResponse = await movieWatchlistService.getWatchlist(authStore.getUserId)
+    const response: ApiResponse<MovieIds> = await movieWatchlistService.getWatchlist(
+      authStore.getUserId
+    )
 
-    if (response.status === 'error') {
+    if (!response.success) {
+      console.error('Failed to fetch movie watchlist.')
       return
     }
 
-    movieListStore.setToWatchIds(response.data.to_watch)
-    movieListStore.setWatchedIds(response.data.watched)
-  }
-
-  const setupChannel = async () => {
-    if (!$transmit || !authStore.getUserId) return
-
-    try {
-      const subscription = $transmit.subscription(`movie_watchlist/${authStore.getUserId}`)
-      await subscription.create()
-
-      subscription.onMessage((data: any) => {
-        movieListStore.setToWatchIds(data.data.to_watch)
-        movieListStore.setWatchedIds(data.data.watched)
-      })
-    } catch (error) {
-      console.error('Failed to setup channel:', error)
-    }
+    movieListStore.setToWatchIds(response.data?.to_watch || [])
+    movieListStore.setWatchedIds(response.data?.watched || [])
   }
 
   onMounted(async () => {
-    if (authStore.isAuthenticated === false) return
+    if (!isAuthenticated.value) return
 
     await fetchMovieList()
-    await setupChannel()
+    addEventListener(SseEventType.MOVIE_WATCHLIST_IDS_UPDATE, onMovieListUpdate)
+    reconnect()
   })
+
+  watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
+    if (newAuthStatus && !oldAuthStatus) {
+      fetchMovieList().then(() => {
+        addEventListener(SseEventType.MOVIE_WATCHLIST_IDS_UPDATE, onMovieListUpdate)
+        reconnect()
+      })
+    } else if (!newAuthStatus && oldAuthStatus) {
+      disconnect()
+      movieListStore.setToWatchIds([])
+      movieListStore.setWatchedIds([])
+    }
+  })
+
+  return {
+    isConnected
+  }
 }
