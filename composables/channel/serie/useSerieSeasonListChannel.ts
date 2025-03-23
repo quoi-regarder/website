@@ -1,50 +1,83 @@
 export const useSerieSeasonListChannel = () => {
-  const seasonListStore = useSeasonListStore()
   const seasonWatchlistService = useSeasonWatchlistService()
+  const seasonListStore = useSeasonListStore()
   const authStore = useAuthStore()
-  const { $transmit } = useNuxtApp()
+  const { $sse } = useNuxtApp()
   const route = useRoute()
 
-  const fetchSeasonWatchlist = async () => {
-    const response: ApiResponse = await seasonWatchlistService.getWatchlist(
+  const isAuthenticated = computed(
+    () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
+  )
+
+  const sseUrl = computed<string | undefined>(() => {
+    if (!isAuthenticated.value) return undefined
+    return $sse.createAuthSseUrl('/api/notifications', authStore.getToken)
+  })
+
+  const connectionKey = 'notifications-channel'
+
+  const {
+    isConnected,
+    error: connectionError,
+    reconnect,
+    addEventListener,
+    disconnect
+  } = useSse(sseUrl, connectionKey, {
+    immediate: false,
+    onError: (error) => {
+      console.error('Serie season list channel SSE error:', error)
+    }
+  })
+
+  const onSeasonListUpdate = (event: MessageEvent) => {
+    try {
+      const data = JSON.parse(event.data)
+      seasonListStore.setToWatchIds(data.to_watch)
+      seasonListStore.setWatchedIds(data.watched)
+      seasonListStore.setWatchingIds(data.watching)
+    } catch (error) {
+      console.error('Error parsing season list update:', error)
+    }
+  }
+
+  const fetchSeasonList = async () => {
+    const response: ApiResponse<SerieSeasonIds> = await seasonWatchlistService.getWatchlist(
       authStore.getUserId,
       route.params.id as string
     )
 
-    if (response.status === 'error') {
+    if (!response.success) {
+      console.error('Failed to fetch season watchlist.')
       return
     }
 
-    seasonListStore.setWatchedIds(response.data.watched)
-    seasonListStore.setWatchingIds(response.data.watching)
-    seasonListStore.setToWatchIds(response.data.to_watch)
-  }
-
-  const setupChannel = async () => {
-    if (!$transmit || !authStore.getUserId) return
-
-    try {
-      const subscription = $transmit.subscription(`serie_season_watchlist/${authStore.getUserId}`)
-      await subscription.create()
-
-      subscription.onMessage((data: any) => {
-        seasonListStore.setWatchedIds(data.data.watched)
-        seasonListStore.setWatchingIds(data.data.watching)
-        seasonListStore.setToWatchIds(data.data.to_watch)
-      })
-    } catch (error) {
-      console.error('Failed to setup channel:', error)
-    }
+    seasonListStore.setToWatchIds(response.data?.to_watch || [])
+    seasonListStore.setWatchedIds(response.data?.watched || [])
+    seasonListStore.setWatchingIds(response.data?.watching || [])
   }
 
   onMounted(async () => {
-    if (!authStore.isAuthenticated) return
-
-    await fetchSeasonWatchlist()
-    await setupChannel()
+    if (!isAuthenticated.value) return
+    await fetchSeasonList()
+    addEventListener(SseEventType.SERIE_SEASON_WATCHLIST_IDS_UPDATE, onSeasonListUpdate)
+    reconnect()
   })
 
-  onUnmounted(() => {
-    seasonListStore.reset()
+  watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
+    if (newAuthStatus && !oldAuthStatus) {
+      fetchSeasonList().then(() => {
+        addEventListener(SseEventType.SERIE_SEASON_WATCHLIST_IDS_UPDATE, onSeasonListUpdate)
+        reconnect()
+      })
+    } else if (!newAuthStatus && oldAuthStatus) {
+      disconnect()
+      seasonListStore.setToWatchIds([])
+      seasonListStore.setWatchedIds([])
+      seasonListStore.setWatchingIds([])
+    }
   })
+
+  return {
+    isConnected
+  }
 }

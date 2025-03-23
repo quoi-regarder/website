@@ -2,41 +2,80 @@ export const useSerieListChannel = () => {
   const serieListStore = useSerieListStore()
   const serieWatchlistService = useSerieWatchlistService()
   const authStore = useAuthStore()
-  const { $transmit } = useNuxtApp()
+  const { $sse } = useNuxtApp()
 
-  const fetchSerieWatchlist = async () => {
-    const response: ApiResponse = await serieWatchlistService.getWatchlist(authStore.getUserId)
+  const isAuthenticated = computed(
+    () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
+  )
 
-    if (response.status === 'error') {
+  const sseUrl = computed<string | undefined>(() => {
+    if (!isAuthenticated.value) return undefined
+    return $sse.createAuthSseUrl('/api/notifications', authStore.getToken)
+  })
+
+  const connectionKey = 'notifications-channel'
+
+  const {
+    isConnected,
+    error: connectionError,
+    reconnect,
+    addEventListener,
+    disconnect
+  } = useSse(sseUrl, connectionKey, {
+    immediate: false,
+    onError: (error) => {
+      console.error('Serie list channel SSE error:', error)
+    }
+  })
+
+  const onSerieListUpdate = (event: MessageEvent) => {
+    try {
+      const data = JSON.parse(event.data)
+      serieListStore.setToWatchIds(data.to_watch)
+      serieListStore.setWatchedIds(data.watched)
+      serieListStore.setWatchingIds(data.watching)
+    } catch (error) {
+      console.error('Error parsing serie list update:', error)
+    }
+  }
+
+  const fetchSerieList = async () => {
+    const response: ApiResponse<SerieIds> = await serieWatchlistService.getWatchlist(
+      authStore.getUserId
+    )
+
+    if (!response.success) {
+      console.error('Failed to fetch serie watchlist.')
       return
     }
 
-    serieListStore.setWatchedIds(response.data.watched)
-    serieListStore.setWatchingIds(response.data.watching)
-    serieListStore.setToWatchIds(response.data.to_watch)
-  }
-
-  const setupChannel = async () => {
-    if (!$transmit || !authStore.getUserId) return
-
-    try {
-      const subscription = $transmit.subscription(`serie_watchlist/${authStore.getUserId}`)
-      await subscription.create()
-
-      subscription.onMessage((data: any) => {
-        serieListStore.setToWatchIds(data.data.to_watch)
-        serieListStore.setWatchedIds(data.data.watched)
-        serieListStore.setWatchingIds(data.data.watching)
-      })
-    } catch (error) {
-      console.error('Failed to setup channel:', error)
-    }
+    serieListStore.setToWatchIds(response.data?.to_watch || [])
+    serieListStore.setWatchedIds(response.data?.watched || [])
+    serieListStore.setWatchingIds(response.data?.watching || [])
   }
 
   onMounted(async () => {
-    if (authStore.isAuthenticated === false) return
-
-    await fetchSerieWatchlist()
-    await setupChannel()
+    if (!isAuthenticated.value) return
+    await fetchSerieList()
+    addEventListener(SseEventType.SERIE_WATCHLIST_IDS_UPDATE, onSerieListUpdate)
+    reconnect()
   })
+
+  watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
+    if (newAuthStatus && !oldAuthStatus) {
+      fetchSerieList().then(() => {
+        addEventListener(SseEventType.SERIE_WATCHLIST_IDS_UPDATE, onSerieListUpdate)
+        reconnect()
+      })
+    } else if (!newAuthStatus && oldAuthStatus) {
+      disconnect()
+      serieListStore.setToWatchIds([])
+      serieListStore.setWatchedIds([])
+      serieListStore.setWatchingIds([])
+    }
+  })
+
+  return {
+    isConnected
+  }
 }

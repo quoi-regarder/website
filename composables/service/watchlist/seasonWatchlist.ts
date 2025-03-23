@@ -2,15 +2,15 @@ export const useSeasonWatchlistService = (): WatchlistService => {
   const getWatchlist = async (
     userId: string | null,
     tmdbId: string | number | null
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<SerieSeasonIds>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(
+    const response: ApiResponse<SerieSeasonIds> = await apiFetch(
       `/serie-watchlist/${userId}/serie/${tmdbId}/season`
     )
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to fetch season watchlist.')
     }
 
@@ -21,12 +21,12 @@ export const useSeasonWatchlistService = (): WatchlistService => {
     userId: string | null,
     data: SerieSeasonWatchlist,
     contentId?: number | null
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<SerieSeasonWatchlist>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(
+    const response: ApiResponse<SerieSeasonWatchlist> = await apiFetch(
       `/serie-watchlist/${userId}/serie/${contentId}/season`,
       {
         method: 'POST',
@@ -34,7 +34,7 @@ export const useSeasonWatchlistService = (): WatchlistService => {
       }
     )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to create season watchlist.')
     }
 
@@ -46,12 +46,12 @@ export const useSeasonWatchlistService = (): WatchlistService => {
     tmdbId: string | number | null,
     status: WatchStatus,
     contentId?: number | null
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<SerieSeasonWatchlist>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(
+    const response: ApiResponse<SerieSeasonWatchlist> = await apiFetch(
       `/serie-watchlist/${userId}/serie/${contentId}/season/${tmdbId}`,
       {
         method: 'PUT',
@@ -59,7 +59,7 @@ export const useSeasonWatchlistService = (): WatchlistService => {
       }
     )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to update season watchlist.')
     }
 
@@ -70,12 +70,12 @@ export const useSeasonWatchlistService = (): WatchlistService => {
     userId: string | null,
     tmdbId: string | number | null,
     contentId?: number | null
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<void>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(
+    const response: ApiResponse<void> = await apiFetch(
       `/serie-watchlist/${userId}/serie/${contentId}/season/${tmdbId}`,
       {
         method: 'DELETE'

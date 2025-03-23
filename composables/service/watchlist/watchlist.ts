@@ -12,11 +12,7 @@ export interface WatchlistService {
    * The content ID is optional and should be used only for seasons and episodes. In this case, the `primaryId` should be the serie ID.
    * The season number is optional and should be used only for episodes.
    */
-  getWatchlist(
-    userId: string | null,
-    primaryId?: string | number | null,
-    seasonNumber?: number | null
-  ): Promise<ApiResponse<any>>
+  getWatchlist(userId: string | null, primaryId?: string | number | null): Promise<ApiResponse<any>>
 
   /**
    *
