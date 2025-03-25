@@ -26,7 +26,7 @@ export const useNotifications = () => {
     toast.add({
       title,
       description: message,
-      icon: 'i-lucide:exclamation-triangle',
+      icon: 'i-lucide:circle-x',
       color: 'error'
     })
   }

@@ -15,7 +15,13 @@
           type="email"
         />
 
-        <UButton :label="$t('forgotPassword.form.buttons.submit')" block size="xl" type="submit" />
+        <UButton
+          :label="$t('forgotPassword.form.buttons.submit')"
+          block
+          size="xl"
+          type="submit"
+          :loading="isLoading"
+        />
       </UForm>
     </template>
 
@@ -39,6 +45,8 @@ const authService = useAuthService()
 const localPath = useLocalePath()
 const { t } = useI18n()
 
+const isLoading = ref(false)
+
 useHead({
   title: t('seo.pages.auth.forgot-password'),
   meta: [
@@ -51,11 +59,9 @@ definePageMeta({
 })
 
 const onSubmit = async () => {
-  const response: ApiResponse = await authService.forgotPassword(state.email)
-
-  if (response.status === 'error') {
-    return
-  }
+  isLoading.value = true
+  await authService.forgotPassword(state.email)
+  isLoading.value = false
 
   await navigateTo(localPath('/'))
   useNotifications().success(

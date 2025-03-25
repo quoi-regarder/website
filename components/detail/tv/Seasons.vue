@@ -52,8 +52,8 @@
 
 <script lang="ts" setup>
 const episodeWatchlistService = useEpisodeWatchlistService()
-const authStore = useAuthStore()
 const episodeListStore = useEpisodeListStore()
+const authStore = useAuthStore()
 const { locale } = useI18n()
 const route = useRoute()
 const props = defineProps({
@@ -105,16 +105,16 @@ const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
   if (!season) return
 
   try {
-    const response: ApiResponse = await episodeWatchlistService.getWatchlist(
+    const response: ApiResponse<SerieEpisodeIds> = await episodeWatchlistService.getWatchlist(
       authStore.getUserId,
       route.params.id as string,
       season.id
     )
 
-    if (response.status !== 'error') {
-      episodeListStore.setWatchedIds(response.data.watched)
-      episodeListStore.setWatchingIds(response.data.watching)
-      episodeListStore.setToWatchIds(response.data.to_watch)
+    if (response.success) {
+      episodeListStore.setWatchedIds(response.data?.watched || [])
+      episodeListStore.setWatchingIds(response.data?.watching || [])
+      episodeListStore.setToWatchIds(response.data?.to_watch || [])
     }
   } catch (error) {
     console.error('Failed to fetch watchlist:', error)

@@ -102,23 +102,47 @@
     },
     "toasts": {
       "errors": {
-        "database": {
-          "unique": {
-            "email": "This email is already in use.",
-            "username": "This username is already in use."
-          }
+        "bad": {
+          "credentials": "Incorrect credentials, you have {count} attempt left. | Incorrect credentials, you have {count} attempts left."
         },
         "email": {
-          "email": "Please enter a valid email address."
+          "not": {
+            "verified": "Your email address has not been verified. Please check your inbox."
+          }
         },
-        "email_not_verified": "Your email address has not been verified. Please check your inbox.",
-        "invalid_password_reset_token": "The reset link has expired. Please request a new one.",
-        "invalid_user_credentials": "Invalid email or password.",
-        "invalid_verify_email_token": "The reset link has expired. Please request a new one.",
-        "rateLimit": "Too many requests. Please try again later."
+        "invalid": {
+          "language": "The language is not supported.",
+          "token": {
+            "reset": "The reset link is invalid. Please try again.",
+            "verify": "The verification link is invalid. Please try again."
+          }
+        },
+        "oauth": {
+          "authentication": {
+            "failed": "Authentication with Google failed. Please try again."
+          },
+          "service": {
+            "unavailable": "The authentication service is currently unavailable. Please try again later."
+          }
+        },
+        "rate": {
+          "limit": "Too many requests. Please try again in a moment."
+        },
+        "session": {
+          "expired": "Your session has expired. Please log in again."
+        },
+        "timeout": "Too many login attempts. Please try again in {count} minute. | Too many login attempts. Please try again in {count} minutes.",
+        "user": {
+          "already": {
+            "exists": {
+              "email": "An account with this email address already exists.",
+              "username": "This username is already in use."
+            }
+          }
+        }
       },
       "title": {
-        "error": "An error occurred",
+        "error": "Error",
         "info": "Information",
         "success": "Success"
       }
@@ -244,10 +268,19 @@
     "or": "or",
     "title": "Login",
     "toasts": {
+      "errors": {
+        "action": "Change password",
+        "message": "Security system updated: You must change your password to continue accessing your account.",
+        "title": "Login Error"
+      },
       "success": {
         "login": "You have successfully logged in."
       }
     }
+  },
+  "maintenance": {
+    "message": "Our website is temporarily unavailable while we make improvements. We'll be back online shortly!",
+    "title": "Site Maintenance"
   },
   "modals": {
     "archipelago": {
@@ -270,8 +303,8 @@
     "no_overview": "No synopsis available in this language.",
     "overview": "Synopsis",
     "vote_average": "Average Rating",
-    "vote_count": "Number of Votes: {count}",
-    "votes": "{count} votes"
+    "vote_count": "Number of Vote: {count} | Number of Votes: {count}",
+    "votes": "{count} vote | {count} votes"
   },
   "movieRecommandations": {
     "no_recommendations": "No recommendations available.",
@@ -355,8 +388,8 @@
       "noWatched": "No movies watched.",
       "title": "My Movies",
       "toWatch": "To Watch",
-      "watchTime": "Total watch time",
-      "watched": "Watched"
+      "watched": "Watched",
+      "watchTime": "Total watch time"
     },
     "serie": {
       "noToWatch": "No TV shows to watch.",
@@ -364,9 +397,9 @@
       "noWatching": "No TV shows currently being watched.",
       "title": "My TV Shows",
       "toWatch": "To Watch",
-      "watchTime": "Total watch time",
       "watched": "Watched",
-      "watching": "Watching"
+      "watching": "Watching",
+      "watchTime": "Total watch time"
     },
     "tabs": {
       "movies": "Movies",
@@ -377,8 +410,10 @@
     "toasts": {
       "success": {
         "accountDeleted": "Your account has been deleted.",
-        "avatarRemoved": "Your profile picture has been removed.",
-        "avatarUpdated": "Your profile picture has been updated.",
+        "avatar": {
+          "removed": "Your profile picture has been removed.",
+          "updated": "Your profile picture has been updated."
+        },
         "updated": "Your profile has been updated."
       }
     }

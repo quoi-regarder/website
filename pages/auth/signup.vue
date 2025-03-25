@@ -87,6 +87,7 @@
             size="xl"
             type="submit"
             :disabled="termsState.terms === false"
+            :loading="isLoading"
           />
         </UTooltip>
       </UForm>
@@ -132,6 +133,7 @@ const localPath = useLocalePath()
 const colorMode = useColorMode()
 const { locale, t } = useI18n()
 
+const isLoading = ref(false)
 useHead({
   title: t('seo.pages.auth.signup'),
   meta: [{ hid: 'description', name: 'description', content: t('seo.descriptions.auth.signup') }]
@@ -142,7 +144,7 @@ definePageMeta({
 })
 
 const signup = async (provider: 'google') => {
-  const redirectUrl = await authService.socialLogin(provider)
+  const redirectUrl: string = await authService.socialLogin(provider)
 
   if (redirectUrl) {
     window.location.href = redirectUrl
@@ -150,7 +152,8 @@ const signup = async (provider: 'google') => {
 }
 
 const onSubmit = async () => {
-  const response: ApiResponse = await authService.register({
+  isLoading.value = true
+  const response: ApiResponse<Partial<User>> = await authService.register({
     email: state.email,
     password: state.password,
     username: state.username,
@@ -159,8 +162,9 @@ const onSubmit = async () => {
     language: formatLanguageToISO(locale.value) as languageIsoType,
     colorMode: colorMode.value as ColorModeType
   })
+  isLoading.value = false
 
-  if (response.status === 'error') {
+  if (!response.success) {
     return
   }
 

@@ -1,11 +1,11 @@
 export const useMovieWatchlistService = (): WatchlistService => {
-  const getWatchlist = async (userId: string | null): Promise<ApiResponse> => {
+  const getWatchlist = async (userId: string | null): Promise<ApiResponse<MovieIds>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
-    const response: ApiResponse = await apiFetch(`/movie-watchlist/${userId}/movie`)
+    const response: ApiResponse<MovieIds> = await apiFetch(`/movie-watchlist/${userId}/movie`)
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to fetch movie watchlist.')
     }
 
@@ -17,16 +17,16 @@ export const useMovieWatchlistService = (): WatchlistService => {
     status: WatchStatus,
     page: number,
     limit: number = 10
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<Pagination<Movie>>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(
+    const response: ApiResponse<Pagination<Movie>> = await apiFetch(
       `/movie-watchlist/${userId}/movie/details?status=${status}&page=${page}&limit=${limit}`
     )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to fetch movie watchlist.')
     }
 
@@ -36,18 +36,21 @@ export const useMovieWatchlistService = (): WatchlistService => {
   const createWatchlist = async (
     userId: string | null,
     data: MovieWatchlist
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<MovieWatchlist>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(`/movie-watchlist/${userId}/movie`, {
-      method: 'POST',
-      body: data
-    })
+    const response: ApiResponse<MovieWatchlist> = await apiFetch(
+      `/movie-watchlist/${userId}/movie`,
+      {
+        method: 'POST',
+        body: data
+      }
+    )
 
-    if (response.errors || response.errorStatus) {
-      console.error('Failed to create movie watchlist.')
+    if (!response.success) {
+      console.error('Error during movie watchlist creation.')
     }
 
     return response
@@ -57,17 +60,20 @@ export const useMovieWatchlistService = (): WatchlistService => {
     userId: string | null,
     tmdbId: string | number | null,
     status: WatchStatus
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<MovieWatchlist>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(`/movie-watchlist/${userId}/movie/${tmdbId}`, {
-      method: 'PUT',
-      body: { status }
-    })
+    const response: ApiResponse<MovieWatchlist> = await apiFetch(
+      `/movie-watchlist/${userId}/movie/${tmdbId}`,
+      {
+        method: 'PUT',
+        body: { status }
+      }
+    )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to update movie watchlist.')
     }
 
@@ -77,17 +83,20 @@ export const useMovieWatchlistService = (): WatchlistService => {
   const removeWatchlist = async (
     userId: string | null,
     tmdbId: number | string
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<void>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(`/movie-watchlist/${userId}/movie/${tmdbId}`, {
-      method: 'DELETE'
-    })
+    const response: ApiResponse<void> = await apiFetch(
+      `/movie-watchlist/${userId}/movie/${tmdbId}`,
+      {
+        method: 'DELETE'
+      }
+    )
 
-    if (response.errors || response.errorStatus) {
-      console.error('Failed to remove movie watchlist.')
+    if (!response.success) {
+      console.error('Failed to remove movie from watchlist.')
     }
 
     return response

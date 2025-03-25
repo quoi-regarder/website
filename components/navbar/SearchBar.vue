@@ -72,9 +72,6 @@
 </template>
 
 <script lang="ts" setup>
-import { useRoute, useRouter } from 'vue-router'
-import { useDebounceFn } from '@vueuse/core'
-
 const localePath = useLocalePath()
 const route = useRoute()
 const router = useRouter()

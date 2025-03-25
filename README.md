@@ -8,14 +8,14 @@ the [TMDb API](https://www.themoviedb.org/documentation/api) to fetch data.
 ## Introduction
 
 This project is built with [Nuxt.js](https://nuxtjs.org/), a Vue.js framework. It
-uses [Tailwind CSS](https://tailwindcss.com/) and an Adonis.js backend [Adonis.js](https://adonisjs.com/).
+uses [Tailwind CSS](https://tailwindcss.com/) and an Spring Boot API.
 
 ## Setup
 
 Make sure to install dependencies:
 
 ```bash
-npm install
+pnpm install
 ```
 
 ## Development Server
@@ -23,7 +23,7 @@ npm install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 ## New Version
@@ -46,12 +46,12 @@ git pull --rebase origin develop
 git push origin +main
 ```
 
-- Finally, you can run the npm command to release a new version
+- Finally, you can run the pnpm command to release a new version
 
 ```bash
-npm run tag:patch # For a patch version
-npm run tag:minor # For a minor version
-npm run tag:major # For a major version
+pnpm run tag:patch # For a patch version
+pnpm run tag:minor # For a minor version
+pnpm run tag:major # For a major version
 ```
 
 - Now, you can rebase the develop branch
@@ -73,11 +73,11 @@ This project uses [Husky](https://typicode.github.io/husky) to run linting and f
 changes. Make sure to install dependencies before committing:
 
 ```bash
-npm install
+pnpm install
 ```
 
 Lint and format your code:
 
 ```bash
-npm run lint
+pnpm run lint
 ```

@@ -1,5 +1,3 @@
-import { languageIsoType } from '../types/languageIsoType'
-
 export const formatLanguageToISO = (language: string | undefined) => {
   switch (language) {
     case 'us':

@@ -12,11 +12,7 @@ export interface WatchlistService {
    * The content ID is optional and should be used only for seasons and episodes. In this case, the `primaryId` should be the serie ID.
    * The season number is optional and should be used only for episodes.
    */
-  getWatchlist(
-    userId: string | null,
-    primaryId?: string | number | null,
-    seasonNumber?: number | null
-  ): Promise<ApiResponse>
+  getWatchlist(userId: string | null, primaryId?: string | number | null): Promise<ApiResponse<any>>
 
   /**
    *
@@ -32,7 +28,7 @@ export interface WatchlistService {
     status: WatchStatus,
     page: number,
     limit: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 
   /**
    *
@@ -52,7 +48,7 @@ export interface WatchlistService {
     userId: string | null,
     data: MovieWatchlist,
     contentId?: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 
   /**
    *
@@ -73,7 +69,7 @@ export interface WatchlistService {
     tmdbId: string | number | null,
     status: WatchStatus,
     contentId?: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 
   /**
    *
@@ -92,5 +88,5 @@ export interface WatchlistService {
     userId: string | null,
     tmdbId: number | string,
     contentId?: number
-  ): Promise<ApiResponse>
+  ): Promise<ApiResponse<any>>
 }

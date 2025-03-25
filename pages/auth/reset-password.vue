@@ -57,10 +57,13 @@ definePageMeta({
 const onSubmit = async () => {
   const token = route.query.token
   if (!token) return
-  const response = await authService.resetPassword(state.password as string, token as string)
 
-  if (response.status === 'error') {
-    navigateTo(localPath('/'))
+  const response: ApiResponse<LoginResponse> = await authService.resetPassword(
+    state.password as string,
+    token as string
+  )
+
+  if (!response.success) {
     return
   }
 

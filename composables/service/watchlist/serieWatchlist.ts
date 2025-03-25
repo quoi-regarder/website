@@ -1,12 +1,12 @@
 export const useSerieWatchlistService = (): WatchlistService => {
-  const getWatchlist = async (userId: string | null): Promise<ApiResponse> => {
+  const getWatchlist = async (userId: string | null): Promise<ApiResponse<SerieIds>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(`/serie-watchlist/${userId}/serie`)
+    const response: ApiResponse<SerieIds> = await apiFetch(`/serie-watchlist/${userId}/serie`)
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to fetch serie watchlist.')
     }
 
@@ -18,16 +18,16 @@ export const useSerieWatchlistService = (): WatchlistService => {
     status: WatchStatus,
     page: number,
     limit: number = 10
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<Pagination<Serie>>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(
+    const response: ApiResponse<Pagination<Serie>> = await apiFetch(
       `/serie-watchlist/${userId}/serie/details?status=${status}&page=${page}&limit=${limit}`
     )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to fetch serie watchlist.')
     }
 
@@ -37,17 +37,20 @@ export const useSerieWatchlistService = (): WatchlistService => {
   const createWatchlist = async (
     userId: string | null,
     data: SerieWatchlist
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<SerieWatchlist>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(`/serie-watchlist/${userId}/serie`, {
-      method: 'POST',
-      body: data
-    })
+    const response: ApiResponse<SerieWatchlist> = await apiFetch(
+      `/serie-watchlist/${userId}/serie`,
+      {
+        method: 'POST',
+        body: data
+      }
+    )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to create serie watchlist.')
     }
 
@@ -58,33 +61,42 @@ export const useSerieWatchlistService = (): WatchlistService => {
     userId: string | null,
     tmdbId: string | number | null,
     status: WatchStatus
-  ): Promise<ApiResponse> => {
+  ): Promise<ApiResponse<SerieWatchlist>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(`/serie-watchlist/${userId}/serie/${tmdbId}`, {
-      method: 'PUT',
-      body: { status }
-    })
+    const response: ApiResponse<SerieWatchlist> = await apiFetch(
+      `/serie-watchlist/${userId}/serie/${tmdbId}`,
+      {
+        method: 'PUT',
+        body: { status }
+      }
+    )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to update serie watchlist.')
     }
 
     return response
   }
 
-  const removeWatchlist = async (userId: string | null, tmdbId: string | number): Promise<any> => {
+  const removeWatchlist = async (
+    userId: string | null,
+    tmdbId: string | number
+  ): Promise<ApiResponse<void>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
 
-    const response: ApiResponse = await apiFetch(`/serie-watchlist/${userId}/serie/${tmdbId}`, {
-      method: 'DELETE'
-    })
+    const response: ApiResponse<void> = await apiFetch(
+      `/serie-watchlist/${userId}/serie/${tmdbId}`,
+      {
+        method: 'DELETE'
+      }
+    )
 
-    if (response.errors || response.errorStatus) {
+    if (!response.success) {
       console.error('Failed to remove serie watchlist.')
     }
 
