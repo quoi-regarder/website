@@ -92,13 +92,13 @@ export const useContentState = () => {
 
     if (contentStatus !== null) {
       if (contentStatus === status) {
-        const response: ApiResponse = await service.removeWatchlist(
+        const response: ApiResponse<any> = await service.removeWatchlist(
           authStore.getUserId,
           idOfContent,
           primaryId
         )
 
-        if (response.status === 'error') {
+        if (!response.success) {
           return
         }
 
@@ -107,14 +107,14 @@ export const useContentState = () => {
           t(`common.content.toasts.success.${type}.removedFromList.${status}`)
         )
       } else {
-        const response: ApiResponse = await service.updateWatchlist(
+        const response: ApiResponse<any> = await service.updateWatchlist(
           authStore.getUserId,
           idOfContent,
           status,
           primaryId
         )
 
-        if (response.status === 'error') {
+        if (!response.success) {
           return
         }
 
@@ -124,12 +124,13 @@ export const useContentState = () => {
         )
       }
     } else {
-      const watch = {
-        userId: authStore.getUserId,
-        tmdbId: idOfContent,
-        status: status,
-        seasonNumber: seasonNumber
-      } as MovieWatchlist | SerieWatchlist | SerieSeasonWatchlist | SerieEpisodeWatchlist
+      const watch: MovieWatchlist | SerieWatchlist | SerieSeasonWatchlist | SerieEpisodeWatchlist =
+        {
+          userId: authStore.getUserId,
+          tmdbId: idOfContent,
+          status: status,
+          seasonNumber: seasonNumber
+        }
 
       service.createWatchlist(authStore.getUserId, watch, primaryId)
       useNotifications().success(

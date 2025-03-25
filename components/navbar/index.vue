@@ -13,7 +13,7 @@
         />
 
         <!-- Desktop nav items -->
-        <div class="hidden lg:flex">
+        <div v-if="navItems" class="hidden lg:flex">
           <NavbarNavItems :nav-items="navItems" :is-mobile="false" />
         </div>
       </div>

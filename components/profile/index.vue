@@ -99,13 +99,18 @@ const { t } = useI18n()
 
 onMounted(async () => {
   const profile: Profile | null = await profileService.getProfile(authStore.getUserId)
-  email.value = profile?.user.email
+
+  if (!profile) {
+    return
+  }
+
+  email.value = profile.email
 
   setState(profile)
 })
 
 const onSubmit = async () => {
-  const profile: Profile = await profileService.updateProfile(authStore.getUserId, state)
+  const profile: Profile | null = await profileService.updateProfile(authStore.getUserId, state)
 
   if (profile) {
     setState(profile)
@@ -117,13 +122,22 @@ const onSubmit = async () => {
 }
 
 const handleAvatarChange = async (file: File) => {
-  const profile: Profile = await profileService.updateAvatar(authStore.getUserId, file)
+  let action: 'updated' | 'removed'
+  let profile: Profile | null = null
+
+  if (file) {
+    profile = await profileService.updateAvatar(authStore.getUserId, file)
+    action = 'updated'
+  } else {
+    profile = await profileService.deleteAvatar(authStore.getUserId)
+    action = 'removed'
+  }
 
   if (profile) {
     setState(profile)
     useNotifications().success(
       t('common.toasts.title.success'),
-      t('profile.toasts.success.avatarUpdated')
+      t(`profile.toasts.success.avatar.${action}`)
     )
   }
 }

@@ -46,7 +46,7 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col h-[335px]">
+          <div :key="item.tmdbId" class="relative flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :serie="item" type="tv" class="h-full" />
             </div>
@@ -74,7 +74,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full min-h-[350px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>
@@ -118,7 +118,7 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col h-[335px]">
+          <div :key="item.tmdbId" class="relative flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :serie="item" type="tv" class="h-full" />
             </div>
@@ -146,7 +146,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full min-h-[350px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>
@@ -190,7 +190,7 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="flex items-center flex-col h-[335px]">
+          <div :key="item.tmdbId" class="flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :serie="item" type="tv" class="h-full" />
             </div>
@@ -209,7 +209,7 @@
       >
         <template #default>
           <USkeleton
-            class="w-full h-[335px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            class="w-full min-h-[350px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
             :ui="{ base: 'rounded-lg' }"
           />
         </template>
@@ -225,22 +225,22 @@
 <script lang="ts" setup>
 const serieListStore = useSerieListStore()
 const seriesWatchlistService = useSerieWatchlistService()
-const { totalRuntime } = useSerieEpisodeRuntime()
+const { totalRuntime } = useSerieEpisodeRuntimeChannel()
 const authStore = useAuthStore()
 const { t } = useI18n()
 
 const toWatchCarousel = useTemplateRef('toWatchCarousel')
 const watchingCarousel = useTemplateRef('watchingCarousel')
 const watchedCarousel = useTemplateRef('watchedCarousel')
-const watchedList = ref<MovieWatchlist[]>([])
-const watchingList = ref<MovieWatchlist[]>([])
-const toWatchList = ref<MovieWatchlist[]>([])
+const watchedList = ref<Serie[]>([])
+const watchingList = ref<Serie[]>([])
+const toWatchList = ref<Serie[]>([])
 const watchedTotalPages = ref(1)
 const watchingTotalPages = ref(1)
 const toWatchTotalPages = ref(1)
-const watchedPage = ref(1)
-const watchingPage = ref(1)
-const toWatchPage = ref(1)
+const watchedPage = ref(0)
+const watchingPage = ref(0)
+const toWatchPage = ref(0)
 
 const skeletonItems = Array.from({ length: 6 }, (_, i) => i)
 const isLoaded = ref(false)
@@ -252,70 +252,74 @@ onMounted(async () => {
 })
 
 const fetchToWatchLists = async (reset = false) => {
-  const response = await seriesWatchlistService.getWatchlistWithDetails?.(
-    authStore.getUserId,
-    WatchStatus.TO_WATCH,
-    toWatchPage.value,
-    20
-  )
+  const response: ApiResponse<Pagination<Serie>> | undefined =
+    await seriesWatchlistService.getWatchlistWithDetails?.(
+      authStore.getUserId,
+      WatchStatus.TO_WATCH,
+      toWatchPage.value,
+      20
+    )
 
-  if (response?.data === undefined) {
+  if (response === undefined || !response.success) {
     return
   }
 
   if (reset) {
-    toWatchList.value = response.data.data
+    toWatchList.value = response.data?.content ?? []
   } else {
-    toWatchList.value = toWatchList.value.concat(response.data.data)
+    toWatchList.value = toWatchList.value.concat(response.data?.content ?? [])
   }
-  toWatchTotalPages.value = response.data.meta.lastPage
+
+  toWatchTotalPages.value = response.data?.totalPages ?? 1
 }
 
 const fetchWatchingLists = async (reset = false) => {
-  const response = await seriesWatchlistService.getWatchlistWithDetails?.(
-    authStore.getUserId,
-    WatchStatus.WATCHING,
-    watchingPage.value,
-    20
-  )
+  const response: ApiResponse<Pagination<Serie>> | undefined =
+    await seriesWatchlistService.getWatchlistWithDetails?.(
+      authStore.getUserId,
+      WatchStatus.WATCHING,
+      watchingPage.value,
+      20
+    )
 
-  if (response?.data === undefined) {
+  if (response === undefined || !response.success) {
     return
   }
 
   if (reset) {
-    watchingList.value = response.data.data
+    watchingList.value = response.data?.content ?? []
   } else {
-    watchingList.value = watchingList.value.concat(response.data.data)
+    watchingList.value = watchingList.value.concat(response.data?.content ?? [])
   }
-  watchingTotalPages.value = response.data.meta.lastPage
+  watchingTotalPages.value = response.data?.totalPages ?? 1
 }
 
 const fetchWatchedLists = async (reset = false) => {
-  const response = await seriesWatchlistService.getWatchlistWithDetails?.(
-    authStore.getUserId,
-    WatchStatus.WATCHED,
-    watchedPage.value,
-    20
-  )
+  const response: ApiResponse<Pagination<Serie>> | undefined =
+    await seriesWatchlistService.getWatchlistWithDetails?.(
+      authStore.getUserId,
+      WatchStatus.WATCHED,
+      watchedPage.value,
+      20
+    )
 
-  if (response?.data === undefined) {
+  if (response === undefined || !response.success) {
     return
   }
 
   if (reset) {
-    watchedList.value = response.data.data
+    watchedList.value = response.data?.content ?? []
   } else {
-    watchedList.value = watchedList.value.concat(response.data.data)
+    watchedList.value = watchedList.value.concat(response.data?.content ?? [])
   }
-  watchedTotalPages.value = response.data.meta.lastPage
+  watchedTotalPages.value = response.data?.totalPages ?? 1
 }
 
 const addToWatchedLists = async (tmdbId: number) => {
   await seriesWatchlistService.updateWatchlist?.(authStore.getUserId, tmdbId, WatchStatus.WATCHED)
-  watchedPage.value = 1
-  toWatchPage.value = 1
-  watchingPage.value = 1
+  watchedPage.value = 0
+  toWatchPage.value = 0
+  watchingPage.value = 0
 
   await fetchToWatchLists(true)
   await fetchWatchedLists(true)

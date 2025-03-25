@@ -102,20 +102,44 @@
     },
     "toasts": {
       "errors": {
-        "database": {
-          "unique": {
-            "email": "Cette adresse e-mail est déjà utilisée.",
-            "username": "Ce nom d'utilisateur est déjà utilisé."
-          }
+        "bad": {
+          "credentials": "Identifiants incorrects, il vous reste {count} essai. | Identifiants incorrects, il vous reste {count} essais."
         },
         "email": {
-          "email": "Adresse e-mail invalide."
+          "not": {
+            "verified": "Votre adresse e-mail n'a pas été vérifiée. Veuillez vérifier votre boîte de réception."
+          }
         },
-        "email_not_verified": "Votre adresse e-mail n'a pas été vérifiée. Veuillez vérifier votre boîte de réception.",
-        "invalid_password_reset_token": "Le lien de réinitialisation est invalide. Veuillez réessayer.",
-        "invalid_user_credentials": "Adresse e-mail ou mot de passe incorrect.",
-        "invalid_verify_email_token": "Le lien de vérification est invalide. Veuillez réessayer.",
-        "rateLimit": "Trop de tentatives. Veuillez réessayer plus tard."
+        "invalid": {
+          "langue": "La langue sélectionnée est invalide. Veuillez réessayer.",
+          "token": {
+            "reset": "Le lien de réinitialisation est invalide. Veuillez réessayer.",
+            "verify": "Le lien de vérification est invalide. Veuillez réessayer."
+          }
+        },
+        "oauth": {
+          "authentication": {
+            "failed": "L'authentification avec google a échoué. Veuillez réessayer."
+          },
+          "service": {
+            "unavailable": "Le service d'authentification est actuellement indisponible. Veuillez réessayer plus tard."
+          }
+        },
+        "rate": {
+          "limit": "Trop de requêtes. Veuillez réessayer dans quelques instants."
+        },
+        "session": {
+          "expired": "Votre session a expiré. Veuillez vous reconnecter."
+        },
+        "timeout": "Trop de tentatives de connexion. Veuillez réessayer dans {count} minute. | Trop de tentatives de connexion. Veuillez réessayer dans {count} minutes.",
+        "user": {
+          "already": {
+            "exists": {
+              "email": "Un compte avec cette adresse e-mail existe déjà.",
+              "username": "Ce nom d'utilisateur est déjà utilisé."
+            }
+          }
+        }
       },
       "title": {
         "error": "Erreur",
@@ -244,10 +268,19 @@
     "or": "ou",
     "title": "Connexion",
     "toasts": {
+      "errors": {
+        "action": "Changer le mot de passe",
+        "message": "Système de sécurité mis à jour : Vous devez changer votre mot de passe pour continuer à accéder à votre compte.",
+        "title": "Erreur de connexion"
+      },
       "success": {
         "login": "Connexion réussie."
       }
     }
+  },
+  "maintenance": {
+    "message": "Notre site est temporairement indisponible pendant que nous effectuons des améliorations. Nous serons de retour très bientôt !",
+    "title": "Site en maintenance"
   },
   "modals": {
     "archipelago": {
@@ -270,7 +303,8 @@
     "no_overview": "Aucun synopsis disponible dans cette langue.",
     "overview": "Synopsis",
     "vote_average": "Note moyenne",
-    "vote_count": "Nombre de votes : {count}"
+    "vote_count": "Nombre de vote : {count} | Nombre de votes : {count}",
+    "votes": "{count} vote | {count} votes"
   },
   "movieRecommandations": {
     "no_recommendations": "Aucune recommandation disponible.",
@@ -354,8 +388,8 @@
       "noWatched": "Aucun film déjà vu.",
       "title": "Mes films",
       "toWatch": "À voir",
-      "watchTime": "Temps de visionnage total",
-      "watched": "Déjà vu"
+      "watched": "Déjà vu",
+      "watchTime": "Temps de visionnage total"
     },
     "serie": {
       "noToWatch": "Aucune série à voir.",
@@ -363,9 +397,9 @@
       "noWatching": "Aucune série en cours de visionnage.",
       "title": "Mes séries",
       "toWatch": "À voir",
-      "watchTime": "Temps de visionnage total",
       "watched": "Déjà vu",
-      "watching": "En cours de visionnage"
+      "watching": "En cours de visionnage",
+      "watchTime": "Temps de visionnage total"
     },
     "tabs": {
       "movies": "Films",
@@ -376,8 +410,10 @@
     "toasts": {
       "success": {
         "accountDeleted": "Compte supprimé avec succès.",
-        "avatarRemoved": "Photo de profil supprimée.",
-        "avatarUpdated": "Photo de profil mise à jour.",
+        "avatar": {
+          "updated": "Photo de profil mise à jour.",
+          "removed": "Photo de profil supprimée."
+        },
         "updated": "Profil mis à jour avec succès."
       }
     }

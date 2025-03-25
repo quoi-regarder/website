@@ -32,7 +32,11 @@ const fetchPlatforms = async () => {
 
   platforms.value = data.results.map((platform: any) => ({
     id: platform.provider_id,
-    label: platform.provider_name
+    label: platform.provider_name,
+    avatar: {
+      src: getImageUrl(platform.logo_path, 'original'),
+      alt: platform.provider_name
+    }
   }))
 }
 

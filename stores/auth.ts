@@ -1,19 +1,18 @@
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: null as AuthAccessToken | null,
+    token: null as string | null,
     user_id: null as string | null,
     user_email: null as string | null
   }),
   getters: {
-    getToken: (state) => state.token?.token,
-    getExpiresAt: (state) => state.token?.expiresAt,
+    getToken: (state) => state.token,
     getUserId: (state) => state.user_id,
     getUserEmail: (state) => state.user_email,
     isAuthenticated: (state) => !!state.token
   },
   actions: {
     setAuth (data: any) {
-      this.token = data.token as AuthAccessToken
+      this.token = data.token
       this.user_id = data.user.id
       this.user_email = data.user.email
     },

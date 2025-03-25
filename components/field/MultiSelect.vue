@@ -41,8 +41,15 @@
         v-for="item in selectedModel"
         :key="item.id"
         :label="item.label"
+        :avatar="
+          item?.avatar?.src
+            ? {
+              src: item.avatar.src
+            }
+            : undefined
+        "
         class="cursor-pointer max-w-full truncate"
-        icon="i-lucide:x"
+        trailing-icon="i-lucide:x"
         variant="outline"
         size="lg"
         @click="unselect(item)"

@@ -1,34 +1,34 @@
-# Step 1: Build the application
-FROM node:20-alpine AS build
+# Build Stage 1
+
+FROM node:22-alpine AS build
 WORKDIR /app
 
+RUN corepack enable
+
 # Copy dependency files
-COPY package.json package-lock.json ./
+COPY package.json pnpm-lock.yaml .npmrc ./
 
-# Install production dependencies (without devDependencies)
-RUN npm ci --omit=dev
+# Install dependencies
+RUN pnpm i
 
-# Copy the rest of the source code
-COPY . .
+# Copy the entire project
+COPY . ./
 
 # Increase memory limit to prevent heap out-of-memory crashes
 ENV NODE_OPTIONS="--max-old-space-size=4096"
 
-# Run "nuxt prepare" after installation
-RUN npm run postinstall || true  # Prevent build failure if postinstall fails
+# Build the project
+RUN pnpm run build
 
-# Build the Nuxt application in production SSR mode
-RUN npm run build
+# Build Stage 2
 
-# Step 2: Run the application
-FROM node:20-alpine
+FROM node:22-alpine
 WORKDIR /app
 
-# Copy only the necessary files from the previous build stage
-COPY --from=build /app/.output ./
+# Only `.output` folder is needed from the build stage
+COPY --from=build /app/.output/ ./
 
-# Expose the port used by Nuxt
+
 EXPOSE 3000
 
-# Start the Nuxt application in SSR mode
-CMD ["node", "server/index.mjs"]
+CMD ["node", "/app/server/index.mjs"]
