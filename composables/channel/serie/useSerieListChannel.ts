@@ -74,8 +74,4 @@ export const useSerieListChannel = () => {
       serieListStore.setWatchingIds([])
     }
   })
-
-  return {
-    isConnected
-  }
 }

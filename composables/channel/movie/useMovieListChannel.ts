@@ -72,8 +72,4 @@ export const useMovieListChannel = () => {
       movieListStore.setWatchedIds([])
     }
   })
-
-  return {
-    isConnected
-  }
 }

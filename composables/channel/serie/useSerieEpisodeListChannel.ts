@@ -76,8 +76,4 @@ export const useSerieEpisodeListChannel = () => {
       episodeListStore.setToWatchIds([])
     }
   })
-
-  return {
-    isConnected
-  }
 }

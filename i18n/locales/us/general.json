@@ -93,7 +93,9 @@
         "passwordComplex": "Password must include lowercase letters, uppercase letters, numbers, and special characters.",
         "passwordMatch": "Passwords do not match.",
         "passwordMin": "Password must be at least 8 characters long.",
+        "passwordMax": "Password must be at most {max} characters long.",
         "required": "This field is required.",
+        "stringMax": "This field must be at most {max} characters long.",
         "stringMin": "This field must be at least {min} characters long."
       }
     },

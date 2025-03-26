@@ -74,7 +74,6 @@ export const useMovieRuntimeChannel = () => {
   })
 
   return {
-    totalRuntime,
-    isConnected
+    totalRuntime
   }
 }
