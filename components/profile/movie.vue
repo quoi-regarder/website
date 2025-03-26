@@ -217,7 +217,7 @@ const fetchToWatchLists = async (reset = false) => {
     toWatchList.value = toWatchList.value.concat(response.data?.content ?? [])
   }
 
-  toWatchTotalPages.value = response.data?.totalPages ?? 1
+  toWatchTotalPages.value = response.data?.page.totalPages ?? 1
 }
 
 const fetchWatchedLists = async (reset = false) => {
@@ -239,7 +239,7 @@ const fetchWatchedLists = async (reset = false) => {
     watchedList.value = watchedList.value.concat(response.data?.content ?? [])
   }
 
-  watchedTotalPages.value = response.data?.totalPages ?? 1
+  watchedTotalPages.value = response.data?.page.totalPages ?? 1
 }
 
 watch(toWatchCarousel, () => {
@@ -247,7 +247,7 @@ watch(toWatchCarousel, () => {
     toWatchCarousel.value.emblaApi.on('select', () => {
       const index = toWatchCarousel.value?.emblaApi?.selectedScrollSnap()
       if (index === toWatchList.value.length - 6) {
-        if (toWatchPage.value < toWatchTotalPages.value) {
+        if (toWatchPage.value < toWatchTotalPages.value - 1) {
           toWatchPage.value++
         } else {
           return
@@ -264,7 +264,7 @@ watch(watchedCarousel, () => {
     watchedCarousel.value.emblaApi.on('select', () => {
       const index = watchedCarousel.value?.emblaApi?.selectedScrollSnap()
       if (index === watchedList.value.length - 6) {
-        if (watchedPage.value < watchedTotalPages.value) {
+        if (watchedPage.value < watchedTotalPages.value - 1) {
           watchedPage.value++
         } else {
           return

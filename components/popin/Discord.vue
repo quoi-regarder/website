@@ -23,7 +23,7 @@
           :label="$t('modals.discord.buttons.join')"
           size="lg"
           target="_blank"
-          to="https://discord.gg/ZPN4MwkGxc"
+          to="https://discord.gg/V67XUqVUT6"
         />
       </div>
     </template>
