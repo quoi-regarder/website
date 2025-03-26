@@ -1,10 +1,12 @@
 <template>
   <UModal v-model:open="isDiscordModalOpen" :title="$t('modals.discord.title')">
+    <UButton icon="i-logos:discord-icon" size="lg" variant="link" class="cursor-pointer" />
+
     <template #body>
-      <div class="flex flex-col gap-y-4 text-justify">
+      <div class="flex flex-col gap-y-4 text-center">
         <p class="text-sm">{{ $t('modals.discord.body') }}</p>
+        <UIcon name="i-logos:discord" size="lg" class="mx-auto" />
         <p class="text-sm">{{ $t('modals.discord.precision') }}</p>
-        <UIcon name="i-logos:discord" size="lg" />
       </div>
     </template>
 
@@ -21,7 +23,7 @@
           :label="$t('modals.discord.buttons.join')"
           size="lg"
           target="_blank"
-          to="https://discord.gg/4u53nbvbEQ"
+          to="https://discord.gg/ZPN4MwkGxc"
         />
       </div>
     </template>
@@ -29,14 +31,5 @@
 </template>
 
 <script lang="ts" setup>
-const discordStore = useDiscordStore()
-
-const isDiscordModalOpen = computed({
-  get () {
-    return discordStore.getShowPopin
-  },
-  set (value: boolean) {
-    discordStore.setShowPopin(value)
-  }
-})
+const isDiscordModalOpen = ref(false)
 </script>
