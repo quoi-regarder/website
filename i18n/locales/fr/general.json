@@ -283,6 +283,15 @@
     "title": "Site en maintenance"
   },
   "modals": {
+    "discord": {
+      "body": "Rejoignez notre serveur Discord pour discuter des dernières sorties, des recommandations et bien plus encore !",
+      "buttons": {
+        "close": "Fermer",
+        "join": "Rejoindre"
+      },
+      "precision": "Sur notre vous pourrez discuter avec des membres de la communauté, proposer vos améliorations, signaler des bugs et bien plus encore.",
+      "title": "Rejoignez notre serveur Discord"
+    },
     "archipelago": {
       "body": "Fan de jeux vidéo ?",
       "buttons": {
@@ -321,6 +330,7 @@
         "light": "Mode clair",
         "system": "Adapté au système"
       },
+      "discord": "Rejoins nous sur Discord",
       "feedback": "Laisser un avis",
       "home": "Accueil",
       "login": "Connexion",

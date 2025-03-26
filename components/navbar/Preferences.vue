@@ -1,15 +1,6 @@
 <template>
   <div class="flex items-center gap-4">
-    <UTooltip :text="$t('navbar.buttons.feedback')">
-      <UButton
-        icon="i-codicon:feedback"
-        variant="ghost"
-        color="secondary"
-        size="xl"
-        target="_blank"
-        to="https://forms.gle/3e4G6qxtguZv29i8A"
-      />
-    </UTooltip>
+    <PopinDiscord />
 
     <ClientOnly>
       <Suspense>

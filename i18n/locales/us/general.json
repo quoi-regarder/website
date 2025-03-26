@@ -283,6 +283,15 @@
     "title": "Site Maintenance"
   },
   "modals": {
+    "discord": {
+      "body": "Join our Discord server to discuss the latest releases, recommendations, and much more!",
+      "buttons": {
+        "close": "Close",
+        "join": "Join"
+      },
+      "precision": "On our server, you can chat with community members, suggest improvements, report bugs, and much more.",
+      "title": "Join our Discord server"
+    },
     "archipelago": {
       "body": "Fan of video games?",
       "buttons": {
@@ -321,6 +330,7 @@
         "light": "Light mode",
         "system": "Adapted to the system"
       },
+      "discord": "Join us on Discord",
       "feedback": "Feedback",
       "home": "Home",
       "login": "Login",
