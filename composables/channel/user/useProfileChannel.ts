@@ -78,7 +78,6 @@ export const useProfileChannel = () => {
   })
 
   return {
-    profile,
-    isConnected
+    profile
   }
 }

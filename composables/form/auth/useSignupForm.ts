@@ -19,18 +19,27 @@ export const useSignupForm = () => {
   const schema = yup.object({
     email: yup
       .string()
+      .max(50, t('common.form.error.stringMax', { max: 50 }))
       .email(t('common.form.error.email'))
       .required(t('common.form.error.required')),
     username: yup
       .string()
-      .required(t('common.form.error.required'))
-      .min(3, t('common.form.error.stringMin', { min: 3 })),
-    firstName: yup.string().nullable(),
-    lastName: yup.string().nullable(),
+      .max(254, t('common.form.error.stringMax', { max: 254 }))
+      .min(3, t('common.form.error.stringMin', { min: 3 }))
+      .required(t('common.form.error.required')),
+    firstName: yup
+      .string()
+      .max(254, t('common.form.error.stringMax', { max: 254 }))
+      .nullable(),
+    lastName: yup
+      .string()
+      .max(254, t('common.form.error.stringMax', { max: 254 }))
+      .nullable(),
     password: yup
       .string()
       .required(t('common.form.error.required'))
       .min(8, t('common.form.error.passwordMin'))
+      .max(50, t('common.form.error.passwordMax'))
       .matches(
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
         t('common.form.error.passwordComplex')

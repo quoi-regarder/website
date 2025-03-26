@@ -73,7 +73,6 @@ export const useSerieEpisodeRuntimeChannel = () => {
   })
 
   return {
-    totalRuntime,
-    isConnected
+    totalRuntime
   }
 }

@@ -92,8 +92,10 @@
         "fileSize": "La taille du fichier ne doit pas dépasser {size} Mo.",
         "passwordComplex": "Le mot de passe doit contenir au moins une lettre minuscule, une majuscule, un chiffre et un caractère spécial.",
         "passwordMatch": "Les mots de passe ne correspondent pas.",
+        "passwordMax": "Le mot de passe doit contenir au plus {max} caractères.",
         "passwordMin": "Le mot de passe doit contenir au moins 8 caractères.",
         "required": "Ce champ est obligatoire.",
+        "stringMax": "Ce champ doit contenir au plus {max} caractères.",
         "stringMin": "Ce champ doit contenir au moins {min} caractères."
       }
     },

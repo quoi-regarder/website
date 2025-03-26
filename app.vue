@@ -14,6 +14,9 @@ import * as locales from '@nuxt/ui/locale'
 
 const { locale } = useI18n()
 
+useMovieListChannel()
+useSerieListChannel()
+
 const formatLocale = (locale: string) => {
   switch (locale) {
   case 'fr':
