@@ -214,7 +214,7 @@ const fetchMovieGenres = async () => {
 
   movies_genres.value = data.genres.map((genre) => ({
     id: genre.id,
-    label: genre.name
+    label: formatGenre(genre.name)
   }))
 }
 
@@ -225,7 +225,7 @@ const fetchTvGenres = async () => {
 
   tv_genres.value = data.genres.map((genre) => ({
     id: genre.id,
-    label: genre.name
+    label: formatGenre(genre.name)
   }))
 }
 

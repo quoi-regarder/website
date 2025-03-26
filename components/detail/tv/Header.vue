@@ -39,7 +39,7 @@
                 class="flex flex-col items-start sm:flex-row sm:items-center gap-x-1.5"
               >
                 <div class="flex items-center gap-x-0.5">
-                  <UIcon name="i-lucidtag:calendar" class="w-6 h-6" />
+                  <UIcon name="i-lucide:calendar" class="w-6 h-6" />
                   <p class="text-primary-400 md:text-lg">
                     {{ $t('tvHeader.first_air_date') }}
                   </p>
