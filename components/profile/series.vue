@@ -270,7 +270,7 @@ const fetchToWatchLists = async (reset = false) => {
     toWatchList.value = toWatchList.value.concat(response.data?.content ?? [])
   }
 
-  toWatchTotalPages.value = response.data?.totalPages ?? 1
+  toWatchTotalPages.value = response.data?.page.totalPages ?? 1
 }
 
 const fetchWatchingLists = async (reset = false) => {
@@ -291,7 +291,7 @@ const fetchWatchingLists = async (reset = false) => {
   } else {
     watchingList.value = watchingList.value.concat(response.data?.content ?? [])
   }
-  watchingTotalPages.value = response.data?.totalPages ?? 1
+  watchingTotalPages.value = response.data?.page.totalPages ?? 1
 }
 
 const fetchWatchedLists = async (reset = false) => {
@@ -312,7 +312,7 @@ const fetchWatchedLists = async (reset = false) => {
   } else {
     watchedList.value = watchedList.value.concat(response.data?.content ?? [])
   }
-  watchedTotalPages.value = response.data?.totalPages ?? 1
+  watchedTotalPages.value = response.data?.page.totalPages ?? 1
 }
 
 const addToWatchedLists = async (tmdbId: number) => {
@@ -336,7 +336,7 @@ watch(toWatchCarousel, () => {
     toWatchCarousel.value.emblaApi.on('select', () => {
       const index = toWatchCarousel.value?.emblaApi?.selectedScrollSnap()
       if (index === toWatchList.value.length - 6) {
-        if (toWatchPage.value < toWatchTotalPages.value) {
+        if (toWatchPage.value < toWatchTotalPages.value - 1) {
           toWatchPage.value++
         } else {
           return
@@ -353,7 +353,7 @@ watch(watchingCarousel, () => {
     watchingCarousel.value.emblaApi.on('select', () => {
       const index = watchingCarousel.value?.emblaApi?.selectedScrollSnap()
       if (index === watchingList.value.length - 6) {
-        if (watchingPage.value < watchingTotalPages.value) {
+        if (watchingPage.value < watchingTotalPages.value - 1) {
           watchingPage.value++
         } else {
           return
@@ -370,7 +370,7 @@ watch(watchedCarousel, () => {
     watchedCarousel.value.emblaApi.on('select', () => {
       const index = watchedCarousel.value?.emblaApi?.selectedScrollSnap()
       if (index === watchedList.value.length - 6) {
-        if (watchedPage.value < watchedTotalPages.value) {
+        if (watchedPage.value < watchedTotalPages.value - 1) {
           watchedPage.value++
         } else {
           return
