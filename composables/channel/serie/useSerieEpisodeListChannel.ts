@@ -1,6 +1,6 @@
 export const useSerieEpisodeListChannel = () => {
-  const episodeListStore = useEpisodeListStore()
   const episodeWatchlistService = useEpisodeWatchlistService()
+  const episodeListStore = useEpisodeListStore()
   const authStore = useAuthStore()
   const { $sse } = useNuxtApp()
   const route = useRoute()

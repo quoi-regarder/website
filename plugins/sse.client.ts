@@ -26,10 +26,21 @@ export default defineNuxtPlugin(() => {
     }
 
     const connection = useEventSource(url, [], {
-      immediate: false,
+      immediate: true,
       autoReconnect: {
-        retries: 5,
-        delay: 5000
+        retries: 20,
+        delay: 5000,
+        onFailed: () => {
+          console.error(`SSE: Failed to connect after 20 retries for key: ${key}`)
+          removeSseConnection(key)
+        }
+      }
+    })
+
+    // Watch for connection status
+    watch(connection.status, (status) => {
+      if (status === 'CLOSED') {
+        console.warn(`SSE: Connection closed for key: ${key}`)
       }
     })
 

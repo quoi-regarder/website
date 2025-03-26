@@ -84,7 +84,7 @@ const fetchGenres = async () => {
   await $fetch(manager.toString()).then((data: any) => {
     genres.value = data.genres.map((genre: any) => ({
       id: genre.id,
-      label: genre.name,
+      label: formatGenre(genre.name),
       selected: false
     }))
   })

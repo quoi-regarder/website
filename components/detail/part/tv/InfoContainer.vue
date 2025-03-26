@@ -38,7 +38,7 @@
         <UBadge
           v-for="genre in genres"
           :key="genre.id"
-          :label="genre.name"
+          :label="formatGenre(genre.name)"
           color="secondary"
           variant="subtle"
           icon="i-lucide:tag"

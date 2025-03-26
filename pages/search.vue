@@ -193,7 +193,7 @@ const fetchGenres = async () => {
 
   genres.value = data.genres.map((genre: any) => ({
     id: genre.id,
-    label: genre.name
+    label: formatGenre(genre.name)
   }))
 }
 
