@@ -12,6 +12,7 @@ export const useLoginForm = () => {
     email: yup
       .string()
       .email(t('common.form.error.email'))
+      .max(50, t('common.form.error.stringMax', { max: 50 }))
       .required(t('common.form.error.required')),
     password: yup
       .string()
