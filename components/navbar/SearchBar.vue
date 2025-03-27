@@ -86,13 +86,19 @@ const debouncedSearch = useDebounceFn(() => {
 }, 750)
 
 defineShortcuts({
-  m: () => {
-    handleChangeActiveSearch('movie')
-    input.value?.inputRef?.focus()
+  m: {
+    handler: () => {
+      console.log('m')
+      handleChangeActiveSearch('movie')
+      nextTick(() => input.value?.inputRef?.focus())
+    }
   },
-  t: () => {
-    handleChangeActiveSearch('tv')
-    input.value?.inputRef?.focus()
+  t: {
+    handler: () => {
+      console.log('t')
+      handleChangeActiveSearch('tv')
+      nextTick(() => input.value?.inputRef?.focus())
+    }
   },
   escape: {
     handler: () => {

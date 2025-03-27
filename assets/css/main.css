@@ -1,7 +1,7 @@
-@import 'tailwindcss' theme(static);
+@import 'tailwindcss';
 @import '@nuxt/ui';
 
-@theme static {
+@theme {
   --font-sans: 'Lexend Deca', sans-serif;
   --font-mono: 'Space Mono', monospace;
 }

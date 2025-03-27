@@ -67,6 +67,9 @@ export default defineNuxtConfig({
 
   // Internationalization
   i18n: {
+    bundle: {
+      optimizeTranslationDirective: false
+    },
     baseUrl: 'https://quoi-regarder.fr',
     locales: [
       {
