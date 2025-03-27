@@ -36,10 +36,6 @@
     </div>
 
     <HomeCarousel v-model:genres="genres" />
-
-    <!-- <HomeFooter /> -->
-
-    <!-- <PopinArchipelago /> -->
   </div>
 </template>
 
