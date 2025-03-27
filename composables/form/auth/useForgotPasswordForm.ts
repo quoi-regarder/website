@@ -11,7 +11,7 @@ export const useForgotPasswordForm = () => {
     email: yup
       .string()
       .email(t('common.form.error.email'))
-      .max(50, t('common.form.error.stringMax', { max: 50 }))
+      .max(255, t('common.form.error.stringMax', { max: 255 }))
       .required(t('common.form.error.required'))
   })
 

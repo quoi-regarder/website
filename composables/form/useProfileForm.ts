@@ -18,21 +18,21 @@ export const useProfileForm = () => {
   const schema = yup.object({
     avatarUrl: yup
       .string()
-      .max(254, t('common.form.error.stringMax', { max: 254 }))
+      .max(255, t('common.form.error.stringMax', { max: 255 }))
       .nullable(),
     firstName: yup
       .string()
-      .max(254, t('common.form.error.stringMax', { max: 254 }))
+      .max(255, t('common.form.error.stringMax', { max: 255 }))
       .nullable(),
     lastName: yup
       .string()
-      .max(254, t('common.form.error.stringMax', { max: 254 }))
+      .max(255, t('common.form.error.stringMax', { max: 255 }))
       .nullable(),
     username: yup
       .string()
       .required(t('common.form.error.required'))
       .min(3, t('common.form.error.stringMin', { min: 3 }))
-      .max(254, t('common.form.error.stringMax', { max: 254 }))
+      .max(255, t('common.form.error.stringMax', { max: 255 }))
   })
 
   return { state, setState, schema }

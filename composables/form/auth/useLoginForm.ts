@@ -12,13 +12,13 @@ export const useLoginForm = () => {
     email: yup
       .string()
       .email(t('common.form.error.email'))
-      .max(50, t('common.form.error.stringMax', { max: 50 }))
+      .max(255, t('common.form.error.stringMax', { max: 255 }))
       .required(t('common.form.error.required')),
     password: yup
       .string()
       .required(t('common.form.error.required'))
       .min(8, t('common.form.error.passwordMin'))
-      .max(40, t('common.form.error.passwordMax'))
+      .max(50, t('common.form.error.passwordMax'))
       .matches(
         /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
         t('common.form.error.passwordComplex')
