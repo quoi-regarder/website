@@ -63,8 +63,13 @@
               :genres="props.genres"
             />
           </div>
-          <div class="flex justify-center pt-4">
-            <PopinShare :title="props.title" />
+          <div class="flex justify-center pt-0 lg:pt-4">
+            <PopinShare
+              :id="movieId"
+              :title="props.title"
+              type="movie"
+              :overview="props.overview"
+            />
           </div>
         </div>
       </div>
@@ -147,6 +152,4 @@ const linearGradient = computed(() => {
     return 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8))'
   }
 })
-
-console.log(props.title)
 </script>
