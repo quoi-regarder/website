@@ -50,7 +50,7 @@
         <div class="flex justify-end sm:justify-start">
           <PopinShare
             :id="props.item.id"
-            :title="props.item.title"
+            :title="title"
             :type="props.type"
             :overview="props.item.overview"
           />

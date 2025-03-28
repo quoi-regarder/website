@@ -10,7 +10,7 @@
     />
     <template #body>
       <div class="flex flex-col gap-y-6">
-        <div class="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-4">
+        <div class="grid grid-cols-4 sm:grid-cols-5 gap-2 sm:gap-4">
           <UTooltip
             v-for="network in networks"
             :key="network"
@@ -25,6 +25,24 @@
               @click="handleShare(network)"
             >
               <UIcon :name="getNetworkIcon(network)" class="w-5 h-5 sm:w-6 sm:h-6" />
+            </UButton>
+          </UTooltip>
+          <UTooltip :text="$t('modals.share.copy_link')" placement="top">
+            <UButton
+              variant="ghost"
+              color="gray"
+              :class="
+                isLinkCopied
+                  ? 'bg-success-50 text-success-500'
+                  : 'hover:bg-gray-500/10 text-gray-500'
+              "
+              class="w-full h-12 sm:h-16 flex items-center justify-center transition-all duration-300 hover:scale-105"
+              @click="copyLink"
+            >
+              <UIcon
+                :name="isLinkCopied ? 'i-lucide:check' : 'i-lucide:link'"
+                class="w-5 h-5 sm:w-6 sm:h-6"
+              />
             </UButton>
           </UTooltip>
         </div>
@@ -51,6 +69,7 @@
 import { useShareLink } from 'vue3-social-sharing'
 
 const isShareModalOpen = ref(false)
+const isLinkCopied = ref(false)
 const { shareLink } = useShareLink()
 const { t } = useI18n()
 
@@ -77,7 +96,6 @@ const networks = [
   'whatsapp',
   'facebook',
   'twitter',
-  'linkedin',
   'pinterest',
   'reddit',
   'telegram',
@@ -122,7 +140,6 @@ const getNetworkColor = (network: string) => {
     whatsapp: 'success',
     facebook: 'blue',
     twitter: 'sky',
-    linkedin: 'blue',
     pinterest: 'red',
     reddit: 'orange',
     telegram: 'blue',
@@ -138,7 +155,6 @@ const getNetworkClass = (network: string) => {
     whatsapp: 'hover:bg-[#25D366]/10 text-[#25D366]',
     facebook: 'hover:bg-[#1877F2]/10 text-[#1877F2]',
     twitter: 'hover:bg-[#1DA1F2]/10 text-[#1DA1F2]',
-    linkedin: 'hover:bg-[#0A66C2]/10 text-[#0A66C2]',
     pinterest: 'hover:bg-[#E60023]/10 text-[#E60023]',
     reddit: 'hover:bg-[#FF4500]/10 text-[#FF4500]',
     telegram: 'hover:bg-[#0088cc]/10 text-[#0088cc]',
@@ -154,7 +170,6 @@ const getNetworkIcon = (network: string) => {
     whatsapp: 'i-simple-icons:whatsapp',
     facebook: 'i-simple-icons:facebook',
     twitter: 'i-simple-icons:twitter',
-    linkedin: 'i-simple-icons:linkedin',
     pinterest: 'i-simple-icons:pinterest',
     reddit: 'i-simple-icons:reddit',
     telegram: 'i-simple-icons:telegram',
@@ -163,5 +178,18 @@ const getNetworkIcon = (network: string) => {
     threads: 'i-simple-icons:threads'
   }
   return icons[network] || 'i-lucide:share-2'
+}
+
+const copyLink = async () => {
+  try {
+    await navigator.clipboard.writeText(shareUrl.value)
+    isLinkCopied.value = true
+    useNotifications().success(t('modals.share.link_copied'), t('modals.share.link_copied_message'))
+    setTimeout(() => {
+      isLinkCopied.value = false
+    }, 2000)
+  } catch (err) {
+    console.error('Failed to copy link:', err)
+  }
 }
 </script>

@@ -295,23 +295,27 @@
       "title": "Rejoignez notre serveur Discord"
     },
     "share": {
+      "title": "Partager",
       "label": "Partager",
-      "networks": {
-        "email": "Email",
-        "facebook": "Facebook",
-        "linkedin": "LinkedIn",
-        "pinterest": "Pinterest",
-        "reddit": "Reddit",
-        "sms": "SMS",
-        "telegram": "Telegram",
-        "threads": "Threads",
-        "twitter": "Twitter",
-        "whatsapp": "WhatsApp"
-      },
+      "description": "Partagez ce contenu sur vos réseaux sociaux préférés",
+      "copy_link": "Copier le lien",
+      "link_copied": "Lien copié !",
+      "link_copied_message": "Le lien a été copié dans votre presse-papiers",
       "preview": {
         "title": "Aperçu du partage"
       },
-      "title": "Partager"
+      "networks": {
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "twitter": "Twitter",
+        "linkedin": "LinkedIn",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "telegram": "Telegram",
+        "email": "Email",
+        "sms": "SMS",
+        "threads": "Threads"
+      }
     }
   },
   "movieCollection": {

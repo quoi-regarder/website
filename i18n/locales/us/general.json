@@ -295,23 +295,27 @@
       "title": "Join our Discord server"
     },
     "share": {
+      "title": "Share",
       "label": "Share",
-      "networks": {
-        "email": "Email",
-        "facebook": "Facebook",
-        "linkedin": "LinkedIn",
-        "pinterest": "Pinterest",
-        "reddit": "Reddit",
-        "sms": "SMS",
-        "telegram": "Telegram",
-        "threads": "Threads",
-        "twitter": "Twitter",
-        "whatsapp": "WhatsApp"
-      },
+      "description": "Share this content on your favorite social networks",
+      "copy_link": "Copy link",
+      "link_copied": "Link copied!",
+      "link_copied_message": "The link has been copied to your clipboard",
       "preview": {
         "title": "Share preview"
       },
-      "title": "Share"
+      "networks": {
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "twitter": "Twitter",
+        "linkedin": "LinkedIn",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "telegram": "Telegram",
+        "email": "Email",
+        "sms": "SMS",
+        "threads": "Threads"
+      }
     }
   },
   "movieCollection": {
