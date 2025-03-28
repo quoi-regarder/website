@@ -133,6 +133,11 @@ export default defineNuxtConfig({
     }
   },
 
+  // Social share configuration
+  socialShare: {
+    baseUrl: 'https://quoi-regarder.fr'
+  },
+
   // Cookie control configuration
   cookieControl: {
     colors: {

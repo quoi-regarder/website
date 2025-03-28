@@ -92,8 +92,8 @@
         "fileSize": "File size must not exceed {size} MB.",
         "passwordComplex": "Password must include lowercase letters, uppercase letters, numbers, and special characters.",
         "passwordMatch": "Passwords do not match.",
-        "passwordMin": "Password must be at least 8 characters long.",
         "passwordMax": "Password must be at most {max} characters long.",
+        "passwordMin": "Password must be at least 8 characters long.",
         "required": "This field is required.",
         "stringMax": "This field must be at most {max} characters long.",
         "stringMin": "This field must be at least {min} characters long."
@@ -294,15 +294,24 @@
       "precision": "On our server, you can chat with community members, suggest improvements, report bugs, and much more.",
       "title": "Join our Discord server"
     },
-    "archipelago": {
-      "body": "Fan of video games?",
-      "buttons": {
-        "close": "Close",
-        "watch": "Watch the stream"
+    "share": {
+      "label": "Share",
+      "networks": {
+        "email": "Email",
+        "facebook": "Facebook",
+        "linkedin": "LinkedIn",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "sms": "SMS",
+        "telegram": "Telegram",
+        "threads": "Threads",
+        "twitter": "Twitter",
+        "whatsapp": "WhatsApp"
       },
-      "precision": "From Friday, February 21 at 6 PM to Sunday, February 23 at 6 PM.",
-      "title": "🚀 ArchilanOfficiel Event",
-      "twitch": "Live on Twitch all weekend to discover Archipelago. Don't miss the event!"
+      "preview": {
+        "title": "Share preview"
+      },
+      "title": "Share"
     }
   },
   "movieCollection": {
@@ -400,8 +409,8 @@
       "noWatched": "No movies watched.",
       "title": "My Movies",
       "toWatch": "To Watch",
-      "watched": "Watched",
-      "watchTime": "Total watch time"
+      "watchTime": "Total watch time",
+      "watched": "Watched"
     },
     "serie": {
       "noToWatch": "No TV shows to watch.",
@@ -409,9 +418,9 @@
       "noWatching": "No TV shows currently being watched.",
       "title": "My TV Shows",
       "toWatch": "To Watch",
+      "watchTime": "Total watch time",
       "watched": "Watched",
-      "watching": "Watching",
-      "watchTime": "Total watch time"
+      "watching": "Watching"
     },
     "tabs": {
       "movies": "Movies",
@@ -504,6 +513,9 @@
         "registered": "Registration successful. Please check your inbox to activate your account."
       }
     }
+  },
+  "site": {
+    "name": "What to Watch"
   },
   "time": {
     "days": "Days",

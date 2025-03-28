@@ -63,6 +63,14 @@
               :genres="props.genres"
             />
           </div>
+          <div class="flex justify-center pt-0 lg:pt-4">
+            <PopinShare
+              :id="movieId"
+              :title="props.title"
+              type="movie"
+              :overview="props.overview"
+            />
+          </div>
         </div>
       </div>
     </div>

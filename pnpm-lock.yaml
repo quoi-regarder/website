@@ -22,6 +22,9 @@ importers:
       '@iconify-json/openmoji':
         specifier: ^1.2.8
         version: 1.2.8
+      '@iconify-json/simple-icons':
+        specifier: ^1.2.29
+        version: 1.2.29
       '@nuxt/content':
         specifier: ^3.4.0
         version: 3.4.0(magicast@0.3.5)(typescript@5.8.2)
@@ -70,6 +73,9 @@ importers:
       typescript:
         specifier: ^5.8.2
         version: 5.8.2
+      vue3-social-sharing:
+        specifier: ^1.3.1
+        version: 1.3.1(vue@3.5.13(typescript@5.8.2))
       yup:
         specifier: ^1.6.1
         version: 1.6.1
@@ -771,6 +777,12 @@ packages:
     resolution:
       {
         integrity: sha512-D1PnGtwx2tx0jGxWC4NI50uskQui0XUkLaUVawKp0SNkidPLdxXI37To0nwM0nV2C+aJDsYaSiED0wQNlBYxqg==
+      }
+
+  '@iconify-json/simple-icons@1.2.29':
+    resolution:
+      {
+        integrity: sha512-KYrxmxtRz6iOAulRiUsIBMUuXek+H+Evwf8UvYPIkbQ+KDoOqTegHx3q/w3GDDVC0qJYB+D3hXPMZcpm78qIuA==
       }
 
   '@iconify/collections@1.0.529':
@@ -9511,6 +9523,14 @@ packages:
     peerDependencies:
       vue: ^3.2.0
 
+  vue3-social-sharing@1.3.1:
+    resolution:
+      {
+        integrity: sha512-1WxhmLzy51HKGDoZ474K+r+C16sJMdhUQ05DU7aEQdZE8CZQFFzJM3DixvAnVHzBwWFFkktj2HFxJGCT7XjnIg==
+      }
+    peerDependencies:
+      vue: ^3.3.11
+
   vue@3.5.13:
     resolution:
       {
@@ -10255,6 +10275,10 @@ snapshots:
       '@iconify/types': 2.0.0
 
   '@iconify-json/openmoji@1.2.8':
+    dependencies:
+      '@iconify/types': 2.0.0
+
+  '@iconify-json/simple-icons@1.2.29':
     dependencies:
       '@iconify/types': 2.0.0
 
@@ -16668,6 +16692,10 @@ snapshots:
   vue-router@4.5.0(vue@3.5.13(typescript@5.8.2)):
     dependencies:
       '@vue/devtools-api': 6.6.4
+      vue: 3.5.13(typescript@5.8.2)
+
+  vue3-social-sharing@1.3.1(vue@3.5.13(typescript@5.8.2)):
+    dependencies:
       vue: 3.5.13(typescript@5.8.2)
 
   vue@3.5.13(typescript@5.8.2):
