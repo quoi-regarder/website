@@ -294,22 +294,27 @@
       "precision": "Sur notre vous pourrez discuter avec des membres de la communauté, proposer vos améliorations, signaler des bugs et bien plus encore.",
       "title": "Rejoignez notre serveur Discord"
     },
-    "archipelago": {
-      "body": "Fan de jeux vidéo ?",
-      "buttons": {
-        "close": "Fermer",
-        "watch": "Regarder le stream"
-      },
-      "precision": "Du vendredi 21 février à 18h au dimanche 23 février à 18h.",
-      "title": "🚀 Événement ArchilanOfficiel",
-      "twitch": "En direct sur Twitch tout le week-end pour découvrir Archipelago. Ne manquez pas l'événement !"
-    },
     "share": {
-      "title": "📢 Partager sur quel réseau social ?",
+      "title": "Partager",
       "label": "Partager",
-      "network": {
-        "title": "Je te recommande vivement de regarder : ",
-        "body": "Une histoire passionnante à ne pas manquer. #Films #Séries #Recommandations #QuoiRegarder"
+      "description": "Partagez ce contenu sur vos réseaux sociaux préférés",
+      "copy_link": "Copier le lien",
+      "link_copied": "Lien copié !",
+      "link_copied_message": "Le lien a été copié dans votre presse-papiers",
+      "preview": {
+        "title": "Aperçu du partage"
+      },
+      "networks": {
+        "whatsapp": "WhatsApp",
+        "facebook": "Facebook",
+        "twitter": "Twitter",
+        "linkedin": "LinkedIn",
+        "pinterest": "Pinterest",
+        "reddit": "Reddit",
+        "telegram": "Telegram",
+        "email": "Email",
+        "sms": "SMS",
+        "threads": "Threads"
       }
     }
   },
@@ -408,8 +413,8 @@
       "noWatched": "Aucun film déjà vu.",
       "title": "Mes films",
       "toWatch": "À voir",
-      "watched": "Déjà vu",
-      "watchTime": "Temps de visionnage total"
+      "watchTime": "Temps de visionnage total",
+      "watched": "Déjà vu"
     },
     "serie": {
       "noToWatch": "Aucune série à voir.",
@@ -417,9 +422,9 @@
       "noWatching": "Aucune série en cours de visionnage.",
       "title": "Mes séries",
       "toWatch": "À voir",
+      "watchTime": "Temps de visionnage total",
       "watched": "Déjà vu",
-      "watching": "En cours de visionnage",
-      "watchTime": "Temps de visionnage total"
+      "watching": "En cours de visionnage"
     },
     "tabs": {
       "movies": "Films",
@@ -431,8 +436,8 @@
       "success": {
         "accountDeleted": "Compte supprimé avec succès.",
         "avatar": {
-          "updated": "Photo de profil mise à jour.",
-          "removed": "Photo de profil supprimée."
+          "removed": "Photo de profil supprimée.",
+          "updated": "Photo de profil mise à jour."
         },
         "updated": "Profil mis à jour avec succès."
       }
@@ -512,6 +517,9 @@
         "registered": "Inscription réussie ! Consultez vos e-mails pour activer votre compte."
       }
     }
+  },
+  "site": {
+    "name": "Quoi Regarder"
   },
   "time": {
     "days": "Jours",

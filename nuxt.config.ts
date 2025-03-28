@@ -38,8 +38,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
     '@nuxt/content',
-    '@dargmuesli/nuxt-cookie-control',
-    '@stefanobartoletti/nuxt-social-share'
+    '@dargmuesli/nuxt-cookie-control'
   ],
 
   css: ['/assets/css/main.css'],

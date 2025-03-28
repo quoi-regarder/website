@@ -28,12 +28,22 @@
         class="flex flex-col gap-2.5 border-1 border-dashed rounded-lg p-2 md:p-4 w-full overflow-hidden"
       >
         <!-- Action Buttons -->
-        <div class="flex flex-wrap gap-2 justify-between w-full">
-          <PopinShare :title="props.item.title" />
+        <div class="flex flex-col sm:flex-row sm:justify-between gap-3">
+          <!-- Share Button -->
+          <div class="flex justify-end sm:justify-start">
+            <PopinShare
+              :id="props.item.id"
+              :title="title"
+              type="movie"
+              :overview="props.item.overview"
+            />
+          </div>
+
+          <!-- Watch Buttons -->
           <div class="flex flex-wrap gap-2 justify-end">
             <UButton
               :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
-              size="md"
+              size="sm"
               color="primary"
               :trailing-icon="
                 computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
@@ -47,7 +57,7 @@
             <UButton
               v-if="computedStatus === WatchStatus.WATCHING"
               color="secondary"
-              size="md"
+              size="sm"
               trailing-icon="i-lucide:popcorn"
               class="transition-all duration-300 hover:scale-105"
               disabled
@@ -59,7 +69,7 @@
               v-if="computedStatus !== WatchStatus.WATCHING"
               :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
               color="secondary"
-              size="md"
+              size="sm"
               :trailing-icon="
                 computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
               "
@@ -190,7 +200,4 @@ const genreDetails = computed(() => {
 
 const handleAddToViewed = () => addContentToViewedList(props.type, props.item.id)
 const handleAddToWatchlist = () => addContentToWatchlist(props.type, props.item.id)
-
-const baseURL = window.location.origin + '/' + props.type + '/' + props.item.id
-console.log(baseURL)
 </script>
