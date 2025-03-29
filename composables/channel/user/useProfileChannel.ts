@@ -24,10 +24,7 @@ export const useProfileChannel = () => {
     addEventListener,
     disconnect
   } = useSse(sseUrl, connectionKey, {
-    immediate: false,
-    onError: (error) => {
-      console.error('Profile channel SSE error:', error)
-    }
+    immediate: false
   })
 
   const onProfileUpdate = (event: MessageEvent) => {
@@ -43,7 +40,7 @@ export const useProfileChannel = () => {
         colorMode.preference = profile.value.colorMode || 'system'
       }
     } catch (error) {
-      console.error('Error parsing profile update:', error)
+      console.error('Error parsing profile update.')
     }
   }
 

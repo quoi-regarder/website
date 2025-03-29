@@ -21,10 +21,7 @@ export const useSerieEpisodeRuntimeChannel = () => {
     addEventListener,
     disconnect
   } = useSse(sseUrl, connectionKey, {
-    immediate: false,
-    onError: (error) => {
-      console.error('Serie episode runtime channel SSE error:', error)
-    }
+    immediate: false
   })
 
   const onSerieEpisodeRuntimeUpdate = (event: MessageEvent) => {
@@ -32,7 +29,7 @@ export const useSerieEpisodeRuntimeChannel = () => {
       const data = JSON.parse(event.data)
       totalRuntime.value = data.totalRuntime
     } catch (error) {
-      console.error('Error parsing serie episode runtime update:', error)
+      console.error('Error parsing serie episode runtime update.')
     }
   }
 

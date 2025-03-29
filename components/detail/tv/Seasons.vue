@@ -94,7 +94,7 @@ const fetchSeasons = async () => {
       await fetchEpisodeWatchlist(selectedNumber.value)
     }
   } catch (error) {
-    console.error('Failed to fetch episodes:', error)
+    console.error('Failed to fetch episodes.')
   }
 }
 
@@ -117,7 +117,7 @@ const fetchEpisodeWatchlist = async (seasonNumber: number | null) => {
       episodeListStore.setToWatchIds(response.data?.to_watch || [])
     }
   } catch (error) {
-    console.error('Failed to fetch watchlist:', error)
+    console.error('Failed to fetch watchlist.')
   }
 }
 </script>

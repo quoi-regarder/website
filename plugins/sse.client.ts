@@ -6,7 +6,6 @@ export default defineNuxtPlugin(() => {
   // Check authentication
   const checkAuth = () => {
     if (!authStore.isAuthenticated || !authStore.getToken) {
-      console.warn('SSE: Authentication required')
       return false
     }
     return true
@@ -31,16 +30,8 @@ export default defineNuxtPlugin(() => {
         retries: 20,
         delay: 5000,
         onFailed: () => {
-          console.error(`SSE: Failed to connect after 20 retries for key: ${key}`)
           removeSseConnection(key)
         }
-      }
-    })
-
-    // Watch for connection status
-    watch(connection.status, (status) => {
-      if (status === 'CLOSED') {
-        console.warn(`SSE: Connection closed for key: ${key}`)
       }
     })
 

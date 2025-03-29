@@ -23,10 +23,7 @@ export const useSerieEpisodeListChannel = () => {
     addEventListener,
     disconnect
   } = useSse(sseUrl, connectionKey, {
-    immediate: false,
-    onError: (error) => {
-      console.error('Serie episode list channel SSE error:', error)
-    }
+    immediate: false
   })
 
   const onEpisodeListUpdate = (event: MessageEvent) => {
@@ -36,7 +33,7 @@ export const useSerieEpisodeListChannel = () => {
       episodeListStore.setWatchingIds(data.watching)
       episodeListStore.setToWatchIds(data.to_watch)
     } catch (error) {
-      console.error('Error parsing episode list update:', error)
+      console.error('Error parsing episode list update.')
     }
   }
 

@@ -22,10 +22,7 @@ export const useMovieListChannel = () => {
     addEventListener,
     disconnect
   } = useSse(sseUrl, connectionKey, {
-    immediate: false,
-    onError: (error) => {
-      console.error('Movie list channel SSE error:', error)
-    }
+    immediate: false
   })
 
   const onMovieListUpdate = (event: MessageEvent) => {
@@ -34,7 +31,7 @@ export const useMovieListChannel = () => {
       movieListStore.setToWatchIds(data.to_watch)
       movieListStore.setWatchedIds(data.watched)
     } catch (error) {
-      console.error('Error parsing movie list update:', error)
+      console.error('Error parsing movie list update.')
     }
   }
 

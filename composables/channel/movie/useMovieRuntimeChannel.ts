@@ -21,10 +21,7 @@ export const useMovieRuntimeChannel = () => {
     addEventListener,
     disconnect
   } = useSse(sseUrl, connectionKey, {
-    immediate: false,
-    onError: (error) => {
-      console.error('Movie runtime channel SSE error:', error)
-    }
+    immediate: false
   })
 
   const onMovieRuntimeUpdate = (event: MessageEvent) => {
@@ -32,7 +29,7 @@ export const useMovieRuntimeChannel = () => {
       const data = JSON.parse(event.data)
       totalRuntime.value = data.totalRuntime
     } catch (error) {
-      console.error('Error parsing movie runtime update:', error)
+      console.error('Error parsing movie runtime update.')
     }
   }
 

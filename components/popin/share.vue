@@ -189,7 +189,7 @@ const copyLink = async () => {
       isLinkCopied.value = false
     }, 2000)
   } catch (err) {
-    console.error('Failed to copy link:', err)
+    console.error('Failed to copy link.')
   }
 }
 </script>

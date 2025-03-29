@@ -90,7 +90,7 @@ export const useSearch = () => {
         hasNoResults.value = true
       }
     } catch (e) {
-      console.error('Error while searching', e)
+      console.error('Error while searching')
     } finally {
       isSearching.value = false
 
