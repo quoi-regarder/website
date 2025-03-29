@@ -15,10 +15,7 @@
         <!-- Desktop -->
         <div class="hidden lg:grid grid-cols-12 gap-8 items-center">
           <div class="col-span-4 flex items-center gap-3">
-            <UIcon
-              name="i-heroicons-star"
-              class="size-8 text-amber-500 flex-shrink-0 text-justify"
-            />
+            <UIcon name="i-lucide:star" class="size-8 text-amber-500 flex-shrink-0 text-justify" />
             <div class="flex flex-col gap-1 text-justify">
               <p class="font-medium text-[var(--ui-text-highlighted)]">
                 {{ $t('promos.features.title') }}
@@ -40,7 +37,7 @@
               :label="$t(`promos.features.benefits.${benefit}`)"
             >
               <template #leading>
-                <UIcon name="i-heroicons-check-circle" class="size-4 text-amber-500" />
+                <UIcon name="lucide:badge-check" class="size-4 text-amber-500" />
               </template>
             </UBadge>
           </div>
@@ -61,7 +58,7 @@
               @click="handleRegisterClick"
             />
             <UButton
-              icon="i-heroicons-x-mark"
+              icon="lucide:badge-x"
               variant="outline"
               color="neutral"
               @click="handleDismiss"
@@ -73,13 +70,13 @@
         <div class="lg:hidden flex flex-col gap-3">
           <div class="flex items-center justify-between gap-2">
             <div class="flex items-center gap-2">
-              <UIcon name="i-heroicons-star" class="size-7 text-amber-500" />
+              <UIcon name="i-lucide:star" class="size-7 text-amber-500" />
               <p class="font-medium text-[var(--ui-text-highlighted)] text-justify">
                 {{ $t('promos.features.title') }}
               </p>
             </div>
             <UButton
-              icon="i-heroicons-x-mark"
+              icon="lucide:badge-x"
               color="neutral"
               variant="outline"
               size="sm"
@@ -99,7 +96,7 @@
               class="rounded-full w-fit"
             >
               <template #leading>
-                <UIcon name="i-heroicons-check-circle" class="size-4 text-amber-500" />
+                <UIcon name="lucide:badge-check" class="size-4 text-amber-500" />
               </template>
             </UBadge>
           </div>
