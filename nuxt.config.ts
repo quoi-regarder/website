@@ -38,7 +38,8 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     'pinia-plugin-persistedstate/nuxt',
     '@nuxt/content',
-    '@dargmuesli/nuxt-cookie-control'
+    '@dargmuesli/nuxt-cookie-control',
+    '@sentry/nuxt/module'
   ],
 
   css: ['/assets/css/main.css'],
@@ -47,6 +48,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     tmdbApiKey: process.env.NUXT_TMDB_API_KEY,
     tmdbBaseUrl: process.env.NUXT_TMDB_BASE_URL,
+    sentryDsn: process.env.NUXT_SENTRY_DSN,
     public: {
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL,
       maintenance: process.env.NUXT_PUBLIC_MAINTENANCE
@@ -133,11 +135,6 @@ export default defineNuxtConfig({
     }
   },
 
-  // Social share configuration
-  socialShare: {
-    baseUrl: 'https://quoi-regarder.fr'
-  },
-
   // Cookie control configuration
   cookieControl: {
     colors: {
@@ -192,5 +189,16 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2025-01-16'
+  compatibilityDate: '2025-01-16',
+
+  sentry: {
+    sourceMapsUploadOptions: {
+      org: 'quoi-regarder',
+      project: 'frontend'
+    }
+  },
+
+  sourcemap: {
+    client: 'hidden'
+  }
 })
