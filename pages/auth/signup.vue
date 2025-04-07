@@ -1,7 +1,7 @@
 <template>
   <NuxtLayout :dual-column="true" :show-divider="true" :show-oauth-divider="true" name="auth">
     <template #title>
-      {{ $t('signup.title') }}
+      {{ t('signup.title') }}
     </template>
 
     <template #form>
@@ -10,31 +10,31 @@
           <div>
             <FieldInput
               v-model="state.username"
-              :label="$t('signup.form.fields.username')"
-              :placeholder="$t('signup.form.placeholders.username')"
+              :label="t('signup.form.fields.username')"
+              :placeholder="t('signup.form.placeholders.username')"
               name="username"
               required
             />
 
             <FieldInput
               v-model="state.lastName"
-              :label="$t('signup.form.fields.lastName')"
-              :placeholder="$t('signup.form.placeholders.lastName')"
+              :label="t('signup.form.fields.lastName')"
+              :placeholder="t('signup.form.placeholders.lastName')"
               name="lastName"
             />
 
             <FieldInput
               v-model="state.firstName"
-              :label="$t('signup.form.fields.firstName')"
-              :placeholder="$t('signup.form.placeholders.firstName')"
+              :label="t('signup.form.fields.firstName')"
+              :placeholder="t('signup.form.placeholders.firstName')"
               name="firstName"
             />
           </div>
           <div>
             <FieldInput
               v-model="state.email"
-              :label="$t('signup.form.fields.email')"
-              :placeholder="$t('signup.form.placeholders.email')"
+              :label="t('signup.form.fields.email')"
+              :placeholder="t('signup.form.placeholders.email')"
               name="email"
               required
               type="email"
@@ -42,8 +42,8 @@
 
             <FieldInput
               v-model="state.password"
-              :label="$t('signup.form.fields.password')"
-              :placeholder="$t('signup.form.placeholders.password')"
+              :label="t('signup.form.fields.password')"
+              :placeholder="t('signup.form.placeholders.password')"
               name="password"
               required
               type="password"
@@ -51,8 +51,8 @@
 
             <FieldInput
               v-model="state.passwordConfirmation"
-              :label="$t('signup.form.fields.passwordConfirmation')"
-              :placeholder="$t('signup.form.placeholders.passwordConfirmation')"
+              :label="t('signup.form.fields.passwordConfirmation')"
+              :placeholder="t('signup.form.placeholders.passwordConfirmation')"
               name="passwordConfirmation"
               required
               type="password"
@@ -63,26 +63,26 @@
         <UForm :schema="termsSchema" :state="termsState">
           <FieldCheckBox
             v-model="termsState.terms"
-            :label="$t('signup.form.fields.terms')"
+            :label="t('signup.form.fields.terms')"
             name="terms"
             required
-            :help="$t('signup.form.help.terms')"
+            :help="t('signup.form.help.terms')"
           />
           <p class="text-sm mb-8">
-            {{ $t('signup.form.help.termsMessage') }}
+            {{ t('signup.form.help.termsMessage') }}
             <ULink :to="localPath('/regulation/terms')">
-              {{ $t('signup.form.links.terms') }}
+              {{ t('signup.form.links.terms') }}
             </ULink>
           </p>
         </UForm>
 
         <UTooltip
           :disabled="termsState.terms === true"
-          :text="$t('signup.form.help.termsTooltip')"
+          :text="t('signup.form.help.termsTooltip')"
           arrow
         >
           <UButton
-            :label="$t('signup.form.buttons.submit')"
+            :label="t('signup.form.buttons.submit')"
             block
             size="xl"
             type="submit"
@@ -96,11 +96,11 @@
     <template #oauth>
       <UTooltip
         :disabled="termsState.terms === true"
-        :text="$t('signup.form.help.termsTooltip')"
+        :text="t('signup.form.help.termsTooltip')"
         arrow
       >
         <UButton
-          :label="$t('signup.form.buttons.google')"
+          :label="t('signup.form.buttons.google')"
           block
           size="xl"
           type="button"
@@ -117,10 +117,10 @@
 
     <template #links>
       <ULink :to="localPath('/auth/login')" class="transition-colors duration-200">
-        {{ $t('signup.form.buttons.login') }}
+        {{ t('signup.form.buttons.login') }}
       </ULink>
       <ULink :to="localPath('/')" class="transition-colors duration-200">
-        {{ $t('signup.form.buttons.home') }}
+        {{ t('signup.form.buttons.home') }}
       </ULink>
     </template>
   </NuxtLayout>

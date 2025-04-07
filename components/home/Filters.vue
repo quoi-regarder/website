@@ -8,9 +8,7 @@
       size="md"
       class="self-center"
       color="secondary"
-      :label="
-        moreFilters ? $t('home.form.buttons.lessFilters') : $t('home.form.buttons.moreFilters')
-      "
+      :label="moreFilters ? t('home.form.buttons.lessFilters') : t('home.form.buttons.moreFilters')"
       :trailing-icon="moreFilters ? 'i-lucide:chevron-up' : 'i-lucide:chevron-down'"
       @click="toggleMoreFilters"
     >
@@ -19,6 +17,7 @@
 </template>
 
 <script lang="ts" setup>
+const { t } = useI18n()
 const { filters } = useFilters()
 
 const genres = defineModel<Option[]>('genres', {

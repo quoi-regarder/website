@@ -6,10 +6,12 @@
 
     <div class="relative z-10 flex flex-col items-center justify-center min-h-[95vh] gap-4">
       <div class="flex flex-col items-center justify-center gap-4 py-8">
-        <h1 class="text-5xl text-primary-500 dark:text-primary-400 text-center font-bold">
+        <h1
+          class="text-2xl md:text-4xl lg:text-5xl text-primary-500 dark:text-primary-400 text-center font-bold"
+        >
           {{ t('trending.title') }}
         </h1>
-        <h2 class="text-center text-2xl font-semibold">
+        <h2 class="text-lg md:text-xl lg:text-2xl text-center font-semibold">
           {{ t('trending.description') }}
         </h2>
       </div>

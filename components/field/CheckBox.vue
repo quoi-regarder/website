@@ -35,5 +35,3 @@ defineProps({
 
 const model = defineModel<boolean>()
 </script>
-
-<style></style>

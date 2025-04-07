@@ -1,8 +1,8 @@
 <template>
   <NuxtLayout
     name="filter"
-    :title="$t('monetization.title')"
-    :description="$t('monetization.description')"
+    :title="t('monetization.title')"
+    :description="t('monetization.description')"
   >
     <template #content>
       <div class="w-full flex justify-center">
