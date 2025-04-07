@@ -46,7 +46,7 @@ export interface WatchlistService {
    */
   createWatchlist(
     userId: string | null,
-    data: MovieWatchlist,
+    data: MovieWatchlist | SerieWatchlist | SerieSeasonWatchlist | SerieEpisodeWatchlist,
     contentId?: number
   ): Promise<ApiResponse<any>>
 

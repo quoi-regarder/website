@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 export const useSeasonListStore = defineStore('season_list', {
   state: (): { watchedIds: number[]; watchingIds: number[]; toWatchIds: number[] } => ({
     watchedIds: [],

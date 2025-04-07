@@ -1,6 +1,6 @@
-export const useMovieListChannel = () => {
-  const movieListStore = useMovieListStore()
-  const movieWatchlistService = useMovieWatchlistService()
+export const useMovieFavoriteChannel = () => {
+  const movieFavoriteService: FavoriteService = useMovieFavoriteService()
+  const movieFavoriteStore = useMovieFavoriteStore()
   const authStore = useAuthStore()
   const { $sse } = useNuxtApp()
 
@@ -25,48 +25,45 @@ export const useMovieListChannel = () => {
     immediate: false
   })
 
-  const onMovieListUpdate = (event: MessageEvent) => {
+  const onMovieFavoriteUpdate = (event: MessageEvent) => {
     try {
       const data = JSON.parse(event.data)
-      movieListStore.setToWatchIds(data.to_watch)
-      movieListStore.setWatchedIds(data.watched)
+      movieFavoriteStore.setIds(data.favorite)
     } catch (error) {
-      console.error('Error parsing movie list update.')
+      console.error('Error parsing movie favorite update.')
     }
   }
 
-  const fetchMovieList = async () => {
-    const response: ApiResponse<MovieWatchlistIds> = await movieWatchlistService.getWatchlist(
+  const fetchMovieFavorite = async () => {
+    const response: ApiResponse<MovieFavoriteIds> = await movieFavoriteService.getFavorite(
       authStore.getUserId
     )
 
     if (!response.success) {
-      console.error('Failed to fetch movie watchlist.')
+      console.error('Failed to fetch movie favorite.')
       return
     }
 
-    movieListStore.setToWatchIds(response.data?.to_watch || [])
-    movieListStore.setWatchedIds(response.data?.watched || [])
+    movieFavoriteStore.setIds(response.data?.favorite || [])
   }
 
   onMounted(async () => {
     if (!isAuthenticated.value) return
 
-    await fetchMovieList()
-    addEventListener(SseEventType.MOVIE_WATCHLIST_IDS_UPDATE, onMovieListUpdate)
+    await fetchMovieFavorite()
+    addEventListener(SseEventType.MOVIE_FAVORITE_IDS_UPDATE, onMovieFavoriteUpdate)
     reconnect()
   })
 
   watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
     if (newAuthStatus && !oldAuthStatus) {
-      fetchMovieList().then(() => {
-        addEventListener(SseEventType.MOVIE_WATCHLIST_IDS_UPDATE, onMovieListUpdate)
+      fetchMovieFavorite().then(() => {
+        addEventListener(SseEventType.MOVIE_FAVORITE_IDS_UPDATE, onMovieFavoriteUpdate)
         reconnect()
       })
     } else if (!newAuthStatus && oldAuthStatus) {
       disconnect()
-      movieListStore.setToWatchIds([])
-      movieListStore.setWatchedIds([])
+      movieFavoriteStore.setIds([])
     }
   })
 }

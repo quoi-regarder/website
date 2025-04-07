@@ -84,6 +84,22 @@
       "watching": "En cours"
     },
     "dateNotSet": "Date non définie",
+    "favorite": {
+      "remove": "Retirer des favoris",
+      "add": "Ajouter aux favoris",
+      "toasts": {
+        "success": {
+          "movie": {
+            "addedToList": "Film ajouté à la liste des films favoris.",
+            "removedFromList": "Film retiré de la liste des films favoris."
+          },
+          "tv": {
+            "addedToList": "Série ajoutée à la liste des séries favorites.",
+            "removedFromList": "Série retirée de la liste des séries favorites."
+          }
+        }
+      }
+    },
     "form": {
       "error": {
         "conversionFailed": "L'enregistrement de l'image a échoué. Veuillez réessayer.",

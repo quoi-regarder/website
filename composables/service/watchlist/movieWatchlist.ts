@@ -1,9 +1,11 @@
 export const useMovieWatchlistService = (): WatchlistService => {
-  const getWatchlist = async (userId: string | null): Promise<ApiResponse<MovieIds>> => {
+  const getWatchlist = async (userId: string | null): Promise<ApiResponse<MovieWatchlistIds>> => {
     if (!userId) {
       throw new Error('User ID is required')
     }
-    const response: ApiResponse<MovieIds> = await apiFetch(`/movie-watchlist/${userId}/movie`)
+    const response: ApiResponse<MovieWatchlistIds> = await apiFetch(
+      `/movie-watchlist/${userId}/movie`
+    )
 
     if (!response.success) {
       console.error('Failed to fetch movie watchlist.')
@@ -16,7 +18,7 @@ export const useMovieWatchlistService = (): WatchlistService => {
     userId: string | null,
     status: WatchStatus,
     page: number,
-    limit: number = 10
+    limit: number = 20
   ): Promise<ApiResponse<Pagination<Movie>>> => {
     if (!userId) {
       throw new Error('User ID is required')

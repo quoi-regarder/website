@@ -3,7 +3,7 @@
     <Body>
       <template v-if="!isAuth && !isMaintenance">
         <Navbar
-          class="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-40 bg-[var(--ui-bg)]/60"
+          class="fixed top-0 left-0 w-full backdrop-blur-md shadow-md z-40 bg-[var(--ui-bg)]/70"
         />
       </template>
       <div :class="[isAuth || isMaintenance ? 'mt-0' : 'mt-20']">

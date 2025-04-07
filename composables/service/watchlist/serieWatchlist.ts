@@ -17,7 +17,7 @@ export const useSerieWatchlistService = (): WatchlistService => {
     userId: string | null,
     status: WatchStatus,
     page: number,
-    limit: number = 10
+    limit: number = 20
   ): Promise<ApiResponse<Pagination<Serie>>> => {
     if (!userId) {
       throw new Error('User ID is required')
