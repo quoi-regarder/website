@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 export const useMovieListStore = defineStore('movie_list', {
   state: (): { watchedIds: number[]; toWatchIds: number[] } => ({
     watchedIds: [],

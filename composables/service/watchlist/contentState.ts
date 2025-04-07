@@ -1,5 +1,3 @@
-type ContentType = 'movie' | 'tv' | 'season' | 'episode'
-
 export const useContentState = () => {
   const movieWatchlistService: WatchlistService = useMovieWatchlistService()
   const serieWatchlistService: WatchlistService = useSerieWatchlistService()
@@ -132,7 +130,7 @@ export const useContentState = () => {
           seasonNumber: seasonNumber
         }
 
-      service.createWatchlist(authStore.getUserId, watch, primaryId)
+      await service.createWatchlist(authStore.getUserId, watch, primaryId)
       useNotifications().success(
         t('common.toasts.title.success'),
         t(`common.content.toasts.success.${type}.addedToList.${status}`)

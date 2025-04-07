@@ -78,6 +78,24 @@
             >
               {{ t('common.content.add_to_watch_list') }}
             </UButton>
+
+            <UTooltip
+              :text="computedFavorite ? t('common.favorite.remove') : t('common.favorite.add')"
+            >
+              <UButton
+                :variant="computedFavorite ? 'solid' : 'outline'"
+                size="sm"
+                color="primary"
+                :trailing-icon="
+                  computedFavorite
+                    ? 'i-material-symbols:favorite'
+                    : 'i-material-symbols:heart-plus-outline'
+                "
+                class="transition-all duration-300 hover:scale-105"
+                @click="addFavorite(props.type, props.item.id)"
+              >
+              </UButton>
+            </UTooltip>
           </div>
         </div>
         <USeparator />
@@ -169,6 +187,7 @@
 
 <script lang="ts" setup>
 const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
+const { isFavorite, addFavorite } = useFavoriteState()
 const localPath = useLocalePath()
 const { t } = useI18n()
 
@@ -191,6 +210,7 @@ const title = computed(() => props.item.title || props.item.name || '')
 const originalTitle = computed(() => props.item.original_title || props.item.original_name || '')
 const formattedRating = computed(() => `${(props.item.vote_average * 10).toFixed(0)}%`)
 const computedStatus = computed(() => getContentStatus(props.type, props.item.id))
+const computedFavorite = computed(() => isFavorite(props.type, props.item.id))
 
 const genreDetails = computed(() => {
   return props.item.genre_ids

@@ -84,6 +84,22 @@
       "watching": "Watching"
     },
     "dateNotSet": "Date not set",
+    "favorite": {
+      "remove": "Remove from favorites",
+      "add": "Add to favorites",
+      "toasts": {
+        "success": {
+          "movie": {
+            "addedToList": "Movie added to favorites list.",
+            "removedFromList": "Movie removed from favorites list."
+          },
+          "tv": {
+            "addedToList": "TV series added to favorites list.",
+            "removedFromList": "TV series removed from favorites list."
+          }
+        }
+      }
+    },
     "form": {
       "error": {
         "conversionFailed": "Failed to save the image. Please try again.",
