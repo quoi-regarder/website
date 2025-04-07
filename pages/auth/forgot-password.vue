@@ -1,22 +1,22 @@
 <template>
   <NuxtLayout :show-divider="true" name="auth">
     <template #title>
-      {{ $t('forgotPassword.title') }}
+      {{ t('forgotPassword.title') }}
     </template>
 
     <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
         <FieldInput
           v-model="state.email"
-          :label="$t('forgotPassword.form.fields.email')"
-          :placeholder="$t('forgotPassword.form.placeholders.email')"
+          :label="t('forgotPassword.form.fields.email')"
+          :placeholder="t('forgotPassword.form.placeholders.email')"
           name="email"
           required
           type="email"
         />
 
         <UButton
-          :label="$t('forgotPassword.form.buttons.submit')"
+          :label="t('forgotPassword.form.buttons.submit')"
           block
           size="xl"
           type="submit"
@@ -27,13 +27,13 @@
 
     <template #links>
       <ULink :to="localPath('/auth/login')" class="transition-colors duration-200">
-        {{ $t('forgotPassword.form.buttons.login') }}
+        {{ t('forgotPassword.form.buttons.login') }}
       </ULink>
       <ULink :to="localPath('/auth/signup')" class="transition-colors duration-200">
-        {{ $t('forgotPassword.form.buttons.signup') }}
+        {{ t('forgotPassword.form.buttons.signup') }}
       </ULink>
       <ULink :to="localPath('/')" class="transition-colors duration-200">
-        {{ $t('forgotPassword.form.buttons.home') }}
+        {{ t('forgotPassword.form.buttons.home') }}
       </ULink>
     </template>
   </NuxtLayout>

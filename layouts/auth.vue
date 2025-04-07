@@ -3,9 +3,9 @@
     <div class="w-full px-4 py-3 sm:px-6 sm:py-4">
       <UButton
         icon="i-lucide-arrow-left"
-        color="white"
-        variant="link"
-        :label="$t('login.back')"
+        color="neutral"
+        variant="outline"
+        :label="t('login.back')"
         size="xl"
         @click="handleGoBack"
       />
@@ -27,7 +27,7 @@
           v-if="showOauthDivider"
           class="relative flex items-center justify-center my-3 sm:my-4 h-6 sm:h-8"
         >
-          <USeparator :label="$t('login.or')" />
+          <USeparator :label="t('login.or')" />
         </div>
 
         <div>
@@ -47,6 +47,7 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
 const router = useRouter()
 
 defineOptions({

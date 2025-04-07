@@ -1,7 +1,7 @@
 export interface Option {
   id: string | number
   label: string
-  avatar: {
+  avatar?: {
     src: string
     alt: string
   }

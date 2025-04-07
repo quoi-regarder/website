@@ -1,15 +1,15 @@
 <template>
   <NuxtLayout :show-divider="true" name="auth">
     <template #title>
-      {{ $t('updatePassword.title') }}
+      {{ t('updatePassword.title') }}
     </template>
 
     <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
         <FieldInput
           v-model="state.password"
-          :label="$t('updatePassword.form.fields.password')"
-          :placeholder="$t('updatePassword.form.placeholders.password')"
+          :label="t('updatePassword.form.fields.password')"
+          :placeholder="t('updatePassword.form.placeholders.password')"
           name="password"
           required
           type="password"
@@ -17,20 +17,20 @@
 
         <FieldInput
           v-model="state.passwordConfirmation"
-          :label="$t('updatePassword.form.fields.passwordConfirmation')"
-          :placeholder="$t('updatePassword.form.placeholders.passwordConfirmation')"
+          :label="t('updatePassword.form.fields.passwordConfirmation')"
+          :placeholder="t('updatePassword.form.placeholders.passwordConfirmation')"
           name="passwordConfirmation"
           required
           type="password"
         />
 
-        <UButton :label="$t('updatePassword.form.buttons.submit')" block size="xl" type="submit" />
+        <UButton :label="t('updatePassword.form.buttons.submit')" block size="xl" type="submit" />
       </UForm>
     </template>
 
     <template #links>
       <ULink :to="localPath('/')" class="transition-colors duration-200">
-        {{ $t('updatePassword.form.buttons.home') }}
+        {{ t('updatePassword.form.buttons.home') }}
       </ULink>
     </template>
   </NuxtLayout>

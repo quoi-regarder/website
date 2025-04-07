@@ -1,15 +1,15 @@
 <template>
   <NuxtLayout :show-divider="true" :show-oauth-divider="true" name="auth">
     <template #title>
-      {{ $t('login.title') }}
+      {{ t('login.title') }}
     </template>
 
     <template #form>
       <UForm :schema="schema" :state="state" @submit="onSubmit">
         <FieldInput
           v-model="state.email"
-          :label="$t('login.form.fields.email')"
-          :placeholder="$t('login.form.placeholders.email')"
+          :label="t('login.form.fields.email')"
+          :placeholder="t('login.form.placeholders.email')"
           name="email"
           required
           type="email"
@@ -18,20 +18,20 @@
 
         <FieldInput
           v-model="state.password"
-          :label="$t('login.form.fields.password')"
-          :placeholder="$t('login.form.placeholders.password')"
+          :label="t('login.form.fields.password')"
+          :placeholder="t('login.form.placeholders.password')"
           name="password"
           required
           type="password"
         />
 
-        <UButton :label="$t('login.form.buttons.submit')" block size="xl" type="submit" />
+        <UButton :label="t('login.form.buttons.submit')" block size="xl" type="submit" />
       </UForm>
     </template>
 
     <template #oauth>
       <UButton
-        :label="$t('login.form.buttons.google')"
+        :label="t('login.form.buttons.google')"
         block
         size="xl"
         type="button"
@@ -46,13 +46,13 @@
 
     <template #links>
       <ULink :to="localePath('/auth/forgot-password')" class="transition-colors duration-200">
-        {{ $t('login.form.buttons.forgotPassword') }}
+        {{ t('login.form.buttons.forgotPassword') }}
       </ULink>
       <ULink :to="localePath('/auth/signup')" class="transition-colors duration-200">
-        {{ $t('login.form.buttons.signup') }}
+        {{ t('login.form.buttons.signup') }}
       </ULink>
       <ULink :to="localePath('/')" class="transition-colors duration-200">
-        {{ $t('login.form.buttons.home') }}
+        {{ t('login.form.buttons.home') }}
       </ULink>
     </template>
   </NuxtLayout>

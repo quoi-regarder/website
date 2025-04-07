@@ -8,11 +8,13 @@
       <UContainer
         class="w-full flex flex-col items-center gap-4 transition-all duration-500 ease-out relative z-10"
       >
-        <h1 class="text-5xl text-primary-500 dark:text-primary-400 text-center font-bold">
-          {{ $t('search.title') }}
+        <h1
+          class="text-2xl md:text-4xl lg:text-5xl text-primary-500 dark:text-primary-400 text-center font-bold"
+        >
+          {{ t('search.title') }}
         </h1>
-        <h2 class="text-2xl font-semibold text-center mb-8">
-          {{ $t('search.description') }}
+        <h2 class="text-lg md:text-xl lg:text-2xl text-center font-semibold">
+          {{ t('search.description') }}
         </h2>
 
         <USeparator color="primary" icon="i-lucide:projector" />
@@ -22,7 +24,7 @@
         <div class="flex flex-col items-center justify-center mt-4 lg:flex-row gap-4">
           <FieldInput
             v-model="search"
-            :placeholder="$t('search.placeholder')"
+            :placeholder="t('search.placeholder')"
             class="w-96 max-w-[90%] mx-auto"
             name="search"
             min-height="min-h-8"
@@ -33,7 +35,7 @@
             icon="i-lucide:search-check"
             size="xl"
             class="mx-auto"
-            :label="$t('search.buttons.search')"
+            :label="t('search.buttons.search')"
             @click="searchQuery(true)"
           />
 
@@ -42,7 +44,7 @@
             color="secondary"
             size="xl"
             variant="subtle"
-            :label="$t('search.buttons.reset')"
+            :label="t('search.buttons.reset')"
             @click="resetSearchAndFilters"
           />
         </div>
