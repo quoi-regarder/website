@@ -56,14 +56,9 @@ useSeoMeta({
 
 useSchemaOrg([
   defineWebSite({
-    name: 'Quoi Regarder',
+    name: t('seo.name'),
     description: t('seo.description'),
-    inLanguage: locale.value,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: '/search?query={search_term_string}',
-      'query-input': 'required name=search_term_string'
-    }
+    inLanguage: locale.value
   }),
   defineWebPage({
     name: t('seo.title'),

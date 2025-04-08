@@ -135,8 +135,8 @@ const { t, locale } = useI18n()
 const isLoaded = ref(false)
 const results_movies = ref<any[]>([])
 const results_tv = ref<any[]>([])
-const movies_genres = ref<any[]>([])
-const tv_genres = ref<any[]>([])
+const { genres: movies_genres } = useTmdbGenres('movie')
+const { genres: tv_genres } = useTmdbGenres('tv')
 
 const moreTrending = ref(false)
 const moreTrendingTransition = ref(false)
@@ -212,7 +212,7 @@ useSchemaOrg([
 ])
 
 onMounted(async () => {
-  await Promise.all([fetchTrendingMovies(), fetchTrendingTv(), fetchMovieGenres(), fetchTvGenres()])
+  await Promise.all([fetchTrendingMovies(), fetchTrendingTv()])
 
   isLoaded.value = true
 })
@@ -241,35 +241,6 @@ const fetchTrendingTv = async () => {
   } catch (error) {
     console.error(error)
   }
-}
-
-interface GenreResponse {
-  genres: Array<{
-    id: number
-    name: string
-  }>
-}
-
-const fetchMovieGenres = async () => {
-  const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
-  manager.add('language', locale.value)
-  const data = await $fetch<GenreResponse>(manager.toString())
-
-  movies_genres.value = data.genres.map((genre) => ({
-    id: genre.id,
-    label: formatGenre(genre.name)
-  }))
-}
-
-const fetchTvGenres = async () => {
-  const manager = new QueryParamsManager('/api/themoviedb/genre/tv/list')
-  manager.add('language', locale.value)
-  const data = await $fetch<GenreResponse>(manager.toString())
-
-  tv_genres.value = data.genres.map((genre) => ({
-    id: genre.id,
-    label: formatGenre(genre.name)
-  }))
 }
 
 const toggleMoreTrending = async () => {

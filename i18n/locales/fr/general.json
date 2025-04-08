@@ -84,9 +84,11 @@
       "watching": "En cours"
     },
     "dateNotSet": "Date non définie",
+    "endOfResults": "Fin des résultats",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
     "favorite": {
-      "remove": "Retirer des favoris",
       "add": "Ajouter aux favoris",
+      "remove": "Retirer des favoris",
       "toasts": {
         "success": {
           "movie": {
@@ -118,6 +120,7 @@
     "hint": {
       "optional": "Champ facultatif"
     },
+    "noResults": "Aucun résultat trouvé.",
     "toasts": {
       "errors": {
         "bad": {
@@ -164,9 +167,7 @@
         "info": "Information",
         "success": "Succès"
       }
-    },
-    "endOfResults": "Fin des résultats",
-    "error": "Une erreur est survenue. Veuillez réessayer."
+    }
   },
   "error": {
     "buttons": {
@@ -313,27 +314,27 @@
       "title": "Rejoignez notre serveur Discord"
     },
     "share": {
-      "title": "Partager",
-      "label": "Partager",
-      "description": "Partagez ce contenu sur vos réseaux sociaux préférés",
       "copy_link": "Copier le lien",
+      "description": "Partagez ce contenu sur vos réseaux sociaux préférés",
+      "label": "Partager",
       "link_copied": "Lien copié !",
       "link_copied_message": "Le lien a été copié dans votre presse-papiers",
-      "preview": {
-        "title": "Aperçu du partage"
-      },
       "networks": {
-        "whatsapp": "WhatsApp",
+        "email": "Email",
         "facebook": "Facebook",
-        "twitter": "Twitter",
         "linkedin": "LinkedIn",
         "pinterest": "Pinterest",
         "reddit": "Reddit",
-        "telegram": "Telegram",
-        "email": "Email",
         "sms": "SMS",
-        "threads": "Threads"
-      }
+        "telegram": "Telegram",
+        "threads": "Threads",
+        "twitter": "Twitter",
+        "whatsapp": "WhatsApp"
+      },
+      "preview": {
+        "title": "Aperçu du partage"
+      },
+      "title": "Partager"
     }
   },
   "movieCollection": {
@@ -369,12 +370,12 @@
       "login": "Connexion",
       "logout": "Déconnexion",
       "movie": "Mes films",
+      "popular": "Populaires",
       "profile": "Profil",
       "search": "Rechercher",
       "series": "Mes séries",
       "signup": "Créer un compte",
-      "trending": "Tendance",
-      "popular": "Populaires"
+      "trending": "Tendance"
     },
     "dropdown": {
       "account": "Connecté en tant que"
@@ -396,6 +397,11 @@
       "colorMode": "Changer le thème",
       "locale": "Changer la langue"
     }
+  },
+  "popular": {
+    "description": "Découvrez les films et séries les plus populaires sur {platform}.",
+    "platforms": "Plateforme",
+    "title": "Populaires sur {platform}"
   },
   "profile": {
     "form": {
@@ -607,9 +613,5 @@
         "updated": "Votre mot de passe a été mis à jour."
       }
     }
-  },
-  "popular": {
-    "title": "Populaires sur {platform}",
-    "description": "Découvrez les films et séries les plus populaires sur {platform}."
   }
 }

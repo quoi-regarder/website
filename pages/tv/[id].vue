@@ -48,25 +48,29 @@ const { locale, t } = useI18n()
 useSerieEpisodeListChannel()
 useSerieSeasonListChannel()
 
-useHead({
+useSeoMeta({
   title: t('seo.pages.detail.tv'),
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: t('seo.descriptions.detail.tv')
-    }
-  ]
+  description: t('seo.descriptions.detail.tv'),
+  ogTitle: t('seo.pages.detail.tv'),
+  ogDescription: t('seo.descriptions.detail.tv'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
 
+useSchemaOrg([
+  defineWebPage({
+    name: t('seo.pages.detail.tv'),
+    description: t('seo.descriptions.detail.tv'),
+    inLanguage: locale.value
+  })
+])
+
 const tv = ref<any>(null)
-const genres = ref<Option[]>([])
+const { genres } = useTmdbGenres('tv')
 const isLoaded = ref(false)
 
 onMounted(async () => {
   await fetchTv()
-  await fetchGenres()
-
   isLoaded.value = true
 })
 
@@ -76,19 +80,6 @@ const fetchTv = async () => {
 
   await $fetch(manager.toString()).then((data: any) => {
     tv.value = data
-  })
-}
-
-const fetchGenres = async () => {
-  const manager = new QueryParamsManager('/api/themoviedb/genre/tv/list')
-  manager.add('language', locale.value)
-
-  await $fetch(manager.toString()).then((data: any) => {
-    genres.value = data.genres.map((genre: any) => ({
-      id: genre.id,
-      label: formatGenre(genre.name),
-      selected: false
-    }))
   })
 }
 </script>

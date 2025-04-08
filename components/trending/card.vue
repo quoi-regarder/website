@@ -187,7 +187,7 @@ const props = defineProps({
     required: true
   },
   genres: {
-    type: Array as PropType<{ id: number; label: string }[]>,
+    type: Array as PropType<Option[]>,
     required: true
   },
   type: {

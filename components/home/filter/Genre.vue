@@ -14,36 +14,29 @@
 </template>
 
 <script lang="ts" setup>
-const { locale } = useI18n()
-
 const { selectedType, filters } = useFilters()
+const { genres: genresList, refresh } = useTmdbGenres(computed(() => selectedType.value))
 
 const genres = defineModel<Option[]>('genres', {
   required: true,
   default: () => []
 })
 
-onMounted(async () => {
-  await fetchGenres()
+watch(
+  genresList,
+  (newGenres) => {
+    if (newGenres) {
+      genres.value = newGenres
+    }
+  },
+  { immediate: true }
+)
+
+onMounted(() => {
+  refresh()
 })
 
-const fetchGenres = async () => {
-  const manager = new QueryParamsManager(`/api/themoviedb/genre/${selectedType.value}/list`)
-  manager.add('language', locale.value)
-  const data: any = await $fetch(manager.toString())
-
-  genres.value = data.genres.map((genre: any) => ({
-    id: genre.id,
-    label: formatGenre(genre.name)
-  }))
-}
-
-watch(
-  () => selectedType.value,
-  (newType, oldType) => {
-    if (newType !== oldType) {
-      fetchGenres()
-    }
-  }
-)
+watch(selectedType, () => {
+  refresh()
+})
 </script>

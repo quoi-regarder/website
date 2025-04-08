@@ -46,25 +46,30 @@
 <script setup lang="ts">
 const route = useRoute()
 const { locale, t } = useI18n()
-useHead({
+
+useSeoMeta({
   title: t('seo.pages.detail.movie'),
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: t('seo.descriptions.detail.movie')
-    }
-  ]
+  description: t('seo.descriptions.detail.movie'),
+  ogTitle: t('seo.pages.detail.movie'),
+  ogDescription: t('seo.descriptions.detail.movie'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
 
+useSchemaOrg([
+  defineWebPage({
+    name: t('seo.pages.detail.movie'),
+    description: t('seo.descriptions.detail.movie'),
+    inLanguage: locale.value
+  })
+])
+
 const movie = ref<any>(null)
-const genres = ref<Option[]>([])
+const { genres } = useTmdbGenres('movie')
 const isLoaded = ref(false)
 
 onMounted(async () => {
   await fetchMovie()
-  await fetchGenres()
-
   isLoaded.value = true
 })
 
@@ -74,19 +79,6 @@ const fetchMovie = async () => {
 
   await $fetch(manager.toString()).then((data: any) => {
     movie.value = data
-  })
-}
-
-const fetchGenres = async () => {
-  const manager = new QueryParamsManager('/api/themoviedb/genre/movie/list')
-  manager.add('language', locale.value)
-
-  await $fetch(manager.toString()).then((data: any) => {
-    genres.value = data.genres.map((genre: any) => ({
-      id: genre.id,
-      label: formatGenre(genre.name),
-      selected: false
-    }))
   })
 }
 </script>
