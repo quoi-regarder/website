@@ -3,15 +3,78 @@
     class="w-full px-4 py-8 bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] rounded-lg shadow-lg"
   >
     <h1 class="text-3xl font-bold mb-8 text-primary-400">
-      {{ $t('profile.movie.title') }}
+      {{ t('profile.movie.title') }}
     </h1>
 
     <!-- watch time -->
     <h2 class="text-xl font-bold mb-4">
-      {{ $t('profile.movie.watchTime') }}
+      {{ t('profile.movie.watchTime') }}
     </h2>
 
     <DetailProfileRuntime :runtime="totalRuntime" />
+
+    <USeparator class="py-4" />
+
+    <!-- favorites movies -->
+    <UChip
+      v-if="movieFavoriteStore.getCount > 0"
+      :text="movieFavoriteStore.getCount"
+      class="mb-4"
+      size="3xl"
+      :ui="{ base: 'p-1' }"
+    >
+      <h2 class="text-xl font-bold leading-8">
+        {{ t('profile.movie.favorites') }}
+      </h2>
+    </UChip>
+
+    <h2 v-else class="text-xl font-bold leading-8">
+      {{ t('profile.movie.favorites') }}
+    </h2>
+
+    <div class="flex justify-center min-h-[300px] items-center">
+      <UCarousel
+        v-if="isLoaded && favoritesList.length > 0"
+        ref="favoritesCarousel"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
+        :items="favoritesList"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+        class-names
+        wheel-gestures
+      >
+        <template #default="{ item }">
+          <div :key="item.tmdbId" class="relative flex items-center flex-col min-h-[350px]">
+            <div class="w-full h-full">
+              <DetailProfileCard :movie="item" type="movie" class="h-full" />
+            </div>
+          </div>
+        </template>
+      </UCarousel>
+
+      <UCarousel
+        v-else-if="!isLoaded"
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
+        :items="skeletonItems"
+        class="max-w-[75vw] w-11/12"
+        :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
+        arrows
+      >
+        <template #default>
+          <USkeleton
+            class="w-full min-h-[350px] rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
+            :ui="{ base: 'rounded-lg' }"
+          />
+        </template>
+      </UCarousel>
+
+      <p v-else>
+        {{ t('profile.movie.noFavorites') }}
+      </p>
+    </div>
 
     <USeparator class="py-4" />
 
@@ -24,12 +87,12 @@
       :ui="{ base: 'p-1' }"
     >
       <h2 class="text-xl font-bold leading-8">
-        {{ $t('profile.movie.toWatch') }}
+        {{ t('profile.movie.toWatch') }}
       </h2>
     </UChip>
 
     <h2 v-else class="text-xl font-bold leading-8">
-      {{ $t('profile.movie.toWatch') }}
+      {{ t('profile.movie.toWatch') }}
     </h2>
 
     <div class="flex justify-center min-h-[300px] items-center">
@@ -57,7 +120,7 @@
               class="absolute top-15 right-1"
               @click="addToWatchedLists(item.tmdbId)"
             >
-              {{ $t('common.content.add_to_viewed_list') }}
+              {{ t('common.content.add_to_viewed_list') }}
             </UButton>
           </div>
         </template>
@@ -81,7 +144,7 @@
       </UCarousel>
 
       <p v-else>
-        {{ $t('profile.movie.noToWatch') }}
+        {{ t('profile.movie.noToWatch') }}
       </p>
     </div>
 
@@ -95,12 +158,12 @@
       :ui="{ base: 'p-1' }"
     >
       <h2 class="text-xl font-bold leading-8">
-        {{ $t('profile.movie.watched') }}
+        {{ t('profile.movie.watched') }}
       </h2>
     </UChip>
 
     <h2 v-else class="text-xl font-bold leading-8">
-      {{ $t('profile.movie.watched') }}
+      {{ t('profile.movie.watched') }}
     </h2>
 
     <div class="flex justify-center min-h-[300px] items-center">
@@ -143,7 +206,7 @@
       </UCarousel>
 
       <p v-else>
-        {{ $t('profile.movie.noWatched') }}
+        {{ t('profile.movie.noWatched') }}
       </p>
     </div>
   </UContainer>
@@ -151,17 +214,23 @@
 
 <script lang="ts" setup>
 const movieListStore = useMovieListStore()
+const movieFavoriteStore = useMovieFavoriteStore()
 const movieWatchlistService = useMovieWatchlistService()
+const movieFavoritesService = useMovieFavoriteService()
 const { totalRuntime } = useMovieRuntimeChannel()
 
 const toWatchCarousel = useTemplateRef('toWatchCarousel')
 const watchedCarousel = useTemplateRef('watchedCarousel')
+const favoritesCarousel = useTemplateRef('favoritesCarousel')
 const watchedList = ref<Movie[]>([])
 const toWatchList = ref<Movie[]>([])
+const favoritesList = ref<Movie[]>([])
 const watchedTotalPages = ref(1)
 const toWatchTotalPages = ref(1)
+const favoritesTotalPages = ref(1)
 const watchedPage = ref(0)
 const toWatchPage = ref(0)
+const favoritesPage = ref(0)
 
 const authStore = useAuthStore()
 const { t } = useI18n()
@@ -170,7 +239,7 @@ const skeletonItems = Array.from({ length: 6 }, (_, i) => i)
 const isLoaded = ref(false)
 
 onMounted(async () => {
-  await Promise.all([fetchToWatchLists(), fetchWatchedLists()])
+  await Promise.all([fetchToWatchLists(), fetchWatchedLists(), fetchFavoritesLists()])
 
   isLoaded.value = true
 })
@@ -191,6 +260,7 @@ const addToWatchedLists = async (tmdb_id: number) => {
 
   await fetchToWatchLists(true)
   await fetchWatchedLists(true)
+  await fetchFavoritesLists(true)
 
   useNotifications().success(
     t('common.toasts.title.success'),
@@ -242,6 +312,23 @@ const fetchWatchedLists = async (reset = false) => {
   watchedTotalPages.value = response.data?.page.totalPages ?? 1
 }
 
+const fetchFavoritesLists = async (reset = false) => {
+  const response: ApiResponse<Pagination<Movie>> | undefined =
+    await movieFavoritesService.getFavoriteWithDetails(authStore.getUserId, favoritesPage.value, 20)
+
+  if (response === undefined || !response.success) {
+    return
+  }
+
+  if (reset) {
+    favoritesList.value = response.data?.content ?? []
+  } else {
+    favoritesList.value = favoritesList.value.concat(response.data?.content ?? [])
+  }
+
+  favoritesTotalPages.value = response.data?.page.totalPages ?? 1
+}
+
 watch(toWatchCarousel, () => {
   if (toWatchCarousel.value?.emblaApi) {
     toWatchCarousel.value.emblaApi.on('select', () => {
@@ -271,6 +358,23 @@ watch(watchedCarousel, () => {
         }
 
         fetchWatchedLists()
+      }
+    })
+  }
+})
+
+watch(favoritesCarousel, () => {
+  if (favoritesCarousel.value?.emblaApi) {
+    favoritesCarousel.value.emblaApi.on('select', () => {
+      const index = favoritesCarousel.value?.emblaApi?.selectedScrollSnap()
+      if (index === favoritesList.value.length - 6) {
+        if (favoritesPage.value < favoritesTotalPages.value - 1) {
+          favoritesPage.value++
+        } else {
+          return
+        }
+
+        fetchFavoritesLists()
       }
     })
   }

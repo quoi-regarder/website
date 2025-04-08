@@ -17,7 +17,7 @@ export interface FavoriteService {
    *
    * @returns Favorite object with details. Only available for movies and series.
    */
-  getFavoriteWithDetails?(
+  getFavoriteWithDetails(
     userId: string | null,
     page: number,
     limit: number

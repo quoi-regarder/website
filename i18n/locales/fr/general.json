@@ -425,6 +425,8 @@
       }
     },
     "movie": {
+      "favorites": "Films favoris",
+      "noFavorites": "Aucun film favori.",
       "noToWatch": "Aucun film à voir.",
       "noWatched": "Aucun film déjà vu.",
       "title": "Mes films",
@@ -433,6 +435,8 @@
       "watched": "Déjà vu"
     },
     "serie": {
+      "favorites": "Séries favorites",
+      "noFavorites": "Aucune série favorite.",
       "noToWatch": "Aucune série à voir.",
       "noWatched": "Aucune série déjà vue.",
       "noWatching": "Aucune série en cours de visionnage.",
