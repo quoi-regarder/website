@@ -425,6 +425,8 @@
       }
     },
     "movie": {
+      "favorites": "Favorites movies",
+      "noFavorites": "No favorites movies.",
       "noToWatch": "No movies to watch.",
       "noWatched": "No movies watched.",
       "title": "My Movies",
@@ -433,6 +435,8 @@
       "watched": "Watched"
     },
     "serie": {
+      "favorites": "Favorites TV shows",
+      "noFavorites": "No favorites TV shows.",
       "noToWatch": "No TV shows to watch.",
       "noWatched": "No TV shows watched.",
       "noWatching": "No TV shows currently being watched.",
