@@ -164,7 +164,9 @@
         "info": "Information",
         "success": "Success"
       }
-    }
+    },
+    "endOfResults": "End of results",
+    "error": "An error occurred. Please try again."
   },
   "error": {
     "buttons": {
@@ -371,7 +373,8 @@
       "search": "Search",
       "series": "My TV Shows",
       "signup": "Sign up",
-      "trending": "Trending"
+      "trending": "Trending",
+      "popular": "Popular"
     },
     "dropdown": {
       "account": "Logged in as"
@@ -604,5 +607,9 @@
         "updated": "Your password has been updated."
       }
     }
+  },
+  "popular": {
+    "title": "Popular on {platform}",
+    "description": "Discover the most popular movies and series on {platform}."
   }
 }

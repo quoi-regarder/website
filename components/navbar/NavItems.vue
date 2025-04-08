@@ -59,7 +59,12 @@ defineProps({
 const EXCEPTION_ROUTES = ['/search', '/us/search']
 
 const isActiveRoute = (to: string) => {
-  return EXCEPTION_ROUTES.includes(to) ? route.path === to : route.fullPath === to
+  if (EXCEPTION_ROUTES.includes(to)) {
+    return route.path === to
+  } else if (to.includes('/popular/')) {
+    return route.path.startsWith('/popular')
+  }
+  return route.fullPath === to
 }
 
 const handleItemClick = () => {

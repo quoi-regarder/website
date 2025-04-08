@@ -98,6 +98,11 @@ const navItems = computed(() => [
     icon: 'i-lucide:trending-up'
   },
   {
+    label: t('navbar.buttons.popular'),
+    to: localePath('/popular/5'),
+    icon: 'i-lucide:star'
+  },
+  {
     label: t('navbar.buttons.search'),
     to: localePath('/search'),
     icon: 'i-lucide:search'
