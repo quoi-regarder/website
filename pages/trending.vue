@@ -132,17 +132,6 @@
 <script lang="ts" setup>
 const { t, locale } = useI18n()
 
-useHead({
-  title: t('seo.pages.trending'),
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: t('seo.descriptions.trending')
-    }
-  ]
-})
-
 const isLoaded = ref(false)
 const results_movies = ref<any[]>([])
 const results_tv = ref<any[]>([])
@@ -165,23 +154,75 @@ const tabs = [
   }
 ]
 
+useSeoMeta({
+  title: t('seo.pages.trending'),
+  description: t('seo.descriptions.trending'),
+  ogTitle: t('seo.pages.trending'),
+  ogDescription: t('seo.descriptions.trending'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
+})
+
+useSchemaOrg([
+  defineWebPage({
+    name: t('seo.pages.trending'),
+    description: t('seo.descriptions.trending'),
+    inLanguage: locale.value
+  }),
+  defineItemList({
+    name: t('seo.pages.trending'),
+    description: t('seo.descriptions.trending'),
+    itemListElement: [
+      ...results_movies.value.slice(0, 10).map((movie, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        item: {
+          '@type': 'Movie',
+          name: movie.title,
+          description: movie.overview,
+          image: getImageUrl(movie.poster_path, 'original'),
+          url: `/movie/${movie.id}`,
+          datePublished: movie.release_date,
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: movie.vote_average,
+            ratingCount: movie.vote_count
+          }
+        }
+      })),
+      ...results_tv.value.slice(0, 10).map((tv, index) => ({
+        '@type': 'ListItem',
+        position: index + 11,
+        item: {
+          '@type': 'TVSeries',
+          name: tv.name,
+          description: tv.overview,
+          image: getImageUrl(tv.poster_path, 'original'),
+          url: `/tv/${tv.id}`,
+          datePublished: tv.first_air_date,
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: tv.vote_average,
+            ratingCount: tv.vote_count
+          }
+        }
+      }))
+    ]
+  })
+])
+
 onMounted(async () => {
   await Promise.all([fetchTrendingMovies(), fetchTrendingTv(), fetchMovieGenres(), fetchTvGenres()])
 
   isLoaded.value = true
 })
 
-interface TmdbResponse {
-  results: any[]
-  [key: string]: any
-}
-
 const fetchTrendingMovies = async () => {
   try {
     const manager = new QueryParamsManager('/api/themoviedb/trending/movie')
     manager.add('language', locale.value)
 
-    const data = await $fetch<TmdbResponse>(manager.toString())
+    const data = await $fetch(manager.toString())
 
     results_movies.value = data.results
   } catch (error) {
@@ -194,7 +235,7 @@ const fetchTrendingTv = async () => {
     const manager = new QueryParamsManager('/api/themoviedb/trending/tv')
     manager.add('language', locale.value)
 
-    const data = await $fetch<TmdbResponse>(manager.toString())
+    const data = await $fetch(manager.toString())
 
     results_tv.value = data.results
   } catch (error) {

@@ -164,7 +164,9 @@
         "info": "Information",
         "success": "Succès"
       }
-    }
+    },
+    "endOfResults": "Fin des résultats",
+    "error": "Une erreur est survenue. Veuillez réessayer."
   },
   "error": {
     "buttons": {
@@ -371,7 +373,8 @@
       "search": "Rechercher",
       "series": "Mes séries",
       "signup": "Créer un compte",
-      "trending": "Tendance"
+      "trending": "Tendance",
+      "popular": "Populaires"
     },
     "dropdown": {
       "account": "Connecté en tant que"
@@ -604,5 +607,9 @@
         "updated": "Votre mot de passe a été mis à jour."
       }
     }
+  },
+  "popular": {
+    "title": "Populaires sur {platform}",
+    "description": "Découvrez les films et séries les plus populaires sur {platform}."
   }
 }

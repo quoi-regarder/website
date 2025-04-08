@@ -80,14 +80,65 @@
 <script lang="ts" setup>
 const { t, locale } = useI18n()
 const route = useRouter()
+const localPath = useLocalePath()
+
+const title = t('seo.pages.search')
+const description = t('seo.descriptions.search')
+const url = `https://quoi-regarder.fr${localPath('/search')}`
+
+useSeoMeta({
+  title: t('seo.pages.search'),
+  description: t('seo.descriptions.search'),
+  ogTitle: t('seo.pages.search'),
+  ogDescription: t('seo.descriptions.search'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
+})
+
+useSchemaOrg([
+  defineWebPage({
+    name: t('seo.pages.search'),
+    description: t('seo.descriptions.search'),
+    inLanguage: locale.value,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: '/search?query={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  })
+])
 
 useHead({
-  title: t('seo.pages.search'),
+  title,
   meta: [
+    { name: 'description', content: description },
+    { name: 'og:title', content: title },
+    { name: 'og:description', content: description },
+    { name: 'og:url', content: url },
+    { name: 'og:type', content: 'website' },
+    { name: 'twitter:card', content: 'summary_large_image' },
+    { name: 'twitter:title', content: title },
+    { name: 'twitter:description', content: description },
+    { name: 'robots', content: 'index, follow' },
+    { name: 'canonical', content: url }
+  ],
+  link: [{ rel: 'canonical', href: url }],
+  script: [
     {
-      hid: 'description',
-      name: 'description',
-      content: t('seo.descriptions.search')
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'SearchResultsPage',
+        name: title,
+        description: description,
+        url: url,
+        inLanguage: locale.value,
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${url}?query={search_term_string}`,
+          'query-input': 'required name=search_term_string'
+        }
+      })
     }
   ]
 })

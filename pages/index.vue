@@ -42,13 +42,35 @@
 <script lang="ts" setup>
 const authService = useAuthService()
 const localPath = useLocalePath()
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const route = useRoute()
 
-useHead({
+useSeoMeta({
   title: t('seo.title'),
-  meta: [{ hid: 'description', name: 'description', content: t('seo.description') }]
+  description: t('seo.description'),
+  ogTitle: t('seo.title'),
+  ogDescription: t('seo.description'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
+
+useSchemaOrg([
+  defineWebSite({
+    name: 'Quoi Regarder',
+    description: t('seo.description'),
+    inLanguage: locale.value,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: '/search?query={search_term_string}',
+      'query-input': 'required name=search_term_string'
+    }
+  }),
+  defineWebPage({
+    name: t('seo.title'),
+    description: t('seo.description'),
+    inLanguage: locale.value
+  })
+])
 
 const genres = ref<Option[]>([])
 
