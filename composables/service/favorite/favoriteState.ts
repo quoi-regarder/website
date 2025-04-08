@@ -1,5 +1,6 @@
 export const useFavoriteState = () => {
   const movieFavoriteService: FavoriteService = useMovieFavoriteService()
+  const serieFavoriteService: FavoriteService = useSerieFavoriteService()
 
   const localPath = useLocalePath()
   const authStore = useAuthStore()
@@ -12,6 +13,11 @@ export const useFavoriteState = () => {
           service: movieFavoriteService,
           store: useMovieFavoriteStore()
         }
+      case 'tv':
+        return {
+          service: serieFavoriteService,
+          store: useSerieFavoriteStore()
+        }
       default:
         throw new Error(`Unsupported content type: ${type}`)
     }
@@ -23,6 +29,8 @@ export const useFavoriteState = () => {
     switch (type) {
       case 'movie':
         return useMovieFavoriteStore().isIdFavorite(typeId)
+      case 'tv':
+        return useSerieFavoriteStore().isIdFavorite(typeId)
       default:
         throw new Error(`Unsupported content type: ${type}`)
     }
