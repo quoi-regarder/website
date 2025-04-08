@@ -59,16 +59,22 @@ const route = useRoute()
 const colorMode = useColorMode()
 const localPath = useLocalePath()
 
-useHead({
+useSeoMeta({
   title: t('seo.pages.detail.collection'),
-  meta: [
-    {
-      hid: 'description',
-      name: 'description',
-      content: t('seo.descriptions.detail.collection')
-    }
-  ]
+  description: t('seo.descriptions.detail.collection'),
+  ogTitle: t('seo.pages.detail.collection'),
+  ogDescription: t('seo.descriptions.detail.collection'),
+  ogType: 'website',
+  twitterCard: 'summary_large_image'
 })
+
+useSchemaOrg([
+  defineWebPage({
+    name: t('seo.pages.detail.collection'),
+    description: t('seo.descriptions.detail.collection'),
+    inLanguage: locale.value
+  })
+])
 
 const collection = ref<any>(null)
 

@@ -69,7 +69,12 @@
           }"
         >
           <template #default="{ item }">
-            <MovieCard :genres="genres" :item="item" class="h-full" :type="selectedType" />
+            <MovieCard
+              :genres="selectedType === 'movie' ? movies_genres : tv_genres"
+              :item="item"
+              class="h-full"
+              :type="selectedType"
+            />
           </template>
         </UCarousel>
       </div>
@@ -80,11 +85,6 @@
 <script lang="ts" setup>
 const { t, locale } = useI18n()
 const route = useRouter()
-const localPath = useLocalePath()
-
-const title = t('seo.pages.search')
-const description = t('seo.descriptions.search')
-const url = `https://quoi-regarder.fr${localPath('/search')}`
 
 useSeoMeta({
   title: t('seo.pages.search'),
@@ -99,49 +99,9 @@ useSchemaOrg([
   defineWebPage({
     name: t('seo.pages.search'),
     description: t('seo.descriptions.search'),
-    inLanguage: locale.value,
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: '/search?query={search_term_string}',
-      'query-input': 'required name=search_term_string'
-    }
+    inLanguage: locale.value
   })
 ])
-
-useHead({
-  title,
-  meta: [
-    { name: 'description', content: description },
-    { name: 'og:title', content: title },
-    { name: 'og:description', content: description },
-    { name: 'og:url', content: url },
-    { name: 'og:type', content: 'website' },
-    { name: 'twitter:card', content: 'summary_large_image' },
-    { name: 'twitter:title', content: title },
-    { name: 'twitter:description', content: description },
-    { name: 'robots', content: 'index, follow' },
-    { name: 'canonical', content: url }
-  ],
-  link: [{ rel: 'canonical', href: url }],
-  script: [
-    {
-      type: 'application/ld+json',
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'SearchResultsPage',
-        name: title,
-        description: description,
-        url: url,
-        inLanguage: locale.value,
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: `${url}?query={search_term_string}`,
-          'query-input': 'required name=search_term_string'
-        }
-      })
-    }
-  ]
-})
 
 const selectedType = ref<'movie' | 'tv'>('movie')
 
@@ -151,7 +111,8 @@ const showCarousel = ref(false)
 
 const search = ref<string>('')
 const carousel = useTemplateRef('carousel')
-const genres = ref([])
+const { genres: movies_genres } = useTmdbGenres('movie')
+const { genres: tv_genres } = useTmdbGenres('tv')
 
 const results = ref<any[]>([])
 const page = ref(1)
@@ -169,8 +130,6 @@ defineShortcuts({
 })
 
 onMounted(() => {
-  fetchGenres()
-
   if (route.currentRoute.value.query.query) {
     search.value = route.currentRoute.value.query.query as string
     selectedType.value = route.currentRoute.value.query.type as 'movie' | 'tv'
@@ -239,17 +198,6 @@ const searchQuery = async (reset = false, showToast = true) => {
   }
 }
 
-const fetchGenres = async () => {
-  const manager = new QueryParamsManager(`/api/themoviedb/genre/${selectedType.value}/list`)
-  manager.add('language', locale.value)
-  const data = await $fetch(manager.toString())
-
-  genres.value = data.genres.map((genre: any) => ({
-    id: genre.id,
-    label: formatGenre(genre.name)
-  }))
-}
-
 watch(carousel, () => {
   if (carousel.value?.emblaApi) {
     carousel.value.emblaApi.on('select', () => {
@@ -273,7 +221,6 @@ watch(route.currentRoute, () => {
 })
 
 watch(selectedType, () => {
-  fetchGenres()
   resetSearch()
 })
 </script>

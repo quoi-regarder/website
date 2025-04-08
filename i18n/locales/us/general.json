@@ -84,9 +84,11 @@
       "watching": "Watching"
     },
     "dateNotSet": "Date not set",
+    "endOfResults": "End of results",
+    "error": "An error occurred. Please try again.",
     "favorite": {
-      "remove": "Remove from favorites",
       "add": "Add to favorites",
+      "remove": "Remove from favorites",
       "toasts": {
         "success": {
           "movie": {
@@ -118,6 +120,7 @@
     "hint": {
       "optional": "Optional field"
     },
+    "noResults": "No results found.",
     "toasts": {
       "errors": {
         "bad": {
@@ -164,9 +167,7 @@
         "info": "Information",
         "success": "Success"
       }
-    },
-    "endOfResults": "End of results",
-    "error": "An error occurred. Please try again."
+    }
   },
   "error": {
     "buttons": {
@@ -313,27 +314,27 @@
       "title": "Join our Discord server"
     },
     "share": {
-      "title": "Share",
-      "label": "Share",
-      "description": "Share this content on your favorite social networks",
       "copy_link": "Copy link",
+      "description": "Share this content on your favorite social networks",
+      "label": "Share",
       "link_copied": "Link copied!",
       "link_copied_message": "The link has been copied to your clipboard",
-      "preview": {
-        "title": "Share preview"
-      },
       "networks": {
-        "whatsapp": "WhatsApp",
+        "email": "Email",
         "facebook": "Facebook",
-        "twitter": "Twitter",
         "linkedin": "LinkedIn",
         "pinterest": "Pinterest",
         "reddit": "Reddit",
-        "telegram": "Telegram",
-        "email": "Email",
         "sms": "SMS",
-        "threads": "Threads"
-      }
+        "telegram": "Telegram",
+        "threads": "Threads",
+        "twitter": "Twitter",
+        "whatsapp": "WhatsApp"
+      },
+      "preview": {
+        "title": "Share preview"
+      },
+      "title": "Share"
     }
   },
   "movieCollection": {
@@ -369,12 +370,12 @@
       "login": "Login",
       "logout": "Logout",
       "movie": "My movies",
+      "popular": "Popular",
       "profile": "Profile",
       "search": "Search",
       "series": "My TV Shows",
       "signup": "Sign up",
-      "trending": "Trending",
-      "popular": "Popular"
+      "trending": "Trending"
     },
     "dropdown": {
       "account": "Logged in as"
@@ -396,6 +397,11 @@
       "colorMode": "Change theme",
       "locale": "Change language"
     }
+  },
+  "popular": {
+    "description": "Discover the most popular movies and series on {platform}.",
+    "platforms": "Platform",
+    "title": "Popular on {platform}"
   },
   "profile": {
     "form": {
@@ -607,9 +613,5 @@
         "updated": "Your password has been updated."
       }
     }
-  },
-  "popular": {
-    "title": "Popular on {platform}",
-    "description": "Discover the most popular movies and series on {platform}."
   }
 }

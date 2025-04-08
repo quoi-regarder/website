@@ -26,7 +26,7 @@
             v-model="platforms"
             v-model:selected-model="selectedPlatform"
             name="platforms"
-            label="Platforms"
+            :label="t('popular.platforms')"
             class="w-full max-w-md"
           />
 
@@ -66,7 +66,7 @@
               :key="result.id"
               :item="result"
               :type="selectedType"
-              :genres="[]"
+              :genres="genres"
               :rank="index + 1"
               class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)]"
             />
@@ -78,19 +78,14 @@
           >
             {{ $t('common.endOfResults') }}
           </div>
-
-          <div v-if="error" class="text-center mt-8 text-red-500 dark:text-red-400">
-            {{ error }}
-          </div>
         </div>
       </UContainer>
 
       <UButton
-        v-if="showBackToTop"
         icon="i-heroicons-arrow-up"
         color="primary"
         size="xl"
-        class="fixed bottom-8 right-8 z-50 transition-all duration-300 ease-in-out shadow-lg hover:shadow-xl"
+        class="fixed bottom-8 right-8 z-50 transition-all duration-500 ease-in-out shadow-lg hover:shadow-xl hover:scale-110 hover:rotate-[-4deg]"
         :class="showBackToTop ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'"
         :label="$t('common.buttons.backToTop')"
         @click="scrollToTop"
@@ -104,8 +99,11 @@ const route = useRoute()
 const { locale, t } = useI18n()
 const localPath = useLocalePath()
 
+const selectedType = ref<'movie' | 'tv'>((route.query.type as 'movie' | 'tv') || 'movie')
 const selectedPlatform = ref<Option | undefined>(undefined)
-const platforms = ref<Option[]>([])
+const { platforms, refresh: refreshPlatforms } = useTmdbPlatforms(
+  computed(() => selectedType.value)
+)
 const results = ref<any[]>([])
 const page = ref(1)
 const totalPages = ref(0)
@@ -113,9 +111,8 @@ const isLoading = ref(false)
 const isInitialLoad = ref(true)
 const showBackToTop = ref(false)
 const platformSelectorRef = ref<HTMLElement | null>(null)
-const error = ref<string | null>(null)
 
-const selectedType = ref<'movie' | 'tv'>((route.query.type as 'movie' | 'tv') || 'movie')
+const { genres } = useTmdbGenres(selectedType.value)
 
 useSeoMeta({
   title: t('seo.pages.popular'),
@@ -135,7 +132,7 @@ useSchemaOrg([
 ])
 
 const updateSeo = (platform: Option, type: 'movie' | 'tv', results: any[]) => {
-  if (!platform?.label) return
+  if (!platform?.label || !results?.length) return
 
   const title = t('seo.pages.popular', { platform: platform.label })
   const description = t('seo.descriptions.popular', { platform: platform.label })
@@ -211,23 +208,9 @@ const updateUrl = (platformId: number) => {
 }
 
 const fetchPlatforms = async () => {
-  const manager = new QueryParamsManager(`/api/themoviedb/watch/providers/${selectedType.value}`)
-  manager.add('language', locale.value)
-
-  const data: any = await $fetch(manager.toString())
-
-  platforms.value = data.results.map((platform: any) => ({
-    id: platform.provider_id,
-    label: platform.provider_name,
-    avatar: {
-      src: getImageUrl(platform.logo_path, 'original'),
-      alt: platform.provider_name
-    }
-  }))
-
-  const foundPlatform = platforms.value.find((p) => p.id === Number(route.params.id))
-  selectedPlatform.value = foundPlatform || platforms.value[0]
-  if (!foundPlatform && platforms.value.length > 0) {
+  const foundPlatform = platforms.value?.find((p) => p.id === Number(route.params.id))
+  selectedPlatform.value = foundPlatform || platforms.value?.[0]
+  if (!foundPlatform && platforms.value?.length > 0) {
     updateUrl(Number(platforms.value[0].id))
   }
 }
@@ -236,7 +219,6 @@ const fetchPopular = async () => {
   if (!selectedPlatform.value) return
 
   isLoading.value = true
-  error.value = null
 
   try {
     const manager = new QueryParamsManager(`/api/themoviedb/discover/${selectedType.value}`)
@@ -255,8 +237,7 @@ const fetchPopular = async () => {
     totalPages.value = data.total_pages
     results.value = page.value === 1 ? data.results : [...results.value, ...data.results]
   } catch (err) {
-    console.error('Error fetching popular content:', err)
-    error.value = err instanceof Error ? err.message : t('common.error')
+    console.error('Error fetching popular content.')
   } finally {
     isLoading.value = false
   }
@@ -265,26 +246,31 @@ const fetchPopular = async () => {
 const resetAndFetch = async () => {
   page.value = 1
   results.value = []
-  error.value = null
   await fetchPopular()
 }
 
 onMounted(async () => {
+  await refreshPlatforms()
   await fetchPlatforms()
-  await fetchPopular()
+  await resetAndFetch()
   isInitialLoad.value = false
   window.addEventListener('scroll', handleScroll)
   platformSelectorRef.value = document.querySelector('.max-w-md')
+  updateSeo(selectedPlatform.value!, selectedType.value, results.value)
 })
 
-watch(selectedType, async () => {
+watch(selectedType, async (newType) => {
   if (isInitialLoad.value) return
-  await fetchPlatforms()
-  await resetAndFetch()
+  if (newType !== selectedType.value) {
+    await refreshPlatforms()
+    await fetchPlatforms()
+    await resetAndFetch()
+    updateSeo(selectedPlatform.value!, newType, results.value)
+  }
 })
 
 watch(selectedPlatform, (newPlatform) => {
-  if (newPlatform) {
+  if (newPlatform && results.value?.length) {
     resetAndFetch()
     updateUrl(Number(newPlatform.id))
     updateSeo(newPlatform, selectedType.value, results.value)
@@ -294,11 +280,4 @@ watch(selectedPlatform, (newPlatform) => {
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
 })
-
-if (error.value) {
-  throw createError({
-    statusCode: 500,
-    message: t('errors.generic')
-  })
-}
 </script>
