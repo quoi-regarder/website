@@ -261,12 +261,10 @@ onMounted(async () => {
 
 watch(selectedType, async (newType) => {
   if (isInitialLoad.value) return
-  if (newType !== selectedType.value) {
-    await refreshPlatforms()
-    await fetchPlatforms()
-    await resetAndFetch()
-    updateSeo(selectedPlatform.value!, newType, results.value)
-  }
+  await refreshPlatforms()
+  await fetchPlatforms()
+  await resetAndFetch()
+  updateSeo(selectedPlatform.value!, newType, results.value)
 })
 
 watch(selectedPlatform, (newPlatform) => {
