@@ -99,6 +99,22 @@
               >
                 {{ $t('common.content.add_to_watch_list') }}
               </UButton>
+              <UTooltip
+                :text="computedFavorite ? $t('common.favorite.remove') : $t('common.favorite.add')"
+              >
+                <UButton
+                  :variant="computedFavorite ? 'solid' : 'outline'"
+                  color="primary"
+                  :trailing-icon="
+                    computedFavorite
+                      ? 'i-material-symbols:favorite'
+                      : 'i-material-symbols:heart-plus-outline'
+                  "
+                  class="transition-all duration-300 hover:scale-105"
+                  @click="addFavorite('tv', tvId)"
+                >
+                </UButton>
+              </UTooltip>
             </div>
           </div>
 
@@ -131,6 +147,7 @@
 
 <script lang="ts" setup>
 const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
+const { isFavorite, addFavorite } = useFavoriteState()
 
 const colorMode = useColorMode()
 const route = useRoute()
@@ -190,6 +207,7 @@ const props = defineProps({
 const tvId = ref(Number(route.params.id))
 
 const computedStatus = computed(() => getContentStatus('tv', tvId.value))
+const computedFavorite = computed(() => isFavorite('tv', tvId.value))
 
 const linearGradient = computed(() => {
   if (colorMode.value === 'dark') {

@@ -1,6 +1,6 @@
-export const useMovieFavoriteChannel = () => {
-  const movieFavoriteService: FavoriteService = useMovieFavoriteService()
-  const movieFavoriteStore = useMovieFavoriteStore()
+export const useSerieFavoriteChannel = () => {
+  const serieFavoriteService: FavoriteService = useSerieFavoriteService()
+  const serieFavoriteStore = useSerieFavoriteStore()
   const authStore = useAuthStore()
   const { $sse } = useNuxtApp()
 
@@ -25,45 +25,45 @@ export const useMovieFavoriteChannel = () => {
     immediate: false
   })
 
-  const onMovieFavoriteUpdate = (event: MessageEvent) => {
+  const onSerieFavoriteUpdate = (event: MessageEvent) => {
     try {
       const data = JSON.parse(event.data)
-      movieFavoriteStore.setIds(data.favorite)
+      serieFavoriteStore.setIds(data.favorite)
     } catch (error) {
-      console.error('Error parsing movie favorite update.')
+      console.error('Error parsing serie favorite update.')
     }
   }
 
-  const fetchMovieFavorite = async () => {
-    const response: ApiResponse<MovieFavoriteIds> = await movieFavoriteService.getFavorite(
+  const fetchSerieFavorite = async () => {
+    const response: ApiResponse<SerieFavoriteIds> = await serieFavoriteService.getFavorite(
       authStore.getUserId
     )
 
     if (!response.success) {
-      console.error('Failed to fetch movie favorite.')
+      console.error('Failed to fetch serie favorite.')
       return
     }
 
-    movieFavoriteStore.setIds(response.data?.favorite || [])
+    serieFavoriteStore.setIds(response.data?.favorite || [])
   }
 
   onMounted(async () => {
     if (!isAuthenticated.value) return
 
-    await fetchMovieFavorite()
-    addEventListener(SseEventType.MOVIE_FAVORITE_IDS_UPDATE, onMovieFavoriteUpdate)
+    await fetchSerieFavorite()
+    addEventListener(SseEventType.SERIE_FAVORITE_IDS_UPDATE, onSerieFavoriteUpdate)
     reconnect()
   })
 
   watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
     if (newAuthStatus && !oldAuthStatus) {
-      fetchMovieFavorite().then(() => {
-        addEventListener(SseEventType.MOVIE_FAVORITE_IDS_UPDATE, onMovieFavoriteUpdate)
+      fetchSerieFavorite().then(() => {
+        addEventListener(SseEventType.SERIE_FAVORITE_IDS_UPDATE, onSerieFavoriteUpdate)
         reconnect()
       })
     } else if (!newAuthStatus && oldAuthStatus) {
       disconnect()
-      movieFavoriteStore.reset()
+      serieFavoriteStore.reset()
     }
   })
 }

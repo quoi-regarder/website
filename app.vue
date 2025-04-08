@@ -15,6 +15,7 @@ import * as locales from '@nuxt/ui/locale'
 const { locale } = useI18n()
 
 useMovieFavoriteChannel()
+useSerieFavoriteChannel()
 useMovieListChannel()
 useSerieListChannel()
 
