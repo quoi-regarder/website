@@ -1,11 +1,9 @@
 <template>
-  <div class="w-screen flex flex-col justify-center items-center p-4">
+  <div class="w-full flex flex-col justify-center items-center p-4">
     <div
       v-if="collection"
-      class="w-full min-h-[74vh] rounded-md p-4 shadow-lg bg-cover bg-center bg-no-repeat flex flex-col items-center justify-evenly gap-y-8"
-      :style="{
-        backgroundImage: `${linearGradient}, url(${getImageUrl(collection.backdrop_path, 'original')})`
-      }"
+      class="bg-white/85 dark:bg-black/75 w-full min-h-[88vh] rounded-lg shadow-lg bg-blend-overlay bg-cover bg-center bg-no-repeat flex flex-col items-center justify-evenly gap-y-8"
+      :style="{ backgroundImage: `url(${getImageUrl(collection.backdrop_path, 'original')})` }"
     >
       <div class="w-full flex flex-col items-center gap-y-4">
         <h2 class="text-4xl text-center font-bold text-primary-400">
@@ -56,7 +54,6 @@
 <script lang="ts" setup>
 const { t, locale } = useI18n()
 const route = useRoute()
-const colorMode = useColorMode()
 const localPath = useLocalePath()
 
 useSeoMeta({
@@ -88,12 +85,4 @@ const fetchCollection = async () => {
 
   collection.value = await $fetch(manager.toString())
 }
-
-const linearGradient = computed(() => {
-  if (colorMode.value === 'dark') {
-    return 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))'
-  } else {
-    return 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8))'
-  }
-})
 </script>

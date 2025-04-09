@@ -1,0 +1,76 @@
+---
+description: How use NuxtUI to add styles to our applications
+globs: *.vue
+alwaysApply: false
+---
+## Context
+
+We use NuxtUI as our primary component library for building consistent and accessible user interfaces.
+
+## Rules
+
+### Component Usage
+
+1. **Layout Components**
+   - Use `UContainer` for consistent page layouts
+   - Use `USeparator` for visual separation
+   - Use `UCarousel` for media galleries
+
+2. **Form Components**
+   - Use `UForm` for form wrappers
+   - Use `UButton` for actions
+   - Use `UPopover` for dropdowns and popovers
+   - Use `UCalendar` for date selection
+
+3. **Navigation Components**
+   - Use `UTabs` for tabbed interfaces
+   - Use `UChip` for status indicators and tags
+
+4. **Loading States**
+   - Use `USkeleton` for loading placeholders
+   - Implement consistent loading animations
+
+### Styling Guidelines
+
+1. **Colors**
+   - Use semantic color variables:
+     - `primary-400` for main actions
+     - `secondary-400` for secondary elements
+     - `accent` for highlights
+   - Use opacity modifiers for hover states
+
+2. **Variants**
+   - Use consistent button variants:
+     - `solid` for primary actions
+     - `subtle` for secondary actions
+     - `link` for navigation
+
+3. **Sizes**
+   - Use consistent component sizes:
+     - `sm` for compact elements
+     - `md` for default size
+     - `lg` for emphasis
+     - `xl` for prominent elements
+
+4. **Dark Mode**
+   - Use `var(--ui-bg)` for backgrounds
+   - Use `var(--ui-bg-elevated)` for raised elements
+   - Use `var(--ui-bg-muted)` for subdued elements
+   - Use `var(--ui-text)` for text colors
+
+### Best Practices
+
+1. **Accessibility**
+   - Ensure proper ARIA attributes
+   - Maintain keyboard navigation
+   - Provide proper labels and descriptions
+
+2. **Responsiveness**
+   - Use responsive variants when needed
+   - Adapt component sizes for mobile
+   - Consider touch targets on mobile
+
+3. **Performance**
+   - Lazy load non-critical components
+   - Use skeleton loaders for content
+   - Optimize transitions and animations
