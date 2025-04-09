@@ -1,0 +1,141 @@
+---
+description: Patterns for implementing search and filter functionality
+globs: *.vue,*.ts
+alwaysApply: false
+---
+## Filter State Management
+
+1. **Filter Store Structure**
+```typescript
+interface FilterState {
+  selectedGenres: Option[]
+  selectedPlatforms: Option[]
+  selectedMark: number
+  selectedFilterBy: string | null
+  selectedFilterByDirection: string | null
+  selectedAges: Option[]
+  selectedDuration: [number, number]
+  selectedMonetization: Option[]
+  selectedVotes: number
+  selectedPersons: Option[]
+  selectedCompanies: Option[]
+  fromDate: CalendarDate | null
+  toDate: CalendarDate | null
+  airFromDate: CalendarDate | null
+  airToDate: CalendarDate | null
+}
+```
+
+2. **Type Management**
+   - Separate filters for movies and TV shows
+   - Type switching with state preservation
+   ```typescript
+   interface FilterStore {
+     selectedType: 'movie' | 'tv'
+     movieFilters: Partial<FilterState>
+     tvFilters: Partial<FilterState>
+   }
+   ```
+
+## Filter Components
+
+1. **Layout**
+   - Use `NuxtLayout name="filter"` for consistency
+   - Include title and optional buttons section
+   - Maintain consistent spacing and styling
+
+2. **Common Components**
+   - `FieldMultiSelect` for multiple options
+   - `USlider` for numeric ranges
+   - `UCalendar` for date selection
+   - `UButton` for actions
+
+3. **Filter Types**
+   ```vue
+   <!-- Genre Filter -->
+   <FieldMultiSelect
+     v-model:selected-options="filters.selectedGenres"
+     :options="genres"
+   />
+
+   <!-- Vote Filter -->
+   <USlider
+     v-model="filters.selectedVotes"
+     :max="maxVotes"
+     :min="minVotes"
+   />
+
+   <!-- Date Filter -->
+   <UCalendar
+     v-model="fromDate"
+     is-required
+     fixed-weeks
+   />
+   ```
+
+## Search Implementation
+
+1. **Search Bar**
+   - Implement debounced input
+   - Show loading state during search
+   - Provide clear button
+   ```vue
+   <FieldInput
+     v-model="search"
+     :placeholder="t('search.placeholder')"
+     name="search"
+   />
+   ```
+
+2. **Search Results**
+   - Display in grid layout
+   - Show skeleton loaders during fetch
+   - Implement infinite scroll
+   - Handle empty states
+
+## Filter Persistence
+
+1. **Cookie Storage**
+   ```typescript
+   persist: {
+     storage: piniaPluginPersistedstate.cookies({
+       expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+       sameSite: 'strict',
+       secure: true
+     })
+   }
+   ```
+
+2. **State Reset**
+   - Provide reset functionality per filter
+   - Allow global filter reset
+   - Maintain type selection
+
+## URL Integration
+
+1. **Query Parameters**
+   - Sync filters with URL params
+   - Handle parameter validation
+   - Support deep linking
+
+2. **Navigation**
+   - Update URL on filter changes
+   - Preserve filters during navigation
+   - Handle browser back/forward
+
+## Performance Considerations
+
+1. **Component Loading**
+   - Lazy load filter components
+   - Use skeleton loaders
+   - Implement proper loading states
+
+2. **Data Management**
+   - Cache filter options
+   - Optimize state updates
+   - Minimize re-renders
+
+3. **API Integration**
+   - Batch filter requests
+   - Implement request debouncing
+   - Handle error states

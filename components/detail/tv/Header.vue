@@ -1,10 +1,8 @@
 <template>
   <div class="w-screen">
     <div
-      class="flex justify-center items-center p-4 bg-cover bg-no-repeat sm:p-8 md:p-12 lg:p-16"
-      :style="{
-        backgroundImage: `${linearGradient}, url(${getImageUrl(props.backdropPath, 'original')})`
-      }"
+      class="bg-white/85 dark:bg-black/75 w-full p-4 rounded-lg shadow-lg bg-blend-overlay bg-cover bg-center bg-no-repeat flex flex-col items-center justify-evenly gap-y-8"
+      :style="{ backgroundImage: `url(${getImageUrl(props.backdropPath, 'original')})` }"
     >
       <div class="max-w-6xl flex flex-row items-center justify-evenly w-full gap-x-2">
         <NuxtImg
@@ -149,7 +147,6 @@
 const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
 const { isFavorite, addFavorite } = useFavoriteState()
 
-const colorMode = useColorMode()
 const route = useRoute()
 
 const props = defineProps({
@@ -208,12 +205,4 @@ const tvId = ref(Number(route.params.id))
 
 const computedStatus = computed(() => getContentStatus('tv', tvId.value))
 const computedFavorite = computed(() => isFavorite('tv', tvId.value))
-
-const linearGradient = computed(() => {
-  if (colorMode.value === 'dark') {
-    return 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7))'
-  } else {
-    return 'linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8))'
-  }
-})
 </script>
