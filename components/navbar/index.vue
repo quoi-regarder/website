@@ -99,7 +99,7 @@ const navItems = computed(() => [
   },
   {
     label: t('navbar.buttons.popular'),
-    to: localePath('/popular/5'),
+    to: localePath('/popular/8'),
     icon: 'i-lucide:star'
   },
   {

@@ -26,8 +26,8 @@
     "tag:major": "pnpm version major && git push --follow-tags"
   },
   "dependencies": {
-    "@dargmuesli/nuxt-cookie-control": "^8.6.1",
-    "@iconify-json/codicon": "^1.2.14",
+    "@dargmuesli/nuxt-cookie-control": "^9.0.1",
+    "@iconify-json/codicon": "^1.2.15",
     "@iconify-json/logos": "^1.2.4",
     "@iconify-json/lucide": "^1.2.34",
     "@iconify-json/openmoji": "^1.2.8",
@@ -39,7 +39,7 @@
     "@nuxt/ui": "^3.0.2",
     "@nuxtjs/i18n": "^9.4.0",
     "@nuxtjs/seo": "^3.0.2",
-    "@pinia/nuxt": "^0.10.1",
+    "@pinia/nuxt": "^0.11.0",
     "@vueuse/nuxt": "^13.0.0",
     "eslint": "^9.23.0",
     "husky": "^9.1.7",
