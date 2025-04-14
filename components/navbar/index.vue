@@ -95,29 +95,34 @@ const navItems = computed(() => [
   {
     label: t('navbar.buttons.trending'),
     to: localePath('/trending'),
-    icon: 'i-lucide:trending-up'
+    icon: 'i-lucide:trending-up',
+    id: 'trending'
   },
   {
     label: t('navbar.buttons.popular'),
     to: localePath('/popular/8'),
-    icon: 'i-lucide:star'
+    icon: 'i-lucide:star',
+    id: 'popular'
   },
   {
     label: t('navbar.buttons.search'),
     to: localePath('/search'),
-    icon: 'i-lucide:search'
+    icon: 'i-lucide:search',
+    id: 'search'
   },
   {
     label: t('navbar.buttons.movie'),
     to: localePath('/profile?tab=movies'),
     chip: computed(() => movieListStore.getToWatchCount),
-    icon: 'i-lucide:clapperboard'
+    icon: 'i-lucide:clapperboard',
+    id: 'movies'
   },
   {
     label: t('navbar.buttons.series'),
     to: localePath('/profile?tab=series'),
     chip: computed(() => serieListStore.getToWatchCount),
-    icon: 'i-lucide:tv-minimal-play'
+    icon: 'i-lucide:tv-minimal-play',
+    id: 'series'
   }
 ])
 

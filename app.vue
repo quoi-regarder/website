@@ -5,6 +5,7 @@
       <ClientOnly>
         <CookieControl :locale="formatLocale(locale)" />
       </ClientOnly>
+      <PopinOnboardingGuide v-if="showOnboarding" @onboarding-finished="showOnboarding = false" />
     </NuxtLayout>
   </UApp>
 </template>
@@ -13,6 +14,7 @@
 import * as locales from '@nuxt/ui/locale'
 
 const { locale } = useI18n()
+const showOnboarding = ref(true)
 
 useMovieFavoriteChannel()
 useSerieFavoriteChannel()
