@@ -1,6 +1,12 @@
 <template>
   <UModal v-model:open="isDiscordModalOpen" :title="$t('modals.discord.title')">
-    <UButton icon="i-logos:discord-icon" size="lg" variant="link" class="cursor-pointer" />
+    <UButton
+      id="discord"
+      icon="i-logos:discord-icon"
+      size="lg"
+      variant="link"
+      class="cursor-pointer"
+    />
 
     <template #body>
       <div class="flex flex-col gap-y-4 text-center">

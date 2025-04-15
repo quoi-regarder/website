@@ -90,7 +90,8 @@ const navItems = computed(() => [
   {
     label: t('navbar.buttons.home'),
     to: localePath('/'),
-    icon: 'i-lucide:house'
+    icon: 'i-lucide:house',
+    id: 'home'
   },
   {
     label: t('navbar.buttons.trending'),

@@ -49,6 +49,7 @@
           <UTooltip :text="$t('navbar.buttons.login')">
             <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
               <UButton
+                id="avatar"
                 size="xl"
                 variant="outline"
                 trailing-icon="i-lucide:log-in"
