@@ -14,6 +14,7 @@
         :alt="collection.name"
         width="250"
         class="rounded-lg"
+        loading="lazy"
       />
 
       <ULink :to="localPath(`/collection/${collection.id}`)" class="text-lg font-bold">

@@ -20,9 +20,7 @@
           class="w-full self-center"
           indicator
           :ui="{
-            slider: {
-              track: 'bg-[var(--ui-bg-accented)]'
-            }
+            track: 'bg-[var(--ui-bg-accented)]'
           }"
         />
 

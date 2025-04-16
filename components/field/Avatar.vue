@@ -19,6 +19,7 @@
           height="48"
           class="rounded-full bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
           provider="avatarProvider"
+          loading="lazy"
         />
         <UAvatar
           v-else

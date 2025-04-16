@@ -10,6 +10,7 @@
           :src="getImageUrl(props.posterPath, 'original')"
           :alt="props.name"
           class="w-32 h-48 rounded-lg sm:w-48 sm:h-72 md:w-64 md:h-96 lg:w-[384px] lg:h-[576px]"
+          loading="lazy"
         />
         <USkeleton
           v-else

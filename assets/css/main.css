@@ -38,13 +38,7 @@
   /* Inverted border color */
   --ui-border-inverted: var(--ui-color-neutral-900);
 
-  /* Onboarding */
-  --v-onboarding-overlay-z: 40;
-  --v-onboarding-step-z: 50;
-  --v-onboarding-step-arrow-background: #f5f5f5;
-  --v-onboarding-step-arrow-size: 16px;
-  --v-onboarding-overlay-fill: black;
-  --v-onboarding-overlay-opacity: 0.4;
+  --v-onboarding-overlay-fill: var(--ui-bg-inverted);
 }
 
 .dark {
@@ -78,12 +72,20 @@
   --ui-border-accented: var(--ui-color-neutral-700);
   /* Inverted border color */
   --ui-border-inverted: var(--color-white);
+
+  --v-onboarding-overlay-fill: var(--ui-bg-inverted);
 }
 
 body {
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: normal;
+
+  /* Onboarding */
+  --v-onboarding-overlay-z: 40;
+  --v-onboarding-step-z: 50;
+  --v-onboarding-step-arrow-size: 16px;
+  --v-onboarding-overlay-opacity: 0.4;
 }
 
 ::-webkit-scrollbar {

@@ -12,28 +12,23 @@
     </template>
 
     <template #content>
-      <div class="h-full w-full flex flex-wrap gap-2 justify-center items-center">
-        <UButton
-          v-for="item in items"
-          :key="item.id"
-          :variant="isSelected(item) ? 'solid' : 'outline'"
-          class="flex items-center"
-          :color="isSelected(item) ? 'primary' : 'neutral'"
-          @click="toggle(item)"
-        >
-          {{ item.label }}
-          <template #trailing>
-            <UIcon
-              v-if="isSelected(item)"
-              :name="
-                filters.selectedFilterByDirection === 'asc'
-                  ? 'i-lucide:chevron-up'
-                  : 'i-lucide:chevron-down'
-              "
-              class="size-4 sm:size-5"
-            />
-            <UIcon v-else name="i-lucide:minus" class="size-4 sm:size-5" />
-          </template>
+      <div class="flex w-full items-center gap-2">
+        <FieldSingleSelect
+          v-model="items"
+          v-model:selected-model="filters.selectedFilterBy"
+          name="by"
+          class="w-full"
+        />
+
+        <UButton color="secondary" class="w-fit" @click="toggleDirection">
+          <UIcon
+            :name="
+              filters.selectedFilterByDirection === 'asc'
+                ? 'i-lucide:chevron-up'
+                : 'i-lucide:chevron-down'
+            "
+            class="size-5 sm:size-6"
+          />
         </UButton>
       </div>
     </template>
@@ -42,54 +37,36 @@
 
 <script lang="ts" setup>
 const { t } = useI18n()
-
 const { filters } = useFilters()
 
-const createItems = (type: 'movie' | 'tv'): Option[] => {
-  let labels: string[]
+const movieItems = ref<Option[]>([
+  { id: 'title', label: t('by.labels.title') },
+  { id: 'original_title', label: t('by.labels.original_title') },
+  { id: 'primary_release_date', label: t('by.labels.primary_release_date') },
+  { id: 'revenue', label: t('by.labels.revenue') },
+  { id: 'vote_average', label: t('by.labels.vote_average') },
+  { id: 'vote_count', label: t('by.labels.vote_count') }
+])
 
-  if (type === 'movie') {
-    labels = [
-      'title',
-      'original_title',
-      'primary_release_date',
-      'revenue',
-      'vote_average',
-      'vote_count'
-    ]
-  } else {
-    labels = ['name', 'original_name', 'first_air_date', 'vote_average', 'vote_count']
-  }
-
-  return labels.map((id) => ({
-    id,
-    label: t(`by.labels.${id}`)
-  }))
-}
-
-const movieItems = ref(createItems('movie'))
-const tvItems = ref(createItems('tv'))
+const tvItems = ref<Option[]>([
+  { id: 'name', label: t('by.labels.name') },
+  { id: 'original_name', label: t('by.labels.original_name') },
+  { id: 'first_air_date', label: t('by.labels.first_air_date') },
+  { id: 'vote_average', label: t('by.labels.vote_average') },
+  { id: 'vote_count', label: t('by.labels.vote_count') }
+])
 
 const items = computed(() =>
   filters.value.selectedType === 'movie' ? movieItems.value : tvItems.value
 )
 
-const toggle = (item: Option) => {
-  if (filters.value.selectedFilterBy === item.id) {
-    filters.value.selectedFilterByDirection =
-      filters.value.selectedFilterByDirection === 'asc' ? 'desc' : 'asc'
-  } else {
-    filters.value.selectedFilterBy = item.id as string
-    filters.value.selectedFilterByDirection = 'asc'
-  }
-}
-
 const reset = () => {
-  filters.value.selectedFilterBy = null
+  filters.value.selectedFilterBy = undefined
   filters.value.selectedFilterByDirection = null
 }
 
-const isSelected = (badge: Option) => {
-  return filters.value.selectedFilterBy === badge.id
+const toggleDirection = () => {
+  filters.value.selectedFilterByDirection =
+    filters.value.selectedFilterByDirection === 'asc' ? 'desc' : 'asc'
 }
 </script>

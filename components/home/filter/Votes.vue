@@ -19,9 +19,7 @@
         class="w-full self-center"
         indicator
         :ui="{
-          slider: {
-            track: 'bg-[var(--ui-bg-accented)]'
-          }
+          track: 'bg-[var(--ui-bg-accented)]'
         }"
       />
       <div class="flex justify-end self-center min-w-32">

@@ -5,11 +5,13 @@
     <div class="flex flex-col items-center justify-center gap-y-4">
       <h1
         id="home"
-        class="text-6xl text-primary-500 dark:text-primary-400 font-bold text-center mb-2 animate-fade-in-down"
+        class="text-2xl md:text-4xl lg:text-5xl py-2 bg-gradient-to-r from-primary-500 to-primary-400 bg-clip-text text-transparent font-bold text-center mb-2 animate-fade-in-down"
       >
         {{ $t('home.title') }}
       </h1>
-      <h2 class="text-2xl font-semibold text-center mb-8 animate-fade-in-down">
+      <h2
+        class="text-lg md:text-xl lg:text-2xl font-semibold text-center mb-8 animate-fade-in-down"
+      >
         {{ $t('home.subtitle') }}
       </h2>
     </div>

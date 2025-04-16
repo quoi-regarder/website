@@ -171,7 +171,7 @@ export const useSearch = () => {
     ) {
       manager.add(
         'sort_by',
-        `${currentFilters.selectedFilterBy}.${currentFilters.selectedFilterByDirection}`
+        `${currentFilters.selectedFilterBy?.id}.${currentFilters.selectedFilterByDirection}`
       )
     }
 

@@ -5,7 +5,7 @@
       :ui="{
         wrapper: 'items-start sm:items-center',
         container: 'sm:max-w-lg',
-        overlay: 'bg-gray-950/75 backdrop-blur-sm',
+        overlay: 'bg-neutral-950/75 backdrop-blur-sm',
         base: 'relative overflow-hidden'
       }"
     >
@@ -30,11 +30,11 @@
             />
           </div>
           <h2
-            class="text-2xl font-bold mt-4 bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent"
+            class="text-2xl font-bold mt-4 bg-gradient-to-r from-primary-500 to-primary-400 bg-clip-text text-transparent"
           >
             {{ t('modals.onboarding.title') }}
           </h2>
-          <p class="mt-3 text-gray-600 dark:text-gray-300">
+          <p class="mt-3 text-neutral-600 dark:text-neutral-300">
             {{ t('modals.onboarding.description') }}
           </p>
         </div>
@@ -45,27 +45,14 @@
           <UAccordion v-model="activeFeature" :items="features" />
 
           <div class="flex justify-between gap-3 pt-6">
-            <UButton
-              v-if="isDesktop"
-              color="secondary"
-              variant="soft"
-              size="sm"
-              class="flex-1 group"
-              @click="skipTutorial"
-            >
+            <UButton v-if="isDesktop" color="secondary" variant="soft" @click="skipTutorial">
               <UIcon
                 name="i-lucide-x-circle"
                 class="h-4 w-4 mr-1.5 transition-transform group-hover:-translate-x-0.5"
               />
               {{ t('modals.onboarding.buttons.later') }}
             </UButton>
-            <UButton
-              v-if="isDesktop"
-              color="primary"
-              size="sm"
-              class="flex-1 group"
-              @click="startTutorial"
-            >
+            <UButton v-if="isDesktop" color="primary" @click="startTutorial">
               <UIcon
                 name="i-lucide-play-circle"
                 class="h-4 w-4 mr-1.5 transition-transform group-hover:translate-x-0.5"
@@ -81,12 +68,12 @@
       <template #default="{ next, step, isLast, index }">
         <VOnboardingStep>
           <div
-            class="relative bg-white dark:bg-gray-900 shadow-xl rounded-2xl p-6 w-full max-w-lg border border-gray-200 dark:border-gray-800"
+            class="relative bg-white dark:bg-neutral-900 shadow-xl rounded-2xl p-6 w-full max-w-lg border border-neutral-200 dark:border-neutral-800"
           >
             <UButton
               class="absolute top-3 right-3 hover:rotate-90 transition-transform"
-              color="gray"
-              variant="ghost"
+              color="neutral"
+              variant="link"
               size="sm"
               aria-label="Fermer"
               @click="endTutorial"
@@ -101,19 +88,19 @@
                   class="w-10 h-10 text-secondary-500 self-start"
                 />
                 <div>
-                  <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                  <h3 class="text-xl font-semibold text-neutral-900 dark:text-white">
                     {{ step.content.title }}
                   </h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-300 mt-1">
+                  <p class="text-sm text-neutral-600 dark:text-neutral-300 mt-1">
                     {{ step.content.description }}
                   </p>
                 </div>
               </div>
 
               <div
-                class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-800"
+                class="flex items-center justify-between mt-4 pt-4 border-t border-neutral-200 dark:border-neutral-800"
               >
-                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
+                <span class="text-sm font-medium text-neutral-500 dark:text-neutral-400">
                   {{ t('modals.onboarding.progress.step') }} {{ index + 1 }}
                   {{ t('modals.onboarding.progress.on') }} {{ steps.length }}
                 </span>
