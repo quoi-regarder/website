@@ -21,6 +21,7 @@
               :src="modelValue.avatar.src"
               :alt="modelValue.avatar.alt"
               class="w-6 h-6 rounded-full"
+              loading="lazy"
             />
             {{ modelValue.label }}
           </div>
@@ -28,8 +29,11 @@
             <UIcon :name="modelValue.icon" />
             {{ modelValue.label }}
           </div>
+          <span v-else-if="modelValue?.label && modelValue?.label !== ''" class="text-wrap truncate">
+            {{ modelValue?.label }}
+          </span>
           <span v-else class="text-wrap truncate">
-            {{ label }}
+            {{ $t('multiSelect.noOptions') }}
           </span>
         </template>
 
@@ -42,22 +46,11 @@
 </template>
 
 <script lang="ts" setup>
-defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  label: {
-    type: String,
-    required: false,
-    default: ''
-  },
-  description: {
-    type: String,
-    required: false,
-    default: ''
-  }
-})
+defineProps<{
+  name: string
+  label?: string
+  description?: string
+}>()
 
 const model = defineModel<Option[]>({
   default: []

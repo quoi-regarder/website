@@ -5,7 +5,7 @@
       <ClientOnly>
         <CookieControl :locale="formatLocale(locale)" />
       </ClientOnly>
-      <PopinOnboardingGuide />
+      <PopinOnboardingGuide :force-open="false" />
     </NuxtLayout>
   </UApp>
 </template>

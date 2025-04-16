@@ -86,7 +86,7 @@
   },
   "multiSelect": {
     "loading": "Commencez à taper pour rechercher des éléments...",
-    "noOptions": "Aucune donnée",
+    "noOptions": "Aucun élément sélectionné",
     "selected": "Aucun élément sélectionné | {count} élément sélectionné | {count} éléments sélectionnés"
   },
   "person": {

@@ -86,7 +86,7 @@
   },
   "multiSelect": {
     "loading": "Start typing to search for items...",
-    "noOptions": "No data",
+    "noOptions": "No items selected",
     "selected": "No items selected | {count} item selected | {count} items selected"
   },
   "person": {

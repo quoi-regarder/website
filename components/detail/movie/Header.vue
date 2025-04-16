@@ -10,6 +10,7 @@
           :src="getImageUrl(props.posterPath, 'original')"
           :alt="props.title"
           class="w-32 h-48 rounded-lg sm:w-48 sm:h-72 md:w-64 md:h-96 lg:w-[384px] lg:h-[576px]"
+          loading="lazy"
         />
         <USkeleton
           v-else
@@ -121,52 +122,18 @@ const { t } = useI18n()
 const overlay = useOverlay()
 const route = useRoute()
 
-const props = defineProps({
-  title: {
-    type: String,
-    required: true
-  },
-  releaseDate: {
-    type: String,
-    required: false,
-    default: null
-  },
-  posterPath: {
-    type: String,
-    required: false,
-    default: null
-  },
-  backdropPath: {
-    type: String,
-    required: false,
-    default: null
-  },
-  voteAverage: {
-    type: Number,
-    required: false,
-    default: null
-  },
-  voteCount: {
-    type: Number,
-    required: false,
-    default: null
-  },
-  overview: {
-    type: String,
-    required: false,
-    default: null
-  },
-  genres: {
-    type: Array,
-    required: false,
-    default: () => []
-  },
-  runtime: {
-    type: Number,
-    required: false,
-    default: null
-  }
-})
+const props = defineProps<{
+  title: string
+  releaseDate: string
+  posterPath: string
+  backdropPath: string
+  voteAverage: number
+  voteCount: number
+  overview: string
+  genres: string[]
+  runtime: number
+  providerIds: number[]
+}>()
 
 const movieId = ref(Number(route.params.id))
 
@@ -179,7 +146,8 @@ const openViewingDetails = () => {
     {
       props: {
         contextType: 'movie',
-        contextId: movieId.value.toString()
+        contextId: movieId.value.toString(),
+        providerIds: props.providerIds
       }
     }
   )

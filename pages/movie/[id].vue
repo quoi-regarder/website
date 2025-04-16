@@ -12,6 +12,9 @@
       :overview="movie?.overview"
       :genres="movie?.genres"
       :runtime="movie?.runtime"
+      :provider-ids="
+        exctractAllProviderIds(movie?.['watch/providers']?.results[locale.toUpperCase()])
+      "
     />
     <USkeleton v-else class="w-full h-96" />
 
@@ -65,7 +68,6 @@ useSchemaOrg([
 ])
 
 const movie = ref<any>(null)
-const { genres } = useTmdbGenres('movie')
 const isLoaded = ref(false)
 
 onMounted(async () => {

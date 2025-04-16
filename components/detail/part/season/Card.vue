@@ -142,16 +142,12 @@
 const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
 const route = useRoute()
 const overlay = useOverlay()
-const props = defineProps({
-  season: {
-    type: Object as PropType<any>,
-    required: true
-  },
-  isSelected: {
-    type: Boolean,
-    required: true
-  }
-})
+
+const props = defineProps<{
+  season: any
+  isSelected: boolean
+  providerIds: number[]
+}>()
 
 const emit = defineEmits(['select'])
 
@@ -176,7 +172,8 @@ const openViewingDetails = () => {
     {
       props: {
         contextType: 'season',
-        contextId: props.season.id.toString()
+        contextId: props.season.id.toString(),
+        providerIds: props.providerIds
       }
     }
   )

@@ -25,6 +25,7 @@
             :src="getImageUrl(part.poster_path, 'w300')"
             :alt="part.name"
             class="w-[150px] h-[225px] rounded-md"
+            loading="lazy"
           />
           <USkeleton
             v-else
