@@ -7,7 +7,7 @@
     <div class="relative z-10 flex flex-col items-center justify-center min-h-[95vh] gap-4">
       <div class="flex flex-col items-center justify-center gap-4 py-8">
         <h1
-          class="text-2xl md:text-4xl lg:text-5xl text-primary-500 dark:text-primary-400 text-center font-bold"
+          class="text-2xl md:text-4xl lg:text-5xl py-2 bg-gradient-to-r from-primary-500 to-primary-400 bg-clip-text text-transparent text-center font-bold"
         >
           {{ $t('popular.title', { platform: selectedPlatform?.label }) }}
         </h1>

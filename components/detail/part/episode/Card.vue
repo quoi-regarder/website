@@ -106,12 +106,10 @@
 
 <script lang="ts" setup>
 const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
-const props = defineProps({
-  episode: {
-    type: Object as PropType<any>,
-    required: true
-  }
-})
+const props = defineProps<{
+  episode: any
+  providerIds: number[]
+}>()
 
 const route = useRoute()
 const serieId = Number(route.params.id)
@@ -125,7 +123,8 @@ const openViewingDetails = () => {
     {
       props: {
         contextType: 'episode',
-        contextId: props.episode.id.toString()
+        contextId: props.episode.id.toString(),
+        providerIds: props.providerIds
       }
     }
   )

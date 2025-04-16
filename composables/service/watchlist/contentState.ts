@@ -96,27 +96,6 @@ export const useContentState = () => {
         message: t(`common.content.toasts.success.${type}.${action}.${status}`)
       }
 
-      if (status === WatchStatus.WATCHED && action === 'addedToList') {
-        const viewingDetailsModal = overlay.create(
-          defineAsyncComponent(() => import('~/components/popin/ViewingDetails.vue')),
-          {
-            props: {
-              contextType: type,
-              contextId: idOfContent.toString()
-            }
-          }
-        )
-
-        return notifications.success(baseNotif.title, baseNotif.message, 5000, [
-          {
-            label: t(`common.content.buttons.${type}.viewingDetails`),
-            color: 'secondary',
-            variant: 'outline',
-            onClick: () => viewingDetailsModal.open()
-          }
-        ])
-      }
-
       return notifications.success(baseNotif.title, baseNotif.message)
     }
 

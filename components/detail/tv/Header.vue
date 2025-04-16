@@ -10,6 +10,7 @@
           :src="getImageUrl(props.posterPath, 'original')"
           :alt="props.name"
           class="w-32 h-48 rounded-lg sm:w-48 sm:h-72 md:w-64 md:h-96 lg:w-[384px] lg:h-[576px]"
+          loading="lazy"
         />
         <USkeleton
           v-else
@@ -161,57 +162,19 @@ const { isFavorite, addFavorite } = useFavoriteState()
 const overlay = useOverlay()
 const route = useRoute()
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  firstAirDate: {
-    type: String,
-    required: false,
-    default: null
-  },
-  lastAirDate: {
-    type: String,
-    required: false,
-    default: null
-  },
-  posterPath: {
-    type: String,
-    required: false,
-    default: null
-  },
-  backdropPath: {
-    type: String,
-    required: false,
-    default: null
-  },
-  voteAverage: {
-    type: Number,
-    required: false,
-    default: null
-  },
-  voteCount: {
-    type: Number,
-    required: false,
-    default: null
-  },
-  overview: {
-    type: String,
-    required: false,
-    default: null
-  },
-  inProduction: {
-    type: Boolean,
-    required: false,
-    default: false
-  },
-  genres: {
-    type: Array,
-    required: false,
-    default: () => []
-  }
-})
+const props = defineProps<{
+  name: string
+  firstAirDate: string
+  lastAirDate: string
+  posterPath: string
+  backdropPath: string
+  voteAverage: number
+  voteCount: number
+  overview: string
+  genres: string[]
+  inProduction: boolean
+  providerIds: number[]
+}>()
 
 const tvId = ref(Number(route.params.id))
 
@@ -224,7 +187,8 @@ const openViewingDetails = () => {
     {
       props: {
         contextType: 'tv',
-        contextId: tvId.value.toString()
+        contextId: tvId.value.toString(),
+        providerIds: props.providerIds
       }
     }
   )

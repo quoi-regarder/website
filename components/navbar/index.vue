@@ -9,6 +9,7 @@
           width="40"
           height="40"
           class="cursor-pointer"
+          loading="lazy"
           @click="navigateTo(localePath('/'))"
         />
 

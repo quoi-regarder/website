@@ -10,7 +10,7 @@ export type FilterState = {
   selectedGenres: Option[]
   selectedPlatforms: Option[]
   selectedMark: number
-  selectedFilterBy: string | null
+  selectedFilterBy: Option
   selectedFilterByDirection: 'asc' | 'desc' | null
   selectedAges: Option[]
   selectedDuration: [number, number]

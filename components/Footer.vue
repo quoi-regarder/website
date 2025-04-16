@@ -10,7 +10,7 @@
         </p>
 
         <div class="gap-2 mt-4 flex flex-col items-center lg:items-start">
-          <NuxtImg src="/tmdb_logo.svg" alt="TMDB Logo" width="100" />
+          <NuxtImg src="/tmdb_logo.svg" alt="TMDB Logo" width="100" loading="lazy" />
 
           <p class="text-sm">
             {{ $t('footer.tmdb') }}
@@ -55,6 +55,7 @@
           width="40"
           height="40"
           class="cursor-pointer"
+          loading="lazy"
           @click="navigateTo(localePath('/'))"
         />
         <p>

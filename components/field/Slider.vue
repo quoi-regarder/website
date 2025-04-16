@@ -9,7 +9,15 @@
     size="xl"
   >
     <div class="flex items-center justify-between">
-      <USlider v-model="model" :min="min" :max="max" :step="step || 1" />
+      <USlider
+        v-model="model"
+        :min="min"
+        :max="max"
+        :step="step || 1"
+        :ui="{
+          track: 'dark:bg-[var(--ui-bg-muted)]'
+        }"
+      />
       <div class="flex justify-end self-center w-20">
         <p class="text-lg font-semibold">
           {{ model }}

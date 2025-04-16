@@ -33,6 +33,7 @@
               :season="item"
               :is-selected="selectedNumber === item.season_number"
               class="transition-transform duration-300 hover:scale-[1.02]"
+              :provider-ids="props.providerIds"
               @select="handleSeasonSelection(item.season_number)"
             />
           </div>
@@ -63,7 +64,7 @@
         >
           <template #default="{ item }">
             <div class="w-full h-full p-2">
-              <LazyDetailPartEpisodeCard :episode="item" />
+              <LazyDetailPartEpisodeCard :episode="item" :provider-ids="props.providerIds" />
             </div>
           </template>
         </UCarousel>
@@ -78,12 +79,12 @@ const episodeListStore = useEpisodeListStore()
 const authStore = useAuthStore()
 const { locale } = useI18n()
 const route = useRoute()
-const props = defineProps({
-  seasons: {
-    type: Array as PropType<any[]>,
-    required: true
-  }
-})
+
+const props = defineProps<{
+  seasons: any[]
+  providerIds: number[]
+}>()
+
 const hasSpecials = props.seasons.some((season: any) => season.season_number === 0)
 
 const selectedNumber = ref<number | null>(hasSpecials ? 0 : 1)
