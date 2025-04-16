@@ -48,6 +48,7 @@
     "prettier": "^3.5.3",
     "sass-embedded": "^1.86.3",
     "typescript": "^5.8.2",
+    "v-onboarding": "^2.9.0",
     "vue3-social-sharing": "^1.4.1",
     "yup": "^1.6.1"
   },

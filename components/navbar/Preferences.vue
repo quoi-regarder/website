@@ -5,7 +5,7 @@
     <ClientOnly>
       <Suspense>
         <UDropdownMenu :items="colorModeItems" class="cursor-pointer">
-          <UIcon :name="currentColorModeIcon" class="size-6" />
+          <UIcon id="theme" :name="currentColorModeIcon" class="size-6" />
         </UDropdownMenu>
       </Suspense>
       <template #fallback>

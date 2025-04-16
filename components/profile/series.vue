@@ -32,7 +32,7 @@
       {{ t('profile.serie.favorites') }}
     </h2>
 
-    <div class="flex justify-center min-h-[300px] items-center">
+    <div id="series-favorites" class="flex justify-center min-h-[300px] items-center">
       <UCarousel
         v-if="isLoaded && favoriteList.length > 0"
         ref="favoriteCarousel"
@@ -95,7 +95,7 @@
       {{ t('profile.serie.toWatch') }}
     </h2>
 
-    <div class="flex justify-center min-h-[300px] items-center">
+    <div id="series-to-watch" class="flex justify-center min-h-[300px] items-center">
       <UCarousel
         v-if="isLoaded && toWatchList.length > 0"
         ref="toWatchCarousel"
@@ -167,7 +167,7 @@
       {{ t('profile.serie.watching') }}
     </h2>
 
-    <div class="flex justify-center min-h-[300px] items-center">
+    <div id="series-watching" class="flex justify-center min-h-[300px] items-center">
       <UCarousel
         v-if="isLoaded && watchingList.length > 0"
         ref="watchingCarousel"
@@ -239,7 +239,7 @@
       {{ t('profile.serie.watched') }}
     </h2>
 
-    <div class="flex justify-center min-h-[300px] items-center">
+    <div id="series-watched" class="flex justify-center min-h-[300px] items-center">
       <UCarousel
         v-if="isLoaded && watchedList.length > 0"
         ref="watchedCarousel"

@@ -6,6 +6,7 @@
 
     <UButtonGroup orientation="horizontal">
       <UButton
+        id="filter-movie"
         value="movie"
         color="secondary"
         size="lg"
@@ -17,6 +18,7 @@
         {{ $t('filter.options.movie') }}
       </UButton>
       <UButton
+        id="filter-tv"
         value="tv"
         color="secondary"
         size="lg"

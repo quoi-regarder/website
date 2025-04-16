@@ -322,13 +322,127 @@
   },
   "modals": {
     "discord": {
-      "body": "Join our Discord server to discuss the latest releases, recommendations, and much more!",
+      "body": "Join our Discord server to discuss the latest releases, recommendations and more!",
       "buttons": {
         "close": "Close",
         "join": "Join"
       },
-      "precision": "On our server, you can chat with community members, suggest improvements, report bugs, and much more.",
+      "precision": "On our server, you can chat with community members, suggest improvements, report bugs and much more.",
       "title": "Join our Discord server"
+    },
+    "onboarding": {
+      "buttons": {
+        "finish": "Finish",
+        "later": "Later",
+        "next": "Next",
+        "ready": "Let's go!"
+      },
+      "description": "Discover all the features of our platform in a few simple steps.",
+      "guide": {
+        "list": "Manage your movies and TV shows lists",
+        "presentation": "Our interactive guide will show you:",
+        "presonalize": "Customize your experience",
+        "search": "How to find your favorite movies and TV shows"
+      },
+      "progress": {
+        "on": "of",
+        "step": "Step"
+      },
+      "steps": {
+        "advanced_filters": {
+          "description": "Refine your search even further with additional filters.",
+          "title": "Advanced Filters"
+        },
+        "discover": {
+          "description": "Explore popular, trending or recommended movies and TV shows.",
+          "title": "Discover"
+        },
+        "help": {
+          "description": "Need help? Click here to access our user guide.",
+          "title": "Help"
+        },
+        "home": {
+          "description": "Find your next favorite movie or TV show in just a few clicks.",
+          "title": "Welcome to What to Watch"
+        },
+        "home_filters": {
+          "description": "Select your favorite genres to refine your search.",
+          "title": "Genre Filters"
+        },
+        "home_movies": {
+          "description": "Discover the latest releases and most popular movies.",
+          "title": "Movies"
+        },
+        "home_series": {
+          "description": "Explore current and highly-rated TV shows.",
+          "title": "TV Shows"
+        },
+        "movies": {
+          "description": "Manage your movie collection and track your progress.",
+          "title": "My Movies"
+        },
+        "movies_favorites": {
+          "description": "Easily find your favorite movies.",
+          "title": "Favorite Movies"
+        },
+        "movies_watched": {
+          "description": "History of all the movies you've watched.",
+          "title": "Watched Movies"
+        },
+        "movies_watchlist": {
+          "description": "The list of movies you want to watch.",
+          "title": "Movies to Watch"
+        },
+        "popular": {
+          "description": "The highest-rated content by the community.",
+          "title": "Popular"
+        },
+        "popular_movies": {
+          "description": "The most appreciated movies of all time.",
+          "title": "Popular Movies"
+        },
+        "popular_platform": {
+          "description": "Filter by streaming platform to find where to watch your movies and TV shows.",
+          "title": "Platforms"
+        },
+        "popular_series": {
+          "description": "The TV shows that have marked their time.",
+          "title": "Popular TV Shows"
+        },
+        "search": {
+          "description": "Instantly find any movie or TV show.",
+          "title": "Quick Search"
+        },
+        "series": {
+          "description": "Manage your TV show collection and track your progress.",
+          "title": "My TV Shows"
+        },
+        "series_favorites": {
+          "description": "Easily find your favorite TV shows.",
+          "title": "Favorite TV Shows"
+        },
+        "series_watched": {
+          "description": "All the TV shows you've completed.",
+          "title": "Completed TV Shows"
+        },
+        "series_watching": {
+          "description": "The TV shows you're currently following.",
+          "title": "Currently Watching"
+        },
+        "series_watchlist": {
+          "description": "The list of TV shows you want to start.",
+          "title": "TV Shows to Watch"
+        },
+        "trending": {
+          "description": "Discover movies and TV shows that are buzzing right now.",
+          "title": "Trending"
+        },
+        "trending_tabs": {
+          "description": "Switch between trending movies and TV shows.",
+          "title": "Trending Categories"
+        }
+      },
+      "title": "Welcome"
     },
     "share": {
       "copy_link": "Copy link",
@@ -384,6 +498,7 @@
       },
       "discord": "Join us on Discord",
       "feedback": "Feedback",
+      "help": "Help",
       "home": "Home",
       "login": "Login",
       "logout": "Logout",

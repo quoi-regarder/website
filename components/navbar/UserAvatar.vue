@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="avatar">
     <ClientOnly>
       <Suspense>
         <template v-if="authStore.isAuthenticated">
@@ -70,6 +70,7 @@ const { profile } = useProfileChannel()
 const authService = useAuthService()
 const localePath = useLocalePath()
 const authStore = useAuthStore()
+const overlay = useOverlay()
 const { t } = useI18n()
 
 const dropdownItems = computed(() => [
@@ -86,6 +87,24 @@ const dropdownItems = computed(() => [
       icon: 'i-lucide:user',
       onSelect () {
         navigateTo(localePath('/profile'))
+      }
+    }
+  ],
+  [
+    {
+      label: t('navbar.buttons.help'),
+      icon: 'i-lucide-circle-help',
+      onSelect () {
+        const onboardingModal = overlay.create(
+          defineAsyncComponent(() => import('~/components/popin/OnboardingGuide.vue')),
+          {
+            props: {
+              forceOpen: true
+            }
+          }
+        )
+
+        onboardingModal.open()
       }
     }
   ],

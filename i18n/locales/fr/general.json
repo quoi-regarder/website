@@ -322,13 +322,127 @@
   },
   "modals": {
     "discord": {
-      "body": "Rejoignez notre serveur Discord pour discuter des dernières sorties, des recommandations et bien plus encore !",
+      "body": "Rejoignez notre serveur Discord pour discuter des dernières sorties, recommandations et bien plus encore !",
       "buttons": {
         "close": "Fermer",
         "join": "Rejoindre"
       },
-      "precision": "Sur notre vous pourrez discuter avec des membres de la communauté, proposer vos améliorations, signaler des bugs et bien plus encore.",
+      "precision": "Sur notre serveur, vous pourrez discuter avec des membres de la communauté, proposer vos améliorations, signaler des bugs et bien plus encore.",
       "title": "Rejoignez notre serveur Discord"
+    },
+    "onboarding": {
+      "buttons": {
+        "finish": "Terminer",
+        "later": "Plus tard",
+        "next": "Suivant",
+        "ready": "C'est parti !"
+      },
+      "description": "Découvrez toutes les fonctionnalités de notre plateforme en quelques étapes simples.",
+      "guide": {
+        "list": "Gérer vos listes de films et séries",
+        "presentation": "Notre guide interactif vous montrera :",
+        "presonalize": "Personnaliser votre expérience",
+        "search": "Comment trouver vos films et séries préférés"
+      },
+      "progress": {
+        "on": "sur",
+        "step": "Étape"
+      },
+      "steps": {
+        "advanced_filters": {
+          "description": "Affinez encore plus votre recherche avec des filtres supplémentaires.",
+          "title": "Filtres avancés"
+        },
+        "discover": {
+          "description": "Explorez les films et séries populaires, tendances ou recommandés pour vous.",
+          "title": "Découvertes"
+        },
+        "help": {
+          "description": "Besoin d'aide ? Cliquez ici pour accéder à notre guide d'utilisation.",
+          "title": "Aide"
+        },
+        "home": {
+          "description": "Découvrez votre prochain film ou série préférée en quelques clics.",
+          "title": "Bienvenue sur Quoi Regarder"
+        },
+        "home_filters": {
+          "description": "Sélectionnez vos genres préférés pour affiner votre recherche.",
+          "title": "Filtres par genre"
+        },
+        "home_movies": {
+          "description": "Découvrez les derniers films sortis et les plus populaires.",
+          "title": "Films"
+        },
+        "home_series": {
+          "description": "Explorez les séries du moment et les plus appréciées.",
+          "title": "Séries"
+        },
+        "movies": {
+          "description": "Gérez votre collection de films et suivez votre progression.",
+          "title": "Mes Films"
+        },
+        "movies_favorites": {
+          "description": "Retrouvez facilement vos films préférés.",
+          "title": "Films favoris"
+        },
+        "movies_watched": {
+          "description": "Historique de tous les films que vous avez regardés.",
+          "title": "Films vus"
+        },
+        "movies_watchlist": {
+          "description": "La liste des films que vous souhaitez voir.",
+          "title": "Films à voir"
+        },
+        "popular": {
+          "description": "Les contenus les mieux notés par la communauté.",
+          "title": "Populaires"
+        },
+        "popular_movies": {
+          "description": "Les films les plus appréciés de tous les temps.",
+          "title": "Films populaires"
+        },
+        "popular_platform": {
+          "description": "Filtrez par plateforme de streaming pour trouver où regarder vos films et séries.",
+          "title": "Plateformes"
+        },
+        "popular_series": {
+          "description": "Les séries qui ont marqué leur époque.",
+          "title": "Séries populaires"
+        },
+        "search": {
+          "description": "Trouvez instantanément n'importe quel film ou série.",
+          "title": "Recherche rapide"
+        },
+        "series": {
+          "description": "Gérez votre collection de séries et suivez votre progression.",
+          "title": "Mes Séries"
+        },
+        "series_favorites": {
+          "description": "Retrouvez facilement vos séries préférées.",
+          "title": "Séries favorites"
+        },
+        "series_watched": {
+          "description": "Toutes les séries que vous avez terminées.",
+          "title": "Séries terminées"
+        },
+        "series_watching": {
+          "description": "Les séries que vous suivez actuellement.",
+          "title": "Séries en cours"
+        },
+        "series_watchlist": {
+          "description": "La liste des séries que vous voulez commencer.",
+          "title": "Séries à voir"
+        },
+        "trending": {
+          "description": "Découvrez les films et séries qui font le buzz en ce moment.",
+          "title": "Tendances"
+        },
+        "trending_tabs": {
+          "description": "Basculez entre les films et les séries tendance du moment.",
+          "title": "Catégories tendances"
+        }
+      },
+      "title": "Bienvenue"
     },
     "share": {
       "copy_link": "Copier le lien",
@@ -384,6 +498,7 @@
       },
       "discord": "Rejoins nous sur Discord",
       "feedback": "Laisser un avis",
+      "help": "Aide",
       "home": "Accueil",
       "login": "Connexion",
       "logout": "Déconnexion",

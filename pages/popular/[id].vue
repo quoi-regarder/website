@@ -23,6 +23,7 @@
           <HomeFilterType v-model="selectedType" />
 
           <LazyFieldSingleSelect
+            id="filter-platform"
             v-model="platforms"
             v-model:selected-model="selectedPlatform"
             name="platforms"

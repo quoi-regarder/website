@@ -4,6 +4,7 @@
   >
     <div class="flex flex-col items-center justify-center gap-y-4">
       <h1
+        id="home"
         class="text-6xl text-primary-500 dark:text-primary-400 font-bold text-center mb-2 animate-fade-in-down"
       >
         {{ $t('home.title') }}

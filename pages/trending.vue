@@ -16,7 +16,7 @@
         </h2>
       </div>
 
-      <UTabs :items="tabs" class="w-[90vw] pt-4 mx-auto z-10">
+      <UTabs :items="tabs" class="w-[90vw] pt-4 mx-auto z-10 trending-tabs">
         <template #movies>
           <UContainer
             class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16 sm:pt-6"
@@ -130,6 +130,8 @@
 </template>
 
 <script lang="ts" setup>
+import type { TabsItem } from '@nuxt/ui/dist/module'
+
 const { t, locale } = useI18n()
 
 const isLoaded = ref(false)
@@ -140,8 +142,7 @@ const { genres: tv_genres } = useTmdbGenres('tv')
 
 const moreTrending = ref(false)
 const moreTrendingTransition = ref(false)
-
-const tabs = [
+const tabs = ref<TabsItem[]>([
   {
     label: t('trending.tabs.movies'),
     icon: 'i-lucide:clapperboard',
@@ -152,7 +153,7 @@ const tabs = [
     icon: 'i-lucide:tv-minimal-play',
     slot: 'tv'
   }
-]
+])
 
 useSeoMeta({
   title: t('seo.pages.trending'),

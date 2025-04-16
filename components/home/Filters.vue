@@ -6,7 +6,7 @@
 
     <UButton
       size="md"
-      class="self-center"
+      class="self-center home-more-filters"
       color="secondary"
       :label="moreFilters ? t('home.form.buttons.lessFilters') : t('home.form.buttons.moreFilters')"
       :trailing-icon="moreFilters ? 'i-lucide:chevron-up' : 'i-lucide:chevron-down'"
