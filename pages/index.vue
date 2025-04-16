@@ -5,11 +5,11 @@
     />
 
     <div class="relative z-10 min-h-[90vh] flex flex-col py-12">
-      <div class="flex-none">
+      <div class="flex-none home-header">
         <HomeHeader />
       </div>
 
-      <div class="flex-none mt-8">
+      <div class="flex-none mt-8 home-filters">
         <HomeFilters v-model:genres="genres" v-model:more-filters="moreFilters" />
       </div>
 
@@ -30,12 +30,14 @@
         </transition>
       </div>
 
-      <div class="flex-1 flex items-center">
+      <div class="flex-1 flex items-center home-search">
         <HomeSearch class="w-full" />
       </div>
     </div>
 
-    <HomeCarousel v-model:genres="genres" />
+    <div class="home-carousel">
+      <HomeCarousel v-model:genres="genres" />
+    </div>
   </div>
 </template>
 
