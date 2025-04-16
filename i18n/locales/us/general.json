@@ -11,6 +11,7 @@
     "more_details": "More details",
     "no_overview": "No description available.",
     "no_poster": "No poster available.",
+    "no_vote": "No vote yet",
     "original_title": "Original title: {title}",
     "overview": "Overview",
     "release_date": "Theater release date",
@@ -37,6 +38,20 @@
     "content": {
       "add_to_viewed_list": "Watched",
       "add_to_watch_list": "To Watch",
+      "buttons": {
+        "episode": {
+          "viewingDetails": "What did you think of this episode ?"
+        },
+        "movie": {
+          "viewingDetails": "What did you think of this movie ?"
+        },
+        "season": {
+          "viewingDetails": "What did you think of this season ?"
+        },
+        "tv": {
+          "viewingDetails": "What did you think of this series ?"
+        }
+      },
       "toasts": {
         "success": {
           "episode": {
@@ -108,6 +123,8 @@
         "email": "Please enter a valid email address.",
         "fileFormat": "Invalid file type. Please select a file of type {formats}.",
         "fileSize": "File size must not exceed {size} MB.",
+        "numberMax": "The maximum number is {max}.",
+        "numberMin": "The minimum number is {min}.",
         "passwordComplex": "Password must include lowercase letters, uppercase letters, numbers, and special characters.",
         "passwordMatch": "Passwords do not match.",
         "passwordMax": "Password must be at most {max} characters long.",
@@ -345,6 +362,7 @@
     "genres": "Genres",
     "no_overview": "No synopsis available in this language.",
     "overview": "Synopsis",
+    "viewing_details": "What did you think of this movie?",
     "vote_average": "Average Rating",
     "vote_count": "Number of Vote: {count} | Number of Votes: {count}",
     "votes": "{count} vote | {count} votes"
@@ -575,17 +593,19 @@
     "last_air_date": "Last air date",
     "no_overview": "No synopsis available in this language.",
     "overview": "Synopsis",
+    "viewing_details": "What did you think of this series?",
     "vote_average": "Average Rating",
     "vote_count": "Number of Votes: {count}"
   },
   "tvSeasons": {
     "air_date": "Air date",
-    "episode": "Episode {number}",
+    "episode_viewing_details": "What did you think of the episode?",
     "episodes": "No episodes available. | {count} episode available. | {count} episodes available.",
     "no_overview": "No synopsis available in this language.",
     "not_released": "Not released",
     "released": "Released",
-    "title": "Seasons",
+    "season_viewing_details": "What did you think of the season?",
+    "title": "All seasons",
     "vote_average": "Average Rating",
     "vote_count": "Number of Votes: {count}"
   },
@@ -611,6 +631,51 @@
       },
       "success": {
         "updated": "Your password has been updated."
+      }
+    }
+  },
+  "viewingDetails": {
+    "emotions": {
+      "BORED": "Bored",
+      "CONFUSED": "Confused",
+      "DISAPPOINTED": "Disappointed",
+      "HAPPY": "Happy",
+      "INSPIRED": "Inspired",
+      "MOVED": "Moved",
+      "RELAXED": "Relaxed",
+      "SAD": "Sad",
+      "SCARED": "Scared",
+      "THRILLED": "Thrilled"
+    },
+    "form": {
+      "buttons": {
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "save": "Save"
+      },
+      "fields": {
+        "emotions": "How did you feel?",
+        "liked": "Did you like it?",
+        "platform": "On which platform did you watch the content?",
+        "rating": "What did you think of the content?"
+      },
+      "placeholders": {
+        "other": "Other",
+        "platform": "Choose a platform"
+      }
+    },
+    "title": {
+      "episode": "What did you think of the episode?",
+      "movie": "What did you think of the movie?",
+      "season": "What did you think of the season?",
+      "tv": "What did you think of the series?"
+    },
+    "toasts": {
+      "error": {
+        "save": "Error saving viewing details"
+      },
+      "success": {
+        "saved": "Viewing details saved"
       }
     }
   }

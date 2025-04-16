@@ -1,4 +1,8 @@
-export const useTmdbPlatforms = (type: string | ComputedRef<string>) => {
+export const useTmdbPlatforms = (
+  type: string | ComputedRef<string>,
+  pirateOption: boolean = false
+) => {
+  const { t } = useI18n()
   const { locale } = useI18n()
   const typeValue = computed(() => (typeof type === 'string' ? type : type.value))
   const key = computed(() => `tmdb-platforms-${typeValue.value}-${locale.value}`)
@@ -10,7 +14,7 @@ export const useTmdbPlatforms = (type: string | ComputedRef<string>) => {
       manager.add('language', locale.value)
       const data = await $fetch(manager.toString())
 
-      return data.results.map((platform: any) => ({
+      const platforms = data.results.map((platform: any) => ({
         id: platform.provider_id,
         label: platform.provider_name,
         avatar: {
@@ -18,6 +22,16 @@ export const useTmdbPlatforms = (type: string | ComputedRef<string>) => {
           alt: platform.provider_name
         }
       }))
+
+      if (pirateOption) {
+        platforms.unshift({
+          id: 0,
+          label: t('viewingDetails.form.placeholders.other'),
+          icon: 'i-lucide-skull'
+        })
+      }
+
+      return platforms
     },
     {
       watch: [locale, typeValue],

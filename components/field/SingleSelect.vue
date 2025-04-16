@@ -15,13 +15,17 @@
         class="w-full"
       >
         <template #default="{ modelValue }">
-          <div v-if="modelValue" class="flex items-center gap-2">
+          <div v-if="modelValue?.avatar" class="flex items-center gap-2">
             <NuxtImg
               v-if="modelValue.avatar"
               :src="modelValue.avatar.src"
               :alt="modelValue.avatar.alt"
               class="w-6 h-6 rounded-full"
             />
+            {{ modelValue.label }}
+          </div>
+          <div v-else-if="modelValue?.icon" class="flex items-center gap-2">
+            <UIcon :name="modelValue.icon" />
             {{ modelValue.label }}
           </div>
           <span v-else class="text-wrap truncate">
