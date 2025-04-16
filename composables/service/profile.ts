@@ -146,12 +146,34 @@ export const useProfileService = () => {
     return response.data
   }
 
+  const updateOnboarding = async (
+    id: string | null,
+    onboarding: boolean
+  ): Promise<Profile | null> => {
+    if (!id) {
+      throw new Error('Profile ID is required')
+    }
+
+    const response: ApiResponse<Profile> = await apiFetch(`/profiles/${id}/onboarding`, {
+      method: 'PUT',
+      body: { onboarding }
+    })
+
+    if (!response.success) {
+      console.error('Error during onboarding update.')
+      return null
+    }
+
+    return response.data
+  }
+
   return {
     getProfile,
     updateProfile,
     deleteAvatar,
     updateAvatar,
     updateLanguage,
-    updateColorMode
+    updateColorMode,
+    updateOnboarding
   }
 }

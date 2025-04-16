@@ -32,7 +32,7 @@
       {{ t('profile.movie.favorites') }}
     </h2>
 
-    <div class="flex justify-center min-h-[300px] items-center">
+    <div id="movies-favorites" class="flex justify-center min-h-[300px] items-center">
       <UCarousel
         v-if="isLoaded && favoritesList.length > 0"
         ref="favoritesCarousel"
@@ -95,7 +95,7 @@
       {{ t('profile.movie.toWatch') }}
     </h2>
 
-    <div class="flex justify-center min-h-[300px] items-center">
+    <div id="movies-to-watch" class="flex justify-center min-h-[300px] items-center">
       <UCarousel
         v-if="isLoaded && toWatchList.length > 0"
         ref="toWatchCarousel"
@@ -166,7 +166,7 @@
       {{ t('profile.movie.watched') }}
     </h2>
 
-    <div class="flex justify-center min-h-[300px] items-center">
+    <div id="movies-watched" class="flex justify-center min-h-[300px] items-center">
       <UCarousel
         v-if="isLoaded && watchedList.length > 0"
         ref="watchedCarousel"

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="avatar">
     <ClientOnly>
       <Suspense>
         <template v-if="authStore.isAuthenticated">
@@ -49,7 +49,6 @@
           <UTooltip :text="$t('navbar.buttons.login')">
             <div class="cursor-pointer" @click="navigateTo(localePath('/auth/login'))">
               <UButton
-                id="avatar"
                 size="xl"
                 variant="outline"
                 trailing-icon="i-lucide:log-in"
@@ -71,6 +70,7 @@ const { profile } = useProfileChannel()
 const authService = useAuthService()
 const localePath = useLocalePath()
 const authStore = useAuthStore()
+const overlay = useOverlay()
 const { t } = useI18n()
 
 const dropdownItems = computed(() => [
@@ -87,6 +87,24 @@ const dropdownItems = computed(() => [
       icon: 'i-lucide:user',
       onSelect () {
         navigateTo(localePath('/profile'))
+      }
+    }
+  ],
+  [
+    {
+      label: t('navbar.buttons.help'),
+      icon: 'i-lucide-circle-help',
+      onSelect () {
+        const onboardingModal = overlay.create(
+          defineAsyncComponent(() => import('~/components/popin/OnboardingGuide.vue')),
+          {
+            props: {
+              forceOpen: true
+            }
+          }
+        )
+
+        onboardingModal.open()
       }
     }
   ],
