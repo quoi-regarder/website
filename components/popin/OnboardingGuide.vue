@@ -10,7 +10,6 @@
       }"
     >
       <template #header>
-        <!-- close button -->
         <UButton
           color="neutral"
           variant="ghost"
@@ -146,23 +145,66 @@
 </template>
 
 <script lang="ts" setup>
+// Imports
 import { VOnboardingWrapper, VOnboardingStep } from 'v-onboarding'
 import { useWindowSize } from '@vueuse/core'
 
+// Props
 const props = defineProps<{
   forceOpen: boolean
 }>()
 
+// Composables
 const localePath = useLocalePath()
 const { t } = useI18n()
 const authStore = useAuthStore()
-const onboardingRef = ref(null)
-const isModalOpen = ref(props.forceOpen || (authStore.isAuthenticated && !authStore.isOnboarding))
-const activeFeature = ref('0')
-const { width } = useWindowSize()
-const isDesktop = computed(() => width.value >= 1024)
 const profileService = useProfileService()
+const { profile } = useProfileChannel()
+const { width } = useWindowSize()
 
+// Refs
+const onboardingRef = ref(null)
+const isModalOpen = ref(false)
+const activeFeature = ref('0')
+
+// Computed
+const isDesktop = computed(() => width.value >= 1024)
+
+// Features data
+const features = [
+  {
+    label: t('modals.onboarding.steps.home.title'),
+    icon: 'i-lucide-home',
+    content: t('modals.onboarding.steps.home.description')
+  },
+  {
+    label: t('modals.onboarding.steps.search.title'),
+    icon: 'i-lucide-search',
+    content: t('modals.onboarding.steps.search.description')
+  },
+  {
+    label: t('modals.onboarding.steps.movies.title'),
+    icon: 'i-lucide-clapperboard',
+    content: t('modals.onboarding.steps.movies.description')
+  },
+  {
+    label: t('modals.onboarding.steps.series.title'),
+    icon: 'i-lucide-tv',
+    content: t('modals.onboarding.steps.series.description')
+  },
+  {
+    label: t('modals.onboarding.steps.trending.title'),
+    icon: 'i-lucide-trending-up',
+    content: t('modals.onboarding.steps.trending.description')
+  },
+  {
+    label: t('modals.onboarding.steps.popular.title'),
+    icon: 'i-lucide-star',
+    content: t('modals.onboarding.steps.popular.description')
+  }
+]
+
+// Tutorial steps
 const steps = [
   {
     attachTo: { element: '#home', position: 'bottom' },
@@ -382,6 +424,15 @@ const steps = [
   }
 ]
 
+// Watchers
+watch(profile, (oldValue, newValue) => {
+  if (oldValue === null || newValue === null) {
+    isModalOpen.value =
+      props.forceOpen || (authStore.isAuthenticated && !profile?.value?.onboarding)
+  }
+})
+
+// Methods
 const startTutorial = async () => {
   isModalOpen.value = false
   await profileService.updateOnboarding(authStore.getUserId, true)
@@ -399,37 +450,4 @@ const endTutorial = () => {
 const completeTutorial = () => {
   endTutorial()
 }
-
-const features = [
-  {
-    label: t('modals.onboarding.steps.home.title'),
-    icon: 'i-lucide-home',
-    content: t('modals.onboarding.steps.home.description')
-  },
-  {
-    label: t('modals.onboarding.steps.search.title'),
-    icon: 'i-lucide-search',
-    content: t('modals.onboarding.steps.search.description')
-  },
-  {
-    label: t('modals.onboarding.steps.movies.title'),
-    icon: 'i-lucide-clapperboard',
-    content: t('modals.onboarding.steps.movies.description')
-  },
-  {
-    label: t('modals.onboarding.steps.series.title'),
-    icon: 'i-lucide-tv',
-    content: t('modals.onboarding.steps.series.description')
-  },
-  {
-    label: t('modals.onboarding.steps.trending.title'),
-    icon: 'i-lucide-trending-up',
-    content: t('modals.onboarding.steps.trending.description')
-  },
-  {
-    label: t('modals.onboarding.steps.popular.title'),
-    icon: 'i-lucide-star',
-    content: t('modals.onboarding.steps.popular.description')
-  }
-]
 </script>

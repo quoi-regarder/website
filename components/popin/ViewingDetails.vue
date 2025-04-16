@@ -3,28 +3,29 @@
     <template #body>
       <UForm :schema="schema" :state="state" class="space-y-6" @submit="onSubmit">
         <LazyFieldSingleSelect
-          v-model="platforms"
+          v-model="filteredPlatforms"
           v-model:selected-model="selectedPlatform"
           :label="t('viewingDetails.form.fields.platform')"
           :placeholder="t('viewingDetails.form.placeholders.platform')"
           name="platformId"
         />
 
-        <FieldSlider
-          v-model="state.rating"
-          :label="t('viewingDetails.form.fields.rating')"
-          name="rating"
-          :min="0"
-          :max="100"
-          :step="1"
-          required
-        />
-
-        <FieldCheckBox
-          v-model="state.liked"
-          :label="t('viewingDetails.form.fields.liked')"
-          name="liked"
-        />
+        <div class="flex flex-col">
+          <FieldSlider
+            v-model="state.rating"
+            :label="t('viewingDetails.form.fields.rating')"
+            name="rating"
+            :min="0"
+            :max="100"
+            :step="1"
+            required
+          />
+          <div class="flex justify-between text-sm text-gray-500 dark:text-gray-400 mr-16">
+            <span>{{ t('viewingDetails.form.rating.dislike') }}</span>
+            <span>{{ t('viewingDetails.form.rating.neutral') }}</span>
+            <span>{{ t('viewingDetails.form.rating.love') }}</span>
+          </div>
+        </div>
 
         <FieldSingleSelect
           v-model="emotions"
@@ -71,18 +72,42 @@
 </template>
 
 <script setup lang="ts">
+// Props & Emits
 const props = defineProps<{
   contextType: ContentType
   contextId: string
+  providerIds: number[]
 }>()
+const emit = defineEmits<{ close: [] }>()
 
-const emit = defineEmits<{
-  close: []
-}>()
-
+// Composables
 const { t } = useI18n()
-const selectedPlatform = ref<Option | undefined>(undefined)
+const authStore = useAuthStore()
+const { state, setState, schema } = useViewingDetailsForm()
+const { getViewingDetails, createViewingDetails, updateViewingDetails, deleteViewingDetails } =
+  useViewingDetailsService()
 
+// State
+const isLoading = ref(false)
+const isExistingDetails = ref(false)
+const selectedPlatform = ref<Option | undefined>(undefined)
+const selectedEmotion = ref<Option | undefined>(undefined)
+
+// Constants
+const emotionIcons = {
+  [Emotion.MOVED]: 'i-lucide-heart',
+  [Emotion.HAPPY]: 'i-lucide-smile',
+  [Emotion.SAD]: 'i-lucide-frown',
+  [Emotion.INSPIRED]: 'i-lucide-lightbulb',
+  [Emotion.THRILLED]: 'i-lucide-flame',
+  [Emotion.SCARED]: 'i-lucide-ghost',
+  [Emotion.BORED]: 'i-lucide-clock',
+  [Emotion.DISAPPOINTED]: 'i-lucide-thumbs-down',
+  [Emotion.CONFUSED]: 'i-lucide-help-circle',
+  [Emotion.RELAXED]: 'i-lucide-cloud'
+}
+
+// Computed
 const computedContextType = computed(() => {
   switch (props.contextType) {
   case 'movie':
@@ -97,39 +122,20 @@ const computedContextType = computed(() => {
 })
 
 const { platforms, refresh: refreshPlatforms } = useTmdbPlatforms(computedContextType, true)
-const selectedEmotion = ref<Option | undefined>(undefined)
 
-const { state, setState, schema } = useViewingDetailsForm()
-const authStore = useAuthStore()
-const { getViewingDetails, createViewingDetails, updateViewingDetails, deleteViewingDetails } =
-  useViewingDetailsService()
-const isLoading = ref(false)
-const isExistingDetails = ref(false)
+const filteredPlatforms = computed(() =>
+  platforms.value.filter((platform) => props.providerIds.includes(Number(platform.id)))
+)
 
-onMounted(async () => {
-  await refreshPlatforms()
-  state.contextType = parseContextType(props.contextType)
-  state.contextId = Number(props.contextId)
-  state.userId = authStore.getUserId
+const emotions = computed(() =>
+  Object.values(Emotion).map((emotion) => ({
+    id: emotion,
+    label: t(`viewingDetails.emotions.${emotion}`),
+    icon: emotionIcons[emotion as keyof typeof emotionIcons]
+  }))
+)
 
-  await fetchViewingDetails()
-})
-
-const fetchViewingDetails = async () => {
-  const userId = state.userId?.toString() || null
-  const contextId = state.contextId?.toString() || null
-  const response: ApiResponse<ViewingDetails> = await getViewingDetails(userId, contextId)
-
-  if (response.data) {
-    isExistingDetails.value = true
-    setState(response.data)
-    selectedPlatform.value = platforms.value.find(
-      (platform) => platform.id === response.data?.platformId
-    )
-    selectedEmotion.value = emotions.value.find((emotion) => emotion.id === response.data?.emotion)
-  }
-}
-
+// Methods
 const parseContextType = (contextType: string) => {
   switch (contextType) {
   case 'movie':
@@ -142,6 +148,21 @@ const parseContextType = (contextType: string) => {
     return ContextType.SEASON
   default:
     return ContextType.MOVIE
+  }
+}
+
+const fetchViewingDetails = async () => {
+  const userId = state.userId?.toString() || null
+  const contextId = state.contextId?.toString() || null
+  const response: ApiResponse<ViewingDetails> = await getViewingDetails(userId, contextId)
+
+  if (response.data) {
+    isExistingDetails.value = true
+    setState(response.data)
+    selectedPlatform.value = filteredPlatforms.value.find(
+      (platform) => platform.id === response.data?.platformId
+    )
+    selectedEmotion.value = emotions.value.find((emotion) => emotion.id === response.data?.emotion)
   }
 }
 
@@ -175,32 +196,22 @@ const onDelete = async () => {
   emit('close')
 }
 
-const emotions = computed(() => {
-  const emotionIcons = {
-    MOVED: 'i-lucide-heart',
-    HAPPY: 'i-lucide-smile',
-    SAD: 'i-lucide-frown',
-    INSPIRED: 'i-lucide-lightbulb',
-    THRILLED: 'i-lucide-flame',
-    SCARED: 'i-lucide-ghost',
-    BORED: 'i-lucide-clock',
-    DISAPPOINTED: 'i-lucide-thumbs-down',
-    CONFUSED: 'i-lucide-help-circle',
-    RELAXED: 'i-lucide-cloud'
-  }
-
-  return Object.values(Emotion).map((emotion) => ({
-    id: emotion,
-    label: t(`viewingDetails.emotions.${emotion}`),
-    icon: emotionIcons[emotion as keyof typeof emotionIcons]
-  }))
-})
-
+// Watchers
 watch(selectedPlatform, () => {
   state.platformId = Number(selectedPlatform.value?.id) || undefined
 })
 
 watch(selectedEmotion, () => {
   state.emotion = selectedEmotion.value?.id as Emotion | undefined
+})
+
+// Lifecycle
+onMounted(async () => {
+  await refreshPlatforms()
+  state.contextType = parseContextType(props.contextType)
+  state.contextId = Number(props.contextId)
+  state.userId = authStore.getUserId
+
+  await fetchViewingDetails()
 })
 </script>

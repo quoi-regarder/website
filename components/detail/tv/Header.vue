@@ -161,57 +161,19 @@ const { isFavorite, addFavorite } = useFavoriteState()
 const overlay = useOverlay()
 const route = useRoute()
 
-const props = defineProps({
-  name: {
-    type: String,
-    required: true
-  },
-  firstAirDate: {
-    type: String,
-    required: false,
-    default: null
-  },
-  lastAirDate: {
-    type: String,
-    required: false,
-    default: null
-  },
-  posterPath: {
-    type: String,
-    required: false,
-    default: null
-  },
-  backdropPath: {
-    type: String,
-    required: false,
-    default: null
-  },
-  voteAverage: {
-    type: Number,
-    required: false,
-    default: null
-  },
-  voteCount: {
-    type: Number,
-    required: false,
-    default: null
-  },
-  overview: {
-    type: String,
-    required: false,
-    default: null
-  },
-  inProduction: {
-    type: Boolean,
-    required: false,
-    default: false
-  },
-  genres: {
-    type: Array,
-    required: false,
-    default: () => []
-  }
-})
+const props = defineProps<{
+  name: string
+  firstAirDate: string
+  lastAirDate: string
+  posterPath: string
+  backdropPath: string
+  voteAverage: number
+  voteCount: number
+  overview: string
+  genres: string[]
+  inProduction: boolean
+  providerIds: number[]
+}>()
 
 const tvId = ref(Number(route.params.id))
 
@@ -224,7 +186,8 @@ const openViewingDetails = () => {
     {
       props: {
         contextType: 'tv',
-        contextId: tvId.value.toString()
+        contextId: tvId.value.toString(),
+        providerIds: props.providerIds
       }
     }
   )
