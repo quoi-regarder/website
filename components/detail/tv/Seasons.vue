@@ -1,23 +1,43 @@
 <template>
   <UContainer
-    class="w-full p-4 rounded-lg shadow-lg bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] gap-y-4"
+    class="flex flex-col gap-y-6 p-6 rounded-xl bg-[var(--ui-bg-elevated)] dark:bg-[var(--ui-bg-muted)] shadow-xl transition-all duration-300"
   >
-    <h2 class="text-2xl font-bold mb-4 text-primary-400">
-      {{ $t('tvSeasons.title') }}
-    </h2>
-
-    <div
-      class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 full-hd:grid-cols-5"
-    >
-      <LazyDetailPartSeasonCard
-        v-for="(season, index) in seasons"
-        :key="index"
-        :season="season"
-        :is-selected="selectedNumber === index + (hasSpecials ? 0 : 1)"
-        @select="handleSeasonSelection(index + (hasSpecials ? 0 : 1))"
+    <div class="flex items-center justify-between">
+      <h2 class="text-2xl font-bold text-primary-500">
+        {{ $t('tvSeasons.title') }}
+      </h2>
+      <UBadge
+        v-if="selectedNumber !== null"
+        :label="seasons[selectedNumber - (hasSpecials ? 0 : 1)]?.name"
+        color="primary"
+        variant="outline"
+        size="lg"
       />
+    </div>
 
-      <USkeleton v-if="seasons.length === 0" class="w-full h-96" />
+    <div class="flex justify-center">
+      <UCarousel
+        :prev="{ color: 'secondary', variant: 'solid' }"
+        :next="{ color: 'secondary', variant: 'solid' }"
+        :items="seasons"
+        class="max-w-[75vw] w-11/12"
+        arrows
+        wheel-gestures
+        :ui="{
+          item: 'basis-1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4'
+        }"
+      >
+        <template #default="{ item }">
+          <div class="w-full h-full p-2">
+            <LazyDetailPartSeasonCard
+              :season="item"
+              :is-selected="selectedNumber === item.season_number"
+              class="transition-transform duration-300 hover:scale-[1.02]"
+              @select="handleSeasonSelection(item.season_number)"
+            />
+          </div>
+        </template>
+      </UCarousel>
     </div>
 
     <USeparator class="pt-4" />
@@ -38,11 +58,13 @@
           arrows
           wheel-gestures
           :ui="{
-            item: 'basis-full 2xl:basis-[65%] lg:transition-opacity lg:[&:not(.is-snapped)]:opacity-30'
+            item: 'basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4'
           }"
         >
           <template #default="{ item }">
-            <LazyDetailPartEpisodeCard :episode="item" />
+            <div class="w-full h-full p-2">
+              <LazyDetailPartEpisodeCard :episode="item" />
+            </div>
           </template>
         </UCarousel>
       </div>

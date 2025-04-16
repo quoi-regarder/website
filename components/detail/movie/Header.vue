@@ -65,6 +65,17 @@
                 >
                 </UButton>
               </UTooltip>
+
+              <UTooltip :text="$t('movieHeader.viewing_details')">
+                <UButton
+                  variant="subtle"
+                  color="secondary"
+                  trailing-icon="i-lucide:message-square-text"
+                  :disabled="computedStatus !== WatchStatus.WATCHED"
+                  @click="openViewingDetails"
+                >
+                </UButton>
+              </UTooltip>
             </div>
           </div>
 
@@ -107,6 +118,7 @@ const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useC
 const { isFavorite, addFavorite } = useFavoriteState()
 const { t } = useI18n()
 
+const overlay = useOverlay()
 const route = useRoute()
 
 const props = defineProps({
@@ -160,4 +172,18 @@ const movieId = ref(Number(route.params.id))
 
 const computedStatus = computed(() => getContentStatus('movie', movieId.value))
 const computedFavorite = computed(() => isFavorite('movie', movieId.value))
+
+const openViewingDetails = () => {
+  const viewingDetailsModal = overlay.create(
+    defineAsyncComponent(() => import('~/components/popin/ViewingDetails.vue')),
+    {
+      props: {
+        contextType: 'movie',
+        contextId: movieId.value.toString()
+      }
+    }
+  )
+
+  viewingDetailsModal.open()
+}
 </script>

@@ -63,7 +63,7 @@
               </div>
             </div>
 
-            <div class="flex gap-2 pr-2 justify-end mt-2">
+            <div class="flex gap-2 pr-2 justify-end mt-2 flex-wrap">
               <UButton
                 :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
                 class="self-center"
@@ -113,6 +113,17 @@
                 >
                 </UButton>
               </UTooltip>
+
+              <UTooltip :text="$t('tvHeader.viewing_details')">
+                <UButton
+                  variant="subtle"
+                  color="secondary"
+                  trailing-icon="i-lucide:message-square-text"
+                  :disabled="computedStatus !== WatchStatus.WATCHED"
+                  @click="openViewingDetails"
+                >
+                </UButton>
+              </UTooltip>
             </div>
           </div>
 
@@ -147,6 +158,7 @@
 const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
 const { isFavorite, addFavorite } = useFavoriteState()
 
+const overlay = useOverlay()
 const route = useRoute()
 
 const props = defineProps({
@@ -205,4 +217,18 @@ const tvId = ref(Number(route.params.id))
 
 const computedStatus = computed(() => getContentStatus('tv', tvId.value))
 const computedFavorite = computed(() => isFavorite('tv', tvId.value))
+
+const openViewingDetails = () => {
+  const viewingDetailsModal = overlay.create(
+    defineAsyncComponent(() => import('~/components/popin/ViewingDetails.vue')),
+    {
+      props: {
+        contextType: 'tv',
+        contextId: tvId.value.toString()
+      }
+    }
+  )
+
+  viewingDetailsModal.open()
+}
 </script>

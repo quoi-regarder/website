@@ -1,16 +1,22 @@
 <template>
-  <UCard :item="episode" class="mx-auto w-11/12">
+  <UCard :item="episode" class="transition-all duration-200 ease-in-out hover:shadow-lg">
     <template #header>
-      <div class="flex flex-col items-center">
-        <h2 class="text-l font-bold text-primary-400 text-center">
-          {{ $t('tvSeasons.episode', { number: episode.episode_number }) }} - {{ episode.name }}
-        </h2>
+      <div class="flex flex-col items-center gap-y-2">
+        <UTooltip
+          :text="`${$t('tvSeasons.episode', { number: episode.episode_number })} - ${episode.name}`"
+        >
+          <h2 class="text-xl font-bold text-primary-400 text-center line-clamp-2">
+            {{ $t('tvSeasons.episode', { number: episode.episode_number }) }} - {{ episode.name }}
+          </h2>
+        </UTooltip>
       </div>
 
-      <div class="flex gap-2 pr-2 justify-center mt-2">
+      <div class="flex flex-wrap gap-2 justify-center mt-4">
         <UButton
           :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
-          class="self-center"
+          size="xs"
+          color="primary"
+          class="transition-all duration-300 hover:scale-105"
           :trailing-icon="
             computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
           "
@@ -21,8 +27,9 @@
 
         <UButton
           :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
+          size="xs"
           color="secondary"
-          class="self-center"
+          class="transition-all duration-300 hover:scale-105"
           :trailing-icon="
             computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
           "
@@ -30,53 +37,64 @@
         >
           {{ $t('common.content.add_to_watch_list') }}
         </UButton>
+
+        <UTooltip :text="$t('tvSeasons.episode_viewing_details')">
+          <UButton
+            variant="subtle"
+            color="secondary"
+            trailing-icon="i-lucide:message-square-text"
+            size="xs"
+            :disabled="computedStatus !== WatchStatus.WATCHED"
+            @click="openViewingDetails"
+          />
+        </UTooltip>
       </div>
     </template>
 
     <template #default>
-      <div class="flex flex-col lg:flex-row justify-center-center">
-        <div class="lg:w-1/3">
+      <div class="flex flex-col gap-y-2">
+        <div class="relative aspect-video w-full group overflow-hidden">
           <NuxtImg
             v-if="episode.still_path"
-            :src="getImageUrl(episode.still_path, 'original')"
+            :src="getImageUrl(episode.still_path, 'w300')"
             alt="episode still"
-            class="rounded-md mx-auto"
+            class="rounded-md w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
           />
 
-          <USkeleton
+          <div
             v-else
-            class="w-full h-32 rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
-          />
+            class="absolute inset-0 bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)] flex items-center justify-center rounded-md"
+          >
+            <p class="text-sm font-semibold text-center px-2">
+              {{ $t('card.no_poster') }}
+            </p>
+          </div>
         </div>
 
-        <div class="h-56 overflow-hidden overflow-y-auto px-1 lg:w-2/3 lg:h-32">
-          <p v-if="episode.overview" class="text-sm text-justify">
-            {{ episode.overview }}
-          </p>
-          <p v-else class="text-sm text-justify">
-            {{ $t('tvSeasons.no_overview') }}
+        <div class="max-h-28 overflow-hidden overflow-y-auto">
+          <p class="text-sm text-justify text-[var(--ui-text)]">
+            {{ episode.overview || $t('tvSeasons.no_overview') }}
           </p>
         </div>
       </div>
     </template>
 
     <template #footer>
-      <div class="flex flex-col gap-y-2">
-        <div v-if="episode.vote_average" class="flex flex-col items-start">
-          <p class="text-sm">
-            {{ $t('tvSeasons.vote_average') }}
-          </p>
-          <UProgress
-            :model-value="episode.vote_average"
-            :max="10"
-            :min="0"
-            status
-            :ui="{ base: 'dark:bg-[var(--ui-bg-muted)]', status: 'text-[var(--ui-text)' }"
-          >
-          </UProgress>
-          <p class="text-left text-sm mt-2">
-            {{ $t('tvSeasons.vote_count', { count: episode.vote_count }) }}
-          </p>
+      <div class="flex flex-col gap-y-2 mt-2">
+        <div v-if="episode.vote_average" class="flex items-center justify-between">
+          <div class="flex items-center gap-1">
+            <UIcon name="i-lucide:star" class="text-amber-500 size-5" />
+            <span class="font-semibold">{{ (episode.vote_average * 10).toFixed(0) }}%</span>
+          </div>
+        </div>
+
+        <span class="text-xs text-[var(--ui-text-muted)]">
+          {{ $t('tvSeasons.vote_count', { count: episode.vote_count }) }}
+        </span>
+
+        <div class="text-xs text-[var(--ui-text)]">
+          <p>{{ $t('tvSeasons.air_date') }}: {{ formatLocalDate(episode.air_date) }}</p>
         </div>
       </div>
     </template>
@@ -94,6 +112,21 @@ const props = defineProps({
 
 const route = useRoute()
 const serieId = Number(route.params.id)
+const overlay = useOverlay()
 
 const computedStatus = computed(() => getContentStatus('episode', props.episode.id))
+
+const openViewingDetails = () => {
+  const viewingDetailsModal = overlay.create(
+    defineAsyncComponent(() => import('~/components/popin/ViewingDetails.vue')),
+    {
+      props: {
+        contextType: 'episode',
+        contextId: props.episode.id.toString()
+      }
+    }
+  )
+
+  viewingDetailsModal.open()
+}
 </script>

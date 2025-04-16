@@ -4,6 +4,7 @@ export const useContentState = () => {
   const seasonWatchlistService: WatchlistService = useSeasonWatchlistService()
   const episodeWatchlistService: WatchlistService = useEpisodeWatchlistService()
 
+  const overlay = useOverlay()
   const authStore = useAuthStore()
   const localPath = useLocalePath()
   const { t } = useI18n()
@@ -78,63 +79,72 @@ export const useContentState = () => {
     contentId?: number | null,
     seasonNumber?: number | null
   ) => {
-    if (!authStore.isAuthenticated) {
+    if (!authStore.isAuthenticated || !authStore.getUserId) {
       navigateTo(localPath('/auth/login'))
       return
     }
 
+    const userId = authStore.getUserId
     const idOfContent = contentId || primaryId
-
     const { service } = getServiceAndStore(type)
     const contentStatus = getContentStatus(type, idOfContent)
+    const notifications = useNotifications()
+
+    const showNotification = (action: 'addedToList' | 'removedFromList') => {
+      const baseNotif = {
+        title: t('common.toasts.title.success'),
+        message: t(`common.content.toasts.success.${type}.${action}.${status}`)
+      }
+
+      if (status === WatchStatus.WATCHED && action === 'addedToList') {
+        const viewingDetailsModal = overlay.create(
+          defineAsyncComponent(() => import('~/components/popin/ViewingDetails.vue')),
+          {
+            props: {
+              contextType: type,
+              contextId: idOfContent.toString()
+            }
+          }
+        )
+
+        return notifications.success(baseNotif.title, baseNotif.message, 5000, [
+          {
+            label: t(`common.content.buttons.${type}.viewingDetails`),
+            color: 'secondary',
+            variant: 'outline',
+            onClick: () => viewingDetailsModal.open()
+          }
+        ])
+      }
+
+      return notifications.success(baseNotif.title, baseNotif.message)
+    }
 
     if (contentStatus !== null) {
       if (contentStatus === status) {
-        const response: ApiResponse<any> = await service.removeWatchlist(
-          authStore.getUserId,
-          idOfContent,
-          primaryId
-        )
+        const response = await service.removeWatchlist(userId, idOfContent, primaryId)
 
-        if (!response.success) {
-          return
-        }
-
-        useNotifications().success(
-          t('common.toasts.title.success'),
-          t(`common.content.toasts.success.${type}.removedFromList.${status}`)
-        )
+        if (!response.success) return
+        showNotification('removedFromList')
       } else {
-        const response: ApiResponse<any> = await service.updateWatchlist(
-          authStore.getUserId,
-          idOfContent,
-          status,
-          primaryId
-        )
+        const response = await service.updateWatchlist(userId, idOfContent, status, primaryId)
 
-        if (!response.success) {
-          return
-        }
-
-        useNotifications().success(
-          t('common.toasts.title.success'),
-          t(`common.content.toasts.success.${type}.addedToList.${status}`)
-        )
+        if (!response.success) return
+        showNotification('addedToList')
       }
     } else {
-      const watch: MovieWatchlist | SerieWatchlist | SerieSeasonWatchlist | SerieEpisodeWatchlist =
-        {
-          userId: authStore.getUserId,
-          tmdbId: idOfContent,
-          status: status,
-          seasonNumber: seasonNumber
-        }
+      const baseWatch = {
+        userId,
+        tmdbId: idOfContent,
+        status
+      }
 
-      await service.createWatchlist(authStore.getUserId, watch, primaryId)
-      useNotifications().success(
-        t('common.toasts.title.success'),
-        t(`common.content.toasts.success.${type}.addedToList.${status}`)
-      )
+      const watch =
+        type === 'season' || type === 'episode' ? { ...baseWatch, seasonNumber } : baseWatch
+
+      const response = await service.createWatchlist(userId, watch, primaryId)
+      if (!response.success) return
+      showNotification('addedToList')
     }
   }
 

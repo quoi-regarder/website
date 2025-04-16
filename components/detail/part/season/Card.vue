@@ -12,23 +12,27 @@
     @click="toggleSelection"
   >
     <template #header>
-      <div class="flex flex-col items-center">
-        <h2 class="text-2xl font-bold text-primary-400 text-center">
-          {{ season.name }}
-        </h2>
-        <UBadge v-if="isRealeased(season.air_date)" color="success" class="mt-2 text-sm">
+      <div class="flex flex-col items-center gap-y-2">
+        <UTooltip :text="season.name" :disabled="!season.name || season.name.length < 30">
+          <h2 class="text-xl font-bold text-primary-400 text-center line-clamp-2">
+            {{ season.name }}
+          </h2>
+        </UTooltip>
+        <UBadge v-if="isRealeased(season.air_date)" color="success" variant="subtle" size="sm">
           {{ $t('tvSeasons.released') }}
         </UBadge>
-        <UBadge v-else color="warning" class="mt-2 text-sm">
+        <UBadge v-else color="warning" variant="subtle" size="sm">
           {{ $t('tvSeasons.not_released') }}
         </UBadge>
       </div>
 
-      <div class="flex gap-2 pr-2 justify-center mt-2">
+      <div class="flex flex-wrap gap-2 justify-center mt-4">
         <UButton
           :disabled="!isRealeased(season.air_date)"
           :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
-          class="self-center"
+          size="xs"
+          color="primary"
+          class="transition-all duration-300 hover:scale-105"
           :trailing-icon="
             computedStatus === WatchStatus.WATCHED ? 'i-lucide:check' : 'i-lucide:eye'
           "
@@ -39,9 +43,10 @@
 
         <UButton
           v-if="computedStatus === WatchStatus.WATCHING"
-          class="self-center"
-          trailing-icon="i-lucide:popcorn"
+          size="xs"
           color="secondary"
+          trailing-icon="i-lucide:popcorn"
+          class="transition-all duration-300"
           disabled
         >
           {{ $t('common.content.watching') }}
@@ -51,8 +56,9 @@
           v-if="computedStatus !== WatchStatus.WATCHING"
           :disabled="!isRealeased(season.air_date)"
           :variant="computedStatus === WatchStatus.TO_WATCH ? 'solid' : 'outline'"
-          class="self-center"
+          size="xs"
           color="secondary"
+          class="transition-all duration-300 hover:scale-105"
           :trailing-icon="
             computedStatus === WatchStatus.TO_WATCH ? 'i-lucide:check' : 'i-lucide:plus'
           "
@@ -60,66 +66,67 @@
         >
           {{ $t('common.content.add_to_watch_list') }}
         </UButton>
+
+        <UTooltip :text="$t('tvSeasons.season_viewing_details')">
+          <UButton
+            variant="subtle"
+            color="secondary"
+            trailing-icon="i-lucide:message-square-text"
+            size="xs"
+            :disabled="computedStatus !== WatchStatus.WATCHED"
+            @click="openViewingDetails"
+          />
+        </UTooltip>
       </div>
     </template>
 
     <template #default>
-      <div class="flex gap-x-4 h-48">
-        <div class="w-1/3">
+      <div class="flex flex-col sm:flex-row gap-x-1 h-28">
+        <div class="w-full sm:w-1/3 flex justify-center sm:justify-start">
           <NuxtImg
             v-if="season.poster_path"
             :src="getImageUrl(season.poster_path, 'w300')"
             alt="season poster"
-            class="rounded-md"
+            class="rounded-md w-full object-cover transition-transform duration-500 group-hover:scale-110"
+            loading="lazy"
           />
 
-          <USkeleton
+          <div
             v-else
-            class="w-20 h-28 rounded-md shadow-lg animate-none bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
-          />
+            class="w-full h-28 bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)] flex items-center justify-center rounded-md"
+          >
+            <p class="text-sm font-semibold text-center px-2">
+              {{ $t('card.no_poster') }}
+            </p>
+          </div>
         </div>
-        <div class="w-2/3 max-h-48 overflow-hidden overflow-y-auto px-1">
-          <p v-if="season.overview" class="text-sm text-justify">
-            {{ season.overview }}
-          </p>
-          <p v-else class="text-sm text-justify">
-            {{ $t('tvSeasons.no_overview') }}
+
+        <div class="w-full sm:w-2/3 max-h-28 overflow-hidden overflow-y-auto px-1">
+          <p class="text-sm text-justify text-[var(--ui-text)]">
+            {{ season.overview || $t('tvSeasons.no_overview') }}
           </p>
         </div>
       </div>
     </template>
 
     <template #footer>
-      <div class="flex flex-col justify-between gap-y-2">
-        <div v-if="season.vote_average" class="flex flex-col items-center justify-between">
-          <p class="text-sm">
-            {{ $t('tvSeasons.vote_average') }}
-          </p>
-          <UProgress
-            :model-value="season.vote_average"
-            :max="10"
-            :min="0"
-            :value="season.vote_average"
-            status
-            :ui="{ base: 'dark:bg-[var(--ui-bg-muted)]', status: 'text-[var(--ui-text)' }"
-          >
-          </UProgress>
-
-          <USeparator class="pt-4" />
+      <div class="flex flex-col gap-y-2 mt-2">
+        <div v-if="season.vote_average" class="flex items-center justify-between">
+          <div class="flex items-center gap-1">
+            <UIcon name="i-lucide:star" class="text-amber-500 size-5" />
+            <span class="font-semibold">{{ (season.vote_average * 10).toFixed(0) }}%</span>
+          </div>
         </div>
 
-        <div>
-          <span
-            v-if="season.episode_count && isRealeased(season.air_date)"
-            class="text-sm font-semibold"
-          >
-            {{ $t('tvSeasons.episodes', { count: season.episode_count }) }}
-          </span>
-        </div>
-        <div>
-          <p class="text-sm">
-            {{ $t('tvSeasons.air_date') }}: {{ formatLocalDate(season.air_date) }}
-          </p>
+        <span
+          v-if="season.episode_count && isRealeased(season.air_date)"
+          class="text-sm font-semibold"
+        >
+          {{ $t('tvSeasons.episodes', { count: season.episode_count }) }}
+        </span>
+
+        <div class="text-xs text-[var(--ui-text)]">
+          <p>{{ $t('tvSeasons.air_date') }}: {{ formatLocalDate(season.air_date) }}</p>
         </div>
       </div>
     </template>
@@ -129,6 +136,7 @@
 <script lang="ts" setup>
 const { getContentStatus, addContentToViewedList, addContentToWatchlist } = useContentState()
 const route = useRoute()
+const overlay = useOverlay()
 const props = defineProps({
   season: {
     type: Object as PropType<any>,
@@ -155,5 +163,19 @@ function toggleSelection () {
 const isRealeased = (date: string) => {
   if (!date) return false
   return new Date(date) < new Date()
+}
+
+const openViewingDetails = () => {
+  const viewingDetailsModal = overlay.create(
+    defineAsyncComponent(() => import('~/components/popin/ViewingDetails.vue')),
+    {
+      props: {
+        contextType: 'season',
+        contextId: props.season.id.toString()
+      }
+    }
+  )
+
+  viewingDetailsModal.open()
 }
 </script>

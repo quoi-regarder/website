@@ -5,4 +5,5 @@ export interface Option {
     src: string
     alt: string
   }
+  icon?: string
 }
