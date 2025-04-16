@@ -8,8 +8,6 @@
         overlay: 'bg-gray-950/75 backdrop-blur-sm',
         base: 'relative overflow-hidden'
       }"
-      title="Bienvenue sur Quoi Regarder ?"
-      description="Découvrez toutes les fonctionnalités de notre plateforme en quelques étapes simples."
     >
       <template #header>
         <div class="flex flex-col items-center text-center px-4 pt-6">
@@ -24,13 +22,13 @@
             class="text-2xl font-bold mt-4 bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent"
             aria-label="Bienvenue sur Quoi Regarder ?"
           >
-            Bienvenue sur Quoi Regarder ?
+            {{ t('modals.onboarding.title') }}
           </h2>
           <p
             class="mt-3 text-gray-600 dark:text-gray-300"
             aria-label="Découvrez toutes les fonctionnalités de notre plateforme en quelques étapes simples."
           >
-            Découvrez toutes les fonctionnalités de notre plateforme en quelques étapes simples.
+            {{ t('modals.onboarding.description') }}
           </p>
         </div>
       </template>
@@ -44,20 +42,20 @@
               <UIcon name="i-lucide-info" class="flex-shrink-0 h-5 w-5 text-secondary-500 mt-0.5" />
               <div class="space-y-2">
                 <p class="text-sm text-secondary-900 dark:text-secondary-100">
-                  Notre guide interactif vous montrera :
+                  {{ t('modals.onboarding.guide.presentation') }}
                 </p>
                 <ul class="text-sm space-y-1 text-secondary-800 dark:text-secondary-200">
                   <li class="flex items-center gap-2">
                     <UIcon name="i-lucide-check-circle" class="h-4 w-4 text-secondary-500" />
-                    Comment trouver vos films et séries préférés
+                    {{ t('modals.onboarding.guide.search') }}
                   </li>
                   <li class="flex items-center gap-2">
                     <UIcon name="i-lucide-check-circle" class="h-4 w-4 text-secondary-500" />
-                    Gérer votre liste de visionnage
+                    {{ t('modals.onboarding.guide.list') }}
                   </li>
                   <li class="flex items-center gap-2">
                     <UIcon name="i-lucide-check-circle" class="h-4 w-4 text-secondary-500" />
-                    Personnaliser votre expérience
+                    {{ t('modals.onboarding.guide.presonalize') }}
                   </li>
                 </ul>
               </div>
@@ -76,14 +74,14 @@
                 name="i-lucide-x-circle"
                 class="h-4 w-4 mr-1.5 transition-transform group-hover:-translate-x-0.5"
               />
-              Plus tard
+              {{ t('modals.onboarding.buttons.later') }}
             </UButton>
             <UButton color="primary" size="sm" class="flex-1 group" @click="startTutorial">
               <UIcon
                 name="i-lucide-play-circle"
                 class="h-4 w-4 mr-1.5 transition-transform group-hover:translate-x-0.5"
               />
-              C'est parti !
+              {{ t('modals.onboarding.buttons.ready') }}
             </UButton>
           </div>
         </div>
@@ -127,7 +125,8 @@
                 class="flex items-center justify-between mt-4 pt-4 border-t border-gray-200 dark:border-gray-800"
               >
                 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">
-                  Étape {{ index + 1 }} sur {{ steps.length }}
+                  {{ t('modals.onboarding.progress.step') }} {{ index + 1 }}
+                  {{ t('modals.onboarding.progress.on') }} {{ steps.length }}
                 </span>
                 <div class="flex gap-2">
                   <UButton
@@ -156,7 +155,7 @@
 import { VOnboardingWrapper, VOnboardingStep } from 'v-onboarding'
 
 const localePath = useLocalePath()
-
+const { t } = useI18n()
 const onboardingRef = ref(null)
 const isModalOpen = ref(true)
 
@@ -165,8 +164,8 @@ const steps = [
     attachTo: { element: '.home-header', position: 'bottom' },
     content: {
       icon: 'i-lucide-sparkles',
-      title: 'Bienvenue sur Quoi Regarder',
-      description: 'Découvrez votre prochain film ou série préférée en quelques clics.'
+      title: t('modals.onboarding.steps.home.title'),
+      description: t('modals.onboarding.steps.home.description')
     },
     on: {
       beforeStep: async () => {

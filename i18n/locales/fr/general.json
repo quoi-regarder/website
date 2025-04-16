@@ -321,6 +321,30 @@
     "title": "Site en maintenance"
   },
   "modals": {
+    "onboarding": {
+      "title": "Bienvenue",
+      "description": "Découvrez toutes les fonctionnalités de notre plateforme en quelques étapes simples.",
+      "guide": {
+        "presentation": "Notre guide interactif vous montrera :",
+        "search": "Comment trouver vos films et séries préférés",
+        "list": "Gérer votre liste de visionnage",
+        "personalize": "Personnaliser votre expérience"
+      },
+      "buttons": {
+        "later": "Plus tard",
+        "ready": "C'est parti !"
+      },
+      "progress": {
+        "step": "Etape",
+        "on": "sur"
+      },
+      "steps": {
+        "home": {
+          "title": "Bienvenue sur Quoi Regarder",
+          "description": "Découvrez votre prochain film ou série préférée en quelques clics."
+        }
+      }
+    },
     "discord": {
       "body": "Rejoignez notre serveur Discord pour discuter des dernières sorties, des recommandations et bien plus encore !",
       "buttons": {
