@@ -770,13 +770,17 @@
       },
       "fields": {
         "emotions": "How did you feel?",
-        "liked": "Did you like it?",
         "platform": "On which platform did you watch the content?",
         "rating": "What did you think of the content?"
       },
       "placeholders": {
         "other": "Other",
         "platform": "Choose a platform"
+      },
+      "rating": {
+        "dislike": "Didn't like it",
+        "neutral": "It was okay",
+        "love": "Loved it"
       }
     },
     "title": {

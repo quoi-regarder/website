@@ -770,13 +770,17 @@
       },
       "fields": {
         "emotions": "Comment vous êtes-vous senti ?",
-        "liked": "Avez-vous aimé le contenu ?",
         "platform": "Sur quelle plateforme avez-vous vu le contenu ?",
         "rating": "Qu'avez-vous pensé du contenu ?"
       },
       "placeholders": {
         "other": "Autre",
         "platform": "Choisissez une plateforme"
+      },
+      "rating": {
+        "dislike": "Pas du tout aimé",
+        "neutral": "Moyen",
+        "love": "Adoré"
       }
     },
     "title": {
