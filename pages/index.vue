@@ -1,7 +1,7 @@
 <template>
   <div class="relative flex flex-col gap-y-8">
     <div
-      class="bg-white/85 dark:bg-black/82 min-h-[93.5vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
+      class="bg-white/85 dark:bg-black/82 min-h-[93.5vh] w-full bg-[url('/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
     />
 
     <div class="relative z-10 min-h-[90vh] flex flex-col py-12">
