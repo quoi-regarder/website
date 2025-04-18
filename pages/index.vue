@@ -31,12 +31,16 @@
       </div>
 
       <div class="flex-1 flex items-center home-search">
-        <HomeSearch class="w-full" />
+        <Suspense>
+          <LazyHomeSearch class="w-full" />
+        </Suspense>
       </div>
     </div>
 
     <div class="home-carousel">
-      <HomeCarousel v-model:genres="genres" />
+      <Suspense>
+        <LazyHomeCarousel v-model:genres="genres" />
+      </Suspense>
     </div>
   </div>
 </template>
