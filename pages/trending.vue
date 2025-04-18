@@ -1,7 +1,7 @@
 <template>
   <div class="relative min-h-[92vh]">
     <div
-      class="bg-white/85 dark:bg-black/82 min-h-[95vh] w-full bg-[url('/img/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
+      class="bg-white/85 dark:bg-black/82 min-h-[95vh] w-full bg-[url('/background.webp')] bg-blend-overlay bg-cover bg-center bg-no-repeat absolute z-0"
     />
 
     <div class="relative z-10 flex flex-col items-center justify-center min-h-[95vh] gap-4">
@@ -21,20 +21,25 @@
           <UContainer
             class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16 sm:pt-6"
           >
-            <div v-if="isLoaded" class="flex flex-col items-center justify-center gap-4 relative">
-              <span
-                class="text-7xl font-bold text-secondary-400 absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
-              >
-                #1
-              </span>
+            <Suspense
+              v-if="isLoaded"
+              class="flex flex-col items-center justify-center gap-4 relative"
+            >
+              <div>
+                <span
+                  class="text-7xl font-bold text-secondary-400 absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
+                >
+                  #1
+                </span>
 
-              <MovieCard
-                :item="results_movies[0]"
-                :genres="movies_genres"
-                :type="'movie'"
-                class="z-10"
-              />
-            </div>
+                <LazyMovieCard
+                  :item="results_movies[0]"
+                  :genres="movies_genres"
+                  :type="'movie'"
+                  class="z-10"
+                />
+              </div>
+            </Suspense>
 
             <div v-else class="flex flex-col xl:flex-row items-center justify-center gap-16 h-full">
               <USkeleton class="w-full h-[500px] max-w-[90vw] rounded-lg shadow-xl" />
@@ -61,15 +66,17 @@
             @transitionend="handleTransitionEnd"
           >
             <div class="flex flex-wrap justify-center gap-6">
-              <TrendingCard
-                v-for="(movie, index) in results_movies.slice(1)"
-                :key="`movie-${movie.id}`"
-                :item="movie"
-                :genres="movies_genres"
-                :type="'movie'"
-                :rank="index + 2"
-                class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)]"
-              />
+              <Suspense>
+                <LazyTrendingCard
+                  v-for="(movie, index) in results_movies.slice(1)"
+                  :key="`movie-${movie.id}`"
+                  :item="movie"
+                  :genres="movies_genres"
+                  :type="'movie'"
+                  :rank="index + 2"
+                  class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)]"
+                />
+              </Suspense>
             </div>
           </UContainer>
         </template>
@@ -78,15 +85,25 @@
           <UContainer
             class="flex flex-col items-center gap-4 px-0 min-h-[72vh] justify-evenly pt-16 sm:pt-6"
           >
-            <div v-if="isLoaded" class="flex flex-col items-center justify-center gap-4 relative">
-              <span
-                class="text-7xl font-bold text-secondary-400 absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
-              >
-                #1
-              </span>
+            <Suspense
+              v-if="isLoaded"
+              class="flex flex-col items-center justify-center gap-4 relative"
+            >
+              <div>
+                <span
+                  class="text-7xl font-bold text-secondary-400 absolute -top-16 md:-top-14 -left-6 md:-left-14 transform -rotate-25"
+                >
+                  #1
+                </span>
 
-              <MovieCard :item="results_tv[0]" :genres="tv_genres" :type="'tv'" class="z-10" />
-            </div>
+                <LazyMovieCard
+                  :item="results_tv[0]"
+                  :genres="tv_genres"
+                  :type="'tv'"
+                  class="z-10"
+                />
+              </div>
+            </Suspense>
 
             <div v-else class="flex flex-col xl:flex-row items-center justify-center gap-16 h-full">
               <USkeleton class="w-full h-[500px] max-w-[90vw] rounded-lg shadow-xl" />
@@ -112,15 +129,17 @@
             @transitionend="handleTransitionEnd"
           >
             <div class="flex flex-wrap justify-center gap-6">
-              <TrendingCard
-                v-for="(tv, index) in results_tv.slice(1)"
-                :key="`tv-${tv.id}`"
-                :item="tv"
-                :genres="tv_genres"
-                :type="'tv'"
-                :rank="index + 2"
-                class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)]"
-              />
+              <Suspense>
+                <LazyTrendingCard
+                  v-for="(tv, index) in results_tv.slice(1)"
+                  :key="`tv-${tv.id}`"
+                  :item="tv"
+                  :genres="tv_genres"
+                  :type="'tv'"
+                  :rank="index + 2"
+                  class="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)] xl:w-[calc(25%-1.5rem)]"
+                />
+              </Suspense>
             </div>
           </UContainer>
         </template>

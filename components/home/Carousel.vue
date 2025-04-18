@@ -19,7 +19,7 @@
       }"
       :items="results"
       class-names
-      class="max-w-[75vw] animate-slide-in-right"
+      class="max-w-[75vw]"
       arrows
       wheel-gestures
       :ui="{
@@ -40,20 +40,39 @@ const genres = defineModel<Option[]>('genres', {
 })
 
 const { selectedType } = useFilters()
-const { nextPage, results, hasResults, resetSearch } = useSearch()
+const { nextPage, results, hasResults } = useSearch()
+const carouselStore = useCarouselStore()
 
 const carousel = useTemplateRef('carousel')
+const currentIndex = ref<number>(carouselStore.currentIndex)
+const isCarouselReady = ref<boolean>(false)
 
-watch(carousel, () => {
-  if (carousel.value?.emblaApi) {
-    carousel.value.emblaApi.on('select', () => {
-      const index = carousel.value?.emblaApi?.selectedScrollSnap()
-      if (index === results.value.length - 5) {
-        nextPage()
-      }
-    })
-  }
-})
+watch(
+  () => carousel.value?.emblaApi,
+  (api) => {
+    if (api) {
+      isCarouselReady.value = true
+
+      api.on('select', () => {
+        const index = api.selectedScrollSnap()
+        if (index !== undefined) {
+          currentIndex.value = index
+          carouselStore.setCurrentIndex(index)
+          if (index === results.value.length - 5) {
+            nextPage()
+          }
+        }
+      })
+
+      setTimeout(() => {
+        if (carouselStore.currentIndex > 0 && api && api.scrollTo) {
+          api.scrollTo(carouselStore.currentIndex)
+        }
+      }, 100)
+    }
+  },
+  { immediate: true }
+)
 
 watch(hasResults, (newValue) => {
   if (newValue) {
@@ -71,24 +90,13 @@ watch(hasResults, (newValue) => {
   }
 })
 
+onMounted(() => {
+  if (currentIndex?.value && !carousel.value?.emblaApi) {
+    carouselStore.setCurrentIndex(0)
+  }
+})
+
 onUnmounted(() => {
-  resetSearch()
+  carouselStore.setCurrentIndex(currentIndex.value)
 })
 </script>
-
-<style scoped>
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.animate-slide-in-right {
-  animation: slideInRight 0.8s ease-out forwards;
-}
-</style>
