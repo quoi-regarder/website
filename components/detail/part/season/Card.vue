@@ -81,8 +81,8 @@
     </template>
 
     <template #default>
-      <div class="flex flex-col sm:flex-row gap-x-1 h-28">
-        <div class="w-full sm:w-1/3 flex justify-center sm:justify-start">
+      <div class="flex flex-row gap-x-1 h-44">
+        <div class="w-full flex justify-start">
           <NuxtImg
             v-if="season.poster_path"
             :src="getImageUrl(season.poster_path, 'w300')"
@@ -101,7 +101,7 @@
           </div>
         </div>
 
-        <div class="w-full sm:w-2/3 h-28 overflow-hidden overflow-y-auto px-1">
+        <div class="w-full h-44 overflow-hidden overflow-y-auto px-1">
           <p class="text-sm text-justify text-[var(--ui-text)]">
             {{ season.overview || $t('tvSeasons.no_overview') }}
           </p>

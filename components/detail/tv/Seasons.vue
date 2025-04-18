@@ -24,7 +24,7 @@
         arrows
         wheel-gestures
         :ui="{
-          item: 'basis-1 md:basis-1/2 lg:basis-1/3 xl:basis-1/4'
+          item: 'basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4'
         }"
       >
         <template #default="{ item }">
@@ -59,7 +59,7 @@
           arrows
           wheel-gestures
           :ui="{
-            item: 'basis-1/2 md:basis-1/2 lg:basis-1/3 xl:basis-1/4'
+            item: 'basis-full md:basis-1/2 lg:basis-1/3 xl:basis-1/4'
           }"
         >
           <template #default="{ item }">

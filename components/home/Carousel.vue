@@ -46,12 +46,17 @@ const carouselStore = useCarouselStore()
 const carousel = useTemplateRef('carousel')
 const currentIndex = ref<number>(carouselStore.currentIndex)
 const isCarouselReady = ref<boolean>(false)
+const isInitialized = ref<boolean>(false)
 
 watch(
   () => carousel.value?.emblaApi,
   (api) => {
     if (api) {
       isCarouselReady.value = true
+
+      if (isInitialized.value) {
+        return
+      }
 
       api.on('select', () => {
         const index = api.selectedScrollSnap()
@@ -69,6 +74,8 @@ watch(
           api.scrollTo(carouselStore.currentIndex)
         }
       }, 100)
+
+      isInitialized.value = true
     }
   },
   { immediate: true }
