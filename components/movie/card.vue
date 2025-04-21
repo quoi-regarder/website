@@ -10,7 +10,6 @@
             :src="getImageUrl(item.poster_path, 'w500')"
             :alt="`${title} Poster`"
             class="rounded-lg shadow-xl transition-all duration-500 group-hover:scale-[1.03]"
-            loading="lazy"
             fetchpriority="high"
           />
           <div

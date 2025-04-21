@@ -20,7 +20,6 @@
             width="300"
             height="450"
             class="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-            loading="lazy"
             fetchpriority="low"
             :class="{ 'opacity-0': !imageLoaded, 'opacity-100': imageLoaded }"
             @load="handleImageLoaded"

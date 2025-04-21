@@ -57,7 +57,6 @@
             :src="getImageUrl(episode.still_path, 'w300')"
             alt="episode still"
             class="rounded-md w-full h-full object-cover"
-            loading="lazy"
           />
 
           <div
