@@ -22,7 +22,6 @@
                 :src="getImageUrl(provider.logo_path, 'w92')"
                 :alt="provider.provider_name"
                 class="rounded-md shadow-lg w-12 h-12"
-                loading="lazy"
                 fetchpriority="low"
               />
               <span class="text-sm text-center font-medium">{{ provider.provider_name }}</span>

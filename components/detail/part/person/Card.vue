@@ -5,7 +5,6 @@
         v-if="imagePath !== null"
         :src="getImageUrl(imagePath, 'w92')"
         :alt="name"
-        loading="lazy"
         fetchpriority="low"
         class="w-full h-fit object-cover bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)] rounded-md"
       />

@@ -88,7 +88,6 @@
             :src="getImageUrl(season.poster_path, 'w300')"
             alt="season poster"
             class="rounded-md w-full object-cover transition-transform duration-500 group-hover:scale-110"
-            loading="lazy"
           />
 
           <div
