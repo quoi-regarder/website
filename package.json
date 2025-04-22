@@ -1,6 +1,6 @@
 {
   "name": "quoi-regarder",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "private": true,
   "type": "module",
   "author": "William Fontaine",
@@ -43,7 +43,7 @@
     "@vueuse/nuxt": "^13.1.0",
     "eslint": "^9.25.1",
     "husky": "^9.1.7",
-    "nuxt": "^3.16.2",
+    "nuxt": "^3.17.1",
     "pinia-plugin-persistedstate": "^4.2.0",
     "prettier": "^3.5.3",
     "sass-embedded": "^1.87.0",
@@ -61,5 +61,6 @@
       "unrs-resolver",
       "vue-demi"
     ]
-  }
+  },
+  "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a"
 }
