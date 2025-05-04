@@ -4,8 +4,8 @@
       <NuxtPage />
       <ClientOnly>
         <CookieControl :locale="formatLocale(locale)" />
+        <PopinOnboardingGuide :force-open="false" />
       </ClientOnly>
-      <PopinOnboardingGuide :force-open="false" />
     </NuxtLayout>
   </UApp>
 </template>
@@ -15,10 +15,12 @@ import * as locales from '@nuxt/ui/locale'
 
 const { locale } = useI18n()
 
-useMovieFavoriteChannel()
-useSerieFavoriteChannel()
-useMovieListChannel()
-useSerieListChannel()
+onMounted(() => {
+  useMovieFavoriteChannel()
+  useSerieFavoriteChannel()
+  useMovieListChannel()
+  useSerieListChannel()
+})
 
 const formatLocale = (locale: string) => {
   switch (locale) {
