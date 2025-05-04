@@ -2,11 +2,12 @@
   <UApp :locale="locales[locale]" :tooltip="{ delayDuration: 200 }">
     <NuxtLayout>
       <NuxtPage />
-      <ClientOnly>
-        <CookieControl :locale="formatLocale(locale)" />
-        <PopinOnboardingGuide :force-open="false" />
-      </ClientOnly>
     </NuxtLayout>
+
+    <ClientOnly>
+      <CookieControl :locale="formatLocale(locale)" />
+      <PopinOnboardingGuide :force-open="false" />
+    </ClientOnly>
   </UApp>
 </template>
 
