@@ -2,6 +2,11 @@ export default (providers: any) => {
   // Create a Map to store unique providers using provider_id as key
   const uniqueProvidersIds = new Set<number>([0])
 
+  // Check if providers is an object and has keys
+  if (!providers) {
+    return Array.from(uniqueProvidersIds)
+  }
+
   // Iterate through all provider types (buy, rent, flatrate, etc.)
   Object.values(providers).forEach((providerList) => {
     if (Array.isArray(providerList)) {
