@@ -13,7 +13,7 @@
       :genres="movie?.genres"
       :runtime="movie?.runtime"
       :provider-ids="
-        exctractAllProviderIds(movie?.['watch/providers']?.results[locale.toUpperCase()])
+        extractAllProviderIds(movie?.['watch/providers']?.results[locale.toUpperCase()])
       "
     />
     <USkeleton v-else class="w-full h-96" />

@@ -1,6 +1,6 @@
 export default (providers: any) => {
   // Create a Map to store unique providers using provider_id as key
-  const uniqueProvidersIds = new Set<number>([0])
+  const uniqueProvidersIds = new Set<number>([-1, 0])
 
   // Check if providers is an object and has keys
   if (!providers) {

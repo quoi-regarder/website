@@ -774,6 +774,7 @@
         "rating": "Qu'avez-vous pensé du contenu ?"
       },
       "placeholders": {
+        "cinema": "Cinéma",
         "other": "Autre",
         "platform": "Choisissez une plateforme"
       },

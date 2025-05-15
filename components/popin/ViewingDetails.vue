@@ -121,7 +121,7 @@ const computedContextType = computed(() => {
   }
 })
 
-const { platforms, refresh: refreshPlatforms } = useTmdbPlatforms(computedContextType, true)
+const { platforms, refresh: refreshPlatforms } = useTmdbPlatforms(computedContextType, true, true)
 
 const filteredPlatforms = computed(() =>
   platforms.value.filter((platform) => props.providerIds.includes(Number(platform.id)))
