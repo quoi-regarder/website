@@ -13,7 +13,7 @@
       :overview="tv?.overview"
       :genres="tv?.genres"
       :in-production="tv?.in_production"
-      :provider-ids="exctractAllProviderIds(tv?.['watch/providers']?.results[locale.toUpperCase()])"
+      :provider-ids="extractAllProviderIds(tv?.['watch/providers']?.results[locale.toUpperCase()])"
     />
     <USkeleton v-else class="w-full h-96" />
 
@@ -32,7 +32,7 @@
     <LazyDetailTvSeasons
       v-if="isLoaded"
       :seasons="tv?.seasons"
-      :provider-ids="exctractAllProviderIds(tv?.['watch/providers']?.results[locale.toUpperCase()])"
+      :provider-ids="extractAllProviderIds(tv?.['watch/providers']?.results[locale.toUpperCase()])"
     />
     <USkeleton v-else class="w-full h-96" />
 

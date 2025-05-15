@@ -1,6 +1,7 @@
 export const useTmdbPlatforms = (
   type: string | ComputedRef<string>,
-  pirateOption: boolean = false
+  pirateOption: boolean = false,
+  cinemaOption: boolean = false
 ) => {
   const { t } = useI18n()
   const { locale } = useI18n()
@@ -28,6 +29,14 @@ export const useTmdbPlatforms = (
           id: 0,
           label: t('viewingDetails.form.placeholders.other'),
           icon: 'i-lucide-skull'
+        })
+      }
+
+      if (cinemaOption) {
+        platforms.unshift({
+          id: -1,
+          label: t('viewingDetails.form.placeholders.cinema'),
+          icon: 'i-lucide-camera'
         })
       }
 
