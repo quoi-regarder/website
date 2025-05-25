@@ -6,7 +6,7 @@ WORKDIR /app
 RUN corepack enable
 
 # Copy dependency files
-COPY package.json pnpm-lock.yaml .npmrc ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 
 # Install dependencies
 RUN pnpm i
