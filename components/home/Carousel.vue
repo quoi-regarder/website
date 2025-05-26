@@ -19,7 +19,7 @@
       }"
       :items="results"
       class-names
-      class="max-w-[75vw]"
+      class="max-w-[90vw]"
       arrows
       wheel-gestures
       :ui="{

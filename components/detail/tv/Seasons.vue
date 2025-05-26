@@ -20,7 +20,7 @@
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
         :items="seasons"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         arrows
         wheel-gestures
         :ui="{
@@ -55,7 +55,7 @@
           :next="{ color: 'secondary', variant: 'solid' }"
           :items="episodes"
           class-names
-          class="max-w-[75vw] w-11/12"
+          class="max-w-[90vw]"
           arrows
           wheel-gestures
           :ui="{

@@ -10,7 +10,7 @@
       <UCarousel
         :items="videos"
         class-names
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         arrows
         wheel-gestures
         :prev="{ color: 'secondary', variant: 'solid' }"

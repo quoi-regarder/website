@@ -19,7 +19,10 @@
 
         <div class="h-full flex flex-col gap-2">
           <div class="flex flex-col items-center mb-8">
-            <h1 v-if="props.title !== null" class="text-3xl font-bold text-center text-primary-400">
+            <h1
+              v-if="props.title !== null"
+              class="text-2xl md:text-3xl font-bold text-center text-primary-400"
+            >
               {{ props.title }}
             </h1>
 
@@ -27,7 +30,7 @@
               {{ formatLocalDate(props.releaseDate) }}
             </p>
 
-            <div class="flex gap-2 pr-2 justify-end mt-2">
+            <div class="grid grid-cols-2 md:flex gap-2 justify-center place-items-center mt-2">
               <UButton
                 :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
                 class="self-center"
@@ -61,7 +64,7 @@
                       ? 'i-material-symbols:favorite'
                       : 'i-material-symbols:heart-plus-outline'
                   "
-                  class="transition-all duration-300 hover:scale-105"
+                  class="transition-all duration-300 hover:scale-105 self-center"
                   @click="addFavorite('movie', movieId)"
                 >
                 </UButton>
@@ -73,6 +76,7 @@
                   color="secondary"
                   trailing-icon="i-lucide:message-square-text"
                   :disabled="computedStatus !== WatchStatus.WATCHED"
+                  class="self-center"
                   @click="openViewingDetails"
                 >
                 </UButton>
