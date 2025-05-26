@@ -64,7 +64,7 @@
               </div>
             </div>
 
-            <div class="flex gap-2 pr-2 justify-end mt-2 flex-wrap">
+            <div class="grid grid-cols-2 md:flex gap-2 justify-center place-items-center mt-2">
               <UButton
                 :variant="computedStatus === WatchStatus.WATCHED ? 'solid' : 'outline'"
                 class="self-center"
@@ -109,7 +109,7 @@
                       ? 'i-material-symbols:favorite'
                       : 'i-material-symbols:heart-plus-outline'
                   "
-                  class="transition-all duration-300 hover:scale-105"
+                  class="transition-all duration-300 hover:scale-105 self-center"
                   @click="addFavorite('tv', tvId)"
                 >
                 </UButton>
@@ -121,6 +121,7 @@
                   color="secondary"
                   trailing-icon="i-lucide:message-square-text"
                   :disabled="computedStatus !== WatchStatus.WATCHED"
+                  class="self-center"
                   @click="openViewingDetails"
                 >
                 </UButton>

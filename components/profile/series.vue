@@ -39,7 +39,7 @@
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
         :items="favoriteList"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
         class-names
@@ -59,7 +59,7 @@
         :items="skeletonItems"
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
       >
@@ -102,7 +102,7 @@
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
         :items="toWatchList"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
         class-names
@@ -131,7 +131,7 @@
         :items="skeletonItems"
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
       >
@@ -174,7 +174,7 @@
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
         :items="watchingList"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
         class-names
@@ -203,7 +203,7 @@
         :items="skeletonItems"
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
       >
@@ -246,7 +246,7 @@
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
         :items="watchedList"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
         class-names
@@ -266,7 +266,7 @@
         :items="skeletonItems"
         :prev="{ color: 'secondary', variant: 'solid' }"
         :next="{ color: 'secondary', variant: 'solid' }"
-        class="max-w-[75vw] w-11/12"
+        class="max-w-[90vw]"
         :ui="{ item: 'basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6' }"
         arrows
       >
