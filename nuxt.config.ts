@@ -56,13 +56,13 @@ export default defineNuxtConfig({
   // Nitro configuration
   nitro: {
     imports: {
-      dirs: ['types/**', 'utils/**']
+      dirs: ['shared/**']
     }
   },
 
   // Auto import configuration
   imports: {
-    dirs: ['composables/**', 'types/**', 'utils/**', 'models/**']
+    dirs: ['composables/**', '../shared/**']
   },
 
   // Internationalization
@@ -73,11 +73,11 @@ export default defineNuxtConfig({
     baseUrl: 'https://quoi-regarder.fr',
     locales: [
       {
-        code: 'us',
+        code: 'en',
         iso: 'en-US',
         language: 'en-US',
         name: 'English',
-        files: ['us/general.json', 'us/seo.json', 'us/filters.json']
+        files: ['en/general.json', 'en/seo.json', 'en/filters.json']
       },
       {
         code: 'fr',
@@ -187,5 +187,5 @@ export default defineNuxtConfig({
     }
   },
 
-  compatibilityDate: '2025-01-16'
+  compatibilityDate: '2025-07-12'
 })
