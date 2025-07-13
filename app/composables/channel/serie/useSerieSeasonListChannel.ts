@@ -2,75 +2,86 @@ export const useSerieSeasonListChannel = () => {
   const seasonWatchlistService = useSeasonWatchlistService()
   const seasonListStore = useSeasonListStore()
   const authStore = useAuthStore()
-  const { $sse } = useNuxtApp()
+  const { subscribe } = useSseManager()
   const route = useRoute()
 
-  const isAuthenticated = computed(
-    () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
-  )
+  let unsubscribe: (() => void) | null = null
 
-  const sseUrl = computed<string | undefined>(() => {
-    if (!isAuthenticated.value) return undefined
-    return $sse.createAuthSseUrl('/api/notifications', authStore.getToken)
-  })
-
-  const connectionKey = 'notifications-channel'
-
-  const {
-    isConnected,
-    error: connectionError,
-    reconnect,
-    addEventListener,
-    disconnect
-  } = useSse(sseUrl, connectionKey, {
-    immediate: false
-  })
-
-  const onSeasonListUpdate = (event: MessageEvent) => {
+  const onSeasonListUpdate = (data: any) => {
     try {
-      const data = JSON.parse(event.data)
       seasonListStore.setToWatchIds(data.to_watch)
       seasonListStore.setWatchedIds(data.watched)
       seasonListStore.setWatchingIds(data.watching)
     } catch (error) {
-      console.error('Error parsing season list update.')
+      console.error('Error processing season list update:', error)
     }
   }
 
   const fetchSeasonList = async () => {
-    const response: ApiResponse<SerieSeasonIds> = await seasonWatchlistService.getWatchlist(
-      authStore.getUserId,
-      route.params.id as string
-    )
+    if (!authStore.isAuthenticated) return
 
-    if (!response.success) {
-      console.error('Failed to fetch season watchlist.')
-      return
+    try {
+      const response: ApiResponse<SerieSeasonIds> = await seasonWatchlistService.getWatchlist(
+        authStore.getUserId,
+        route.params.id as string
+      )
+
+      if (!response.success) {
+        console.error('Failed to fetch season watchlist')
+        return
+      }
+
+      seasonListStore.setToWatchIds(response.data?.to_watch || [])
+      seasonListStore.setWatchedIds(response.data?.watched || [])
+      seasonListStore.setWatchingIds(response.data?.watching || [])
+    } catch (error) {
+      console.error('Error fetching season list:', error)
     }
-
-    seasonListStore.setToWatchIds(response.data?.to_watch || [])
-    seasonListStore.setWatchedIds(response.data?.watched || [])
-    seasonListStore.setWatchingIds(response.data?.watching || [])
   }
 
-  onMounted(async () => {
-    if (!isAuthenticated.value) return
-    await fetchSeasonList()
-    addEventListener(SseEventType.SERIE_SEASON_WATCHLIST_IDS_UPDATE, onSeasonListUpdate)
-    reconnect()
-  })
+  const init = async () => {
+    if (!authStore.isAuthenticated || unsubscribe) return
 
-  watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
-    if (newAuthStatus && !oldAuthStatus) {
-      fetchSeasonList().then(() => {
-        addEventListener(SseEventType.SERIE_SEASON_WATCHLIST_IDS_UPDATE, onSeasonListUpdate)
-        reconnect()
-      })
-    } else if (!newAuthStatus && oldAuthStatus) {
-      disconnect()
+    try {
+      await fetchSeasonList()
+      unsubscribe = subscribe(SseEventType.SERIE_SEASON_WATCHLIST_IDS_UPDATE, onSeasonListUpdate)
+    } catch (error) {
+      console.error('Error initializing serie season list channel:', error)
+    }
+  }
+
+  const cleanup = () => {
+    if (unsubscribe) {
+      unsubscribe()
+      unsubscribe = null
+
       seasonListStore.setToWatchIds([])
       seasonListStore.setWatchedIds([])
       seasonListStore.setWatchingIds([])
     }
-  })
+  }
+
+  const isActive = computed(() => !!unsubscribe)
+
+  // Auto-init if authenticated
+  if (import.meta.client && authStore.isAuthenticated) {
+    init()
+  }
+
+  // Watch auth changes
+  watch(
+    () => authStore.isAuthenticated,
+    (newAuth, oldAuth) => {
+      if (newAuth && !oldAuth) {
+        init()
+      } else if (!newAuth && oldAuth) {
+        cleanup()
+      }
+    }
+  )
+
+  return {
+    cleanup,
+    isActive
+  }
 }

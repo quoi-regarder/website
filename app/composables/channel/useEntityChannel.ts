@@ -1,129 +1,97 @@
 interface EntityChannelConfig<TService, TStore> {
   service: () => TService
   store: () => TStore
-  eventType: SseEventType
+  eventType: string
   dataKey: string
-  connectionKey?: string
   fetchMethod: 'getFavorite' | 'getWatchlist'
   updateMethod: (store: TStore, data: any) => void
-  resetMethod: (store: TStore) => void
-}
-
-interface ChannelData {
-  [key: string]: any[]
+  resetMethod?: (store: TStore) => void
 }
 
 interface EntityChannelReturn {
-  isConnected: Ref<boolean>
-  connectionError: Ref<Error | null>
-  isAuthenticated: ComputedRef<boolean>
-  reconnect: () => Promise<boolean>
-  disconnect: () => boolean
+  cleanup: () => void
+  isActive: ComputedRef<boolean>
 }
 
 export function useEntityChannel<TService, TStore> (
   config: EntityChannelConfig<TService, TStore>
 ): EntityChannelReturn {
-  const { service, store, eventType, dataKey, fetchMethod, updateMethod, resetMethod } = config
+  const { service, store, eventType, fetchMethod, updateMethod, resetMethod } = config
 
   const entityService = service()
   const entityStore = store()
   const authStore = useAuthStore()
+  const { subscribe } = useSseManager()
 
-  const isAuthenticated = computed(
-    () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
-  )
+  let unsubscribeFunction: (() => void) | null = null
+  const callback = ref<((data: any) => void) | null>(null)
 
-  const {
-    isConnected,
-    connectionError,
-    connect: sseConnect,
-    disconnect: sseDisconnect,
-    addEventListener,
-    removeEventListener
-  } = useSseChannel(eventType)
-
-  const onEntityUpdate = (event: MessageEvent) => {
-    try {
-      const data: ChannelData = JSON.parse(event.data)
-      updateMethod(entityStore, data)
-    } catch (error) {
-      console.error(`Error parsing ${dataKey} update:`, error)
-    }
+  const onEntityUpdate = (data: any) => {
+    updateMethod(entityStore, data)
   }
 
-  const fetchEntityData = async () => {
+  const init = async () => {
+    if (!authStore.isAuthenticated || unsubscribeFunction) return
+
     try {
+      // Fetch initial data
       const response = await (entityService as any)[fetchMethod](authStore.getUserId)
 
-      if (!response.success) {
-        console.error(`Failed to fetch ${dataKey}.`)
-        return
+      if (response.success) {
+        updateMethod(entityStore, response.data)
       }
 
-      updateMethod(entityStore, response.data)
+      // Subscribe to updates
+      callback.value = onEntityUpdate
+      unsubscribeFunction = subscribe(eventType, onEntityUpdate)
     } catch (error) {
-      console.error(`Error fetching ${dataKey}:`, error)
+      console.error(`Error initializing ${eventType}:`, error)
     }
   }
 
-  const connectChannel = async (): Promise<boolean> => {
-    if (!isAuthenticated.value) return false
+  const cleanup = () => {
+    if (unsubscribeFunction) {
+      // Use only the function returned by subscribe
+      unsubscribeFunction()
+      unsubscribeFunction = null
+      callback.value = null
 
-    try {
-      return sseConnect({
-        onConnect: async () => {
-          await fetchEntityData()
-          addEventListener(eventType, onEntityUpdate)
-        },
-        onError: (error) => {
-          console.error(`Error in ${dataKey} channel:`, error)
-        }
-      })
-    } catch (error) {
-      console.error(`Error connecting ${dataKey} channel:`, error)
-      return false
+      // Reset store if method provided
+      if (resetMethod) {
+        resetMethod(entityStore)
+      }
     }
   }
 
-  const disconnectChannel = () => {
-    try {
-      removeEventListener(eventType, onEntityUpdate)
-      resetMethod(entityStore)
-      return sseDisconnect()
-    } catch (error) {
-      console.error(`Error disconnecting ${dataKey} channel:`, error)
-      return false
-    }
+  const isActive = computed(() => !!unsubscribeFunction)
+
+  // Auto-init if authenticated
+  if (import.meta.client && authStore.isAuthenticated) {
+    init()
   }
 
-  onMounted(() => {
-    if (isAuthenticated.value) {
-      connectChannel()
+  // Watch auth changes
+  watch(
+    () => authStore.isAuthenticated,
+    (newAuth, oldAuth) => {
+      if (newAuth && !oldAuth) {
+        init()
+      } else if (!newAuth && oldAuth) {
+        cleanup()
+      }
     }
-  })
-
-  watch(isAuthenticated, async (newAuthStatus, oldAuthStatus) => {
-    if (newAuthStatus && !oldAuthStatus) {
-      await connectChannel()
-    } else if (!newAuthStatus && oldAuthStatus) {
-      disconnectChannel()
-    }
-  })
+  )
 
   return {
-    isConnected,
-    connectionError,
-    isAuthenticated,
-    reconnect: connectChannel,
-    disconnect: disconnectChannel
+    cleanup,
+    isActive
   }
 }
 
 export function createFavoriteChannelConfig<TService, TStore> (
   service: () => TService,
   store: () => TStore,
-  eventType: SseEventType,
+  eventType: string,
   dataKey: string
 ): EntityChannelConfig<TService, TStore> {
   return {
@@ -144,7 +112,7 @@ export function createFavoriteChannelConfig<TService, TStore> (
 export function createWatchlistChannelConfig<TService, TStore> (
   service: () => TService,
   store: () => TStore,
-  eventType: SseEventType,
+  eventType: string,
   dataKey: string
 ): EntityChannelConfig<TService, TStore> {
   return {
@@ -155,12 +123,14 @@ export function createWatchlistChannelConfig<TService, TStore> (
     fetchMethod: 'getWatchlist',
     updateMethod: (store: TStore, data: any) => {
       if (typeof (store as any).setToWatchIds === 'function') {
+        // For stores with separate watchlist categories
         ;(store as any).setToWatchIds(data.to_watch || [])
         ;(store as any).setWatchedIds(data.watched || [])
         if (typeof (store as any).setWatchingIds === 'function') {
           ;(store as any).setWatchingIds(data.watching || [])
         }
       } else {
+        // For simple stores
         ;(store as any).setIds(data[dataKey] || [])
       }
     },

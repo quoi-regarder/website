@@ -15,11 +15,4 @@
 import * as locales from '@nuxt/ui/locale'
 
 const { locale } = useI18n()
-
-onMounted(() => {
-  useMovieFavoriteChannel()
-  useSerieFavoriteChannel()
-  useMovieListChannel()
-  useSerieListChannel()
-})
 </script>

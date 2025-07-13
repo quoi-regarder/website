@@ -1,7 +1,4 @@
 export const useProfileService = () => {
-  const localePath = useLocalePath()
-  const { t } = useI18n()
-
   const getProfile = async (id: string | null): Promise<Profile | null> => {
     if (!id) {
       throw new Error('Profile ID is required')
@@ -10,6 +7,10 @@ export const useProfileService = () => {
     const response: ApiResponse<Profile> = await apiFetch(`/profiles/${id}`)
     if (!response.success) {
       console.error('Error during profile fetch.')
+
+      const { t } = useI18n()
+      const localePath = useLocalePath()
+
       useAuthStore().resetAuth()
       useNotifications().error(
         t('common.toasts.title.error'),
@@ -36,6 +37,8 @@ export const useProfileService = () => {
     })
 
     if (!response.success) {
+      const { t } = useI18n()
+
       switch (response.error?.status) {
         case ErrorStatus.USER_ALREADY_EXISTS:
           useNotifications().error(
@@ -45,6 +48,39 @@ export const useProfileService = () => {
           break
         default:
           console.error('Error during update profile.')
+          break
+      }
+      return null
+    }
+
+    return response.data
+  }
+
+  const updateLanguage = async (
+    id: string | null,
+    language: languageIsoType
+  ): Promise<Profile | null> => {
+    if (!id) {
+      throw new Error('Profile ID is required')
+    }
+
+    const response: ApiResponse<Profile> = await apiFetch(`/profiles/${id}/language`, {
+      method: 'PUT',
+      body: { language }
+    })
+
+    if (!response.success) {
+      const { t } = useI18n()
+
+      switch (response.error?.status) {
+        case ErrorStatus.INVALID_LANGUAGE:
+          useNotifications().error(
+            t('common.toasts.title.error'),
+            t('common.toasts.errors.invalid.language')
+          )
+          break
+        default:
+          console.error('Error during language update.')
           break
       }
       return null
@@ -92,37 +128,6 @@ export const useProfileService = () => {
     return response.data
   }
 
-  const updateLanguage = async (
-    id: string | null,
-    language: languageIsoType
-  ): Promise<Profile | null> => {
-    if (!id) {
-      throw new Error('Profile ID is required')
-    }
-
-    const response: ApiResponse<Profile> = await apiFetch(`/profiles/${id}/language`, {
-      method: 'PUT',
-      body: { language }
-    })
-
-    if (!response.success) {
-      switch (response.error?.status) {
-        case ErrorStatus.INVALID_LANGUAGE:
-          useNotifications().error(
-            t('common.toasts.title.error'),
-            t('common.toasts.errors.invalid.language')
-          )
-          break
-        default:
-          console.error('Error during language update.')
-          break
-      }
-      return null
-    }
-
-    return response.data
-  }
-
   const updateColorMode = async (
     id: string | null,
     colorMode: ColorModeType
@@ -133,9 +138,7 @@ export const useProfileService = () => {
 
     const response: ApiResponse<Profile> = await apiFetch(`/profiles/${id}/color-mode`, {
       method: 'PUT',
-      body: {
-        colorMode
-      }
+      body: { colorMode }
     })
 
     if (!response.success) {

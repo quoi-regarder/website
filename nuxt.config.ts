@@ -116,7 +116,7 @@ export default defineNuxtConfig({
     providers: {
       avatarProvider: {
         name: 'avatarProvider',
-        provider: '~/providers/avatar-provider.ts'
+        provider: '~/providers/avatarProvider.ts'
       }
     }
   },

@@ -1,80 +1,76 @@
 export const useProfileChannel = () => {
+  const profileStore = useProfileStore()
   const authStore = useAuthStore()
-  const switchLocalePath = useSwitchLocalePath()
-  const profileService = useProfileService()
-  const profile = ref<Profile | null>(null)
   const colorMode = useColorMode()
-  const { $sse } = useNuxtApp()
+  const { subscribe } = useSseManager()
 
-  const isAuthenticated = computed(
-    () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
-  )
+  let unsubscribe: (() => void) | null = null
 
-  const sseUrl = computed<string | undefined>(() => {
-    if (!isAuthenticated.value) return undefined
-    return $sse.createAuthSseUrl('/api/notifications', authStore.getToken)
-  })
-
-  const connectionKey = 'notifications-channel'
-
-  const {
-    isConnected,
-    error: connectionError,
-    reconnect,
-    addEventListener,
-    disconnect
-  } = useSse(sseUrl, connectionKey, {
-    immediate: false
-  })
-
-  const onProfileUpdate = (event: MessageEvent) => {
+  const onProfileUpdate = (data: any) => {
     try {
-      const data = JSON.parse(event.data)
-      profile.value = data
+      profileStore.setProfile(data)
 
-      if (profile.value?.language) {
-        switchLocalePath(formatLanguageToString(profile.value.language))
+      if (data.language) {
+        const switchLocalePath = useSwitchLocalePath()
+        switchLocalePath(formatLanguageToString(data.language))
       }
 
-      if (profile.value?.colorMode) {
-        colorMode.preference = profile.value.colorMode || 'system'
+      if (data.colorMode) {
+        colorMode.preference = data.colorMode || 'system'
       }
     } catch (error) {
-      console.error('Error parsing profile update.')
+      console.error('Error processing profile update:', error)
     }
   }
 
-  const fetchProfile = async () => {
-    const fetchedProfile: Profile | null = await profileService.getProfile(authStore.getUserId)
+  const init = async () => {
+    if (!authStore.isAuthenticated || unsubscribe) return
 
-    if (!fetchedProfile) return
+    try {
+      const profileService = useProfileService()
+      const profile = await profileService.getProfile(authStore.getUserId)
 
-    profile.value = fetchedProfile
-    switchLocalePath(formatLanguageToString(profile.value?.language as string))
-    colorMode.preference = (profile.value?.colorMode as string) || 'system'
+      if (profile) {
+        profileStore.setProfile(profile)
+        const switchLocalePath = useSwitchLocalePath()
+        switchLocalePath(formatLanguageToString(profile.language as string))
+        colorMode.preference = (profile.colorMode as string) || 'system'
+      }
+
+      unsubscribe = subscribe(SseEventType.PROFILE_UPDATE, onProfileUpdate)
+    } catch (error) {
+      console.error('Error initializing profile channel:', error)
+    }
   }
 
-  onMounted(async () => {
-    if (!isAuthenticated.value) return
-
-    await fetchProfile()
-    addEventListener(SseEventType.PROFILE_UPDATE, onProfileUpdate)
-    reconnect()
-  })
-
-  watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
-    if (newAuthStatus && !oldAuthStatus) {
-      fetchProfile().then(() => {
-        addEventListener(SseEventType.PROFILE_UPDATE, onProfileUpdate)
-        reconnect()
-      })
-    } else if (!newAuthStatus && oldAuthStatus) {
-      disconnect()
-      profile.value = null
+  const cleanup = () => {
+    if (unsubscribe) {
+      unsubscribe()
+      unsubscribe = null
     }
-  })
+  }
+
+  const isActive = computed(() => !!unsubscribe)
+
+  // Auto-init if authenticated
+  if (import.meta.client && authStore.isAuthenticated) {
+    init()
+  }
+
+  // Watch auth changes
+  watch(
+    () => authStore.isAuthenticated,
+    (newAuth, oldAuth) => {
+      if (newAuth && !oldAuth) {
+        init()
+      } else if (!newAuth && oldAuth) {
+        cleanup()
+      }
+    }
+  )
 
   return {
-    profile
+    cleanup,
+    isActive
   }
 }

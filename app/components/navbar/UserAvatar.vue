@@ -3,9 +3,13 @@
     <ClientOnly>
       <Suspense>
         <template v-if="authStore.isAuthenticated">
-          <UDropdownMenu v-if="profile?.avatarUrl" :items="dropdownItems" class="cursor-pointer">
+          <UDropdownMenu
+            v-if="profileStore.getProfile?.avatarUrl"
+            :items="dropdownItems"
+            class="cursor-pointer"
+          >
             <NuxtImg
-              :src="profile.avatarUrl"
+              :src="profileStore.getProfile.avatarUrl"
               width="40"
               height="40"
               class="rounded-full bg-[var(--ui-bg-accented)] dark:bg-[var(--ui-bg-elevated)]"
@@ -67,7 +71,7 @@
 </template>
 
 <script lang="ts" setup>
-const { profile } = useProfileChannel()
+const profileStore = useProfileStore()
 const authService = useAuthService()
 const localePath = useLocalePath()
 const authStore = useAuthStore()
@@ -77,7 +81,7 @@ const { t } = useI18n()
 const dropdownItems = computed(() => [
   [
     {
-      label: profile?.value?.username || '',
+      label: profileStore.getProfile?.username || '',
       slot: 'account',
       disabled: true
     }
