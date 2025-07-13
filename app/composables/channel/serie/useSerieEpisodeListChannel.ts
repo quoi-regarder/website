@@ -2,75 +2,94 @@ export const useSerieEpisodeListChannel = () => {
   const episodeWatchlistService = useEpisodeWatchlistService()
   const episodeListStore = useEpisodeListStore()
   const authStore = useAuthStore()
-  const { $sse } = useNuxtApp()
+  const { subscribe } = useSseManager()
   const route = useRoute()
 
-  const isAuthenticated = computed(
-    () => authStore.isAuthenticated && !!authStore.getToken && !!authStore.getUserId
-  )
+  let unsubscribe: (() => void) | null = null
 
-  const sseUrl = computed<string | undefined>(() => {
-    if (!isAuthenticated.value) return undefined
-    return $sse.createAuthSseUrl('/api/notifications', authStore.getToken)
-  })
-
-  const connectionKey = 'notifications-channel'
-
-  const {
-    isConnected,
-    error: connectionError,
-    reconnect,
-    addEventListener,
-    disconnect
-  } = useSse(sseUrl, connectionKey, {
-    immediate: false
-  })
-
-  const onEpisodeListUpdate = (event: MessageEvent) => {
+  const onEpisodeListUpdate = (data: any) => {
     try {
-      const data = JSON.parse(event.data)
-      episodeListStore.setWatchedIds(data.watched)
-      episodeListStore.setWatchingIds(data.watching)
-      episodeListStore.setToWatchIds(data.to_watch)
+      episodeListStore.setWatchedIds(data.watched || [])
+      episodeListStore.setWatchingIds(data.watching || [])
+      episodeListStore.setToWatchIds(data.to_watch || [])
     } catch (error) {
-      console.error('Error parsing episode list update.')
+      console.error('Error processing episode list update:', error)
     }
   }
 
   const fetchEpisodeList = async () => {
-    const response: ApiResponse<SerieEpisodeIds> = await episodeWatchlistService.getWatchlist(
-      authStore.getUserId,
-      route.params.id as string
-    )
+    if (!authStore.isAuthenticated) return
 
-    if (!response.success) {
-      console.error('Failed to fetch episode watchlist.')
-      return
+    try {
+      const response: ApiResponse<SerieEpisodeIds> = await episodeWatchlistService.getWatchlist(
+        authStore.getUserId,
+        route.params.id as string
+      )
+
+      if (!response.success) {
+        console.error('Failed to fetch episode watchlist')
+        return
+      }
+
+      episodeListStore.setWatchedIds(response.data?.watched || [])
+      episodeListStore.setWatchingIds(response.data?.watching || [])
+      episodeListStore.setToWatchIds(response.data?.to_watch || [])
+    } catch (error) {
+      console.error('Error fetching episode list:', error)
     }
-
-    episodeListStore.setWatchedIds(response.data?.watched || [])
-    episodeListStore.setWatchingIds(response.data?.watching || [])
-    episodeListStore.setToWatchIds(response.data?.to_watch || [])
   }
 
-  onMounted(async () => {
-    if (!isAuthenticated.value) return
-    await fetchEpisodeList()
-    addEventListener(SseEventType.SERIE_EPISODE_WATCHLIST_IDS_UPDATE, onEpisodeListUpdate)
-    reconnect()
-  })
+  const init = async () => {
+    if (!authStore.isAuthenticated || unsubscribe) return
 
-  watch(isAuthenticated, (newAuthStatus, oldAuthStatus) => {
-    if (newAuthStatus && !oldAuthStatus) {
-      fetchEpisodeList().then(() => {
-        addEventListener(SseEventType.SERIE_EPISODE_WATCHLIST_IDS_UPDATE, onEpisodeListUpdate)
-        reconnect()
-      })
-    } else if (!newAuthStatus && oldAuthStatus) {
-      disconnect()
+    try {
+      // Fetch initial data
+      await fetchEpisodeList()
+
+      // Subscribe to updates
+      unsubscribe = subscribe(SseEventType.SERIE_EPISODE_WATCHLIST_IDS_UPDATE, onEpisodeListUpdate)
+    } catch (error) {
+      console.error('Error initializing serie episode list channel:', error)
+    }
+  }
+
+  const cleanup = () => {
+    if (unsubscribe) {
+      unsubscribe()
+      unsubscribe = null
+
+      // Reset store
       episodeListStore.setWatchedIds([])
       episodeListStore.setWatchingIds([])
       episodeListStore.setToWatchIds([])
     }
-  })
+  }
+
+  const isActive = computed(() => !!unsubscribe)
+
+  // Auto-init if authenticated (wait for hydration)
+  if (import.meta.client) {
+    nextTick(() => {
+      if (authStore.isAuthenticated) {
+        init()
+      }
+    })
+  }
+
+  // Watch auth changes
+  watch(
+    () => authStore.isAuthenticated,
+    (newAuth, oldAuth) => {
+      if (newAuth && !oldAuth) {
+        init()
+      } else if (!newAuth && oldAuth) {
+        cleanup()
+      }
+    }
+  )
+
+  return {
+    cleanup,
+    isActive
+  }
 }

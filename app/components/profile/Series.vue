@@ -109,19 +109,10 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col min-h-[350px]">
+          <div :key="item.tmdbId" class="flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :serie="item" type="tv" class="h-full" />
             </div>
-
-            <UButton
-              trailing-icon="i-lucide-eye"
-              color="secondary"
-              class="absolute top-15 right-1"
-              @click="addToWatchedLists(item.tmdbId)"
-            >
-              {{ t('common.content.add_to_viewed_list') }}
-            </UButton>
           </div>
         </template>
       </UCarousel>
@@ -181,19 +172,10 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col min-h-[350px]">
+          <div :key="item.tmdbId" class="flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :serie="item" type="tv" class="h-full" />
             </div>
-
-            <UButton
-              trailing-icon="i-lucide-eye"
-              color="secondary"
-              class="absolute top-15 right-1"
-              @click="addToWatchedLists(item.tmdbId)"
-            >
-              {{ t('common.content.add_to_viewed_list') }}
-            </UButton>
           </div>
         </template>
       </UCarousel>
@@ -403,23 +385,6 @@ const fetchFavoriteLists = async (reset = false) => {
     favoriteList.value = favoriteList.value.concat(response.data?.content ?? [])
   }
   favoriteTotalPages.value = response.data?.page.totalPages ?? 1
-}
-
-const addToWatchedLists = async (tmdbId: number) => {
-  await seriesWatchlistService.updateWatchlist?.(authStore.getUserId, tmdbId, WatchStatus.WATCHED)
-  watchedPage.value = 0
-  toWatchPage.value = 0
-  watchingPage.value = 0
-
-  await fetchToWatchLists(true)
-  await fetchWatchedLists(true)
-  await fetchWatchingLists(true)
-  await fetchFavoriteLists(true)
-
-  useNotifications().success(
-    t('common.toasts.title.success'),
-    t('common.content.toasts.success.tv.addedToList.watched')
-  )
 }
 
 watch(toWatchCarousel, () => {

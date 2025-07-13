@@ -146,7 +146,7 @@ const localePath = useLocalePath()
 const { t } = useI18n()
 const authStore = useAuthStore()
 const profileService = useProfileService()
-const { profile } = useProfileChannel()
+const profileStore = useProfileStore()
 const { width } = useWindowSize()
 
 // Refs
@@ -412,12 +412,16 @@ const steps = [
 ]
 
 // Watchers
-watch(profile, (oldValue, newValue) => {
-  if (oldValue === null || newValue === null) {
-    isModalOpen.value =
-      props.forceOpen || (authStore.isAuthenticated && !profile?.value?.onboarding)
-  }
-})
+watch(
+  () => profileStore.getProfile,
+  (newValue, oldValue) => {
+    if (oldValue === null || newValue === null) {
+      isModalOpen.value =
+        props.forceOpen || (authStore.isAuthenticated && !profileStore.getProfile?.onboarding)
+    }
+  },
+  { immediate: true }
+)
 
 // Methods
 const startTutorial = async () => {

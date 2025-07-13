@@ -109,19 +109,10 @@
         wheel-gestures
       >
         <template #default="{ item }">
-          <div :key="item.tmdbId" class="relative flex items-center flex-col min-h-[350px]">
+          <div :key="item.tmdbId" class="flex items-center flex-col min-h-[350px]">
             <div class="w-full h-full">
               <DetailProfileCard :movie="item" type="movie" class="h-full" />
             </div>
-
-            <UButton
-              trailing-icon="i-lucide-eye"
-              color="secondary"
-              class="absolute top-15 right-1"
-              @click="addToWatchedLists(item.tmdbId)"
-            >
-              {{ t('common.content.add_to_viewed_list') }}
-            </UButton>
           </div>
         </template>
       </UCarousel>
@@ -243,30 +234,6 @@ onMounted(async () => {
 
   isLoaded.value = true
 })
-
-const addToWatchedLists = async (tmdb_id: number) => {
-  const response: ApiResponse<MovieWatchlist> = await movieWatchlistService.updateWatchlist(
-    authStore.getUserId,
-    tmdb_id,
-    WatchStatus.WATCHED
-  )
-
-  if (!response.success) {
-    return
-  }
-
-  watchedPage.value = 0
-  toWatchPage.value = 0
-
-  await fetchToWatchLists(true)
-  await fetchWatchedLists(true)
-  await fetchFavoritesLists(true)
-
-  useNotifications().success(
-    t('common.toasts.title.success'),
-    t('common.content.toasts.success.movie.addedToList.watched')
-  )
-}
 
 const fetchToWatchLists = async (reset = false) => {
   const response: ApiResponse<Pagination<Movie>> | undefined =
