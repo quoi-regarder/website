@@ -21,10 +21,10 @@ export default defineEventHandler(async (event) => {
   const baseParams = {
     include_adult: false,
     include_null_first_air_dates: false,
-    language: language as string,
+    language: formatLanguageToISO(language as string),
     page,
-    watch_region: (language as string).toUpperCase(),
-    certification_country: (language as string).toUpperCase()
+    watch_region: formatLanguageToCountryCode(language as string),
+    certification_country: formatLanguageToCountryCode(language as string)
   }
 
   try {

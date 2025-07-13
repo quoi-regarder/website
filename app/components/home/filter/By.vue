@@ -62,7 +62,7 @@ const items = computed(() =>
 
 const reset = () => {
   filters.value.selectedFilterBy = undefined
-  filters.value.selectedFilterByDirection = null
+  filters.value.selectedFilterByDirection = undefined
 }
 
 const toggleDirection = () => {

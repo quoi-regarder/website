@@ -228,7 +228,7 @@ const fetchPopular = async () => {
     manager.add('language', locale.value)
     manager.add('page', page.value)
     manager.add('with_watch_providers', selectedPlatform.value.id)
-    manager.add('watch_region', locale.value.toUpperCase())
+    manager.add('watch_region', locale.value)
     manager.add('sort_by', 'popularity.desc')
 
     const data = await $fetch(manager.toString())

@@ -23,12 +23,12 @@ export default defineEventHandler(async (event) => {
     include_video: false,
     language: formatLanguageToISO(language as string),
     page,
-    watch_region: (language as string).toUpperCase(),
-    certification_country: (language as string).toUpperCase(),
+    watch_region: formatLanguageToCountryCode(language as string),
+    certification_country: formatLanguageToCountryCode(language as string),
     ...(release_date_gte || release_date_lte
       ? {
           with_release_type: 3,
-          region: (language as string).toUpperCase()
+          region: formatLanguageToCountryCode(language as string)
         }
       : {})
   }

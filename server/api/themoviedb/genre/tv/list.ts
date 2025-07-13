@@ -3,12 +3,12 @@ export default defineEventHandler(async (event) => {
   const { language } = getQuery(event)
 
   const manager = new QueryParamsManager('3/genre/tv/list', tmdbBaseUrl)
-  if (language) manager.add('language', language as string)
+  if (language) manager.add('language', formatLanguageToISO(language as string))
 
   try {
     return await tmdbFetch('3/genre/tv/list', {
       params: {
-        language
+        language: formatLanguageToISO(language as string)
       }
     })
   } catch (error) {

@@ -166,8 +166,8 @@ export const useSearch = () => {
     }
 
     if (
-      currentFilters?.selectedFilterBy !== null &&
-      currentFilters?.selectedFilterByDirection !== null
+      currentFilters?.selectedFilterBy !== undefined &&
+      currentFilters?.selectedFilterByDirection !== undefined
     ) {
       manager.add(
         'sort_by',
