@@ -49,9 +49,13 @@ export const useSerieEpisodeRuntimeChannel = () => {
 
   const isActive = computed(() => !!unsubscribe)
 
-  // Auto-init if authenticated
-  if (import.meta.client && authStore.isAuthenticated) {
-    init()
+  // Auto-init if authenticated (wait for hydration)
+  if (import.meta.client) {
+    nextTick(() => {
+      if (authStore.isAuthenticated) {
+        init()
+      }
+    })
   }
 
   // Watch auth changes

@@ -1,5 +1,3 @@
-// composables/useSseManager.ts
-
 // Global state
 let eventSource: EventSource | null = null
 const listeners = new Map<string, Set<(data: any) => void>>()
